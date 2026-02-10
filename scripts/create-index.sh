@@ -300,7 +300,7 @@ while IFS= read -r -d '' dir; do
 done < <(find . -maxdepth 1 -type d -print0 2>/dev/null)
 
 # Create main index HTML
-create_html_header "David Straub – Teaching Material" "false" > "$INDEX_FILE"
+create_html_header "David Straub – Teaching Materials" "false" > "$INDEX_FILE"
 
 # Check if we have any content
 total_items=$((${#presentations[@]} + ${#course_folders[@]}))
