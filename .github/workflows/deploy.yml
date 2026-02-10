@@ -75,11 +75,20 @@ jobs:
         run: |
           chmod +x scripts/convert-to-pdf.sh
           
-          # Convert all markdown files to PDF (excluding README and LICENSE)
-          for file in *.md; do
-            if [ -f "$file" ] && [ "$file" != "README.md" ] && [ "$file" != "LICENSE.md" ]; then
-              echo "Converting $file to PDF..."
-              ./scripts/convert-to-pdf.sh "$file" || echo "Warning: Failed to convert $file"
+          # Convert markdown files to PDF (recursively, with selective PDF generation)
+          find . -name "*.md" -type f | while read -r file; do
+            # Skip README and LICENSE files
+            basename_file=$(basename "$file")
+            if [ "$basename_file" != "README.md" ] && [ "$basename_file" != "LICENSE.md" ]; then
+              # Check if PDF generation is enabled in frontmatter (defaults to true)
+              pdf_enabled=$(awk '/^---$/ {in_fm=1; next} in_fm && /^---$/ {exit} in_fm && /^pdf:/ {gsub(/^pdf:[ \t]*/, ""); gsub(/[ \t"]*$/, ""); print; found=1} END {if (!found) print "true"}' "$file")
+              
+              if [ "$pdf_enabled" != "false" ]; then
+                echo "Converting $file to PDF..."
+                ./scripts/convert-to-pdf.sh "$file" || echo "Warning: Failed to convert $file"
+              else
+                echo "Skipping PDF generation for $file (pdf: false in frontmatter)"
+              fi
             fi
           done
         continue-on-error: true

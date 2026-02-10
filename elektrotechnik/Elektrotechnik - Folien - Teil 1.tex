@@ -1,0 +1,2445 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\ifLuaTeX
+  \usepackage{luacolor}
+  \usepackage[soul]{lua-ul}
+\else
+  \usepackage{soul}
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make all images max 0.5\textwidth
+\usepackage{graphicx}
+\setkeys{Gin}{width=0.5\textwidth,keepaspectratio}
+
+% Modern fonts: Fira Sans headings, Fira Mono code
+% Note: fontspec is already loaded by Pandoc, so we just set fonts
+\setsansfont{FiraSans}[
+    Path=/usr/share/texlive/texmf-dist/fonts/opentype/public/fira/,
+    Extension=.otf,
+    UprightFont=*-Regular,
+    BoldFont=*-Bold,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-BoldItalic
+]
+\setmonofont{FiraMono}[
+    Path=/usr/share/texlive/texmf-dist/fonts/opentype/public/fira/,
+    Extension=.otf,
+    Scale=0.90,
+    UprightFont=*-Regular,
+    BoldFont=*-Bold
+]
+
+% Make headings much larger with more spacing and sans-serif
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+\titleformat{\section}{\sffamily\LARGE\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{24pt}{12pt}
+\titleformat{\subsection}{\sffamily\Large\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{20pt}{10pt}
+\titleformat{\subsubsection}{\sffamily\large\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{16pt}{8pt}
+
+% Make document title Fira Sans Bold and left-aligned
+\usepackage{titling}
+\pretitle{\begin{flushleft}\sffamily\bfseries\huge}
+\posttitle{\end{flushleft}}
+\preauthor{\begin{flushleft}}
+\postauthor{\end{flushleft}}
+\predate{\begin{flushleft}}
+\postdate{\end{flushleft}}
+
+% Page header with footer content
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Elektrotechnik – Straub}
+\fancyhead[R]{\small\itshape\nouppercase{\leftmark}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+% Empty style for title page
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% Increase paragraph spacing and line spacing
+\usepackage{setspace}
+\setstretch{1.3}
+\setlength{\parskip}{0.8em}
+
+% Use ragged right (left-aligned) instead of justified text
+\raggedright
+
+% More spacing around lists
+\usepackage{enumitem}
+\setlist{itemsep=0.5em,parsep=0.3em}
+
+% Add moderate padding to code blocks
+\usepackage{xcolor}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\usepackage{fancyvrb}
+\usepackage{framed}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\small}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Elektrotechnik (Teil 1/3)},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Elektrotechnik (Teil 1/3)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\textbf{Luft- und Raumfahrttechnik Bachelor, 1. Semester}
+
+David Straub
+
+\subsection{Organisatorisches}\label{organisatorisches}
+
+\begin{itemize}
+\tightlist
+\item
+  🎓 Moodle-Kurs: https://link.hm.edu/hnyu
+\item
+  💬 Matrix-Raum: https://link.hm.edu/83kf
+\item
+  🕥 Sprechstunde: Do. 10:30--11:30, Raum, B 374
+\item
+  📖 Literatur
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Pregla -- \href{https://link.hm.edu/2c6h}{OPAC}
+  \item
+    Hagmann -- \href{https://link.hm.edu/fvqd}{OPAC}
+  \item
+    Hering u.a. --
+    \href{https://link.springer.com/book/10.1007/978-3-662-67538-0}{online}
+  \item
+    Fischer --
+    \href{https://link.springer.com/book/10.1007/978-3-658-25644-9}{online}
+  \end{itemize}
+\item
+  🗒️ Vorlesungsskript Prof.~Palme u.a.: https://palme.userweb.mwn.de/
+\item
+  ✍️ Prüfung: schriftlich, 60 Minuten, keine Hilfsmittel
+\end{itemize}
+
+\subsection{Gliederung des Kurses}\label{gliederung-des-kurses}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \hyperref[einfuxfchrung]{Einführung} (Physikalische Größen, Einheiten)
+\item
+  \hyperref[das-elektrische-feld]{Das elektrische Feld} (Ladungen,
+  Kräfte, Felder, Potential, Spannung, Kapazität, Kondensatoren)
+\item
+  \hyperref[gleichstrom]{Gleichstrom} (Stromstärke, Widerstand,
+  Stromkreisberechnungen, Energie, Leistung)
+\item
+  \hyperref[magnetismus]{Magnetismus} (Feld in Vakuum und Materie,
+  Kräfte, magnetischer Kreis)
+\item
+  \hyperref[elektromagnetische-induktion]{Elektromagnetische Induktion}
+  (Induktion, Selbstinduktion, Energie)
+\item
+  \hyperref[wechselstrom]{Wechselstrom} (Komplexe Wechselstromrechnung,
+  Schaltungen, Leistung)
+\item
+  \hyperref[drehstrom]{Drehstrom} (Dreiphasensystem)
+\item
+  \hyperref[schaltvorguxe4nge-an-kapazituxe4ten-und-induktivituxe4ten]{Schaltvorgänge
+  an Kapazitäten und Induktivitäten}
+\end{enumerate}
+
+\section{Einführung}\label{einfuxfchrung}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Physikalische Größen
+\item
+  Internationales Einheitensystem (SI)
+\end{enumerate}
+
+\subsection{Physikalische Größen}\label{physikalische-gruxf6uxdfen}
+
+\ldots{} sind messbare Eigenschaften eines Systems.
+
+\textbf{Skalare Größen}: werden durch einen \emph{Zahlenwert} und eine
+\emph{Einheit} beschrieben.
+
+\[x = \underbrace{\lbrace x \rbrace}_{\text{Zahlenwert}} \cdot \underbrace{[x]}_{\text{Einheit}}\]
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  \(t = 10 \, \text{s}\) (Zeit)
+\item
+  \(m = 5 \, \text{kg}\) (Masse)
+\item
+  \(\Delta T = -20 \, \text{K}\) (Temperaturdifferenz)
+\end{itemize}
+
+\subsection{Rechnen mit Einheiten}\label{rechnen-mit-einheiten}
+
+\begin{itemize}
+\tightlist
+\item
+  Nur Größen mit gleichen Einheiten können addiert oder subtrahiert
+  werden
+\end{itemize}
+
+\[x = 2 \, \text{m} + 3 \, \text{m} = 5 \, \text{m}\]
+
+\begin{itemize}
+\tightlist
+\item
+  Bei Multiplikation/Division von Größen werden die Einheiten
+  multipliziert/dividiert
+\end{itemize}
+
+\[v = \frac{s}{t} = \frac{10 \, \text{m}}{5 \, \text{s}} = 2 \, \frac{\text{m}}{\text{s}} = 7{,}2 \, \text{km/h}\]
+
+Hinweis: im Textsatz werden Einheiten immer aufrecht geschrieben,
+Variablen \emph{kursiv}.
+
+\subsection{Vektorielle physikalische
+Größen}\label{vektorielle-physikalische-gruxf6uxdfen}
+
+\ldots{} sind physikalische Größen, die durch einen \emph{Betrag} und
+eine \emph{Richtung} beschrieben werden. Der Betrag wird durch einen
+\emph{Zahlenwert} und eine \emph{Einheit} beschrieben.
+
+\[\vec{v}\equiv \mathbf{v} = \underbrace{|\vec{v}|}_{\text{Betrag}} \cdot \underbrace{\vec{e}_v}_{\text{Richtung}}\]
+
+\[ |\vec{v}| \equiv v = \underbrace{\lbrace v \rbrace}_{\text{Zahlenwert}} \cdot \underbrace{[v]}_{\text{Einheit}}\]
+
+Der Zahlenwert des Betrags ist immer positiv.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\vec{v} = 10 \, \frac{\text{m}}{\text{s}} \cdot \vec{e}_x\)
+  (Geschwindigkeit)
+\item
+  \(\vec{a} = 9{,}81 \, \frac{\text{m}}{\text{s}^2} \cdot (\vec{e}_{-z})\)
+  (Beschleunigung)
+\end{itemize}
+
+\subsection{Das Internationale Einheitensystem
+(SI)}\label{das-internationale-einheitensystem-si}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3053}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1789}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2526}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0947}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1684}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Basisgröße
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Größensymbol
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Dimensionssymbol
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Einheit
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Einheitenzeichen
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Zeit & \(t\) & \(\text{T}\) & Sekunde & s \\
+Länge & \(l\) & \(\text{L}\) & Meter & m \\
+Masse & \(m\) & \(\text{M}\) & Kilogramm & kg \\
+Elektrische Stromstärke & \(I\) & \(\text{I}\) & Ampere & A \\
+Thermodynamische Temperatur & \(T\) & \(\Theta\) & Kelvin & K \\
+Stoffmenge & \(n\) & \(\text{N}\) & Mol & mol \\
+Lichtstärke & \(I_v\) & \(\text{J}\) & Candela & cd \\
+\end{longtable}
+
+\subsection{Naturkonstanten und
+SI-Einheiten}\label{naturkonstanten-und-si-einheiten}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1414}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5455}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0909}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Konstante
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Beschreibung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Exakter Wert
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Einheit
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\Delta\nu_\mathrm{Cs}\) & Strahlung des Caesium-Atoms &
+9\,192\,631\,770 & Hz \\
+\(c\) & Lichtgeschwindigkeit & 299\,792\,458 & m/s \\
+\(h\) & Planck-Konstante & 6,62607015\,×\,10−34 & J·s \\
+\(e\) & Elementarladung & 1,602176634\,×\,10−19 & C \\
+\(k_\mathrm{B}\) & Boltzmann-Konstante & 1,380649\,×\,10−23 & J/K \\
+\(N_\mathrm{A}\) & Avogadro-Konstante & 6,02214076\,×\,1023 & mol⁻¹ \\
+\(K_\mathrm{cd}\) & Photometrisches Strahlungsäquivalent & 683 & lm/W \\
+\end{longtable}
+
+\subsection{Abgeleitete Einheiten}\label{abgeleitete-einheiten}
+
+Von den Basisgrößen lassen sich durch mathematische Operationen
+abgeleitete Einheiten bilden. Beispiele für abgeleitete Einheiten:
+
+\begin{itemize}
+\item
+  \textbf{Kraft}: \(\vec{F} = m \cdot \vec{a}\)
+  \([F] = [m] \cdot [\vec{a}]= \text{kg} \cdot \frac{\text{m}}{\text{s}^2} = \text{N}\)
+  (Newton)
+\item
+  \textbf{Energie/Arbeit}: \(W = F \cdot s\)
+  \([W]  = \text{N} \cdot \text{m} = \frac{\text{kg} \cdot \text{m}^2}{\text{s}^2}= \text{J}\)
+  (Joule)
+\item
+  \textbf{Leistung}: \(P = \frac{\Delta W}{\Delta t}\)
+  \([P]  = \frac{[W]}{[t]} = \frac{\text{J}}{\text{s}} = \frac{\text{kg} \cdot \text{m}^2}{\text{s}^3}= \text{W}\)
+  (Watt)
+\end{itemize}
+
+\subsection{Dimensionsanalyse}\label{dimensionsanalyse}
+
+Jede physikalische Größe hat -- unabängig von Einheit oder Zahlenwert --
+eine \textbf{Dimension}, die beschreibt, wie die Größe aus den
+Grundgrößen zusammengesetzt ist.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Geschwindigkeit: \(\text{dim}[v] = \frac{\text{L}}{\text{T}}\)
+\item
+  Kraft: \(\text{dim}[F] = \text{M} \cdot \frac{\text{L}}{\text{T}^2}\)
+\item
+  Winkel: \(\text{dim}[\varphi] = \frac{\text{L}}{\text{L}} = 1\)
+  (dimensionslos)
+\end{itemize}
+
+Beide Seiten einer Gleichung müssen dieselbe Dimension haben!
+
+\subsection{SI-Präfixe (alltäglich)}\label{si-pruxe4fixe-alltuxe4glich}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1571}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1143}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2286}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1571}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1143}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2286}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Faktor
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Präfix
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Faktor
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Präfix
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(10^{-1}\) & Dezi & d & \(10^{1}\) & Deka & da \\
+\(10^{-2}\) & Zenti & c & \(10^{2}\) & Hekto & h \\
+\(10^{-3}\) & Milli & m & \(10^{3}\) & Kilo & k \\
+\(10^{-6}\) & Mikro & µ & \(10^{6}\) & Mega & M \\
+\(10^{-9}\) & Nano & n & \(10^{9}\) & Giga & G \\
+\(10^{-12}\) & Piko & p & \(10^{12}\) & Tera & T \\
+\end{longtable}
+
+\subsection{SI-Präfixe (nicht
+alltäglich)}\label{si-pruxe4fixe-nicht-alltuxe4glich}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1571}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1143}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2286}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1571}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1143}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2286}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Faktor
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Präfix
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Faktor
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Präfix
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(10^{-15}\) & Femto & f & \(10^{15}\) & Peta & P \\
+\(10^{-18}\) & Atto & a & \(10^{18}\) & Exa & E \\
+\(10^{-21}\) & Zepto & z & \(10^{21}\) & Zetta & Z \\
+\(10^{-24}\) & Yokto & y & \(10^{24}\) & Yotta & Y \\
+\(10^{-27}\) & Ronto & r & \(10^{27}\) & Ronna & R \\
+\(10^{-30}\) & Quecto & q & \(10^{30}\) & Quetta & Q \\
+\end{longtable}
+
+\subsection{µ \& °C: praktische Tipps}\label{uxb5-c-praktische-tipps}
+
+\begin{itemize}
+\tightlist
+\item
+  Mikro: µ (griechischer Buchstabe ``My'')
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Deutsches Tastaturlayout: \texttt{AltGr} + \texttt{m}
+  \end{itemize}
+\item
+  Grad Celsius: °C (Gradzeichen + Großbuchstabe C)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Deutsches Tastaturlayout: \texttt{Shift} + \texttt{\^{}} +
+    \texttt{C}
+  \end{itemize}
+\end{itemize}
+
+Nur in Systemen, die diese Schriftzeichen nicht unterstützen (ASCII)
+laut DIN 66030:2002-05:
+
+\begin{itemize}
+\tightlist
+\item
+  µ → u
+\item
+  °C → Cel
+\end{itemize}
+
+\subsection{⚠️ Nicht-SI-Einheiten in der Luftfahrt
+✈️}\label{nicht-si-einheiten-in-der-luftfahrt}
+
+Immer noch weit verbreitet:
+
+\begin{itemize}
+\tightlist
+\item
+  Flughöhe in \textbf{Fuß} 🦶
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1 ft = 0,3048 m
+  \end{itemize}
+\item
+  Entfernung in \textbf{Seemeilen} 🚢
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1 NM = 1852 m
+  \end{itemize}
+\item
+  Geschwindigkeit in \textbf{Knoten} 🪢
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1 kt = 1 NM/h = 1,852 km/h
+  \end{itemize}
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_1.pdf}
+
+\subsection{Mars Climate Orbiter}\label{mars-climate-orbiter}
+
+https://www.youtube.com/watch?v=MfavzjbZzl8
+
+\section{Das elektrische Feld}\label{das-elektrische-feld}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Elektrische Ladung
+\item
+  Coulomb'sches Gesetz
+\item
+  Elektrisches Feld im Vakuum
+\item
+  \hyperref[feldlinien]{Feldlinien und Gauß'sches Gesetz}
+\item
+  Elektrisches Feld in Materie
+\item
+  Potential, Spannung, Arbeit
+\item
+  Homogenes Feld und Kondensatoren
+\end{enumerate}
+
+\subsection{Die vier fundamentalen
+Wechselwirkungen}\label{die-vier-fundamentalen-wechselwirkungen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Gravitation} 🪐
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Hält das Sonnensystem zusammen -- wirkt auf Masse
+  \end{itemize}
+\item
+  \textbf{Elektromagnetismus} ⚡
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Hält Atome und Moleküle zusammen -- wirkt auf elektrische Ladung
+  \end{itemize}
+\item
+  \textbf{Starke Wechselwirkung} 🎨
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Hält Atomkerne zusammen
+  \end{itemize}
+\item
+  \textbf{Schwache Wechselwirkung} ☢️
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Verantwortlich für radioaktiven Zerfall
+  \end{itemize}
+\end{enumerate}
+
+\subsection{}\label{section}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/dc85f6a65900a13d052e17a62908ce6f.jpg}
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/3748ce0af9bdae4242372678673a81d1.jpg}
+
+\subsection{\texorpdfstring{Elektrische Ladung (\emph{electric
+charge})}{Elektrische Ladung (electric charge)}}\label{elektrische-ladung-electric-charge}
+
+\begin{itemize}
+\tightlist
+\item
+  Alle Materie besteht aus Elementarteilchen, von denen einige
+  elektrische Ladungen tragen
+\item
+  Elektrische Ladungen treten in zwei Arten auf: positive und negative
+  Ladungen (Vorzeichen: Konvention!)
+\item
+  Gleichnamige Ladungen stoßen sich ab, ungleichnamige ziehen sich an
+\end{itemize}
+
+\subsection{Aufbau der Materie}\label{aufbau-der-materie}
+
+\begin{itemize}
+\tightlist
+\item
+  Atome bestehen aus positiv geladenen Protonen, neutralen Neutronen und
+  negativ geladenen Elektronen
+\item
+  Protonen und Neutronen bilden den Atomkern
+\item
+  Elektronen bewegen sich in der Atomhülle um den Atomkern
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/de142681894db369bf949e141c52f92f.png}
+
+\subsection{Elementarladung}\label{elementarladung}
+
+\begin{itemize}
+\tightlist
+\item
+  Elektrische Ladungen sind immer ganzzahlige Vielfache der
+  Elementarladung \(e= 1{,}602176634 \cdot 10^{-19} \, \text{C}\)
+  (Definition des Coulombs)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Elektron: \(Q = -e\) (!)
+  \item
+    Proton: \(Q = +e\)
+  \item
+    Up-Quark: \(Q = +\frac{2}{3}e\), Down-Quark: \(Q = -\frac{1}{3}e\)
+  \end{itemize}
+\item
+  Man sagt, die Ladung sei \emph{quantisiert}
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_5.pdf}
+
+\subsection{Coulumb'sches Gesetz --
+Experiment}\label{coulumbsches-gesetz-experiment}
+
+https://www.youtube.com/watch?v=9mFlELwuctI
+
+\subsection{\texorpdfstring{Coulomb'sches Gesetz (\emph{Coulomb's
+law})}{Coulomb'sches Gesetz (Coulomb's law)}}\label{coulombsches-gesetz-coulombs-law}
+
+\begin{itemize}
+\tightlist
+\item
+  Experimente haben gezeigt, dass die Kraft zwischen zwei Punktladungen
+  \(Q_1\) und \(Q_2\) proportional zur Größe der Ladungen und umgekehrt
+  proportional zum Quadrat ihres Abstands \(r\) ist
+\item
+  Mathematisch wird dies durch das Coulomb'sche Gesetz beschrieben:
+\end{itemize}
+
+\[|\vec{F}_{12}| = k \cdot \frac{Q_1 \cdot Q_2}{r^2}\]
+
+\(k\) ist abhängig vom Einheitensystem. Im SI-System gilt:
+\(k = \frac{1}{4 \pi \varepsilon_0}\), wobei \(\varepsilon_0\) die
+elektrische Feldkonstante ist,
+\(\varepsilon_0 \approx 8{,}854 \cdot 10^{-12} \, \frac{\text{C}^2}{\text{N} \cdot \text{m}^2}\).
+
+\subsection{Analogie zur Schwerkraft}\label{analogie-zur-schwerkraft}
+
+Newtonsches Gravitationsgesetz: Kraft zwischen zwei Himmelskörpern
+
+\[|\vec{F}_{12}| = G \cdot \frac{m_1 \cdot m_2}{r^2}\]
+
+\(G\): Gravitationskonstante,
+\(G \approx 6{,}6743 \cdot 10^{-11} \, \frac{\text{kg}^2}{\text{N} \cdot \text{m}^2}\)
+
+\subsection{Beispiel: Relative Stärke von Coulomb- und
+Gravitationskraft}\label{beispiel-relative-stuxe4rke-von-coulomb--und-gravitationskraft}
+
+\begin{itemize}
+\tightlist
+\item
+  Proton: \(m_p \approx 1{,}67 \cdot 10^{-27} \, \text{kg}\),
+  \(Q_p = +e\)
+\item
+  Elektron: \(m_e \approx 9{,}11 \cdot 10^{-31} \, \text{kg}\),
+  \(Q_e = -e\)
+\item
+  \(|\vec{F}_{12,\text{Coulomb}}| = \frac{1}{4 \pi \varepsilon_0} \cdot \frac{Q_1 \cdot Q_2}{r^2}\)
+\item
+  \(\epsilon_0 \approx 8{,}854 \cdot 10^{-12} \, \frac{\text{As}}{\text{Vm}}\)
+\item
+  \(|\vec{F}_{12,\text{Gravitation}}| = G \cdot \frac{m_1 \cdot m_2}{r^2}\)
+\item
+  \(G \approx 6{,}6743 \cdot 10^{-11} \, \frac{\text{m}^3}{\text{kg} \cdot \text{s}^2}\)
+\end{itemize}
+
+\subsection{Elektromagnetismus im
+Alltag}\label{elektromagnetismus-im-alltag}
+
+Fast alle alltäglichen physikalischen Phänomene werden von der
+elektromagnetischen Wechselwirkung bestimmt!
+
+Die Gravitation spielt nur eine Rolle, da
+
+\begin{itemize}
+\tightlist
+\item
+  es keine negativen Massen gibt → immer anziehend
+\item
+  die elektrischen Ladungen von Elektronen und Protonen exakt aufheben
+\end{itemize}
+
+\subsection{\texorpdfstring{Elektrische Feldstärke (\emph{electric field
+{[}strength{]}})}{Elektrische Feldstärke (electric field {[}strength{]})}}\label{elektrische-feldstuxe4rke-electric-field-strength}
+
+\begin{itemize}
+\tightlist
+\item
+  Ein elektrisch geladenes Teilchen übt eine Kraft auf andere elektrisch
+  geladene Teilchen aus
+\item
+  Diese Kraft ist umso größer, je größer die Ladung der Probeteilchen
+  ist
+\item
+  Elektrische Feldstärke: Kraft pro Ladungseinheit, die auf eine
+  Probeladung wirkt
+\end{itemize}
+
+\[\vec{E} = \frac{\vec{F}}{Q} \Leftrightarrow \vec{F} = Q \cdot \vec{E}\]
+
+Feld = ortsabhängige physikalische Größe (Vektorfeld/Skalarfeld)
+
+\([\vec{E}] = \frac{\text{N}}{\text{C}}\)
+
+\subsection{Elektrisches Feld einer
+Punktladung}\label{elektrisches-feld-einer-punktladung}
+
+Die elektrische Feldstärke \(\vec{E}\) im Abstand \(r=|\vec{r}|\) einer
+Punktladung \(Q\) ist:
+
+\[\vec{E}(\vec r) = \frac{Q}{4 \cdot \pi \cdot \varepsilon_0 \cdot r^2} \cdot \frac{\vec{r}}{r} = \frac{Q}{4 \cdot \pi \cdot \varepsilon_0 \cdot r^2} \cdot \vec{e}_r\]
+
+\subsection{Feldlinien}\label{feldlinien}
+
+\begin{itemize}
+\tightlist
+\item
+  Die Feldlinien eines elektrischen Feldes sind Linien, die die Richtung
+  und Stärke des Feldes darstellen
+\item
+  Sie verlaufen von positiven zu negativen Ladungen und zeigen die
+  Richtung der Kraft an, die auf eine positive Probeladung wirken würde
+\item
+  Die Dichte der Feldlinien ist proportional zur Stärke des elektrischen
+  Feldes: Je dichter die Linien, desto stärker das Feld
+\end{itemize}
+
+\subsection{Superpositionsprinzip}\label{superpositionsprinzip}
+
+Das elektrische Feld mehrerer (diskreter) Ladungen ist die Vektorsumme
+der Felder der einzelnen Ladungen
+
+\[\vec{E}(\vec{r}) = \sum_{i} \vec{E}_i(\vec{r})\]
+\[= \sum_{i} \frac{Q_i}{4 \pi \varepsilon_0 \cdot |\vec{r}-\vec{r}_i|^2} \cdot \frac{\vec{r}-\vec{r}_i}{|\vec{r}-\vec{r}_i|}\]
+
+Übergang zu kontinuierlicher Ladungsverteilung: Integral
+
+\[\vec{E}(\vec{r}) = \int_{V} \frac{\rho(\vec{r}') \cdot dV'}{4 \pi \varepsilon_0 \cdot |\vec{r}-\vec{r}'|^2} \cdot \frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|}\]
+
+\subsection{Feldlinien: Beispiele}\label{feldlinien-beispiele}
+
+\begin{itemize}
+\tightlist
+\item
+  Punktladung
+\item
+  Zwei gegensätzliche Punktladungen (Dipol)
+\item
+  Zwei gleichnamige Punktladungen
+\item
+  Positiv geladene Ebene
+\item
+  Zwei entgegengesetzt geladene Platten (Plattenkondensator)
+\end{itemize}
+
+\subsection{\texorpdfstring{Elektrische Flussdichte (\emph{electric flux
+density})}{Elektrische Flussdichte (electric flux density)}}\label{elektrische-flussdichte-electric-flux-density}
+
+\[\vec{D} = \varepsilon_0 \cdot \vec{E}\]
+
+\[[\vec{D}] = [\varepsilon_0] \cdot [\vec{E}] = \frac{\text{C}^2}{\text{N} \cdot \text{m}^2} \cdot \frac{\text{N}}{\text{C}} = \frac{\text{C}}{\text{m}^2}\]
+
+Fluss durch eine Fläche \(A\):
+
+\[\Psi = \int_{A} \vec{D} \cdot d\vec{A}\]
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/85cf0e3499426285a82cc26a94274622.jpg}
+
+\subsection{Elektrische Flussdichte einer
+Punktladung}\label{elektrische-flussdichte-einer-punktladung}
+
+Die elektrische Flussdichte \(\vec{D}\) im Abstand \(r\) einer
+Punktladung \(Q\) ist:
+
+\[\vec{D}(r) = \frac{Q}{4 \cdot \pi \cdot r^2} \cdot \frac{\vec{r}}{r} = \frac{Q}{A(r)} \cdot \vec{e}_r\]
+
+Für eine konstante Flussdichte \(D\) auf der Fläche \(A\) gilt:
+\(Q = D(r) \cdot A(r)\)
+
+\subsection{Fluss durch geschlossene
+Oberflächen}\label{fluss-durch-geschlossene-oberfluxe4chen}
+
+\subsection{\texorpdfstring{Satz von Gauß (\emph{Gauss's
+law})}{Satz von Gauß (Gauss's law)}}\label{satz-von-gauuxdf-gausss-law}
+
+Der elektrische Fluss durch eine geschlossene Oberfläche ist gleich der
+eingeschlossenen Ladung:
+
+\[\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen}}\]
+
+\subsection{Beispiel: Kugelsymmetrische
+Ladungsverteilung}\label{beispiel-kugelsymmetrische-ladungsverteilung}
+
+Für eine Punktladung \(Q\) im Zentrum einer Kugel mit Radius \(r\) gilt:
+
+\[\oint_{A} \vec{D} \cdot d\vec{A} = D(r) \cdot 4\pi r^2 = Q\]
+
+Daraus folgt:
+
+\[D = \frac{Q}{4\pi r^2}\]
+
+\subsection{Beispiel: Unendlich langer, gerader
+Leiter}\label{beispiel-unendlich-langer-gerader-leiter}
+
+Für einen unendlich langen Leiter mit Linienladungsdichte \(\lambda\)
+verwenden wir eine zylindrische Oberfläche (Radius \(r\), Länge \(l\)).
+
+\textbf{Symmetrie:} \(\vec{D}\) ist radial und konstant auf der
+Mantelfläche
+
+\[\oint_{A} \vec{D} \cdot d\vec{A} = D(r) \cdot 2\pi r l = \lambda l\]
+
+\textbf{Ergebnis:}
+\[D(r) = \frac{\lambda}{2\pi r}, \quad E(r) = \frac{\lambda}{2\pi \varepsilon_0 r}\]
+
+\subsection{Elektrisches Feld in
+Materie}\label{elektrisches-feld-in-materie}
+
+\begin{itemize}
+\tightlist
+\item
+  In nicht oder schwach leitenden Materialien können elektrische Felder
+  zu \textbf{Polarisation} führen.
+\item
+  Bei der Polarisation richten sich die positiven und negativen Ladungen
+  innerhalb des Materials unter dem Einfluss des elektrischen Feldes neu
+  aus.
+\item
+  Dies führt zu einer Verschiebung der Ladungszentren und erzeugt ein
+  internes elektrisches Feld, das dem äußeren Feld entgegenwirkt.
+\item
+  Solche polarisierbaren Materialien nennt man \textbf{Dielektrika}.
+\end{itemize}
+
+\subsection{Abschwächung des elektrischen Feldes in
+Dielektrika}\label{abschwuxe4chung-des-elektrischen-feldes-in-dielektrika}
+
+Definition:
+
+\[\vec{E}_\text{Materie} = \underbrace{\vec{E}_\text{Vakuum}}_{\text{freie Ladungen}} - \underbrace{\vec{E}_\text{Polarisation}}_{\text{gebundene Ladungen}} = \frac{1}{\varepsilon_r} \cdot \vec{E}_\text{Vakuum}\]
+
+mit \(\varepsilon_r \geq 1\) Permittivitätszahl (auch relative
+Permittivität). Beispiele:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Material & \(\varepsilon_r\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Luft & 1,00059 \\
+Gummi & 2,5--3,5 \\
+Glas & 5--7 \\
+Destilliertes Wasser & 81 \\
+\end{longtable}
+
+\subsection{Elektrische Flussdichte in
+Dielektrika}\label{elektrische-flussdichte-in-dielektrika}
+
+\textbf{Konvention}: man vereinbart, dass die elektrische Flussdichte
+sich immer auf das durch die freien Ladungen erzeugte Feld bezieht.
+
+\[\vec{D} =\varepsilon_0 \vec{E}_\text{Materie} + \vec{P} = \varepsilon_0 \varepsilon_r \vec{E}_\text{Materie} = 
+\varepsilon \vec{E}_\text{Materie} = \varepsilon_0 \cdot \vec{E}_\text{Vakuum}\]
+
+Polarisation \(\vec{P}= -\varepsilon_0 \vec{E}_\text{Polarisation}\)
+
+\(\vec{D}\) heißt daher auch (veraltet) \textbf{Elektrische
+Verschiebungsdichte} (\emph{electric displacement field}).
+
+Vorteil: der Satz von Gauß gilt unverändert, wenn man nur die freien
+Ladungen berücksichtigt:
+
+\[\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen, frei}}\]
+
+\subsection{Elektrische Arbeit}\label{elektrische-arbeit}
+
+Bewegung einer positiven Probeladung \(Q_P\) im Feld einer positiven
+Punktladung \(Q^+\)
+
+\(P_1 \rightarrow P_2\): \(W > 0\) : Arbeit wird freigesetzt
+\(P_2 \rightarrow P_1\) : \(W < 0\) : Arbeit muss aufgebracht werden
+
+Vgl. Mechanik: \(W = \vec{F} \cdot \vec{s}\)
+
+Hier: \(\vec{F}\) ist abhängig von \(r\)!
+
+\[W_{12} = \sum_{i} \Delta W_{i} = \sum_{i} F_{i} \cdot \Delta r\]
+
+\subsection{Elektrische Arbeit und
+Potential}\label{elektrische-arbeit-und-potential}
+
+\[W_{12} = \sum_{i} \Delta W_{i} = \sum_{i} F_{i} \cdot \Delta r\]
+
+Integral: \(\Delta r \rightarrow 0\)
+
+\[W_{12} = \int_{r_1}^{r_2} F(r) \cdot dr = Q_P \cdot \int_{r_1}^{r_2} E(r) \cdot dr
+= Q_P \cdot \int_{r_1}^{r_2} \frac{Q^+}{4 \cdot \pi \cdot \varepsilon \cdot r^2} dr\]
+\[= Q_P \cdot \left[ \frac{Q^+}{4 \cdot \pi \cdot \varepsilon} \cdot \frac{1}{r_1} - \frac{Q^+}{4 \cdot \pi \cdot \varepsilon} \cdot \frac{1}{r_2} \right]\]
+\[= Q_P \cdot (\varphi_1 - \varphi_2)\]
+
+\subsection{Elektrisches Potential einer
+Punktladung}\label{elektrisches-potential-einer-punktladung}
+
+Das elektrisches Potential \(\varphi\) im Abstand \(r\) von einer
+Punktladung \(Q\):
+
+\[\varphi(r) = \frac{Q}{4 \cdot \pi \cdot \varepsilon_0 \cdot \varepsilon_r \cdot r}\]
+
+Einheit: \([\varphi] = \frac{\text{J}}{\text{C}} = \text{V}\) (Volt)
+
+Punkte gleichen Potentials bilden Äquipotentialflächen.
+
+\subsection{Analogie:
+Gravitationspotential}\label{analogie-gravitationspotential}
+
+Potentielle Energie bzgl. Referenzhöhe:
+
+\[E_\text{pot} = m \cdot g \cdot h = m \cdot \varphi_g(h)\]
+
+\begin{itemize}
+\tightlist
+\item
+  Höhenlinien sind Äquipotentiallinien
+\item
+  Die Kraft wirkt immer in Richtung des stärksten Gefälles (senkrecht zu
+  den Äquipotentiallinien)
+\item
+  Die „Feldlinien`` sind nie in sich geschlossen
+\end{itemize}
+
+\subsection{Potentialfelder}\label{potentialfelder}
+
+Elektrostatische Felder sind \textbf{Potentialfelder} oder auch
+\textbf{wirbelfreie Felder}. Für sie gilt:
+
+\begin{itemize}
+\tightlist
+\item
+  Feldlinien beginnen und enden auf Ladungen („Quellen`` oder „Senken``)
+\item
+  Feldlinien sind nie in sich geschlossen
+\item
+  Das Feld lässt sich als Gradient (Richtungsableitung) eines
+  Skalarfeldes (Potential) darstellen
+\end{itemize}
+
+Weitere Beispiele für Potentialfelder:
+
+\begin{itemize}
+\tightlist
+\item
+  Schwerkraft auf der Erdoberfläche (2D)
+\item
+  Schwerkraft zwischen Himmelskörpern (3D)
+\item
+  Wärmefluss in Festkörpern (1D, 2D, 3D)
+\item
+  Grundwasserstrom (3D) (nur solange die Strömung wirbelfrei ist!)
+\end{itemize}
+
+\subsection{Spannung \& Arbeit}\label{spannung-arbeit}
+
+\subsubsection{\texorpdfstring{Elektrische Spannung (\emph{electric
+voltage})}{Elektrische Spannung (electric voltage)}}\label{elektrische-spannung-electric-voltage}
+
+Die elektrische Spannung ist definiert als Potentialdifferenz:
+
+\[U_{12} = \varphi_1 - \varphi_2\]
+
+Einheit: \([U] = \text{V}\) (Volt)
+
+\subsubsection{\texorpdfstring{Elektrische Arbeit (\emph{electric field
+work})}{Elektrische Arbeit (electric field work)}}\label{elektrische-arbeit-electric-field-work}
+
+Die elektrische Arbeit ist das Produkt aus Ladung und Spannung:
+
+\[W_{12} = \int_{P_1}^{P_2} \vec{F} \cdot d\vec{s} = Q \cdot (\varphi_1 - \varphi_2) = Q \cdot U_{12}\]
+
+Einheit: \([W] = \text{J}\) (Joule)
+
+Die elektrische Arbeit ist unabhängig vom Weg!
+
+\subsection{Beziehung zwischen elektrischem Feld und
+Spannung}\label{beziehung-zwischen-elektrischem-feld-und-spannung}
+
+\[W_{12} = \int_{P_1}^{P_2} \vec{F} \cdot d\vec{s} = Q \cdot (\varphi_1 - \varphi_2) = Q \cdot U_{12}\]
+
+Für die elektrische Spannung gilt allgemein:
+
+\[U_{12} = \int_{P_1}^{P_2} \vec{E} \cdot d\vec{s} = \varphi_1 - \varphi_2\]
+
+\subsection{Homogenes elektrisches
+Feld}\label{homogenes-elektrisches-feld}
+
+Ein homogenes elektrisches Feld ist durch konstante Feldstärke und
+parallele Feldlinien gekennzeichnet.
+
+Wichtige Eigenschaften:
+
+\begin{itemize}
+\tightlist
+\item
+  Konstante Feldstärke \(E\) in Betrag und Richtung
+\item
+  Parallele Feldlinien
+\item
+  Äquipotentialflächen stehen senkrecht zu den Feldlinien
+\item
+  Die Spannung zwischen zwei Punkten ist \(U = E \cdot d\), wobei \(d\)
+  der Abstand in Feldrichtung ist
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/a805089236c4c198a065d6cb9d1fe808.png}
+
+\subsection{Homogenes Feld mit dem Satz von Gauß: linke
+Seite}\label{homogenes-feld-mit-dem-satz-von-gauuxdf-linke-seite}
+
+Unendlich ausgedehnte, gleichmäßig geladene Ebene mit
+Flächenladungsdichte \(\sigma\)
+
+\textbf{Gesucht:} Elektrische Feldstärke \(E\) im Abstand \(d\) von der
+Ebene
+
+\textbf{Ansatz:} Anwendung des Satzes von Gauß mit einem zylindrischen
+Gauß'schen Volumen
+
+\[\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen}}\]
+
+\textbf{Gauß'sche Fläche:} Zylinder mit Grundfläche \(A\) und Achse
+senkrecht zur geladenen Ebene
+
+\begin{itemize}
+\tightlist
+\item
+  Mantelfläche:
+  \(\vec{D} \perp d\vec{A} \Rightarrow \vec{D} \cdot d\vec{A} = 0\)
+\item
+  Grundflächen:
+  \(\vec{D} \parallel d\vec{A} \Rightarrow \vec{D} \cdot d\vec{A} = D \cdot dA\)
+\end{itemize}
+
+\[\oint_{A} \vec{D} \cdot d\vec{A} = D \cdot A + D \cdot A = 2 \cdot D \cdot A\]
+
+\subsection{Homogenes Feld mit dem Satz von Gauß: rechte
+Seite}\label{homogenes-feld-mit-dem-satz-von-gauuxdf-rechte-seite}
+
+\textbf{Eingeschlossene Ladung:} \(Q_{\text{innen}} = \sigma \cdot A\)
+
+\textbf{Satz von Gauß:} \[2 \cdot D \cdot A = \sigma \cdot A\]
+
+\[D = \frac{\sigma}{2} \quad \Rightarrow \quad E = \frac{\sigma}{2 \varepsilon_0 \varepsilon_r}\]
+
+\textbf{Ergebnis:} Das Feld ist homogen und unabhängig vom Abstand zur
+Ebene.
+
+\subsection{\texorpdfstring{Kondensatoren
+(\emph{capacitors})}{Kondensatoren (capacitors)}}\label{kondensatoren-capacitors}
+
+Kondensatoren sind elektrische Bauelemente, die elektrische Ladung
+speichern können.
+
+Die gespeicherte Ladung für eine gegebene Spannung wird bezeichnet als:
+
+\textbf{Kapazität (\emph{capacitance})}
+
+\[C := \frac{Q}{U} \]
+
+Einheit: \([C] = \frac{\text{C}}{\text{V}} = \text{F}\) (Farad)
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/eda09bfc85a3947d780118d3285d197a.jpg}
+
+\subsection{⚠️ Kapazität ≠ Kapazität}\label{kapazituxe4t-kapazituxe4t}
+
+Die Kapazität (\emph{capacity}) einer Batterie ist eine Ladungsmenge!
+
+z.B.:
+\(\text{mAh} = 10^{-3} \, \text{A} \cdot 3600 \, \text{s} = 3{,}6 \, \text{C}\)
+
+Nicht zu verwechseln mit der Kapazität (\emph{capacitance}) eines
+Kondensators in Farad!
+
+\subsection{Plattenkondensator}\label{plattenkondensator}
+
+\[E =\frac{Q}{\varepsilon_0 \varepsilon_r A} ,\qquad U = E \cdot d = \frac{Q}{\varepsilon_0 \varepsilon_r A} \cdot d\]
+
+\[C=\frac{Q}{U} = \frac{\varepsilon_0 \varepsilon_r A}{d}=\frac{\varepsilon A}{d}\]
+
+Kapazität steigt mit:
+
+\begin{itemize}
+\tightlist
+\item
+  Fläche \(A\) der Platten
+\item
+  relativer Permittivität \(\varepsilon_r\) des Dielektrikums
+\item
+  Abnahme des Plattenabstands \(d\)
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_9.pdf}
+
+\subsection{Kugelkondensator}\label{kugelkondensator}
+
+Ein Kugelkondensator besteht aus zwei konzentrischen leitenden
+Kugelschalen mit den Radien \(R_i\) (innen) und \(R_a\) (außen).
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_10.pdf}
+
+\subsection{Kugelkondensator: Herleitung mit dem Satz von
+Gauß}\label{kugelkondensator-herleitung-mit-dem-satz-von-gauuxdf}
+
+\textbf{Elektrisches Feld (Satz von Gauß):}
+
+\[\oint \vec{D} \cdot d\vec{A} = Q\]
+
+\[D(r) \cdot 4\pi r^2 = Q \Rightarrow D(r) = \frac{Q}{4\pi r^2}\]
+
+\[E(r) = \frac{D(r)}{\varepsilon} = \frac{Q}{4\pi \varepsilon r^2}\]
+
+\subsection{Kapazität des
+Kugelkondensators}\label{kapazituxe4t-des-kugelkondensators}
+
+\textbf{Spannung zwischen den Kugeln:}
+
+\[U = \int_{R_1}^{R_2} E(r)\,dr = \frac{Q}{4\pi \varepsilon} \int_{R_1}^{R_2} \frac{1}{r^2}\,dr\]
+
+\[U = \frac{Q}{4\pi \varepsilon} \left( \frac{1}{R_1} - \frac{1}{R_2} \right)\]
+
+\textbf{Kapazität:}
+
+\[C = \frac{Q}{U} = 4\pi \varepsilon \frac{R_1 R_2}{R_2 - R_1}\]
+
+\subsection{Zylinderkondensator}\label{zylinderkondensator}
+
+Ein Zylinderkondensator besteht aus zwei koaxialen leitenden Zylindern
+mit den Radien \(R_1\) (innen) und \(R_2\) (außen) und der Länge \(l\).
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_11.pdf}
+
+\subsection{Zylinderkondensator: Herleitung mit dem Satz von
+Gauß}\label{zylinderkondensator-herleitung-mit-dem-satz-von-gauuxdf}
+
+\textbf{Gesucht:} Elektrisches Feld zwischen den Zylindern
+
+\textbf{Ansatz:} Satz von Gauß mit zylindrischer Gauß'scher Fläche
+(Radius \(r\), Länge \(l\))
+
+\[\oint \vec{D} \cdot d\vec{A} = Q_{\text{eingeschlossen}}\]
+
+\textbf{Symmetrie:} Das Feld zeigt radial nach außen, konstant auf
+Zylinderflächen
+
+\begin{itemize}
+\tightlist
+\item
+  Mantelfläche:
+  \(\vec{D} \parallel d\vec{A} \Rightarrow \vec{D} \cdot d\vec{A} = D \cdot dA\)
+\item
+  Grundflächen:
+  \(\vec{D} \perp d\vec{A} \Rightarrow \vec{D} \cdot d\vec{A} = 0\)
+\end{itemize}
+
+\[\oint \vec{D} \cdot d\vec{A} = D(r) \cdot 2\pi r l = Q\]
+
+\subsection{Zylinderkondensator: Elektrisches
+Feld}\label{zylinderkondensator-elektrisches-feld}
+
+\textbf{Aus dem Satz von Gauß:}
+
+\[D(r) \cdot 2\pi r l = Q\]
+
+\[D(r) = \frac{Q}{2\pi r l}\]
+
+\[E(r) = \frac{D(r)}{\varepsilon} = \frac{Q}{2\pi \varepsilon r l}\]
+
+\textbf{Ergebnis:} Das elektrische Feld nimmt mit \(\frac{1}{r}\) ab.
+
+\subsection{Zylinderkondensator: Spannung und
+Kapazität}\label{zylinderkondensator-spannung-und-kapazituxe4t}
+
+\textbf{Spannung zwischen den Zylindern:}
+
+\[U = \int_{R_1}^{R_2} E(r)\,dr = \frac{Q}{2\pi \varepsilon l} \int_{R_1}^{R_2} \frac{1}{r}\,dr\]
+
+\[U = \frac{Q}{2\pi \varepsilon l} \cdot \ln\frac{R_2}{R_1}\]
+
+\textbf{Kapazität:}
+
+\[C = 2 \cdot \pi \cdot \varepsilon_0 \cdot \varepsilon_r \cdot \frac{l}{\ln\frac{R_2}{R_1}}\]
+
+\subsection{Energie im Kondensator}\label{energie-im-kondensator}
+
+Im elektrischen Feld eines Kondensators ist Energie gespeichert, die bei
+Entladung wiedergewonnen werden kann.
+
+Während des Aufladevorgangs nimmt die Spannung mit der Ladung
+kontinuierlich zu:
+
+\[U(Q) = \frac{Q}{C}\]
+
+Die beim Aufladen gespeicherte Energie berechnet sich zu:
+
+\[W = \int_{0}^{Q} U(q) \cdot dq = \int_{0}^{Q} \frac{q}{C} \cdot dq = \frac{Q^2}{2C}= \frac{1}{2}  Q  U = \frac{1}{2}  C  U^2\]
+
+\[[W] = [U] \cdot [Q] = \text{V} \cdot \text{C} = \text{V} \cdot \text{A} \cdot \text{s} = \text{W} \cdot \text{s} = \text{J}\]
+
+\subsection{Parallelschaltung von
+Kondensatoren}\label{parallelschaltung-von-kondensatoren}
+
+Bei der Parallelschaltung von Kondensatoren addieren sich die
+Kapazitäten:
+
+\[C_{\text{ges}} = C_1 + C_2 + \dots + C_n = \sum_{i=1}^n C_i\]
+
+Eigenschaften:
+
+\begin{itemize}
+\tightlist
+\item
+  Gleiche Spannung an allen Kondensatoren
+\item
+  Die Gesamtladung ist die Summe der Einzelladungen
+\end{itemize}
+
+\[U_{\text{ges}} = U_1 = U_2 = \dots = U_n\]
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_12.pdf}
+
+\subsection{Reihenschaltung von
+Kondensatoren}\label{reihenschaltung-von-kondensatoren}
+
+Bei der Reihenschaltung von Kondensatoren addieren sich die Kehrwerte
+der Kapazitäten:
+
+\[\frac{1}{C_{\text{ges}}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n} = \sum_{i=1}^n \frac{1}{C_i}\]
+
+Eigenschaften:
+
+\begin{itemize}
+\tightlist
+\item
+  Gleiche Ladung auf allen Kondensatoren
+  \(Q_1 = Q_2 = \dots = Q_n = Q_{\text{ges}}\)
+\item
+  Die Gesamtspannung ist die Summe der Einzelspannungen
+\end{itemize}
+
+\[U_{\text{ges}} = U_1 + U_2 + \dots + U_n = \sum_{i=1}^n U_i\]
+
+\[C_{\text{ges}} = \frac{Q_{\text{ges}}}{U_{\text{ges}}} = \frac{Q_{\text{ges}}}{U_1 + U_2 + \dots + U_n} =  \frac{Q_{\text{ges}}}{Q_{\text{ges}} \cdot \left(\frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n}\right)} = \frac{1}{\frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n}}\]
+
+\subsection{Kondensatoren mit inhomogenen Dielektrika
+1}\label{kondensatoren-mit-inhomogenen-dielektrika-1}
+
+Wenn ein Plattenkondensator aus zwei Bereichen mit unterschiedlichen
+Dielektrika besteht, berechnet sich die Gesamtkapazität als:
+
+\[C = C_1 + C_2 = \frac{\varepsilon_0}{d} \cdot \left(\varepsilon_{r1} \cdot A_1 + \varepsilon_{r2} \cdot A_2\right)\]
+
+Dies entspricht einer Parallelschaltung von zwei Teilkondensatoren.
+
+\subsection{Kondensatoren mit inhomogenen Dielektrika
+2}\label{kondensatoren-mit-inhomogenen-dielektrika-2}
+
+Wenn ein Plattenkondensator aus zwei hintereinander liegenden Schichten
+mit unterschiedlichen Dielektrika besteht, berechnet sich die
+Gesamtkapazität als:
+
+\[C = \frac{\varepsilon_0 \cdot \varepsilon_{r1} \cdot \varepsilon_{r2} \cdot A}{\varepsilon_{r2} \cdot d_1 + \varepsilon_{r1} \cdot d_2}\]
+
+Dies entspricht einer Reihenschaltung von zwei Teilkondensatoren.
+
+\subsection{Übersicht: Größen im elektrischen
+Feld}\label{uxfcbersicht-gruxf6uxdfen-im-elektrischen-feld}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Größe
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definition
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Einheit
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Elektrische Ladung (\emph{electric charge}) & \(Q\) &
+\([Q] = \text{C}\) \\
+Spannung (\emph{voltage}) & \(U = \Delta \varphi\) &
+\([U] = \text{V}\) \\
+Kapazität (\emph{capacitance}) & \(C = \frac{Q}{U}\) &
+\([C] = \text{F} = \frac{\text{C}}{\text{V}}\) \\
+Elektrische Feldstärke (\emph{electric field {[}strength{]}}) &
+\(\vec{E} = \frac{\vec{F}}{Q}\) &
+\([\vec{E}] = \frac{\text{V}}{\text{m}}=\frac{\text{N}}{\text{C}}\) \\
+Elektrische Flussdichte (\emph{electric flux density}) =
+{[}Di-{]}Elektrische Verschiebungsdichte (\emph{electric displacement
+field}) & \(\vec{D} = \varepsilon_0 \varepsilon_r \vec{E}\) &
+\([\vec{D}] = \frac{\text{C}}{\text{m}^2}\) \\
+Elektrische Feldkonstante (\emph{electric constant}) = Permittivität des
+Vakuums (\emph{vacuum permittivity}) & \(\varepsilon_0\) &
+\([\varepsilon_0] = \frac{\text{C}^2}{\text{N} \cdot \text{m}^2}\) \\
+{[}Absolute{]} Permittivität (\emph{{[}absolute{]} permittivity}) =
+\st{Dielektrizitätskonstante} & \(\varepsilon\) &
+\([\varepsilon] = \frac{\text{C}^2}{\text{N} \cdot \text{m}^2}\) \\
+Relative Permittivität (\emph{relative permittivity}) = \st{Relative
+Dielektrizitätskonstante} &
+\(\varepsilon_r = \frac{\varepsilon}{\varepsilon_0}\) & dimensionslos \\
+\end{longtable}
+
+\section{Quiz: Das Elektrische Feld}\label{quiz-das-elektrische-feld}
+
+\subsection{Warum spielt die Gravitation im atomaren Maßstab praktisch
+keine
+Rolle?}\label{warum-spielt-die-gravitation-im-atomaren-mauxdfstab-praktisch-keine-rolle}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Weil Protonen und Elektronen keine Masse besitzen\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Weil die elektromagnetischen Kräfte viel stärker sind als die
+    Gravitationskräfte\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Weil Gravitation nur zwischen Himmelskörpern wirkt\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Weil sie durch Quantenmechanik verboten wird
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Warum sind Atome trotz geladener Bestandteile nach außen
+elektrisch
+neutral?}\label{warum-sind-atome-trotz-geladener-bestandteile-nach-auuxdfen-elektrisch-neutral}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Weil sich Protonen und Neutronen ausgleichen\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Weil sich die gleiche Anzahl an Protonen (positiv) und Elektronen
+    (negativ) kompensiert\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Weil Elektronen keine Ladung haben\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Weil neutrale Teilchen überwiegen
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Was bedeutet, dass elektrische Ladung „quantisiert``
+ist?}\label{was-bedeutet-dass-elektrische-ladung-quantisiert-ist}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Ladung existiert nur bei Quarks\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Ladung tritt nur in ganzzahligen Vielfachen einer kleinsten Einheit
+    auf\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Ladung kann beliebige Werte annehmen\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Ladung hängt vom Beobachter ab
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Was passiert mit der Kraft zwischen zwei Punktladungen nach
+dem Coulomb-Gesetz, wenn der Abstand halbiert
+wird?}\label{was-passiert-mit-der-kraft-zwischen-zwei-punktladungen-nach-dem-coulomb-gesetz-wenn-der-abstand-halbiert-wird}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Sie halbiert sich\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Sie vervierfacht sich\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Sie verdoppelt sich\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Sie bleibt gleich
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Was zeigt die Richtung einer elektrischen Feldlinie
+an?}\label{was-zeigt-die-richtung-einer-elektrischen-feldlinie-an}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Die Bewegung einer negativen Probeladung\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Die Richtung der Kraft auf eine positive Probeladung\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Die Richtung der Polarisation\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Die Richtung minimaler Energie
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Wann ist der Einsatz des Gaußschen Gesetzes besonders
+sinnvoll?}\label{wann-ist-der-einsatz-des-gauuxdfschen-gesetzes-besonders-sinnvoll}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Bei beliebigen Ladungsverteilungen\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Bei jeder einzelnen Punktladung\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Bei Systemen mit hoher Symmetrie (z. B. Kugel, Zylinder, Ebene)\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Nur bei negativ geladenen Objekten
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Warum schwächt ein Dielektrikum das elektrische
+Feld?}\label{warum-schwuxe4cht-ein-dielektrikum-das-elektrische-feld}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Weil es freie Elektronen enthält\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Weil es durch Polarisation ein Gegenfeld erzeugt\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Weil es Ladung vollständig abschirmt\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Weil es die Permittivität verringert
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Warum ist die elektrische Arbeit beim Bewegen einer Ladung
+im elektrostatischen Feld
+wegunabhängig?}\label{warum-ist-die-elektrische-arbeit-beim-bewegen-einer-ladung-im-elektrostatischen-feld-wegunabhuxe4ngig}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Weil das Feld nur innerhalb von Leitern existiert\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Weil Feldlinien immer geschlossen sind\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Weil es sich um ein Potentialfeld handelt
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Weil die Kraft immer konstant ist
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Was beschreibt das elektrische Potential
+physikalisch?}\label{was-beschreibt-das-elektrische-potential-physikalisch}
+
+\begin{itemize}
+\tightlist
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \tightlist
+  \item
+    Die Anzahl der Feldlinien\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Die potenzielle Energie pro Ladung\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Die Feldstärke unabhängig vom Ort\\
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi})}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Die Stärke der Polarisation
+  \end{enumerate}
+\end{itemize}
+
+\section{Gleichstrom}\label{gleichstrom}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Stromstärke und Stromdichte
+\item
+  Widerstand und Ohm'sches Gesetz
+\item
+  \hyperref[stromkreisberechnungen]{Stromkreisberechnungen}
+  (Kirchhoff'sche Regeln)
+\item
+  Zweipoltheorie
+\item
+  Arbeit \& Leistung
+\end{enumerate}
+
+\subsection{\texorpdfstring{Elektrischer Strom (\emph{electric
+current})}{Elektrischer Strom (electric current)}}\label{elektrischer-strom-electric-current}
+
+Strom ist der gerichtete Fluss von elektrischer Ladung
+
+\begin{itemize}
+\tightlist
+\item
+  Stromdichte \(\vec{J} = \rho \cdot \vec{v}\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\vec{v}\): Geschwindigkeit \emph{positiver} Ladungsträger
+  \end{itemize}
+\item
+  Stromstärke \(I = \int_A \vec{J} \cdot d\vec{A} = \dfrac{dQ}{dt}\)
+\item
+  \([I] = \text{A} = \dfrac{\text{C}}{\text{s}}\)
+\item
+  \([\vec{J}] = \dfrac{\text{A}}{\text{m}^2}\)
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_13.pdf}
+
+\subsection{Stromrichtung \&
+Ladungsträger}\label{stromrichtung-ladungstruxe4ger}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\vec{J} = \rho \cdot \vec{v}\) zeigt in die Richtung, in die sich
+  \emph{positive} Ladung bewegt -- egal ob die tatsächlichen
+  Ladungsträger positiv oder negativ sind!
+\item
+  Das ist auch die \emph{Zählrichtung} der Stromstärke \(I\)
+\end{itemize}
+
+\subsection{Stromleitung in Metallen}\label{stromleitung-in-metallen}
+
+\begin{itemize}
+\tightlist
+\item
+  In Metallen gibt jedes Atom Elektronen ab, die sich frei im Gitter der
+  positiv geladenen Atomrümpfe bewegen können („Elektronengas``)
+\item
+  Die Ladungsdichte der Elektronen ist jederzeit konstant, da eine
+  Ansammlung ein elektrisches Feld erzeugen würde, dass durch Abstoßung
+  der Elektronen wieder ausgeglichen wird → der Leiter ist überall
+  elektrisch neutral
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_14.pdf}
+
+\subsection{Metalle im elektrischen
+Feld}\label{metalle-im-elektrischen-feld}
+
+Klassisches Bild: erfährt das Elektronengas ein elektrisches Feld,
+werden die Elektronen beschleunigt, nach kurzer Zeit aber durch Stöße
+mit dem Metallgitter wieder abgebremst. Im Mittel ergibt sich dadurch
+eine konstante mittleren Geschwindigkeit \(\vec{v}_d\), die
+Driftgeschwindigkeit. Sie geht \emph{entgegen} der Feldrichtung
+\(\vec{v}_d = \vec{J}/\rho\), \(\rho =- ne\).
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_15.pdf}
+
+\subsection{Zahlenbeispiel: Driftgeschwindigkeit im
+Kupferdraht}\label{zahlenbeispiel-driftgeschwindigkeit-im-kupferdraht}
+
+Kupfer, \(A=1 \, \text{mm}^2\), \(I=1 \, \text{A}\):
+
+\begin{itemize}
+\tightlist
+\item
+  Dichte freier Elektronen:
+  \(n \approx 8{,}5 \cdot 10^{28} \, \frac{1}{\text{m}^3}\)
+\item
+  Ladungsträgerdichte:
+  \(\rho = -n \cdot e \approx -1{,}36 \cdot 10^{10} \, \frac{\text{C}}{\text{m}^3}\)
+\item
+  Stromdichte:
+  \(|\vec{J}| = \frac{I}{A} = \frac{1 \, \text{A}}{1 \cdot 10^{-6} \, \text{m}^2} = 1 \cdot 10^{6} \, \frac{\text{A}}{\text{m}^2}\)
+\item
+  Driftgeschwindigkeit:
+  \(|\vec{v_d}| = \frac{|\vec{J}|}{|\rho|} \approx 7{,}35 \cdot 10^{-5} \, \frac{\text{m}}{\text{s}} \approx 0{,}26 \, \frac{\text{m}}{\text{h}}\)
+  🐌
+\end{itemize}
+
+\subsection{\texorpdfstring{Elektrische Leitfähigkeit von Metallen
+(\emph{electric
+conductivity})}{Elektrische Leitfähigkeit von Metallen (electric conductivity)}}\label{elektrische-leitfuxe4higkeit-von-metallen-electric-conductivity}
+
+\begin{itemize}
+\tightlist
+\item
+  Erfährt das Elektronengas ein elektrisches Feld, bewegen sich die
+  Elektronen \emph{entgegen} der Feldrichtung
+\item
+  Für ein gegebenes Material ist die Stromdichte umso höher, je höher
+  das elektrische Feld ist
+\item
+  Der Proportionalitätsfaktor ist die elektrische Leitfähigkeit
+  \(\sigma\) des Materials
+\end{itemize}
+
+\[\vec{J} = \sigma \cdot \vec{E}\]
+
+= Ohm'sches Gesetz (\emph{Ohm's law})
+
+Achtung: die proportionale Beziehung gilt nur für \emph{lineare Leiter}
+(z.B. Metalle bei konstanter Temperatur)
+
+\subsection{Ohm'sches Gesetz im linearen
+Leiter}\label{ohmsches-gesetz-im-linearen-leiter}
+
+\[\vec{J} = \sigma \cdot \vec{E}\]
+
+\begin{itemize}
+\tightlist
+\item
+  Stromdichte muss konstant sein
+\item
+  Elektrisches Feld muss konstant sein
+\item
+  Potential \(\varphi\) muss linear abfallen
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\Phi(l) = \phi(0) - E \cdot l\)
+  \item
+    \(U = \phi(0) - \phi(l) = E \cdot l\)
+  \end{itemize}
+\end{itemize}
+
+\[I = J \cdot A = \sigma \cdot E \cdot A = \sigma \cdot \frac{U}{l} \cdot A = \frac{U}{R}\]
+
+\begin{itemize}
+\tightlist
+\item
+  Elektrischer Widerstand \(R = \frac{l}{\sigma \cdot A}\)
+  (\emph{electric resistance})
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_17.pdf}
+
+\subsection{Widerstand und Leitwert}\label{widerstand-und-leitwert}
+
+Der elektrische Widerstand \(R\) ist definiert durch das Ohm'sche
+Gesetz:
+
+\[R = \frac{U}{I}\]
+
+Einheit: \([R] = \frac{\text{V}}{\text{A}} = \Omega\) (Ohm)
+
+Der elektrische Leitwert \(G\) ist der Kehrwert des Widerstands:
+
+\[G = \frac{1}{R} = \frac{I}{U}\]
+
+Einheit: \([G] = \frac{\text{A}}{\text{V}} = \text{S}\) (Siemens)
+
+\subsection{Materialeigenschaften
+vs.~Bauteilgrößen}\label{materialeigenschaften-vs.-bauteilgruxf6uxdfen}
+
+\textbf{Materialeigenschaften} (intensiv, unabhängig von Geometrie): -
+\textbf{Spezifischer Widerstand} \(\rho\): Widerstand pro Längeneinheit
+bei Einheitsquerschnitt - \textbf{Leitfähigkeit}
+\(\sigma = \frac{1}{\rho}\): Leitfähigkeit des Materials
+
+\textbf{Bauteilgrößen} (extensiv, abhängig von Geometrie): -
+\textbf{Widerstand} \(R = \rho \frac{l}{A}\): Widerstand eines konkreten
+Leiters - \textbf{Leitwert} \(G = \frac{1}{R} = \sigma \frac{A}{l}\):
+Leitwert eines konkreten Leiters
+
+\textbf{Beispiel:} Kupfer hat immer die gleiche Leitfähigkeit
+\(\sigma_{\text{Cu}} = 58 \text{ MS/m}\), aber ein dickeres Kabel hat
+einen kleineren Widerstand \(R\).
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_17.pdf}
+
+\subsection{Übersicht der Größen im linearen
+Leiter}\label{uxfcbersicht-der-gruxf6uxdfen-im-linearen-leiter}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Größe
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definition
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Einheit
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Spannung (\emph{voltage}) & \(U = \Delta \varphi\) & \([U] = \text{V}\)
+& Volt \\
+Stromstärke (\emph{current}) & \(I = \frac{\Delta Q}{\Delta t}\) &
+\([I] = \text{A}\) & Ampere \\
+Widerstand (\emph{resistance}) & \(R = \frac{U}{I}\) & \([R] = \Omega\)
+& Ohm \\
+Leitwert (\emph{conductance}) & \(G = \frac{1}{R}\) &
+\([G] = \text{S} = \frac{1}{\Omega}\) & Siemens \\
+spezifischer Widerstand (\emph{resistivity}) & \(\rho = R \frac{A}{l}\)
+& \([\rho] = \Omega \cdot \text{m}\) & Ohm-Meter \\
+Leitfähigkeit (\emph{conductivity}) & \(\sigma = \frac{1}{\rho}\) &
+\([\sigma] = \text{S/m}\) & Siemens pro Meter \\
+\end{longtable}
+
+\subsection{Temperaturabhängigkeit des
+Widerstands}\label{temperaturabhuxe4ngigkeit-des-widerstands}
+
+Bei den meisten Materialien ändert sich der Widerstand mit der
+Temperatur.
+
+Kleinsignalverhalten (lineare Näherung):
+
+\[R(T) = R(T_0) \cdot [1 + \alpha \cdot (T - T_0)]\]
+
+Dabei ist:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\alpha\) der Temperaturkoeffizient des Widerstands (Einheit:
+  \([\alpha] = \frac{1}{\text{K}}\))
+\item
+  \(T_0\) die Bezugstemperatur (üblicherweise 20°C oder 0°C)
+\item
+  \(T\) die aktuelle Temperatur
+\end{itemize}
+
+\subsection{Elektrische Leitfähigkeit verschiedener
+Materialien}\label{elektrische-leitfuxe4higkeit-verschiedener-materialien}
+
+Bei Leitern nimmt der Widerstand mit steigender Temperatur zu (positiver
+Temperaturkoeffizient α \textgreater{} 0).
+
+Typische Werte für einige Leitermaterialien bei 20°C: \textbar{}
+Leitermaterial \textbar{} Spez. Widerstand \(\rho\) (µΩ·m) \textbar{}
+Leitfähigkeit \(\sigma\) (MS/m) \textbar{} Temperaturkoeffizient
+\(\alpha\) (1/K) \textbar{}
+\textbar----------------\textbar--------------------------------------\textbar-------------------------\textbar--------------------------------------\textbar{}
+\textbar{} Silber \textbar{} 0,016 \textbar{} 63 \textbar{} 3,8 · 10−3
+\textbar{} \textbar{} Kupfer \textbar{} 0,017 \textbar{} 58 \textbar{}
+3,9 · 10−3 \textbar{} \textbar{} Aluminium \textbar{} 0,027 \textbar{}
+38 \textbar{} 4,3 · 10−3 \textbar{} \textbar{} Messing \textbar{} 0,062
+\textbar{} 16 \textbar{} 2,0 · 10−3 \textbar{}
+
+\(R(T) = R(T_0) \cdot [1 + \alpha \cdot (T - T_0)]\)
+
+\subsection{Metalle als
+Temperatursensoren}\label{metalle-als-temperatursensoren}
+
+Die Temperaturabhängigkeit des Widerstands macht Metalle zu präzisen
+Temperatursensoren.
+
+\textbf{Platin-Widerstandsthermometer (Pt100):} - Pt100:
+\(R(0°\text{C}) = 100 \, \Omega\) - Temperaturkoeffizient:
+\(\alpha_{\text{Pt}} = 3{,}85 \cdot 10^{-3} \, \text{K}^{-1}\)
+
+\textbf{Vorteile von Platin-Sensoren:} - Hohe Langzeitstabilität -
+Breiter Messbereich (-200°C bis +850°C) - Gute Linearität - Chemische
+Beständigkeit
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/a835be2372c6400cc73d95b00dd3007f.jpg}
+
+\section{Stromkreisberechnungen}\label{stromkreisberechnungen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Die Kirchhoff'schen Gesetze
+\item
+  Zweipoltheorie
+\item
+  Arbeit und Leistung im Gleichstromkreis
+\end{enumerate}
+
+\subsection{Knotenpunktregel (1. Kirchhoff'sches
+Gesetz)}\label{knotenpunktregel-1.-kirchhoffsches-gesetz}
+
+In einem Knotenpunkt kann weder Ladung gespeichert noch erzeugt werden.
+Die Summe aller zufließenden Ströme ist gleich der Summe aller
+abfließenden Ströme:
+
+\[\sum_{k} I_{k} = 0\]
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_19.pdf}
+
+\subsection{Mathematische Analogie}\label{mathematische-analogie}
+
+In einer stationären (zeitlich unveränderlichen) Stromverteilung ist die
+elektrische Ladung überall konstant. Der gesamte Strom durch jede
+geschlossene Oberfläche ist Null:
+
+\[\oint_{A} \vec{J} \cdot d\vec{A} = - \frac{dQ_{\text{innen}}}{dt} = 0\]
+
+Vgl. Satz von Gauß in Abwesenheit von eingeschlossener Ladung:
+
+\[\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen}} = 0\]
+
+(NB: die obige Gleichung folgt \emph{nicht} aus der unteren -- die
+mathematische Analogie gilt, da sowohl das elektrostatische Feld als
+auch die stationäre Stromdichte \textbf{quellenfreie Vektorfelder}
+sind.)
+
+\subsection{Maschenregel (2. Kirchhoff'sches
+Gesetz)}\label{maschenregel-2.-kirchhoffsches-gesetz}
+
+Die Summe aller in einer Masche auftretenden Spannungen ist Null:
+
+\[\sum_{k} U_{k} = 0\]
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_20.pdf}
+
+\subsection{Reihenschaltung von
+Widerständen}\label{reihenschaltung-von-widerstuxe4nden}
+
+\[R_\text{ges} = R_1 + R_2 + R_3 + \dots + R_n = \sum_{i=1}^{n} R_i\]
+
+\begin{itemize}
+\tightlist
+\item
+  Gleicher Strom durch alle Widerstände: \(I = I_1 = I_2 = \dots = I_n\)
+\item
+  Die Gesamtspannung ist die Summe der Einzelspannungen:
+  \(U_\text{ges} = U_1 + U_2 + \dots + U_n\)
+\item
+  Gesamtwiderstand ist größer als der größte Einzelwiderstand
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_21.pdf}
+
+\subsection{Spannungsteiler}\label{spannungsteiler}
+
+Bei einer Reihenschaltung teilt sich die Gesamtspannung im Verhältnis
+der Widerstände auf:
+
+\[I = \frac{U}{R_\text{ges}} = \frac{U_1}{R_1} = \frac{U_2}{R_2}\]
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_22.pdf}
+
+\subsection{Parallelschaltung von
+Widerständen}\label{parallelschaltung-von-widerstuxe4nden}
+
+Bei einer Parallelschaltung von Widerständen addieren sich die Leitwerte
+zum Gesamtleitwert:
+
+\[\frac{1}{R_\text{ges}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n} = \sum_{i=1}^{n} \frac{1}{R_i}\]
+
+Oder mit Leitwerten:
+
+\[G_\text{ges} = G_1 + G_2 + \dots + G_n = \sum_{i=1}^{n} G_i\]
+
+\begin{itemize}
+\tightlist
+\item
+  Der Gesamtstrom ist die Summe der Einzelströme:
+  \(I_\text{ges} = I_1 + I_2 + \dots + I_n\)
+\item
+  Gleiche Spannung an allen Widerständen:
+  \(U = U_1 = U_2 = \dots = U_n\)
+\item
+  Der Gesamtwiderstand ist kleiner als der kleinste Einzelwiderstand
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_23.pdf}
+
+\subsection{Parallelschaltung:
+Herleitung}\label{parallelschaltung-herleitung}
+
+Wegen der Knotenregel gilt:
+
+\[I_\text{ges} = I_1 + I_2 + \dots + I_n = \frac{U}{R_1} + \frac{U}{R_2} + \dots + \frac{U}{R_n}\]
+
+Außerdem per Definition:
+
+\[I_\text{ges} = \frac{U}{R_\text{ges}}\]
+
+Es folgt:
+
+\[\Rightarrow\frac{U}{R_\text{ges}} = U \cdot \left(\frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}\right)\]
+
+\[\Rightarrow\frac{1}{R_\text{ges}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}\]
+
+\subsection{Stromteilerregel}\label{stromteilerregel}
+
+Bei einer Parallelschaltung teilt sich der Gesamtstrom im umgekehrten
+Verhältnis der Widerstände bzw. im direkten Verhältnis der Leitwerte
+auf:
+
+\[\frac{I}{G_\text{ges}} = \frac{I_1}{G_1} = \frac{I_2}{G_2}= \dots = \frac{I_n}{G_n}\]
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_24.pdf}
+
+\section{Zweipoltheorie}\label{zweipoltheorie}
+
+Ein Zweipol (\emph{two-pole}) oder Eintor (\emph{one-port}) ist ein
+elektrisches Bauteil mit zwei zugänglichen Anschlüssen
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_25.pdf}
+
+\textbf{Gliederung}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Passive lineare Zweipole
+\item
+  Aktive lineare Zweipole
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Ideale Spannungsquelle
+  \item
+    Ideale Stromquelle
+  \item
+    Reale Spannungsquelle
+  \item
+    Reale Stromquelle
+  \item
+    Äquivalenz von realer Spannungs- und Stromquelle
+  \end{enumerate}
+\end{enumerate}
+
+\subsection{Passive lineare Zweipole}\label{passive-lineare-zweipole}
+
+\begin{itemize}
+\tightlist
+\item
+  Passiv: Zweipol gibt keine Energie ab
+\item
+  Linear: Strom-Spannungs-Kennlinie ist eine Gerade
+\end{itemize}
+
+Passive lineare Zweipole können zu einem Ersatzwiderstand
+zusammengefasst werden
+
+\[U = R \cdot I\]
+
+\subsection{Ideale Spannungsquelle}\label{ideale-spannungsquelle}
+
+Eine ideale Spannungsquelle liefert eine konstante Spannung \(U_0\)
+unabhängig von der Belastung.
+
+Eigenschaften:
+
+\begin{itemize}
+\tightlist
+\item
+  Konstante Klemmenspannung \(U = U_0\)
+\item
+  Innenwiderstand \(R_i = 0\)
+\item
+  Beliebiger Strom \(I\) möglich
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_26.pdf}
+
+\subsection{Ideale Stromquelle}\label{ideale-stromquelle}
+
+Eine ideale Stromquelle liefert einen konstanten Strom \(I_0\)
+unabhängig von der Belastung.
+
+Eigenschaften:
+
+\begin{itemize}
+\tightlist
+\item
+  Konstanter Strom \(I = I_0\)
+\item
+  Innenwiderstand \(R_i = \infty\)
+\item
+  Beliebige Spannung \(U\) möglich
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_27.pdf}
+
+\subsection{Reale Spannungsquelle}\label{reale-spannungsquelle}
+
+Eine reale Spannungsquelle kann als Reihenschaltung einer idealen
+Spannungsquelle \(U_0\) mit einem Innenwiderstand \(R_i\) dargestellt
+werden.
+
+Eigenschaften:
+
+\begin{itemize}
+\tightlist
+\item
+  Klemmenspannung nimmt mit zunehmendem Strom ab:
+  \(U = U_0 - R_i \cdot I\)
+\item
+  Bei Leerlauf: \(U = U_0\) (maximale Spannung)
+\item
+  Bei Kurzschluss: \(I = \frac{U_0}{R_i}\) (maximaler Strom)
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_30.pdf}
+
+\subsection{Reale Stromquelle}\label{reale-stromquelle}
+
+Eine reale Stromquelle kann als Parallelschaltung einer idealen
+Stromquelle \(I_0\) mit einem Innenwiderstand \(R_i\) dargestellt
+werden.
+
+Eigenschaften:
+
+\begin{itemize}
+\tightlist
+\item
+  Strom nimmt mit zunehmender Spannung ab: \(I = I_0 - \frac{U}{R_i}\)
+\item
+  Bei Leerlauf: \(U = I_0 \cdot R_i\) (maximale Spannung)
+\item
+  Bei Kurzschluss: \(I = I_0\) (maximaler Strom)
+\end{itemize}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_31.pdf}
+
+\subsection{Äquivalenz von realer Spannungs- und
+Stromquelle}\label{uxe4quivalenz-von-realer-spannungs--und-stromquelle}
+
+Die reale Spannungsquelle und reale Stromquelle sind äquivalent, wenn
+folgende Beziehungen gelten:
+
+\[U_0 = I_0 \cdot R_i\]
+
+\[I_0 = \frac{U_0}{R_i}\]
+
+\textbf{Umrechnung:} - Spannungsquelle → Stromquelle:
+\(I_0 = \frac{U_0}{R_i}\) - Stromquelle → Spannungsquelle:
+\(U_0 = I_0 \cdot R_i\)
+
+Beide Darstellungen beschreiben dieselbe I-U-Kennlinie:
+\(U_\text{kl} = U_0 - R_i \cdot I\)
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_30.pdf}
+
+\includegraphics{/tmp/tmp.sFQRuqDRHE/images/image_31.pdf}
+
+\subsection{Reihenschaltung von aktiven, linearen
+Zweipolen}\label{reihenschaltung-von-aktiven-linearen-zweipolen}
+
+Bei der Reihenschaltung von realen Spannungsquellen addieren sich die
+Leerlaufspannungen und die Innenwiderstände:
+
+\[U_{0,\text{ges}} = U_{0,1} + U_{0,2} + \dots + U_{0,n}\]
+
+\[R_{i,\text{ges}} = R_{i,1} + R_{i,2} + \dots + R_{i,n}\]
+
+\textbf{Anwendung:} Batteriepacks in Taschenlampen, Elektroautos
+\textbf{Vorteil:} Höhere Gesamtspannung \textbf{Nachteil:} Höherer
+Innenwiderstand, bei Ausfall einer Quelle fällt das gesamte System aus
+
+\subsection{Parallelschaltung von aktiven, linearen
+Zweipolen}\label{parallelschaltung-von-aktiven-linearen-zweipolen}
+
+Bei der Parallelschaltung von realen Spannungsquellen mit gleicher
+Leerlaufspannung \(U_0\) addieren sich die Leitwerte der
+Innenwiderstände:
+
+\[\frac{1}{R_{i,\text{ges}}} = \frac{1}{R_{i,1}} + \frac{1}{R_{i,2}} + \dots + \frac{1}{R_{i,n}}\]
+
+Die gemeinsame Leerlaufspannung bleibt \(U_0\).
+
+\textbf{Anwendung:} Notstromversorgung, Batteriepacks für höhere Ströme
+\textbf{Vorteil:} Geringerer Innenwiderstand, höhere verfügbare Ströme
+\textbf{Nachteil:} Nur bei gleichen Spannungen sinnvoll,
+Ausgleichsströme bei unterschiedlichen Quellen
+
+\section{Arbeit und Leistung in
+Gleichstromkreisen}\label{arbeit-und-leistung-in-gleichstromkreisen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Elektrische Arbeit
+\item
+  Elektrische Leistung
+\end{enumerate}
+
+\subsection{Elektrische Arbeit
+(Energie)}\label{elektrische-arbeit-energie}
+
+Die elektrische Arbeit ist definiert als das Produkt aus Spannung, Strom
+und Zeit:
+
+\[W = U \cdot I \cdot t = I^2 \cdot R \cdot t = \frac{U^2}{R} \cdot t\]
+
+Einheit:
+\([W] = \text{V} \cdot \text{A} \cdot \text{s} =\text{W} \cdot \text{s} = \text{J}\)
+(Joule)
+
+\subsection{Elektrische Leistung}\label{elektrische-leistung}
+
+Die elektrische Leistung ist definiert als elektrische Arbeit pro
+Zeiteinheit:
+
+\[P = \frac{dW}{dt} = U \cdot I = I^2 \cdot R = \frac{U^2}{R}\]
+
+Einheit: \([P] = \text{W}\) (Watt)
+
+\section{Leistungsanpassung}\label{leistungsanpassung}
+
+Die Leistungsanpassung beschäftigt sich mit der Frage, bei welchem
+Verbraucherwiderstand \(R\) die maximale Leistung aus einer Quelle
+entnommen werden kann.
+
+Für eine reale Spannungsquelle mit der Leerlaufspannung \(U_0\) und dem
+Innenwiderstand \(R_i\) beträgt die Leistung am Verbraucher:
+
+\[P = R \cdot I^2 = U_0^2 \cdot \frac{R}{(R_i + R)^2}\]
+
+Diese Leistung wird maximal, wenn der Verbraucherwiderstand gleich dem
+Innenwiderstand der Quelle ist:
+
+\[R = R_i\]
+
+Die maximale Leistung beträgt dann:
+
+\[P_\text{max} = \frac{U_0^2}{4 \cdot R_i}\]
+
+\subsection{Anpassungsverhältnis und
+Wirkungsgrad}\label{anpassungsverhuxe4ltnis-und-wirkungsgrad}
+
+Das Anpassungsverhältnis \(\alpha\) ist definiert als:
+
+\[\alpha = \frac{R}{R_i}\]
+
+Der Wirkungsgrad \(\eta\) gibt das Verhältnis der am Verbraucher
+umgesetzten Leistung zur Gesamtleistung der Quelle an:
+
+\[\eta = \frac{P}{P_0} = \frac{R}{R_i + R} = \frac{\alpha}{1 + \alpha}\]
+
+Bei optimaler Leistungsanpassung (\(\alpha = 1\)) beträgt der
+Wirkungsgrad nur \(\eta = 0,5\) (50\%).
+
+\subsection{Betriebszustände einer aktiven
+Quelle}\label{betriebszustuxe4nde-einer-aktiven-quelle}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1156}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1497}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3673}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2245}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1429}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Last
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Leistung Quelle \(P_0\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Leistung Last \(P\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Wirkungsgrad \(\eta\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Kurzschluß & \(R = 0\) & \(P_0 = \frac{U_0^2}{R_i}\) & \(P = 0\) &
+\(\eta = 0\) \\
+Unteranpassung & \(R < R_i\) &
+\(P_0 = \frac{U_0^2}{R_i} \cdot \frac{R}{R+R_i}\) &
+\(0 < P < P_\text{max}\) & \(0 < \eta < 0{,}5\) \\
+Anpassung & \(R = R_i\) & \(P_0 = \frac{U_0^2}{2R_i}\) &
+\(P = \frac{U_0^2}{4R_i}\) & \(\eta = 0{,}5\) \\
+Überanpassung & \(R > R_i\) &
+\(P_0 = \frac{U_0^2}{R_i} \cdot \frac{R}{R+R_i}\) &
+\(0 < P < P_\text{max}\) & \(0{,}5 < \eta < 1\) \\
+Leerlauf & \(R \to \infty\) & \(P_0 = 0\) & \(P = 0\) & \(\eta = 1\) \\
+\end{longtable}
+
+\end{document}

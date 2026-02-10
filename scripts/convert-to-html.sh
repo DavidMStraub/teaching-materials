@@ -30,22 +30,20 @@ echo "Theme downloaded successfully to $THEME_FILE"
 # Change to repo root
 cd "$REPO_ROOT"
 
-# Find all markdown files in the repo root (not in subdirectories)
+# Find all markdown files recursively (including subdirectories)
 MARKDOWN_FILES=()
-shopt -s nullglob  # Enable nullglob so *.md expands to nothing if no matches
-for file in *.md; do
+while IFS= read -r -d '' file; do
     MARKDOWN_FILES+=("$file")
-done
-shopt -u nullglob  # Disable nullglob
+done < <(find . -name "*.md" -type f -print0)
 
 # Check if any markdown files exist
 if [ ${#MARKDOWN_FILES[@]} -eq 0 ]; then
-    echo "No markdown files found in the repo root."
+    echo "No markdown files found in the repository."
     rm -rf "$TEMP_DIR"
     exit 0
 fi
 
-echo "Found ${#MARKDOWN_FILES[@]} markdown file(s) in the repo root:"
+echo "Found ${#MARKDOWN_FILES[@]} markdown file(s) in the repository:"
 printf '  %s\n' "${MARKDOWN_FILES[@]}"
 
 # Convert each markdown file to HTML
@@ -56,6 +54,10 @@ for md_file in "${MARKDOWN_FILES[@]}"; do
             echo "Skipping $md_file (README file)"
             continue
         fi
+        
+        # Create output directory if it doesn't exist
+        output_dir=$(dirname "$md_file")
+        mkdir -p "$output_dir"
         
         html_file="${md_file%.md}.html"
         echo "Converting $md_file to $html_file..."
