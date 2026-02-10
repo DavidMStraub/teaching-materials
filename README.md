@@ -1,6 +1,6 @@
 # Public Slides
 
-This repository contains slides of courses I teach. They are written in Markdown and rendered with [Marp](https://marp.app/). You can either directly look at the Markdown files rendered on Github or at the slides deployed to Github pages by going to https://davidstraub.de/public-slides.
+This repository contains slides of courses I teach. They are written in Markdown and rendered with [Marp](https://marp.app/). You can either directly look at the Markdown files rendered on Github or at the slides deployed to Github pages by going to https://davidstraub.de/teaching-materials.
 
 Courses are organized in subfolders with individual index pages. Interactive courses include Binder buttons for running code directly in your browser.
 

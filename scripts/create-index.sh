@@ -210,7 +210,7 @@ create_sub_index() {
     if [[ -f "$course_dir/course.yaml" ]]; then
         binder_enabled=$(python3 -c "import yaml, json; print(json.dumps(yaml.safe_load(open('$course_dir/course.yaml'))))" 2>/dev/null | jq -r '.binder // false' 2>/dev/null)
         if [[ "$binder_enabled" == "true" ]]; then
-            echo "    <a href=\"https://mybinder.org/v2/gh/DavidMStraub/public-slides/HEAD?filepath=$course_dir\" class=\"binder-button\">🚀 Open in Binder</a>" >> "$index_file"
+            echo "    <a href=\"https://mybinder.org/v2/gh/DavidMStraub/teaching-materials/HEAD?filepath=$course_dir\" class=\"binder-button\">🚀 Open in Binder</a>" >> "$index_file"
             echo "" >> "$index_file"
         fi
     fi
@@ -250,7 +250,7 @@ create_sub_index() {
     
     <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee; text-align: center;">
         <p style="font-size: 0.9rem; color: #666;">
-            <a href="https://github.com/DavidMStraub/public-slides" style="color: #0066cc; text-decoration: none;">
+            <a href="https://github.com/DavidMStraub/teaching-materials" style="color: #0066cc; text-decoration: none;">
                 View source on GitHub
             </a>
         </p>
@@ -352,7 +352,7 @@ cat >> "$INDEX_FILE" << 'EOF'
     
     <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee; text-align: center;">
         <p style="font-size: 0.9rem; color: #666;">
-            <a href="https://github.com/DavidMStraub/public-slides" style="color: #0066cc; text-decoration: none;">
+            <a href="https://github.com/DavidMStraub/teaching-materials" style="color: #0066cc; text-decoration: none;">
                 View source on GitHub
             </a>
         </p>
