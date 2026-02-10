@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Enable Jupytext extension in Jupyter
+jupyter lab extension list
+echo "Jupytext version:"
+jupytext --version
+
+# Ensure markdown files are associated with Jupytext
+echo "Configuring Jupytext..."

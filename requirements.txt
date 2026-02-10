@@ -1,0 +1,4 @@
+jupytext>=1.17.0
+matplotlib>=3.5.0
+numpy>=1.21.0
+ipywidgets>=7.6.0

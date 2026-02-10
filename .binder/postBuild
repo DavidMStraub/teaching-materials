@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Configure Jupytext to recognize .md files as notebooks
+echo "Installing and configuring Jupytext..."
+
+# Set up Jupytext configuration
+mkdir -p ~/.jupyter
+cat > ~/.jupyter/jupyter_lab_config.py << 'EOF'
+c.ContentsManager.default_jupytext_formats = "ipynb,md"
+EOF
+
+echo "Jupytext configuration complete!"
+echo "Available Python packages:"
+pip list | grep -E "(jupytext|matplotlib|numpy)"
