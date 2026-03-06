@@ -123,7 +123,7 @@ u:   0.0       0.25      0.5       0.75      1.0
 - Die Punkte $\mathbf{C}(u)$ im Raum sind dabei **nicht gleichmäßig** verteilt
 - **Kreis:** $u \in [0, 2\pi]$ – der Parameter entspricht dem Winkel
 
-In build123d: `position_at(s)` mit $s \in [0, 1]$ liefert den Punkt, `tangent_at(s)` den Tangentenvektor.
+In build123d: `position_at(t)` mit $t \in [0, 1]$ liefert den Punkt, `tangent_at(t)` den Tangentenvektor.
 
 ### Parametrische Flächen
 
