@@ -284,7 +284,7 @@ Dreidimensionale Geometrie kann in CAD-Systemen auf verschiedene Arten dargestel
 - **Jupyter-CadQuery** für interaktive Visualisierung in Jupyter Notebooks
 - **OCP CAD Viewer for VS Code** für interaktive Visualisierung in Visual Studio Code
 
-### Demo: unsere erste CAD-Geometrie in Python
+### Demo: unsere erste CAD-Geometrie in Python (build123d-Version)
 
 ```python
 import jupyter_cadquery
@@ -301,6 +301,27 @@ part = base - hole
 top_f = part.faces().sort_by(bd.Axis.Z).last
 hole_edges = top_f.edges().filter_by(bd.GeomType.CIRCLE)
 result = part.fillet(radius=2, edge_list=hole_edges)
+
+result
+```
+
+### Demo: unsere erste CAD-Geometrie in Python (CadQuery-Version)
+
+```python
+import jupyter_cadquery
+from cadquery import func as cf
+
+length = 80
+width = 60
+height = 10
+
+base = cf.box(length, width, height)
+hole = cf.cylinder(d=width / 2, h=height)
+part = base - hole
+
+top_f = part.faces(">Z")
+hole_edge = top_f.edges("%CIRCLE")
+result = part.fillet(2.0, [hole_edge])
 
 result
 ```
