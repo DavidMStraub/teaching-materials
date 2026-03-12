@@ -9,7 +9,7 @@ math: katex
 ---
 # Programmieren – Praktikum
 
-**Ingenieurinformatik Teil 1, Wintersemester 2025/26**
+**Ingenieurinformatik Teil 1, Sommersemster 2026**
 
 David Straub
 
