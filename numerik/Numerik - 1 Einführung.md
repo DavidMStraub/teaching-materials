@@ -46,13 +46,13 @@ Wir bauen auf den in Teil 1 erworbenen Kompetenzen im wissenschaftlichen Program
 Die Konzepte in beiden Lehrveranstaltungen sind unabhängig von der verwendeten Programmiersprache/Entwicklungsumgebung (Python, Matlab) übertragbar!
 
 
-## Gliederung
+### Gliederung
 
 1. **Einführung in Matlab**
 2. **Arbeiten mit Arrays**
 3. **Funktionen und Kontrollstrukturen**
-4. **Lineare Algebra** (Gleichungssysteme, Eigenwerte, ...)
-5. **Analysis** (Polynome, Ableitung, Integration, ...)
+4. **Analysis** (Polynome, Ableitung, Integration, ...)
+5. **Lineare Algebra** (Gleichungssysteme, Eigenwerte, ...)
 6. **Differentialgleichungen**
 7. **Einführung in Simulink**
 
@@ -62,7 +62,7 @@ Die Konzepte in beiden Lehrveranstaltungen sind unabhängig von der verwendeten 
 ### Ingenieurinformatik, Teilmodul 2: Numerik für Ingenieure (L1172)
 
 - 2 SWS Seminaristischer Unterricht, wöchentlich
-- 2 SWS Übung, 14-tägig (2 Gruppen, Einteilung am Ende), Start 24.3.
+- 2 SWS Übung, 14-tägig (2 Gruppen, Einteilung am Ende), Start nächste Woche
 - Prüfung: schriftlich, 60 Minuten, 40% der Gesamtnote für Modul Ingenieurinformatik
 
 ### Prüfungsinhalte
@@ -89,9 +89,15 @@ Sowohl Programmieren als auch die numerischen Methoden lernt man durch **Anwende
 
 Wer das Praktikum ernstnimmt, hat in der Prüfung einen deutlichen Vorteil.
 
+
+#### Anwesenheit
+
+Die Anwesenheit ist **freiwillig**, es wird aber eine Anwesenheitsliste per Moodle geführt, damit ich einen Überblick habe.
+
+
 ### Einteilung der Übungsgruppen
 
-Jetzt in Moodle!
+Jetzt in Moodle: https://moodle.hm.edu/course/view.php?id=24726
 
 
 | Gruppe | Tag | Uhrzeit | Raum | Start |
@@ -103,7 +109,10 @@ Jetzt in Moodle!
 | C1 | Di | 13:30 | B355 | 24.3. |
 | C2 | Di | 13:30 | B355 | 31.3. |
 
-Bitte Gruppeneinteilung strikt einhalten
+Bitte Gruppeneinteilung strikt einhalten.
+
+![bg right:20% 70%](https://api.qrserver.com/v1/create-qr-code/?format=svg&data=https://moodle.hm.edu/mod/choicegroup/view.php?id=1222978)
+
 
 ### Materialien & Kommunikation
 
@@ -111,6 +120,16 @@ Bitte Gruppeneinteilung strikt einhalten
      - https://moodle.hm.edu/course/view.php?id=24726
 - Matrix: Chatgruppe für Fragen, Diskussionen, Ankündigungen, ... **bitte beitreten!**
      - https://matrix.hm.edu -> FK03 LRB Numerik
+
+
+### Übersicht Vorlesungsunterlagen
+
+- PDF-Vorlesungsfolien von Prof. Küpper, Prof. Hirschmann u.a. (Moodle)
+     - Übersicht über den Vorlesungsstoff (prüfungsrelevant!)
+- Meine Folien (HTML/PDF)
+     - Kein vollständiges Skript! Nur ergänzend zu den Live-Code-Beispielen in der Vorlesung
+- PDF-Übungsunterlagen von Prof. Küpper, Prof. Hirschmann u.a. (Moodle)
+     - Wird für die Übungsgruppen verwendet. Falls Sie in 90 Minuten nicht fertig werden, bitte nacharbeiten – beste Prüfungsvorbereitung!
 
 
 ## Motivation
@@ -236,6 +255,7 @@ Wir nutzen Matlab, um fürs Ingenieurswesen relevante numerische Probleme zu lö
 
 ## 1. Einführung in Matlab
 
+
 ### Matlab – Entwicklungsumgebung
 
 - **Editor**: Skripte und Funktionen schreiben
@@ -301,7 +321,7 @@ y =
     59
 ```
 
-- `[ ]` – Concatenation-Operator
+- `[ ]` – Array-Konstruktor (zum Erstellen von Arrays)
 - `;` – trennt Zeilen, `,` oder Leerzeichen trennen Elemente innerhalb einer Zeile
 - `*` führt Matrizenmultiplikation durch
 
