@@ -134,6 +134,16 @@ Bitte Gruppeneinteilung strikt einhalten.
 
 ## Motivation
 
+Nochmal das Ziel:
+
+- **Verständnis** grundlegender **numerischer Methoden** zur Lösung technisch-wissenschaftlicher Probleme
+- **Anwendung** und praktische Umsetzung dieser Methoden in einer wissenschaftlichen Entwicklungsumgebung (**Matlab**)
+
+Was heißt numerische Methoden?
+
+Uns was ist eigentlich Matlab?
+
+
 ### Was ist Numerik?
 
 **Numerik** = Mathematische Methoden zur **Lösung von Problemen mit dem Computer**
@@ -355,3 +365,19 @@ x =
 - **Lesender Zugriff** auf nicht-existierendes Element → Fehler
 - **Schreibender Zugriff** → Matrix wird automatisch erweitert, neue Elemente = 0
 - **Achtung:** Kann leicht zu schwer findbaren Fehlern führen!
+
+
+### Zusammenfassung & Ausblick
+
+**Numerik** – Mathematische Methoden zur Lösung von Problemen mit dem Computer
+**Matlab** – Programmiersprache und Entwicklungsumgebung für numerische Berechnungen
+
+#### To Do
+
+- Matlab installieren
+- Hausaufgaben Kapitel 1 (PDF auf Moodle)
+
+#### Nächste Woche
+
+- Kapitel 2: Arbeiten mit Arrays
+- Beginn Übungsbetrieb
