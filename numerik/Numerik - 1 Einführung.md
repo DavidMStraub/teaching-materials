@@ -299,6 +299,40 @@ Wir nutzen Matlab, um fürs Ingenieurswesen relevante numerische Probleme zu lö
 
 Im Unterschied zu Python sind `a` und `b` beide `double` (vgl. `float` in Python) – auch `b = 99` ist **kein** Ganzzahl-Typ!
 
+### Matlab – Eingebaute Funktionen
+
+Matlab bietet zahlreiche eingebaute Funktionen:
+
+| Kategorie | Beispiele |
+|-----------|-----------|
+| Trigonometrie | `sin`, `cos`, `tan`, `asin`, `atan2` |
+| Exponential | `exp`, `log`, `log10`, `log2`, `sqrt` |
+| Rundung | `floor`, `ceil`, `round`, `abs` |
+
+**Gefahr: Funktionen überschreiben**
+
+```matlab
+sin = 5;         % sin ist jetzt eine Variable – die Funktion sin() ist weg!
+sin(pi/2)        % gibt 5, nicht 1 zurück
+```
+
+> In Python schützt der Namensraum (`import numpy as np`) vor versehentlichem Überschreiben. In Matlab teilen Variablen und Funktionen denselben Namensraum.
+
+
+
+### Matlab – Workspace bereinigen
+
+| Befehl | Wirkung |
+|--------|---------|
+| `clear` | alle Variablen aus dem Workspace löschen |
+| `clear x y` | nur Variable `x` und `y` löschen |
+| `clc` | Command Window leeren (Variablen bleiben erhalten) |
+| `close all` | alle Abbildungsfenster schließen (Variablen bleiben erhalten) |
+
+> **Hinweis:** `clear; clc; close all;` am Skriptanfang ist verbreitet, aber zerstört den Workspace des Aufrufers – sinnvoll für eigenständige Skripte, problematisch wenn das Skript von anderen aufgerufen wird.
+
+
+
 ### Matlab – Datentypen
 
 | Matlab-Typ | Beschreibung | Python (NumPy) |
