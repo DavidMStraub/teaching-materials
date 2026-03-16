@@ -89,9 +89,15 @@ while IFS= read -r url; do
     
     echo "Processing: $url"
     
-    # Get file extension
-    ext="${url##*.}"
+    # Get file extension from URL path only (strip query string/fragment first)
+    _url_no_query="${url%%\?*}"
+    _url_no_query="${_url_no_query%%\#*}"
+    _url_file="${_url_no_query##*/}"
+    ext="${_url_file##*.}"
+    # If no dot in basename or basename was empty, use generic extension
+    [[ "$ext" == "$_url_file" || -z "$_url_file" ]] && ext="bin"
     ext_lower=$(echo "$ext" | tr '[:upper:]' '[:lower:]')
+    unset _url_no_query _url_file
     
     if [[ $url == http* ]]; then
         # Create a hash of the URL for cache filename
@@ -191,7 +197,26 @@ while IFS= read -r url; do
             url_map["$url"]="$MISSING_IMAGE"
             continue
         fi
-        
+
+        # Re-detect actual format from file content (handles URLs with no/wrong extension)
+        actual_mime=$(file --mime-type -b "$downloaded_file" 2>/dev/null || echo "")
+        detected_ext=""
+        case "$actual_mime" in
+            image/svg+xml) detected_ext="svg" ;;
+            image/png)     detected_ext="png" ;;
+            image/jpeg)    detected_ext="jpg" ;;
+            image/gif)     detected_ext="gif" ;;
+        esac
+        if [[ -n "$detected_ext" && "$ext_lower" != "$detected_ext" ]]; then
+            echo "  -> Detected actual format: $detected_ext (URL extension was: ${ext_lower})"
+            new_cached_file="${downloaded_file%.*}.${detected_ext}"
+            if [[ "$downloaded_file" != "$new_cached_file" ]]; then
+                mv "$downloaded_file" "$new_cached_file"
+                downloaded_file="$new_cached_file"
+            fi
+            ext_lower="$detected_ext"
+        fi
+
         # Convert SVG to PDF
         if [[ $ext_lower == "svg" ]]; then
             pdf_file="$IMAGES_DIR/image_$counter.pdf"
@@ -324,6 +349,8 @@ image_count=0
 for url in "${!url_map[@]}"; do
     source_file="${url_map[$url]}"
     filename=$(basename "$source_file")
+    # Sanitize: strip query string chars that LaTeX/pandoc cannot handle in filenames
+    filename="${filename%%\?*}"
     dest_file="$PANDOC_IMAGES_DIR/$filename"
     if [[ -f "$source_file" ]]; then
         cp "$source_file" "$dest_file"
