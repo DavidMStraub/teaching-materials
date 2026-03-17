@@ -167,6 +167,41 @@ A'                                % transponieren (bei komplexen: konjugiert!)
 A.'                               % nur transponieren (ohne Konjugation)
 ```
 
+### Array Slicing – Teilbereiche auswählen
+
+**Colon-Operator** `start:end` bzw. `start:step:end` wählt einen Teilbereich aus:
+
+```matlab
+A = magic(5);        % 5×5-Matrix als Beispiel
+
+A(2:4, 1:3)          % Zeilen 2–4, Spalten 1–3  →  3×3-Teilmatrix
+A(end-1:end, :)      % letzte 2 Zeilen, alle Spalten
+A(1:2:end, :)        % jede zweite Zeile (Schrittweite 2)
+A(:, [1, 3, 5])      % Spalten 1, 3 und 5
+```
+
+### Array Slicing – Vergleich MATLAB vs. Python/NumPy
+
+| | **MATLAB** | **Python / NumPy** |
+|---|---|---|
+| **Indexstart** | `1` | `0` |
+| **Bereichsende** | inklusiv: `1:3` → 1,2,**3** | exklusiv: `0:3` → 0,1,**2** |
+| **Klammern** | `A(zeile, spalte)` | `A[zeile, spalte]` |
+| **Letztes Element** | `end` | `-1` |
+| **Schrittsyntax** | `start:step:end` | `start:stop:step` |
+| **Gesamte Spalte** | `A(:, k)` | `A[:, k-1]` |
+
+### Array Slicing – Vergleich MATLAB vs. Python/NumPy
+
+```matlab
+% MATLAB                          # Python/NumPy
+A(2, 3)                           A[1, 2]          % 0-basiert!
+A(1:3, 2:4)                       A[0:3, 1:4]      % Ende exklusiv!
+A(end, :)                         A[-1, :]
+A(1:2:end, :)                     A[::2, :]        % start weglassen → 0
+A(:, 2)                           A[:, 1]
+```
+
 ### Arrays höherer Dimension
 
 In MATLAB werden höherdimensionale Arrays mit `cat` entlang einer Dimension verkettet:
