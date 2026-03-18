@@ -169,7 +169,7 @@ Dreidimensionale Geometrie kann in CAD-Systemen auf verschiedene Arten dargestel
 
 - **CSG (Constructive Solid Geometry):** Volumen durch boolesche Operationen einfacher Körper
 - **B-Rep (Boundary Representation):** Oberfläche definiert Volumen, Kanten definieren Flächen
-- **Drahtgitter (Mesh):** Overfläche aus Polygonen, z.B. Dreiecken
+- **Drahtgitter (Mesh):** Oberfläche aus Polygonen, z.B. Dreiecken
 
 ### CSG (Constructive Solid Geometry)
 
