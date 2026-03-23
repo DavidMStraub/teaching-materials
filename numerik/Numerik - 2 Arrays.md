@@ -373,6 +373,18 @@ D =
 
 Elementweise Operatoren: `.*`  `./`  `.^`
 
+### Operatoren – Vergleich MATLAB vs. Python/NumPy
+
+| Operation | **MATLAB** | **Python / NumPy** |
+|-----------|------------|--------------------|
+| Matrizenmultiplikation | `A * B` | `A @ B` |
+| Elementweise Multiplikation | `A .* B` | `A * B` |
+| Matrizenpotenz | `A ^ n` | `np.linalg.matrix_power(A, n)` |
+| Elementweise Potenz | `A .^ n` | `A ** n` |
+| Matrizendivision (A·B⁻¹) | `A / B` | `A @ np.linalg.inv(B)` |
+| Elementweise Division | `A ./ B` | `A / B` |
+
+
 ### Colon-Operator – Sequenzen erzeugen
 
 ```
