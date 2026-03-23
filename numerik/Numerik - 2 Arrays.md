@@ -52,7 +52,6 @@ Eine **n×m-Matrix** (2D-Array) ist der zentrale Datentyp in MATLAB.
 
 - Alle Elemente besitzen den gleichen Datentyp (`double`)
 - Zugriff: `A(zeile, spalte)`, z. B. `A(2,3) = 5`
-- **Linear Indexing:** spaltenweise Nummerierung ab 1 – `A(2,3)` ≡ `A(8)`
 
 ### Begriffe: Array – Matrix – Vektor – Skalar
 
@@ -63,6 +62,9 @@ Eine **n×m-Matrix** (2D-Array) ist der zentrale Datentyp in MATLAB.
 | **Zeilenvektor** | 1×n | `A(1,k)` ≡ `A(k)` |
 | **Spaltenvektor** | n×1 | `A(k,1)` ≡ `A(k)` |
 | **Skalar** | 1×1 | `A(1,1)` ≡ `A(1)` ≡ `A` |
+
+- `size(A)` gibt die Dimensionen zurück: `size(A)` → `[n, m]`, `size(A, 1)` → Anzahl Zeilen, `size(A, 2)` → Anzahl Spalten
+- `ndims(A)` gibt die Anzahl der Dimensionen zurück: Vektor/Matrix → `2`, 3D-Array → `3`, ...
 
 ### Zwei Bedeutungen von „Matrix"
 
@@ -167,6 +169,21 @@ A'                                % transponieren (bei komplexen: konjugiert!)
 A.'                               % nur transponieren (ohne Konjugation)
 ```
 
+### Linear Indexing
+
+Jedes Element einer Matrix kann auch über einen **einzelnen Index** angesprochen werden – MATLAB zählt dabei **spaltenweise** von oben nach unten, beginnend bei 1:
+
+$$A = \begin{pmatrix} 1 & 4 & 7 & 10 \\ 2 & 5 & 8 & 11 \\ 3 & 6 & 9 & 12 \end{pmatrix}$$
+
+```matlab
+A(2,3)    % Zeile 2, Spalte 3  →  8
+A(8)      % Linear Index 8     →  8   (identisch!)
+A(end)    % letztes Element    → 12
+```
+
+- Nützlich für kompakte Ausdrücke (z. B. `A(end)`, `A(:)` für alle Elemente als Spaltenvektor)
+- Vorsicht: kann Code schwerer lesbar machen – besser `(zeile, spalte)` wenn der 2D-Kontext wichtig ist
+
 ### Array Slicing – Teilbereiche auswählen
 
 **Colon-Operator** `start:end` bzw. `start:step:end` wählt einen Teilbereich aus:
@@ -201,6 +218,53 @@ A(end, :)                         A[-1, :]
 A(1:2:end, :)                     A[::2, :]        % start weglassen → 0
 A(:, 2)                           A[:, 1]
 ```
+
+### Logische Indizierung
+
+Statt numerischer Indizes kann ein **logischer Vektor** (aus `true`/`false`) als Index verwendet werden – nur die Elemente, bei denen der Ausdruck `true` ist, werden ausgewählt.
+
+```matlab
+F = [0, 420, 850, 1240, 830, 0];
+
+mask = F > 800          % [false false true true true false]
+F(mask)                 % [850, 1240, 830]   – nur Werte > 800
+
+% Kurzform (inline):
+F(F > 800)              % identisch
+F(F == max(F))          % Element mit dem Maximalwert
+```
+
+**Typische Anwendung:** Messwerte filtern, Ausreißer entfernen, Schwellwerte prüfen.
+
+### Nützliche Array-Funktionen
+
+| Funktion | Bedeutung |
+|----------|-----------|
+| `length(x)` | Anzahl der Elemente (längste Dimension) |
+| `numel(A)` | Gesamtanzahl aller Elemente |
+| `sum(x)` | Summe aller Elemente |
+| `min(x)` / `max(x)` | Minimum / Maximum |
+| `mean(x)` | Mittelwert |
+| `sort(x)` | Sortierung (aufsteigend) |
+
+
+> Bei Matrizen wirken diese Funktionen standardmäßig **spaltenweise** – `mean(A)` liefert einen Zeilenvektor mit den Spaltenmitteln. Mit `mean(A, 'all')` über alle Elemente.
+
+### Übung: Zugriff und Berechnung ✍️
+
+Gegeben: `x = [3, 7, 2, 9, 1, 6]`
+
+Schreiben Sie jeweils **zwei verschiedene** MATLAB-Ausdrücke:
+
+**a)** Das letzte Element von `x`
+
+**b)** `x` in umgekehrter Reihenfolge
+
+**c)** Nur die Elemente von `x`, die größer als 5 sind
+
+**d)** Den Mittelwert aller Elemente
+
+Vergleichen Sie mit Ihrer Nachbarperson – welche Varianten haben Sie gefunden?
 
 ### Arrays höherer Dimension
 
@@ -329,6 +393,18 @@ x = linspace(0, pi, 100)   % 100 Werte von 0 bis π
 ```
 → In Python: `np.linspace(0, np.pi, 100)` – gleiche Semantik!
 
+### Übung: Arrays erzeugen ✍️
+
+Erzeugen Sie die folgenden Arrays – es gibt jeweils mehr als einen Weg. Schreiben Sie mindestens zwei Varianten auf.
+
+**a)** Zeilenvektor: $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \end{pmatrix}$
+
+**b)** Spaltenvektor mit 4 Nullen: $\begin{pmatrix} 0 \\ 0 \\ 0 \\ 0 \end{pmatrix}$
+
+**c)** 3×3-Matrix, alle Einträge = 1
+
+**d)** Zeilenvektor: $\begin{pmatrix} 10 & 8 & 6 & 4 & 2 \end{pmatrix}$
+
 ### Vektoren für die Funktion `plot` erzeugen
 
 ```matlab
@@ -350,9 +426,9 @@ plot(x, y)
 
 ### Vektoren erzeugen – Aufgaben
 
-Erzeuge einen Vektor `x` mit äquidistanten Elementen von 2.0 bis 4.7, Abstand 0.02. Wie viele Elemente besitzt der Vektor?
+Erzeugen Sie einen Vektor `x` mit äquidistanten Elementen von 2.0 bis 4.7, Abstand 0.02. Wie viele Elemente besitzt der Vektor?
 
-Berechne für diesen Vektor folgende Funktionswerte (elementweise) und zeichne die Funktion mit `plot(x, y)`:
+Berechnen Sie für diesen Vektor folgende Funktionswerte (elementweise) und zeichnen Sie die Funktion mit `plot(x, y)`:
 
 - $f(x) = \sin(x) / x$
 - $f(x) = e^{-x} \cdot \cos(x)$
@@ -362,6 +438,24 @@ x = 2.0:0.02:4.7;
 length(x)             % Anzahl der Elemente
 ```
 
+### Übung: Code annotieren ✍️
+
+Ein Kollege hat folgenden MATLAB-Code zur Auswertung einer Kraftmessung geschrieben.
+**Schreiben Sie zu jeder Zeile einen deutschen Kommentar** – was berechnet sie, was bedeutet die Variable?
+
+```matlab
+x      = linspace(0, 1.5, 6);          % ?
+F      = [0, 420, 850, 1240, 830, 0];  % ?
+
+F_max  = max(F);                        % ?
+x_max  = x(F == F_max);                % ?
+F_norm = F / F_max;                    % ?
+x_krit = x(F > 0.8 * F_max);          % ?
+```
+
+Vergleichen Sie Ihre Annotationen mit Ihrer Nachbarperson. Wo gibt es Unterschiede?
+
+> 💡 Kontext: Biegebalken der Länge 1,5 m, Kraft F in Newton gemessen an 6 Punkten.
 
 ### Häufige Fehler
 
