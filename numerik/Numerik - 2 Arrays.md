@@ -157,7 +157,7 @@ A(2,3)                            % Element Zeile 2, Spalte 3
 A(2,:)                            % komplette Zeile 2
 A(:,3)                            % komplette Spalte 3
 A(1:2, 2:4)                       % Teilmatrix (Zeilen 1-2, Spalten 2-4)
-A(end)                            % letztes Element (linear indexing)
+A(end)                            % letztes Element
 ```
 
 **Manipulation:**
@@ -292,7 +292,7 @@ T = zeros(2, 3, 4);        % 2×3×4-Array mit Nullen initialisieren
 ### Operatoren und Arrays
 
 - Die meisten Operatoren und Funktionen wirken **elementweise** auf Arrays
-- Ausnahme: Matrizenmultiplikation `*`, Division `/`, Potenz `^`
+- Ausnahme: Matrizenmultiplikation `*` (→ nächste Folie)
 
 ```matlab
 >> A = [1,2; 3,4]
@@ -304,21 +304,40 @@ ans =
 >> y = sin([0, pi/6, pi/4, pi/3])
 ```
 
-### Operatoren – Dimensionsregeln
+### Operatoren – Dimensionsregeln: Fehlerfall
 
-- Elementweise Operationen nur für Arrays **gleicher Dimension** oder mit Skalar
+Elementweise Operationen schlagen fehl, wenn in einer Dimension beide Größen > 1 sind und **nicht übereinstimmen**:
 
 ```matlab
->> A = [1,2; 3,4]
->> B = A + 2      % Skalar: erlaubt
-B =
-    3   4
-    5   6
->> x = [2, 7]
->> A + x          % Fehler: Dimensionen stimmen nicht überein
+>> A = [1,2; 3,4]   % 2×2
+>> y = [1; 2; 3]    % 3×1 – 3 Zeilen passen nicht zu 2 Zeilen
+>> A + y
 Error using +
 Matrix dimensions must agree.
 ```
+
+→ Typischer Anfängerfehler: Spalten- statt Zeilenvektor, oder transponiert vergessen.
+
+### Operatoren – Dimensionsregeln: Implicit Expansion
+
+Seit R2016b expandiert MATLAB Arrays mit **kompatiblen** Dimensionen automatisch:
+
+> Kompatibel = in jeder Dimension gleich groß **oder** (mindestens) eine ist 1.
+
+```matlab
+>> A = [1,2; 3,4]      % 2×2
+>> A + 2               % Skalar (1×1): immer kompatibel
+ans =
+    3   4
+    5   6
+>> x = [2, 7]          % 1×2: kompatibel → x wird auf jede Zeile angewendet
+>> A + x
+ans =
+    3    9
+    5   11
+```
+
+→ Nützlich z. B. um von jeder Zeile einer Matrix einen Vektor zu subtrahieren.
 
 ### Multiplikation von Vektoren und Matrizen
 
@@ -327,9 +346,7 @@ Matrix dimensions must agree.
 | `c * A` | Skalarmultiplikation | alle Elemente × c |
 | `A * B` | Matrizenmultiplikation | aus der linearen Algebra |
 | `A .* B` | elementweise Multiplikation | A(i,j) × B(i,j) |
-| `A ^ n` | Matrizenpotenz | A\*A\*...\*A |
 | `A .^ n` | elementweise Potenz | A(i,j)^n |
-| `A / B` | Matrizendivision | A × B⁻¹ |
 | `A ./ B` | elementweise Division | A(i,j) / B(i,j) |
 
 ### Matrizenmultiplikation
@@ -379,9 +396,7 @@ Elementweise Operatoren: `.*`  `./`  `.^`
 |-----------|------------|--------------------|
 | Matrizenmultiplikation | `A * B` | `A @ B` |
 | Elementweise Multiplikation | `A .* B` | `A * B` |
-| Matrizenpotenz | `A ^ n` | `np.linalg.matrix_power(A, n)` |
 | Elementweise Potenz | `A .^ n` | `A ** n` |
-| Matrizendivision (A·B⁻¹) | `A / B` | `A @ np.linalg.inv(B)` |
 | Elementweise Division | `A ./ B` | `A / B` |
 
 
