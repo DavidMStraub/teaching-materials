@@ -105,7 +105,7 @@ Ein einfacher Zylinder – aber wie ist er intern aufgebaut?
 ### Topologie inspizieren
 
 ```python
-zylinder.show_topology()
+print(zylinder.show_topology())
 ```
 
 Ausgabe (vereinfacht):
@@ -170,7 +170,7 @@ Solid
 
 ```python
 v = zylinder.vertices()[0]
-print(type(v))       # <class 'build123d.topology.Vertex'>
+print(type(v))       # <class 'build123d.topology.zero_d.Vertex'>
 print(v.center())    # Position im Raum
 ```
 
@@ -539,10 +539,10 @@ Solid  →  Shell  →  Face  →  Wire  →  Edge  →  Vertex
 ### Selektoren in build123d
 
 ```python
-part.faces().sort_by(Axis.Z).last          # höchste Fläche
-part.edges().filter_by(GeomType.CIRCLE)    # Kreiskanten
-part.faces().group_by(SortBy.AREA)[-1]     # größte Flächen
-part.edges().filter_by_position(Axis.Z, 4, 6)  # Kanten in Bereich
+part.faces().sort_by(bd.Axis.Z).last              # höchste Fläche
+part.edges().filter_by(bd.GeomType.CIRCLE)        # Kreiskanten
+part.faces().group_by(bd.SortBy.AREA)[-1]         # größte Flächen
+part.edges().filter_by_position(bd.Axis.Z, 4, 6)  # Kanten in Bereich
 ```
 
 → **Robuste Selektion** durch semantische Kriterien statt Indizes
