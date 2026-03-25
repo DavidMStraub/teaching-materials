@@ -174,6 +174,8 @@ print(type(v))       # <class 'build123d.topology.Vertex'>
 print(v.center())    # Position im Raum
 ```
 
+![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/0/05/Vertex_edge_face_%28vertex%29.svg)
+
 ### Edge – die Kante
 
 - Eindimensionales Element
@@ -186,6 +188,9 @@ for k in kanten:
     print(k.geom_type)  # CIRCLE oder LINE oder ...
     print(k.length)
 ```
+
+![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/a/ab/Vertex_edge_face_%28edge%29.svg)
+
 
 ### Wire – der Kantenzug
 
@@ -200,6 +205,9 @@ print(len(wire.edges()), "Kanten im Wire")
 
 → Flächen können mehrere Wires haben: **äußere Kontur + innere Löcher**
 
+
+![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/0/0d/Cube_wire.svg)
+
 ### Face – die Fläche
 
 - Zweidimensionales Element
@@ -213,6 +221,9 @@ for f in flaechen:
     print(f.area)
 ```
 
+![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/5/51/Vertex_edge_face_%28face%29.svg)
+
+
 ### Shell – die Hülle
 
 - Zusammenhängende Menge von Faces (verbunden über gemeinsame Edges)
@@ -224,6 +235,8 @@ print(len(shell.faces()), "Flächen in der Shell")
 ```
 
 → Eine geschlossene Shell begrenzt ein Volumen
+
+![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/0/03/Cube_cad_shell.png)
 
 ### Solid – der Körper
 
@@ -237,6 +250,8 @@ print(solid.volume)  # Volumen in mm³
 print(solid.area)    # Oberfläche in mm²
 ```
 
+![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/6/64/Cube_cad_solid.png)
+
 ### Compound – die Sammlung
 
 - Container für **beliebige Objekte** (*Shapes*, auch gemischter Typen)
@@ -246,8 +261,9 @@ print(solid.area)    # Oberfläche in mm²
 ```python
 quader = bd.Box(30, 20, 10)
 gruppe = bd.Compound([zylinder, quader])
-print(len(gruppe.solids()), "Solide in der Gruppe")
+print(len(gruppe.solids()), "Solids in der Gruppe")
 ```
+
 
 ### Übersicht: Topologie-Hierarchie
 
