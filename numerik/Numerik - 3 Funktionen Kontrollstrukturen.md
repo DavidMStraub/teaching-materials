@@ -257,21 +257,6 @@ Was ist der Wert von `r` im Workspace nach dem Aufruf?
 | `\|\|` | `or` | ODER, short-circuit |
 | `~` | `not` | NICHT |
 
-### Short-Circuit: `&&` und `||`
-
-Auswertung stoppt, sobald Ergebnis feststeht – verhindert Fehler:
-
-```matlab
-x = 0;
-if x ~= 0 && 1/x > 2     % sicher: 1/x wird nicht ausgewertet
-if x ~= 0 & 1/x > 2      % FEHLER: Division durch Null!
-
-k = 10;  v = [1, 2, 3];
-if k <= length(v) && v(k) > 5   % sicher: Index wird erst geprüft
-```
-
-> **In Bedingungen** `&&` und `||` – **für Arrays** `&` und `|` (s.u.)
-
 ### `if` – Syntax
 
 ```matlab
@@ -360,6 +345,22 @@ x(x < 2 | x > 6)
 
 
 Was ist jeweils das Ergebnis? 
+
+
+
+### Short-Circuit: `&&` und `||`
+
+Auswertung stoppt, sobald Ergebnis feststeht – verhindert Fehler:
+
+```matlab
+v = [];
+result = ~isempty(v) && v(1) > 10   % sicher: v(1) wird nicht ausgewertet
+result = ~isempty(v) & v(1) > 10    % FEHLER: Index out of bounds!
+```
+
+`&` und `|` short-circuiten in `if`/`while` zwar auch – aber können bei nicht-skalaren Ausdrücken unerwartete Ergebnisse liefern.
+
+> Verwenden Sie in `if`/`else` **immer** `&&` und `||`! `&` und `|` nur für elementweise Array-Operationen
 
 
 ## `for`-Schleifen
