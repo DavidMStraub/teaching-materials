@@ -95,21 +95,47 @@ Wie lässt sich ein geometrisches Objekt mathematisch beschreiben?
 
 > CAD-Systeme verwenden ausschließlich die **parametrische** Darstellung – für Kurven und Flächen.
 
-### Parametrische Kurven
+### Tangentenvektor
 
 Eine Kurve im 3D-Raum als Funktion eines Parameters $u$:
 
 $$\mathbf{C}(u) = \begin{pmatrix} x(u) \\ y(u) \\ z(u) \end{pmatrix}, \qquad u \in [u_{\min},\; u_{\max}]$$
 
-**Abgeleitete Größen:**
+Der **Tangentenvektor** gibt Richtung und Geschwindigkeit entlang der Kurve an:
 
-- **Tangentenvektor:** $\quad\mathbf{T}(u) = \mathbf{C}'(u) = \dfrac{d\mathbf{C}}{du}$
+$$\mathbf{T}(u) = \mathbf{C}'(u) = \frac{d\mathbf{C}}{du}$$
 
-  Richtung und „Geschwindigkeit" entlang der Kurve
+- **Richtung:** zeigt in die momentane Bewegungsrichtung
+- **Länge** $|\mathbf{T}|$: „Geschwindigkeit“ im Parameterraum – hängt von der Parametrisierung ab
 
-- **Krümmung:** $\quad\kappa(u) = \dfrac{|\mathbf{C}' \times \mathbf{C}''|}{|\mathbf{C}'|^3}$
+### Bogenlänge
 
-  Wie stark biegt die Kurve? Kehrwert des Krümmungsradius.
+Die **Bogenlänge** $s$ misst die tatsächlich zurückgelegte Weglänge entlang der Kurve:
+
+$$s(u) = \int_{u_0}^{u} \bigl|\mathbf{C}'(\tilde{u})\bigr| \, d\tilde{u}, \qquad \frac{ds}{du} = |\mathbf{C}'(u)|$$
+
+**Bogenlängenparametrisierung** ($s$ als Parameter):
+
+$$\left|\frac{d\mathbf{C}}{ds}\right| = 1$$
+
+→ Tangentenvektor hat immer Länge 1
+
+→ Geometrisch „natürliche“ Parametrisierung; rechnerisch aufwändig
+
+### Krümmung
+
+Die **Krümmung** $\kappa$ misst, wie stark sich die Tangentenrichtung mit der zurückgelegten Weglänge ändert:
+
+$$\kappa = \left|\frac{d^2\mathbf{C}}{ds^2}\right|$$
+
+→ Bogenlängenparametrisierung
+
+Für beliebige Parametrisierung (via Kettenregel + Lagrange-Identität):
+
+$$\kappa(u) = \frac{|\mathbf{C}' \times \mathbf{C}''|}{|\mathbf{C}'|^3}$$
+
+- $\kappa = 0$: Gerade  $\quad|\quad$  $\kappa = 1/R$: Kreis mit Radius $R$
+- $R_K = 1/\kappa$: **Krümmungsradius** – Radius des anliegenden Kreises
 
 ### Der Parameterraum
 
@@ -135,7 +161,7 @@ Der **Normalenvektor** ergibt sich aus den Tangenten in $u$- und $v$-Richtung:
 
 $$\mathbf{n}(u,v) = \frac{\partial \mathbf{S}}{\partial u} \times \frac{\partial \mathbf{S}}{\partial v}$$
 
-→ Vorzeichen bestimmt, welche Seite „außen" ist (erinnert an Orientierung aus VL2)
+→ Vorzeichen bestimmt, welche Seite „außen“ ist (erinnert an Orientierung aus VL2)
 
 Die **Flächentypen** (Ebene, Zylinder, NURBS-Flächen, …) sind Thema von **Vorlesung 4**.
 
