@@ -95,6 +95,21 @@ Wie lässt sich ein geometrisches Objekt mathematisch beschreiben?
 
 > CAD-Systeme verwenden ausschließlich die **parametrische** Darstellung – für Kurven und Flächen.
 
+### Was kann man damit anstellen?
+
+Eine parametrische Kurve erlaubt geometrische **Anfragen**, die mit einer bloßen Formel nicht möglich wären:
+
+- Punkt und Tangentenvektor bei beliebigem $u$: $\mathbf{C}(u)$, $\mathbf{C}'(u)$
+- Bogenlänge zwischen zwei Parameterwerten
+- Krümmung $\kappa(u)$
+- Nächster Kurvenpunkt zu einem gegebenen Raumpunkt (Projektion)
+
+```python
+e.position_at(0.5)   # Punkt bei t = 0.5
+e.tangent_at(0.5)    # Tangentenvektor dort
+e.length             # Gesamtlänge
+```
+
 ### Tangentenvektor
 
 Eine Kurve im 3D-Raum als Funktion eines Parameters $u$:
@@ -282,17 +297,22 @@ Exakt durch eine geschlossene Formel beschreibbar:
 
 Für Standardkörper (`Box`, `Cylinder`, `Sphere`, …) reichen analytische Kurven vollständig aus.
 
-### Krümmung einer Kurve
+### Trimming: wie wird eine Kurve endlich?
 
-Die **Krümmung** $\kappa$ beschreibt, wie stark sich eine Kurve biegt:
+Analytische Kurven sind mathematisch **unbegrenzt** – eine Linie reicht von $-\infty$ bis $+\infty$.
 
-$$\kappa(u) = \frac{1}{R_K(u)} = \frac{|\mathbf{C}' \times \mathbf{C}''|}{|\mathbf{C}'|^3}$$
+Eine `Edge` ist immer ein **endliches Stück**: Kurve + Parameterintervall $[u_1,\, u_2]$
 
-- $R_K$: **Krümmungsradius** – Radius des anliegenden Kreises
-- Gerade: $\kappa = 0$ (unendlich flach)
-- Kreis (Radius $R$): $\kappa = 1/R$ überall **konstant**
+```
+Geom_Line (unendlich):   ────────────────────────────────
+                                  ↑             ↑
+                                 u₁            u₂
+Edge (getrimmt):                  ●─────────────●
+```
 
-Die Krümmungsverteilung entscheidet, wie geometrische Operationen (Versatz, Abrundung, Sweep) auf eine Kurve wirken.
+→ Dasselbe Kreisobjekt steckt hinter einem Halbkreis-Edge wie hinter einem Viertelkreis –
+nur das Intervall $[u_1, u_2]$ unterscheidet sie.
+
 
 ### Ellipse: variable Krümmung
 
@@ -306,7 +326,7 @@ An den vier Scheitelpunkten:
 | Ende der großen Halbachse ($u = 0°$) | $b/a^2$ | $a^2/b$ (flach) |
 | Ende der kleinen Halbachse ($u = 90°$) | $a/b^2$ | $b^2/a$ (stark gebogen) |
 
-→ Die Ellipse hat **keine** konstante Krümmung – im Gegensatz zum Kreis.
+→ Die Ellipse hat **keine** konstante Krümmung – im Gegensatz zum Kreis, und das entscheidet, wie Operationen wie Versatz oder Abrundung auf sie wirken.
 
 ## Beispiel: Versatz einer Kurve
 
@@ -325,7 +345,9 @@ $$\mathbf{C}_{\text{offset}}(u) = \mathbf{C}(u) + d \cdot \hat{\mathbf{n}}(u)$$
 
 Kreis (Radius $R$): alle Normalen zeigen durch den **Mittelpunkt** → der Versatz verschiebt den Radius gleichmäßig.
 
-$$R_{\text{offset}} = R + d \quad \longrightarrow \quad \text{wieder ein Kreis!}$$
+$$R_{\text{offset}} = R + d$$
+
+→ wieder ein Kreis!
 
 **Grund:** Konstante Krümmung → Normalen drehen gleichmäßig → Versatz ändert nur den Radius.
 
@@ -357,9 +379,8 @@ Bei **variabler Krümmung** (Ellipse) wirkt er ungleichmäßig:
 
 Daher brauchen CAD-Systeme eine Darstellung, die **beliebige** glatte Kurven beschreiben kann.
 
-## Zusammenfassung
 
-### Kernkonzepte dieser Vorlesung
+### Zusammenfassung
 
 - `Edge` trägt eine Kurve $\mathbf{C}(u)$, `Face` trägt eine Fläche $\mathbf{S}(u,v)$
 - Parametrische Darstellung: universell, eindeutig auswertbar
