@@ -152,6 +152,8 @@ $$\kappa(u) = \frac{|\mathbf{C}' \times \mathbf{C}''|}{|\mathbf{C}'|^3}$$
 - $\kappa = 0$: Gerade  $\quad|\quad$  $\kappa = 1/R$: Kreis mit Radius $R$
 - $R_K = 1/\kappa$: **Krümmungsradius** – Radius des anliegenden Kreises
 
+![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/8/84/Osculating_circle.svg)
+
 ### Der Parameterraum
 
 ```
