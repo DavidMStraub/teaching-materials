@@ -290,6 +290,22 @@ g(3, 4)            % → 5
 | Wann? | kurze Ausdrücke | mehrere Zeilen, Fallunterscheidungen |
 
 
+### ⚠️ Punkt-Operator ist Pflicht
+
+`fplot` und andere Funktionen übergeben **Vektoren** – ohne `.^`, `.*`, `./` rechnet Matlab mit Matrixoperationen und wirft einen Fehler:
+
+```matlab
+f = @(x) x^2 + 1;      % ❌ funktioniert nicht für Vektoren
+f = @(x) x.^2 + 1;     % ✅ elementweise – immer so schreiben
+```
+
+```matlab
+g = @(x) sin(x) .* exp(-x);    % ✅ beide Operanden vektorisiert
+```
+
+> Faustregel: Jedes `*`, `^`, `/` in einer Anonymous Function bekommt einen Punkt davor.
+
+
 ### Closure – Funktionen mit Parametern
 
 `integral`, `fzero`, `ode45` erwarten eine Funktion mit **einem** Argument.  
@@ -449,6 +465,16 @@ ylabel('Dehnung [mm/m]')
 ```
 
 Qualität des Fits beurteilen: Liegen die Messpunkte nah an der Kurve? Ist das Verhalten außerhalb des Messbereichs physikalisch sinnvoll?
+
+
+### 💡 Runges Phänomen – Polynome sind kein Allheilmittel
+
+Nicht jeder Zusammenhang lässt sich sinnvoll durch ein Polynom beschreiben. Zu hoher Grad führt zu starker Oszillation zwischen den Messpunkten, und außerhalb der Daten gehen Polynome immer gegen $\pm\infty$.
+
+
+
+![bg right:50% vertical fit](https://upload.wikimedia.org/wikipedia/commons/c/c4/Interpolation_der_Runge-Funktion_%28n%3D5%29.svg)
+![bg right:50% vertical fit](https://upload.wikimedia.org/wikipedia/commons/1/12/Myplot_p2.svg)
 
 
 ### Zusammenfassung
