@@ -33,9 +33,7 @@ David Straub
 1. Einführung in Matlab
 2. Arbeiten mit Arrays
 3. Funktionen und Kontrollstrukturen
-4. **Analysis**
-  - Polynome  👈
-  - Integration, Differentiation, Nullstellen
+4. **Analysis** 👈
 5. **Lineare Algebra** (Gleichungssysteme, Eigenwerte, ...)
 6. **Differentialgleichungen**
 7. **Einführung in Simulink**
@@ -75,7 +73,7 @@ Ingenieurprobleme führen fast immer auf Funktionen:
 
 Materialkennlinien, Biegelinien, Sensor-Kalibrierungen – viele physikalische Zusammenhänge lassen sich durch ein Polynom annähern:
 
-$$p(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0$$
+$$p(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n$$
 
 **Beispiel:** Federkennlinie (nichtlinear)
 
@@ -83,18 +81,38 @@ $$F(x) = 500\,x - 80\,x^2$$
 
 **Problem:** Wie werte ich $F(x)$ effizient für viele Werte aus? Und wie berechne ich Ableitung oder Integral?
 
-> Matlab speichert Polynome als Koeffizientenvektor – dann lassen sich alle Operationen einheitlich darauf anwenden.
+> Matlab speichert Polynome als Koeffizientenvektor – allerdings **nicht** in der Reihenfolge, die man aus der Mathematik kennt.
+
+
+### ⚠️ Achtung: Reihenfolge ist umgekehrt zur Mathematik
+
+In der Mathematik stehen die Koeffizienten **aufsteigend** (niedrigster Grad zuerst):
+
+$$p(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n \quad \longrightarrow \quad \texttt{[}a_0,\ a_1,\ \ldots,\ a_n\texttt{]}$$
+
+Matlab (und NumPy) speichern sie **absteigend** (höchster Grad zuerst):
+
+$$p(x) = a_n x^n + \cdots + a_1 x + a_0 \quad \longrightarrow \quad \texttt{[}a_n,\ \ldots,\ a_1,\ a_0\texttt{]}$$
+
+**Beispiel:** $p(x) = 1 - 2x + 3x^2$
+
+| Konvention | Vektor |
+|---|---|
+| Mathematik (aufsteigend) | `[1, -2, 3]` |
+| **Matlab (absteigend)** | **`[3, -2, 1]`** |
+
+> 💡 Eselsbrücke: In Matlab steht der **höchste Grad zuerst** – wie man ein Polynom beim Aufschreiben liest: $3x^2 - 2x + 1$.
 
 
 ### Darstellung als Koeffizientenvektor
 
-Ein Polynom wird durch den Vektor seiner Koeffizienten dargestellt – **absteigend** nach Potenz:
+Ein Polynom wird in Matlab durch den **absteigenden** Koeffizientenvektor dargestellt:
 
 $$p(x) = 3x^2 - 2x + 1 \quad \longrightarrow \quad \texttt{[3, -2, 1]}$$
 
 $$F(x) = 500\,x - 80\,x^2 \quad \longrightarrow \quad \texttt{[-80, 500, 0]}$$
 
-**Warum?** Weil Addition, Ableitung und Integral von Polynomen rein auf den Koeffizienten operieren – kein symbolisches Rechnen nötig:
+**Warum?** Weil Ableitung und Integral von Polynomen direkt auf den Koeffizienten operieren – kein symbolisches Rechnen nötig:
 
 $$p'(x) = a_n \cdot n \cdot x^{n-1} + \cdots + a_1 \quad \longrightarrow \quad \texttt{polyder(p)}$$
 
