@@ -55,11 +55,16 @@ $$R(\theta, \varphi) = \sum_{m,n} R_{m,n} \cos(m\theta - n\varphi), \qquad Z(\th
 ```python
 import numpy as np
 
-R_modes = np.array([[0,  0,  5.559], [1,  0,  0.491], [0,  5,  0.264], [1,  5, -0.251], [2, 10,  0.064]])
-Z_modes = np.array([[1,  0,  0.620], [0,  5, -0.238], [1,  5,  0.179], [2, 10, -0.056]])
+R_mn = np.array([[0, 0, 5.559], [1, 0, 0.491],
+    [0, 5, 0.264], [1, 5, -0.251], [2, 10, 0.064]])
+Z_mn = np.array([[1, 0, 0.620], [0, 5, -0.238],
+    [1, 5, 0.179], [2, 10, -0.056]])
 
-def R(theta, phi): return sum(c * np.cos(m*theta - n*phi) for m, n, c in R_modes)
-def Z(theta, phi): return sum(c * np.sin(m*theta - n*phi) for m, n, c in Z_modes)
+def R(theta, phi):
+    return sum(c * np.cos(m*theta - n*phi) for m, n, c in R_mn)
+
+def Z(theta, phi):
+    return sum(c * np.sin(m*theta - n*phi) for m, n, c in Z_mn)
 ```
 
 ## Darstellung der Grenzfläche
@@ -70,7 +75,7 @@ $$x=R(\theta, \varphi)\cos\varphi, \qquad y=R(\theta, \varphi)\sin\varphi, \qqua
 
 ```python
 n_t = n_p = 100
-# nt x np Arrays
+# n_t x n_p Arrays
 theta, phi = np.meshgrid(np.linspace(0, 2*np.pi, n_t), np.linspace(0, 2*np.pi, n_p))
 r = R(theta, phi)
 z = Z(theta, phi)
@@ -129,7 +134,7 @@ show([make_section(phi) for phi in phi_values])
 
 W7-X hat **5-fache toroidale Symmetrie** mit Spiegelsymmetrie pro Periode
 
-→ Halbe Periode $= 2\pi/10 = 36°$
+→ Halbe Periode $= 2\pi/10 = 36^{\circ}$
 
 ```python
 phi_values  = np.linspace(0, 2*np.pi/10, 20)
@@ -171,15 +176,31 @@ Das W7-X-Beispiel vom Beginn dieser Vorlesung illustriert das: Der Querschnitt d
 
 → Wir brauchen **Freiformkurven**: flexibel formbar, lokal steuerbar, für beliebige Geometrie geeignet.
 
+### Wiederholung: Parametrische Kurven
+
+Eine **parametrische Kurve** bildet einen Parameter $u$ auf einen Punkt im Raum ab:
+
+$$\boldsymbol{C}(u) = \begin{pmatrix} x(u) \\ y(u) \\ z(u) \end{pmatrix}, \qquad u \in [u_0,\, u_1]$$
+
+| Analytische Kurve | Parametrisierung |
+|---|---|
+| Linie | $\boldsymbol{C}(u) = \boldsymbol{P}_0 + u\,\boldsymbol{d}$ |
+| Kreis (Radius $r$) | $x = r\cos u,\quad y = r\sin u$ |
+| Ellipse | $x = a\cos u,\quad y = b\sin u$ |
+
+**Vorteile der Parameterdarstellung:**
+- Punkte, Tangenten, Krümmung durch einfache Ableitungen $\boldsymbol{C}'(u)$, $\boldsymbol{C}''(u)$
+- Einfach zu verkürzen und einen Punkt auf der Kurve zu finden
+
 ### Warum Polynome?
 
-Eine Kurve ist eine Funktion $\mathbf{P}(u) = (x(u),\, y(u),\, z(u))$ – aber welche Funktion wählt man?
+Eine Kurve ist eine Funktion $\boldsymbol{C}(u) = (x(u),\, y(u),\, z(u))$ – aber welche Funktion wählt man?
 
 | Ansatz | Problem |
 |---|---|
 | **Lineare Interpolation** | **Knicke** an jedem Stützpunkt |
 | Sinus, Kosinus | schwer zu verketten, teuer auszuwerten |
-| Interpolationspolynome | Runge-Phänomen: Oszillationen bei vielen Punkten |
+| Interpolationspolynome | Runge-Phänomen: [Oszillationen bei vielen Punkten](https://www.geogebra.org/m/qet5vqwy) |
 | **Polynome niedrigen Grades** | ✓ einfach, schnell, stabil – aber begrenzte Form |
 | **Stückweise Polynome** | ✓ flexibel, stabil, lokal kontrollierbar |
 
@@ -189,11 +210,11 @@ Eine Kurve ist eine Funktion $\mathbf{P}(u) = (x(u),\, y(u),\, z(u))$ – aber w
 
 Der naheliegende Ansatz: Koordinaten als Polynome in $u$,
 
-$$\mathbf{C}(u) = \sum_{i=0}^{n} \mathbf{a}_i\, u^i = \mathbf{a}_0 + \mathbf{a}_1 u + \mathbf{a}_2 u^2 + \cdots + \mathbf{a}_n u^n$$
+$$\boldsymbol{C}(u) = \sum_{i=0}^{n} \boldsymbol{a}_i\, u^i = \boldsymbol{a}_0 + \boldsymbol{a}_1 u + \boldsymbol{a}_2 u^2 + \cdots + \boldsymbol{a}_n u^n$$
 
 **Probleme der Potenzbasis:**
 
-- **Kein geometrischer Bezug:** Die Koeffizienten $\mathbf{a}_i$ haben keine anschauliche Bedeutung – man kann den Kurvenverlauf nicht aus ihnen ablesen
+- **Kein geometrischer Bezug:** Die Koeffizienten $\boldsymbol{a}_i$ haben keine anschauliche Bedeutung – man kann den Kurvenverlauf nicht aus ihnen ablesen
 - **Numerische Empfindlichkeit:** Bei hohen Graden reagiert die Kurvenform sehr sensibel auf kleine Änderungen einzelner Koeffizienten
 - **Schlechte Interaktivität:** Um eine Kurve zu ändern, muss man ein Gleichungssystem lösen
 
@@ -207,6 +228,7 @@ Anfang der **1960er Jahre** bei **Renault**:
 
 - Ziel: Karosserie-Design am Computer
 - 1962 publiziert
+- CAD-System: **UNISURF** (1968)
 
 **Idee:** Kontrollpunkte, die die Kurve *anziehen* – geometrisch intuitiv, numerisch stabil.
 
@@ -214,14 +236,14 @@ Anfang der **1960er Jahre** bei **Renault**:
 
 ![bg right:35%  90%](https://upload.wikimedia.org/wikipedia/commons/5/59/Bernstein_Polynomials.svg)
 
-$$\mathbf{P}(u) = \sum_{i=0}^{n} B_{i,n}(u)\, \mathbf{P}_i, \qquad B_{i,n}(u) = \binom{n}{i} u^i (1-u)^{n-i}, \quad u \in [0, 1]$$
+$$\boldsymbol{C}(u) = \sum_{i=0}^{n} B_{i,n}(u)\, \boldsymbol{P}_i, \qquad B_{i,n}(u) = \binom{n}{i} u^i (1-u)^{n-i}, \quad u \in [0, 1]$$
 
-- $\mathbf{P}_i$: **Kontrollpunkte** (bilden das Kontrollpolygon)
+- $\boldsymbol{P}_i$: **Kontrollpunkte** (bilden das Kontrollpolygon)
 - $B_{i,n}(u)$: **Bernstein-Basisfunktionen** – nicht-negativ, $\sum_i B_{i,n}(u) = 1$
 - Grad $n$ = Anzahl Kontrollpunkte $- 1$
 
 **Geometrische Interpretation:**
-$\mathbf{P}(u)$ ist stets eine **Konvexkombination** der Kontrollpunkte → die Kurve liegt immer innerhalb der konvexen Hülle des Kontrollpolygons.
+$\boldsymbol{C}(u)$ ist stets eine **Konvexkombination** der Kontrollpunkte → die Kurve liegt immer innerhalb der konvexen Hülle des Kontrollpolygons.
 
 ### Bézier-Kurven: Grade 1, 2 und 3
 
@@ -229,13 +251,13 @@ $\mathbf{P}(u)$ ist stets eine **Konvexkombination** der Kontrollpunkte → die 
 
 | Grad | Kontrollpunkte | Form |
 |---|---|---|
-| $n=1$ | $\mathbf{P}_0, \mathbf{P}_1$ | gerade Strecke |
-| $n=2$ | $\mathbf{P}_0, \mathbf{P}_1, \mathbf{P}_2$ | Parabel |
-| $n=3$ | $\mathbf{P}_0,\ldots,\mathbf{P}_3$ | kubische Kurve |
+| $n=1$ | $\boldsymbol{P}_0, \boldsymbol{P}_1$ | gerade Strecke |
+| $n=2$ | $\boldsymbol{P}_0, \boldsymbol{P}_1, \boldsymbol{P}_2$ | Parabel |
+| $n=3$ | $\boldsymbol{P}_0,\ldots,\boldsymbol{P}_3$ | kubische Kurve |
 
 **Eigenschaften:**
-- Kurve läuft durch $\mathbf{P}_0$ und $\mathbf{P}_n$
-- Tangente in $\mathbf{P}_0$: Richtung $\mathbf{P}_1 - \mathbf{P}_0$
+- Kurve läuft durch $\boldsymbol{P}_0$ und $\boldsymbol{P}_n$
+- Tangente in $\boldsymbol{P}_0$: Richtung $\boldsymbol{P}_1 - \boldsymbol{P}_0$
 - Kurve liegt in der **konvexen Hülle** der Kontrollpunkte
 
 🔗 [Interaktives Applet (GeoGebra)](https://www.geogebra.org/m/ek7RHvuc)
@@ -258,6 +280,9 @@ $\mathbf{P}(u)$ ist stets eine **Konvexkombination** der Kontrollpunkte → die 
 
 Beim Verbinden mehrerer Kurvenabschnitte bestimmt die **Anschlussbedingung** die wahrgenommene Qualität:
 
+**$C^k$**: $k$-te Ableitung von $\boldsymbol{C}(u)$ stetig (abh. von Parametrisierung)
+**$G^k$**: geometrisch stetig, unabh. von Parametrisierung
+
 | Grad | Bedingung | Effekt |
 |---|---|---|
 | $C^0$ | kein Spalt, keine Überlappung | Knick sichtbar |
@@ -265,7 +290,6 @@ Beim Verbinden mehrerer Kurvenabschnitte bestimmt die **Anschlussbedingung** die
 | $G^1$ | gleiche Tangentenrichtung (Betrag egal) | glatt, flexibler als $C^1$ |
 | $C^2$ / $G^2$ | gleiche Krümmung | reflexionsglatt |
 
-Für technische Anwendungen ist meist mindestens $C^2$ gefordert.
 
 ![bg vertical right:35% 95%](https://upload.wikimedia.org/wikipedia/commons/0/01/Kurven-g1-kontakt.svg)
 
@@ -286,30 +310,32 @@ $C^1$ (glatte Tangente) klingt ausreichend – reicht aber oft nicht:
 - $G^1$: `fillet` / Verrundung, Standard-Übergänge
 - $G^2$: Karosseriedesign, aerodynamische Flächen, Medizinprodukte
 
-In build123d: `Spline` erzeugt $C^2$ zwischen den Stützpunkten; Anschlusstangenten über `tangents=[...]` steuerbar.
+
 
 ### Stückweise Bézier – warum nicht?
 
 Mehrere Bézier-Segmente mit $C^2$ verbinden: geht, kostet aber viele Bedingungen.
 
-Bei zwei kubischen Bézier-Stücken $\mathbf{a}(u)$ und $\mathbf{b}(u)$ am Verbindungspunkt:
+Bei zwei kubischen Bézier-Stücken $\boldsymbol{a}(u)$ und $\boldsymbol{b}(u)$ am Verbindungspunkt:
 
 | Bedingung | Gleichung | Eingeschränkte Freiheitsgrade |
 |---|---|---|
-| $C^0$ | $\mathbf{a}_3 = \mathbf{b}_0$ | 1 Punkt fixiert |
-| $C^1$ | $\mathbf{a}_3 - \mathbf{a}_2 = \mathbf{b}_1 - \mathbf{b}_0$ | weiterer Punkt fixiert |
+| $C^0$ | $\boldsymbol{a}_3 = \boldsymbol{b}_0$ | 1 Punkt fixiert |
+| $C^1$ | $\boldsymbol{a}_3 - \boldsymbol{a}_2 = \boldsymbol{b}_1 - \boldsymbol{b}_0$ | weiterer Punkt fixiert |
 | $C^2$ | Krümmungsgleichheit | noch ein Punkt fixiert |
 
-→ Bei $C^2$ sind an jedem Verbindungspunkt **3 von 4 Kontrollpunkten** der benachbarten Segmente voneinander abhängig.
-Bei vielen Segmenten: das Gleichungssystem wächst und die Darstellung wird **ineffizient**.
+🔗 [Interaktives Applet (GeoGebra)](https://www.geogebra.org/m/phwdjsng)
 
-> Gesucht: eine Darstellung, die $C^2$-Stetigkeit **automatisch** erfüllt – ohne explizite Gleichungssysteme.
+→ Bei $C^2$ sind an jedem Verbindungspunkt **3 von 4 Kontrollpunkten** abhängig – bei vielen Segmenten ineffizient.
+
+> Gesucht: $C^2$-Stetigkeit **automatisch**, ohne Gleichungssystem.
+
 
 ### B-Spline-Kurven: Grundidee
 
 **Eine einzige Formel** für die gesamte Kurve – kein separates Stück pro Segment:
 
-$$\mathbf{P}(u) = \sum_{i=0}^{n} \mathbf{P}_i\, N_{i,k}(u)$$
+$$\boldsymbol{C}(u) = \sum_{i=0}^{n} \boldsymbol{P}_i\, N_{i,k}(u)$$
 
 Der **Knotenvektor** $T = [t_0, \ldots, t_{n+k}]$ teilt $u$ in Polynomstücke auf:
 
@@ -352,7 +378,7 @@ Jede Stufe: **eine Spannen breiterer Träger**, eine Stufe mehr Stetigkeit:
 
 ### B-Spline: lokaler Träger = lokale Kontrolle
 
-Da $N_{i,k}$ nur auf $k$ Spannen ungleich null ist, beeinflusst $\mathbf{P}_i$ **nur diesen Bereich** der Kurve:
+Da $N_{i,k}$ nur auf $k$ Spannen ungleich null ist, beeinflusst $\boldsymbol{P}_i$ **nur diesen Bereich** der Kurve:
 
 | | Stückw. Bézier | B-Spline |
 |---|---|---|
@@ -371,6 +397,22 @@ Eine **einzelne kubische Basisfunktion** $N_{i,3}(u)$ (Grad 3, Ordnung $k = 4$) 
 > **Analogie:** $N_{i,3}(u)$ ist das B-Spline-Äquivalent zur Bernstein-Basisfunktion $B_{i,n}(u)$ bei Bézier – aber mit **lokalem Träger** statt globalem.
 
 🔗 [Interaktives Applet (GeoGebra)](https://www.geogebra.org/m/yRHQgTfU)
+
+### Knotenvielfachheit
+
+Ein Knoten darf im Knotenvektor **mehrfach** vorkommen. Die Vielfachheit $k$ steuert die Stetigkeit an diesem Knoten:
+
+| Vielfachheit $k$ | Stetigkeit | Effekt |
+|---|---|---|
+| $1$ | $C^{p-1}$ | Standard – glatt (z. B. $C^2$ für kubisch) |
+| $p-1$ | $C^1$ | nur noch tangensstetig |
+| $p$ | $C^0$ | Knick – wie Bézier-Verbindungspunkt |
+| $p+1$ | – | Kurve läuft durch Kontrollpunkt |
+
+**Anwendungen:**
+- **Anfangs-/Endknoten:** Vielfachheit $p+1$ → Kurve startet/endet exakt im ersten/letzten Kontrollpunkt (*clamped* B-Spline)
+- **Scharfe Kante:** lokale Vielfachheit $p$ → gezielter Knick in der Kurve
+- **Bézier-Extraktion:** Vielfachheit $p$ an allen inneren Knoten → stückweise Bézier-Darstellung
 
 ### NURBS: Warum?
 
@@ -391,9 +433,12 @@ Ein B-Spline ist stückweise **polynomial**:
 $$x(t)^2 + y(t)^2 = r^2 \quad \forall t$$
 
 Sind $x(t)$, $y(t)$ Polynome vom Grad $p$, so ist $x(t)^2 + y(t)^2$ ein Polynom vom Grad $2p$.
+
 Dieses kann nur dann für **alle** $t$ konstant gleich $r^2$ sein, wenn alle nicht-konstanten Terme verschwinden – d. h. $x$ und $y$ wären konstant. **Widerspruch.**
 
 > Ein B-Spline kann einen Kreis nur **annähern**, niemals exakt darstellen.
+
+![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/1/17/Kr%C3%BCmmungskreis-Parabel.png)
 
 ### NURBS: rationale Parametrisierung des Kreises
 
@@ -403,7 +448,7 @@ $$x(t) = \frac{1-t^2}{1+t^2}, \qquad y(t) = \frac{2t}{1+t^2} \quad \Rightarrow \
 
 **Viertelkreis als quadratische NURBS** (exakt):
 
-| Kontrollpunkt | $\mathbf{P}_0 = (1,0)$ | $\mathbf{P}_1 = (1,1)$ | $\mathbf{P}_2 = (0,1)$ |
+| Kontrollpunkt | $\boldsymbol{P}_0 = (1,0)$ | $\boldsymbol{P}_1 = (1,1)$ | $\boldsymbol{P}_2 = (0,1)$ |
 |---|---|---|---|
 | Gewicht $h_i$ | $1$ | $\dfrac{\sqrt{2}}{2} \approx 0{,}707$ | $1$ |
 
@@ -413,10 +458,10 @@ Das reduzierte Gewicht $h_1 < 1$ „zieht" die Kurve vom Kontrollpunkt weg – g
 
 Erweiterung des B-Spline um **Gewichte** $h_i > 0$:
 
-$$\mathbf{P}(u) = \frac{\displaystyle\sum_{i=0}^{n} h_i\, \mathbf{P}_i\, N_{i,k}(u)}{\displaystyle\sum_{i=0}^{n} h_i\, N_{i,k}(u)}$$
+$$\boldsymbol{C}(u) = \frac{\displaystyle\sum_{i=0}^{n} h_i\, \boldsymbol{P}_i\, N_{i,k}(u)}{\displaystyle\sum_{i=0}^{n} h_i\, N_{i,k}(u)}$$
 
 - $h_i = 1$ für alle $i$ → normaler B-Spline (Spezialfall)
-- Größeres $h_i$ → Kurve nähert sich stärker dem Kontrollpunkt $\mathbf{P}_i$
+- Größeres $h_i$ → Kurve nähert sich stärker dem Kontrollpunkt $\boldsymbol{P}_i$
 
 **Entscheidender Vorteil:**
 
@@ -425,7 +470,7 @@ $$\mathbf{P}(u) = \frac{\displaystyle\sum_{i=0}^{n} h_i\, \mathbf{P}_i\, N_{i,k}
 
 ### NURBS: die universelle Darstellung
 
-$$\text{Linie / Kreis} \;\subset\; \text{Bézier} \;\subset\; \text{B-Spline} \;\subset\; \text{NURBS}$$
+**Linie / Kreis ⊂ Bézier ⊂ B-Spline ⊂ NURBS**
 
 Alle analytischen Kurven sind Spezialfälle von NURBS – daher ist NURBS der **einheitliche Standard** in industriellen CAD-Systemen (CATIA, SolidWorks, NX, OCCT).
 
@@ -473,7 +518,7 @@ Welche `geom_type`-Werte erscheinen neu? Warum auch `SPHERE`?
 
 Jede Fläche ist eine Funktion von zwei Parametern $u$ und $v$:
 
-$$\mathbf{S}(u, v) = \begin{pmatrix} x(u,v) \\ y(u,v) \\ z(u,v) \end{pmatrix}, \qquad u \in [u_0, u_1],\quad v \in [v_0, v_1]$$
+$$\boldsymbol{S}(u, v) = \begin{pmatrix} x(u,v) \\ y(u,v) \\ z(u,v) \end{pmatrix}, \qquad u \in [u_0, u_1],\quad v \in [v_0, v_1]$$
 
 Jede `Face` in einem B-Rep-Modell trägt eine solche parametrische Fläche.
 
@@ -484,7 +529,7 @@ Exakt durch eine geschlossene Formel beschreibbar:
 | Typ | Charakteristik | `geom_type` | build123d |
 |---|---|---|---|
 | Ebene | konstante Normale | `PLANE` | `Box`, `Rectangle` |
-| Zylinder | $\mathbf{S}(u,v) = \mathbf{C} + R\cos u\,\mathbf{e}_1 + R\sin u\,\mathbf{e}_2 + v\,\mathbf{e}_3$ | `CYLINDER` | `Cylinder` |
+| Zylinder | $\boldsymbol{S}(u,v) = \boldsymbol{C} + R\cos u\,\boldsymbol{e}_1 + R\sin u\,\boldsymbol{e}_2 + v\,\boldsymbol{e}_3$ | `CYLINDER` | `Cylinder` |
 | Kegel | wie Zylinder, $R = R(v)$ | `CONE` | `Cone` |
 | Kugel | $R(\cos u\cos v,\,\sin u\cos v,\,\sin v)$ | `SPHERE` | `Sphere` |
 | Torus | Kreisring um Achse | `TORUS` | `Torus` |
@@ -508,15 +553,13 @@ Entstehen durch Bewegung eines **Profils** entlang einer **Leitkurve**:
 
 Verallgemeinerung der NURBS-Kurve auf zwei Parameter:
 
-$$\mathbf{S}(u, v) = \frac{\displaystyle\sum_i \sum_j h_{ij}\, \mathbf{P}_{ij}\, N_{i,p}(u)\, N_{j,q}(v)}{\displaystyle\sum_i \sum_j h_{ij}\, N_{i,p}(u)\, N_{j,q}(v)}$$
+$$\boldsymbol{S}(u, v) = \frac{\displaystyle\sum_i \sum_j h_{ij}\, \boldsymbol{P}_{ij}\, N_{i,p}(u)\, N_{j,q}(v)}{\displaystyle\sum_i \sum_j h_{ij}\, N_{i,p}(u)\, N_{j,q}(v)}$$
 
-- **Kontrollpunktnetz** $\mathbf{P}_{ij}$: 2D-Gitter statt 1D-Liste
-- Gewichte $h_{ij}$, Knotenvektor in $u$- und $v$-Richtung
-- Enthält alle analytischen Flächen als Spezialfall
+- **Kontrollpunktnetz** $\boldsymbol{P}_{ij}$: 2D-Gitter statt 1D-Liste
+- Spezialfall $h_{ij} = 1$: Nenner = 1 (da $\sum_i N_{i,p}(u) = 1$) → **B-Spline-Fläche**
+- In OCCT: `geom_type == 'BSPLINE'` gilt für beide Fälle – B-Spline und NURBS sind dieselbe Klasse
 
-**Anwendungen:** Karosserie, Strömungsflächen, Tragflügel, Medizinprodukte
-
-**In build123d:** Nach Sweep, Loft oder Offset erscheint `geom_type == 'BSPLINE'` auf den Flächen.
+**Anwendungen:** Karosserie, Strömungsflächen, Tragflügel, Medizinprodukte, ...
 
 ### Stetigkeitsbedingungen bei Flächen
 
