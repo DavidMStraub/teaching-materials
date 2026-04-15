@@ -199,19 +199,14 @@ $$\mathbf{C}(u) = \sum_{i=0}^{n} \mathbf{a}_i\, u^i = \mathbf{a}_0 + \mathbf{a}_
 
 → Gesucht: eine Basis, deren Parameter **direkt geometrische Bedeutung** haben.
 
-### Pierre Bézier und Paul de Casteljau
+### Pierre Bézier
 
-![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/8/88/Mondial_de_l%27Automobile_2010%2C_Paris_-_France_%285058825908%29.jpg)
+![bg right:45% 80%](https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Peugeot_204_front_20120630.jpg/1280px-Peugeot_204_front_20120630.jpg)
 
-Anfang der **1960er Jahre**, unabhängig voneinander:
+Anfang der **1960er Jahre** bei **Renault**:
 
-| | Paul de Casteljau | Pierre Bézier |
-|---|---|---|
-| **Unternehmen** | Citroën | Renault |
-| **Ziel** | Karosserie-Design am Computer | Karosserie-Design am Computer |
-| **Veröffentlichung** | verzögert (Betriebsgeheimnis) | 1962 publiziert |
-
-→ Die Methode trägt Béziers Namen, de Casteljaus Algorithmus ist die Grundlage der effizienten Auswertung.
+- Ziel: Karosserie-Design am Computer
+- 1962 publiziert
 
 **Idee:** Kontrollpunkte, die die Kurve *anziehen* – geometrisch intuitiv, numerisch stabil.
 
@@ -388,6 +383,31 @@ Das zeigt: B-Splines sind **nicht allgemein genug** für alle Kurvenformen.
 **Hinweis:** OCCT speichert Kreise intern trotzdem als `CIRCLE` (analytisch, exakt) – nicht als B-Spline. Aber: CAD-Systeme, die intern *nur* eine Kurvenart verwenden, brauchen eine Darstellung, die auch Kreise exakt abdeckt.
 
 → Lösung: **Gewichte** hinzufügen → NURBS kann Kreise, Kegelschnitte und Freiformkurven **in einem Format** darstellen.
+
+### Warum kein Polynom für den Kreis?
+
+Ein B-Spline ist stückweise **polynomial**:
+
+$$x(t)^2 + y(t)^2 = r^2 \quad \forall t$$
+
+Sind $x(t)$, $y(t)$ Polynome vom Grad $p$, so ist $x(t)^2 + y(t)^2$ ein Polynom vom Grad $2p$.
+Dieses kann nur dann für **alle** $t$ konstant gleich $r^2$ sein, wenn alle nicht-konstanten Terme verschwinden – d. h. $x$ und $y$ wären konstant. **Widerspruch.**
+
+> Ein B-Spline kann einen Kreis nur **annähern**, niemals exakt darstellen.
+
+### NURBS: rationale Parametrisierung des Kreises
+
+**Rationale** Funktionen (Quotient zweier Polynome) umgehen dieses Problem:
+
+$$x(t) = \frac{1-t^2}{1+t^2}, \qquad y(t) = \frac{2t}{1+t^2} \quad \Rightarrow \quad x^2 + y^2 = 1 \checkmark$$
+
+**Viertelkreis als quadratische NURBS** (exakt):
+
+| Kontrollpunkt | $\mathbf{P}_0 = (1,0)$ | $\mathbf{P}_1 = (1,1)$ | $\mathbf{P}_2 = (0,1)$ |
+|---|---|---|---|
+| Gewicht $h_i$ | $1$ | $\dfrac{\sqrt{2}}{2} \approx 0{,}707$ | $1$ |
+
+Das reduzierte Gewicht $h_1 < 1$ „zieht" die Kurve vom Kontrollpunkt weg – genau so, dass der Kreisbogen entsteht.
 
 ### NURBS – Non-Uniform Rational B-Splines
 
