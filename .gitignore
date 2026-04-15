@@ -1,5 +1,7 @@
 # Generated HTML files from markdown conversion
 *.html
+!cax-programmierung/w7x_lcfs.html
+!cax-programmierung/w7x_lcfs_coarse.html
 
 # Generated PDF files from markdown conversion
 *.pdf
