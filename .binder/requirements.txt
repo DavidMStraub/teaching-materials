@@ -6,3 +6,4 @@ cadquery>=2.7.0,<3.0.0
 build123d>=0.10.0,<1.0.0
 jupyter-cadquery>=4.0.2
 ocp-vscode
+plotly>=6.0.0

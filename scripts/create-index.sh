@@ -192,7 +192,10 @@ create_sub_index() {
         if [[ "$(basename "$file")" != "index.html" ]]; then
             basename="${file%.html}"
             basename="${basename#$course_dir/}"
-            course_presentations["$basename"]="${course_presentations[$basename]:-}|html"
+            # Only include HTML files that have a corresponding .md source (skip iframe-only files)
+            if [[ -f "$course_dir/$basename.md" ]]; then
+                course_presentations["$basename"]="${course_presentations[$basename]:-}|html"
+            fi
         fi
     done < <(find "$course_dir" -maxdepth 1 -name "*.html" -print0 2>/dev/null)
     
