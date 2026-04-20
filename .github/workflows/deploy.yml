@@ -71,24 +71,53 @@ jobs:
             librsvg2-bin
         continue-on-error: false
 
+      - name: Restore PDF cache
+        # Restores previously built PDFs and the success manifest from the last run.
+        # restore-keys finds the latest matching cache even if the exact key doesn't exist yet.
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            **/*.pdf
+            ~/.cache/pdf-manifest.txt
+          key: ${{ runner.os }}-pdf-v1-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-pdf-v1-
+
       - name: Convert Markdown to PDF
         run: |
           chmod +x scripts/convert-to-pdf.sh
-          
-          # Convert markdown files to PDF (recursively, with selective PDF generation)
+          # Manifest format: "<sha256hash>\t<filepath>" — one line per successfully compiled file.
+          # A file is skipped only if its hash matches the manifest AND the PDF exists.
+          # On failure the entry is removed, so the next run retries even without a file change.
+          MANIFEST="$HOME/.cache/pdf-manifest.txt"
+          touch "$MANIFEST"
+
           find . -name "*.md" -type f | while read -r file; do
-            # Skip README and LICENSE files
             basename_file=$(basename "$file")
-            if [ "$basename_file" != "README.md" ] && [ "$basename_file" != "LICENSE.md" ]; then
-              # Check if PDF generation is enabled in frontmatter (defaults to true)
-              pdf_enabled=$(awk '/^---$/ {in_fm=1; next} in_fm && /^---$/ {exit} in_fm && /^pdf:/ {gsub(/^pdf:[ \t]*/, ""); gsub(/[ \t"]*$/, ""); print; found=1} END {if (!found) print "true"}' "$file")
-              
-              if [ "$pdf_enabled" != "false" ]; then
-                echo "Converting $file to PDF..."
-                ./scripts/convert-to-pdf.sh "$file" || echo "Warning: Failed to convert $file"
-              else
-                echo "Skipping PDF generation for $file (pdf: false in frontmatter)"
-              fi
+            if [ "$basename_file" = "README.md" ] || [ "$basename_file" = "LICENSE.md" ]; then
+              continue
+            fi
+
+            pdf_enabled=$(awk '/^---$/ {in_fm=1; next} in_fm && /^---$/ {exit} in_fm && /^pdf:/ {gsub(/^pdf:[ \t]*/, ""); gsub(/[ \t"]*$/, ""); print; found=1} END {if (!found) print "true"}' "$file")
+            [ "$pdf_enabled" = "false" ] && echo "Skipping $file (pdf: false)" && continue
+
+            FILE_HASH=$(sha256sum "$file" | cut -d' ' -f1)
+            PDF_FILE="${file%.md}.pdf"
+            STORED_HASH=$(awk -v p="$file" -F'\t' '$2==p {print $1; exit}' "$MANIFEST")
+
+            if [ "$STORED_HASH" = "$FILE_HASH" ] && [ -f "$PDF_FILE" ]; then
+              echo "Skipping $file (unchanged, PDF exists)"
+              continue
+            fi
+
+            echo "Converting $file to PDF..."
+            if ./scripts/convert-to-pdf.sh "$file"; then
+              awk -v p="$file" -F'\t' '$2 != p' "$MANIFEST" > "$MANIFEST.tmp" && mv "$MANIFEST.tmp" "$MANIFEST"
+              printf '%s\t%s\n' "$FILE_HASH" "$file" >> "$MANIFEST"
+            else
+              # Remove entry so the next run retries this file
+              awk -v p="$file" -F'\t' '$2 != p' "$MANIFEST" > "$MANIFEST.tmp" && mv "$MANIFEST.tmp" "$MANIFEST"
+              echo "Warning: Failed to convert $file"
             fi
           done
         continue-on-error: true
@@ -99,6 +128,15 @@ jobs:
         with:
           path: ~/.cache/public-slides-images
           key: ${{ runner.os }}-images-${{ github.run_id }}
+
+      - name: Save PDF cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            **/*.pdf
+            ~/.cache/pdf-manifest.txt
+          key: ${{ runner.os }}-pdf-v1-${{ github.run_id }}
 
       - name: Generate Index
         run: |
