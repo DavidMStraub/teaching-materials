@@ -212,7 +212,6 @@ git push -u origin fix-validierung
 
 *Denkfrage:* Was wäre ein sinnvolles Review-Kriterium in Ihrem Projekt?
 
-
 ## Zusammenfassung
 
 ### Kernkonzepte

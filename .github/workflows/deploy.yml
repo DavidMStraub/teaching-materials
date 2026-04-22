@@ -72,13 +72,8 @@ jobs:
             librsvg2-bin
           version: 1.0
 
-      - name: Initialize XeTeX format files
-        run: |
-          # Generate XeTeX format files needed for PDF compilation
-          # Use user mode since system mode requires write access to /var/lib/texmf
-          fmtutil-user --all || true
-          # Verify xelatex is working
-          xelatex --version
+      - name: Verify XeTeX installation
+        run: xelatex --version
 
       - name: Restore PDF cache
         # Restores previously built PDFs and the success manifest from the last run.
