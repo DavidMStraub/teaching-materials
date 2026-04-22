@@ -40,6 +40,25 @@ jobs:
           chmod +x scripts/convert-to-html.sh
           ./scripts/convert-to-html.sh
 
+      - name: Clean up orphaned HTML/PDF files
+        run: |
+          # Remove HTML files without corresponding .md source
+          find . -name "*.html" -type f ! -name "index.html" | while read -r html; do
+            md="${html%.html}.md"
+            if [ ! -f "$md" ]; then
+              echo "Removing orphaned HTML: $html"
+              rm -f "$html"
+            fi
+          done
+          # Remove PDF files without corresponding .md source
+          find . -name "*.pdf" -type f | while read -r pdf; do
+            md="${pdf%.pdf}.md"
+            if [ ! -f "$md" ]; then
+              echo "Removing orphaned PDF: $pdf"
+              rm -f "$pdf"
+            fi
+          done
+
       - name: Create cache directory
         run: mkdir -p ~/.cache/public-slides-images
 
@@ -71,6 +90,13 @@ jobs:
             fonts-firacode
             librsvg2-bin
           version: 1.0
+
+      - name: Initialize XeTeX format files
+        run: |
+          # Generate XeTeX format files needed for PDF compilation
+          fmtutil-sys --all || fmtutil --all || true
+          # Verify xelatex is working
+          xelatex --version
 
       - name: Restore PDF cache
         # Restores previously built PDFs and the success manifest from the last run.
