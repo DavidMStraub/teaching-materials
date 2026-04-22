@@ -40,25 +40,6 @@ jobs:
           chmod +x scripts/convert-to-html.sh
           ./scripts/convert-to-html.sh
 
-      - name: Clean up orphaned HTML/PDF files
-        run: |
-          # Remove HTML files without corresponding .md source
-          find . -name "*.html" -type f ! -name "index.html" | while read -r html; do
-            md="${html%.html}.md"
-            if [ ! -f "$md" ]; then
-              echo "Removing orphaned HTML: $html"
-              rm -f "$html"
-            fi
-          done
-          # Remove PDF files without corresponding .md source
-          find . -name "*.pdf" -type f | while read -r pdf; do
-            md="${pdf%.pdf}.md"
-            if [ ! -f "$md" ]; then
-              echo "Removing orphaned PDF: $pdf"
-              rm -f "$pdf"
-            fi
-          done
-
       - name: Create cache directory
         run: mkdir -p ~/.cache/public-slides-images
 
@@ -94,7 +75,8 @@ jobs:
       - name: Initialize XeTeX format files
         run: |
           # Generate XeTeX format files needed for PDF compilation
-          fmtutil-sys --all || fmtutil --all || true
+          # Use user mode since system mode requires write access to /var/lib/texmf
+          fmtutil-user --all || true
           # Verify xelatex is working
           xelatex --version
 
@@ -109,6 +91,25 @@ jobs:
           key: ${{ runner.os }}-pdf-v1-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-pdf-v1-
+
+      - name: Clean up orphaned HTML/PDF files
+        run: |
+          # Remove HTML files without corresponding .md source
+          find . -name "*.html" -type f ! -name "index.html" | while read -r html; do
+            md="${html%.html}.md"
+            if [ ! -f "$md" ]; then
+              echo "Removing orphaned HTML: $html"
+              rm -f "$html"
+            fi
+          done
+          # Remove PDF files without corresponding .md source (includes cached PDFs)
+          find . -name "*.pdf" -type f | while read -r pdf; do
+            md="${pdf%.pdf}.md"
+            if [ ! -f "$md" ]; then
+              echo "Removing orphaned PDF: $pdf"
+              rm -f "$pdf"
+            fi
+          done
 
       - name: Convert Markdown to PDF
         run: |
