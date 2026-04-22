@@ -26,7 +26,7 @@ David Straub
 ![bg right:66% 90%](assets/extrude_revolve_sweep_loft.png)
 
 ## Modellierungsstrategien I
-O
+
 - Feature-basiertes Modellieren
 - Konstruktionsebenen (Workplanes)
 - **Extrude:** 2D-Profil → 3D-Körper
@@ -115,7 +115,7 @@ Standard-Zentrierung in Z bettet die Hälfte des Zapfens im Körper ein.
 ## Übung 1: Prismatische Batteriezelle
 
 Prismatische LFP-Zellen: Quadergehäuse, zwei Terminals oben.
-Maße angelehnt an **100-Ah-Klasse** (CATL LF105, Eve LF105).
+Maße angelehnt an **100-Ah-Klasse**.
 
 | Maß | Wert |
 |-----|------|
@@ -125,6 +125,8 @@ Maße angelehnt an **100-Ah-Klasse** (CATL LF105, Eve LF105).
 | Terminal-Radius | 4 mm |
 | Terminal-Höhe | 5 mm |
 | Terminal-Abstand | 97 mm |
+
+![bg right:30% 90%](https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/CATL_Lifepo4_302Ah.jpg/960px-CATL_Lifepo4_302Ah.jpg)
 
 ### Aufgabe 1.1 – Einzelne Zelle
 
@@ -167,9 +169,10 @@ Setzen Sie `n_zellen` Zellen in den Halter ein – als Baugruppe, nicht als vers
 | `Sketch` | Compound aus Faces | 2D |
 | `Part` | Compound aus Solids | 3D |
 
-`Wire` → `make_face()` → `Sketch` → `extrude()` / `revolve()` → `Part`
+`Polyline` / `Line` / `Arc` → `Wire` → `make_face()` → `Sketch` → `extrude()` / `revolve()` → `Part`
 
 Alle drei sind Unterklassen von `Compound` – benannte Container für Geometrie einer Dimension.
+`Curve` ist hauptsächlich im Builder-Modus relevant; im Functional API arbeitet man direkt mit `Wire`.
 
 ### extrude() – Profil zu Körper
 
@@ -177,7 +180,7 @@ Alle drei sind Unterklassen von `Compound` – benannte Container für Geometrie
 extrude(profil: Sketch, amount: float) -> Part
 ```
 
-Das Profil muss eine **geschlossene Fläche** (`Sketch`) sein – kein Draht, keine Kurve.
+Das Profil muss eine **geschlossene Fläche** (`Sketch`) sein – kein *Wire*, keine *Curve*.
 
 ```python
 wandstaerke, breite, hoehe, laenge = 1.5, 27, 91, 148
@@ -253,16 +256,18 @@ profil = make_face(kurve)
 
 ## Übung 2: Zylindrische Batteriezelle (18650)
 
-**18650:** ∅ 18 mm, Höhe 65 mm – meistverwendeter zylindrischer Zellentyp (Tesla, Laptops, E-Bikes)
+**18650:** ∅ 18 mm, Höhe 65 mm – meistverwendeter zylindrischer Zellentyp (Tesla, BMW, Laptops, E-Bikes)
 
-| Maß | 18650 | 21700 |
-|-----|-------|-------|
-| Außenradius | 9,0 mm | 10,5 mm |
-| Höhe | 65,0 mm | 70,0 mm |
-| Terminal-Radius | 2,5 mm | 3,0 mm |
-| Terminal-Höhe | 1,0 mm | 1,2 mm |
+| Maß | 18650 | 2170 | 4680 |
+|-----|-------|-------|-------|
+| Außenradius | 9,0 mm | 10,5 mm | 23,0 mm |
+| Höhe | 65,0 mm | 70,0 mm | 91,0 mm |
+| Terminal-Radius | 2,5 mm | 3,0 mm | 4,5 mm |
+| Terminal-Höhe | 1,0 mm | 1,2 mm | 1,8 mm |
 
-Nachfolger **21700**: nur Parameter anpassen, Code identisch.
+Nachfolger **2170**, **4680**: nur Parameter anpassen, Code identisch.
+
+![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/f/f4/Tesla_4680_2170_18650_batteries.svg)
 
 ### Aufgabe 2.1 – Halbprofil und Revolve
 
@@ -274,7 +279,7 @@ Parameter: `r_aussen=9.0`, `h_zelle=65.0`, `r_terminal=2.5`, `h_terminal=1.0` (m
 
 *Prüfen:* Wie viele Flächen hat `zelle_rund`? Welche `geom_type`-Werte kommen vor?
 
-*Variation:* Ändern Sie auf 21700-Maße – was muss angepasst werden?
+*Variation:* Ändern Sie auf 2170-Maße – was muss angepasst werden?
 
 ### Aufgabe 2.2 – Crimping-Nut *(Zusatz)*
 
