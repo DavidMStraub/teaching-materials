@@ -16,12 +16,13 @@ permissions:
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,18 +59,18 @@ jobs:
           pandoc --version
 
       - name: Install PDF dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            texlive-xetex \
-            texlive-fonts-recommended \
-            texlive-fonts-extra \
-            texlive-latex-extra \
-            inkscape \
-            curl \
-            fonts-firacode \
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: >-
+            texlive-xetex
+            texlive-fonts-recommended
+            texlive-fonts-extra
+            texlive-latex-extra
+            inkscape
+            curl
+            fonts-firacode
             librsvg2-bin
-        continue-on-error: false
+          version: 1.0
 
       - name: Restore PDF cache
         # Restores previously built PDFs and the success manifest from the last run.
