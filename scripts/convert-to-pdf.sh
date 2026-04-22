@@ -64,13 +64,12 @@ cp "$INPUT_FILE" "$TEMP_MD"
 # Find all image URLs in the markdown file (SVG, PNG, JPG, etc.)
 echo "Searching for images..."
 
-# Create Lua filter to extract URLs
+# Create Lua filter to extract URLs (both remote and local)
 EXTRACT_LUA="$TEMP_DIR/extract_urls.lua"
 cat > "$EXTRACT_LUA" << 'EOF'
 function Image(el)
-  if string.match(el.src, "^http") then
-    io.stderr:write("URL: " .. el.src .. "\n")
-  end
+  -- Extract all image sources (both http/https and relative/local paths)
+  io.stderr:write("URL: " .. el.src .. "\n")
 end
 EOF
 
