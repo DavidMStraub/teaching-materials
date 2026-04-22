@@ -72,8 +72,8 @@ jobs:
             librsvg2-bin
           version: 1.0
 
-      - name: Verify XeTeX installation
-        run: xelatex --version
+      - name: Initialize XeTeX format files
+        run: sudo fmtutil-sys --all
 
       - name: Restore PDF cache
         # Restores previously built PDFs and the success manifest from the last run.
