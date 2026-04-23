@@ -4,7 +4,6 @@
 from build123d import *
 ```
 
----
 
 ## Geometry Primitives
 
@@ -15,7 +14,6 @@ from build123d import *
 - **Plane** — `Plane.XY / .XZ / .YZ` · `Plane.XY.offset(10)` · `Plane(face)`
 - **Units** — `MM CM M IN FT` — e.g. `2 * IN`
 
----
 
 ## Shape Constructors
 
@@ -53,7 +51,6 @@ wire = Polyline((0,0),(10,0),(10,5),(0,5),(0,0))
 face = make_face(wire)              # Sketch
 ```
 
----
 
 ## Operators
 
@@ -71,7 +68,6 @@ face = make_face(wire)              # Sketch
 combined = Part() + [Pos(i*15, 0) * Box(10,10,5) for i in range(4)]
 ```
 
----
 
 ## Sketch → Solid
 
@@ -90,7 +86,6 @@ section = (path ^ 0) * Circle(3)                  # align to path start
 sweep(section, path=path)                          # pipe along path
 ```
 
----
 
 ## Topology Selectors (`ShapeList`)
 
@@ -106,7 +101,6 @@ part.vertices()   part.edges()   part.wires()   part.faces()   part.solids()
 - `.group_by(SortBy.LENGTH)[-1]` — group; last group = longest
 - `.first` / `.last` — first/last after sort
 
----
 
 ## Modifications
 
@@ -136,7 +130,6 @@ hemisphere = split(Sphere(10), bisect_by=Plane.XY, keep=Keep.TOP)
 sketch = section(part, section_by=Plane.XZ, height=5)
 ```
 
----
 
 ## Holes
 
@@ -151,7 +144,6 @@ part -= top * Pos(5, 5)  * CounterSinkHole(radius=1.5, counter_sink_radius=3,
 # depth=None → through all
 ```
 
----
 
 ## Location Generators
 
@@ -166,7 +158,6 @@ locs = PolarLocations(radius=20, count=6)
 part -= [top * loc * Hole(radius=2, depth=5) for loc in locs]
 ```
 
----
 
 ## Placing on Faces
 
@@ -176,7 +167,6 @@ top_plane = Plane(base.faces().sort_by(Axis.Z).last)
 result = base + top_plane * Cylinder(3, 5)       # boss on top face
 ```
 
----
 
 ## Assemblies & Color
 
@@ -189,7 +179,6 @@ part.color = Color(0.2, 0.6, 1.0)          # RGB 0..1
 part.color = Color("red", alpha=0.5)
 ```
 
----
 
 ## Import / Export
 
@@ -207,7 +196,6 @@ show(part)
 show(a, b, c, names=["a","b","c"])
 ```
 
----
 
 ## Common Patterns
 
