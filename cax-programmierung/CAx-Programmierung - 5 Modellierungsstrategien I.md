@@ -43,10 +43,10 @@ David Straub
 
 | Feature-Typ | Beispiel | build123d |
 |---|---|---|
-| Skizze → Solid | Profil extrudieren | `extrude(sketch, amount)` |
+| Skizze → Solid | Profil extrudieren | `bd.extrude(sketch, amount)` |
 | Addition | Material hinzufügen | `part += boss` |
-| Subtraktion | Material entfernen | `part -= Hole(radius=3, depth=8)` |
-| Modifikation | Kanten verrunden | `fillet(part.edges(), radius)` |
+| Subtraktion | Material entfernen | `part -= bd.Hole(radius=3, depth=8)` |
+| Modifikation | Kanten verrunden | `bd.fillet(part.edges(), radius)` |
 
 **Konstruktionsstrategie:**
 1. **Grundform** – einfachster Körper als Ausgangsbasis
@@ -57,38 +57,38 @@ David Straub
 ### Konstruktionsebenen (Workplanes)
 
 ```python
-box = Box(40, 40, 10)
+box = bd.Box(40, 40, 10)
 
-Plane.XY                                    # Standardebene
-Plane.XY.offset(20)                         # verschoben um 20 mm
-Plane(box.faces().sort_by(Axis.Z).last)     # ← aus Fläche ableiten
-Plane(origin=(0, 0, 15), z_dir=(0, 0, 1))  # beliebig definiert
+bd.Plane.XY                                    # Standardebene
+bd.Plane.XY.offset(20)                         # verschoben um 20 mm
+bd.Plane(box.faces().sort_by(bd.Axis.Z).last)  # ← aus Fläche ableiten
+bd.Plane(origin=(0, 0, 15), z_dir=(0, 0, 1))  # beliebig definiert
 ```
 
 > **`Plane(face)` ist die robuste Wahl:** bleibt korrekt, auch wenn sich Parameter ändern.
 > `Plane.XY.offset(10)` wäre nach `Box(..., height=12)` schlicht falsch.
 
 ```python
-top = Plane(box.faces().sort_by(Axis.Z).last)
-box += top * Cylinder(5, 8, align=(Align.CENTER, Align.CENTER, Align.MIN))
+top = bd.Plane(box.faces().sort_by(bd.Axis.Z).last)
+box += top * bd.Cylinder(5, 8, align=(bd.Align.CENTER, bd.Align.CENTER, bd.Align.MIN))
 ```
 
 ### Platzieren und Musterfertigung
 
 ```python
-box = Box(60, 60, 10)
-top = Plane(box.faces().sort_by(Axis.Z).last)
-a   = (Align.CENTER, Align.CENTER, Align.MIN)  # sitzt AUF der Ebene
+box = bd.Box(60, 60, 10)
+top = bd.Plane(box.faces().sort_by(bd.Axis.Z).last)
+a   = (bd.Align.CENTER, bd.Align.CENTER, bd.Align.MIN)  # sitzt AUF der Ebene
 
-box += top * Pos(20, 0) * Cylinder(4, 8, align=a)
+box += top * bd.Pos(20, 0) * bd.Cylinder(4, 8, align=a)
 
 # Rechteckraster (3×3 Bohrungen)
-box -= [top * loc * Hole(radius=2, depth=10)
-        for loc in GridLocations(16, 16, 3, 3)]
+box -= [top * loc * bd.Hole(radius=2, depth=10)
+        for loc in bd.GridLocations(16, 16, 3, 3)]
 
 # Lochkreis (6 Bohrungen)
-box -= [top * loc * Hole(radius=2, depth=10)
-        for loc in PolarLocations(radius=20, count=6)]
+box -= [top * loc * bd.Hole(radius=2, depth=10)
+        for loc in bd.PolarLocations(radius=20, count=6)]
 ```
 
 `GridLocations(x_spacing, y_spacing, x_count, y_count)` – zentriert um Ebenenursprung
@@ -98,12 +98,12 @@ box -= [top * loc * Hole(radius=2, depth=10)
 ```python
 z_tiefe, z_breite, z_hoehe = 27, 148, 91
 t_radius, t_abstand        = 4, 97
-a = (Align.CENTER, Align.CENTER, Align.MIN)
+a = (bd.Align.CENTER, bd.Align.CENTER, bd.Align.MIN)
 
-zelle = Box(z_tiefe, z_breite, z_hoehe, align=a)
-oben  = Plane(zelle.faces().sort_by(Axis.Z).last)
-zelle += oben * Pos(0, -t_abstand / 2) * Cylinder(t_radius, 5, align=a)
-zelle += oben * Pos(0, +t_abstand / 2) * Cylinder(t_radius, 5, align=a)
+zelle = bd.Box(z_tiefe, z_breite, z_hoehe, align=a)
+oben  = bd.Plane(zelle.faces().sort_by(bd.Axis.Z).last)
+zelle += oben * bd.Pos(0, -t_abstand / 2) * bd.Cylinder(t_radius, 5, align=a)
+zelle += oben * bd.Pos(0, +t_abstand / 2) * bd.Cylinder(t_radius, 5, align=a)
 ```
 
 → Nur `z_tiefe = 31` ändern → alles passt sich automatisch an ✓
@@ -175,7 +175,7 @@ Alle drei sind Unterklassen von `Compound` – benannte Container für Geometrie
 ### extrude() – Profil zu Körper
 
 ```python
-extrude(profil: Sketch, amount: float) -> Part
+bd.extrude(profil: bd.Sketch, amount: float) -> bd.Part
 ```
 
 Das Profil muss eine **geschlossene Fläche** (`Sketch`) sein – kein *Wire*, keine *Curve*.
@@ -183,15 +183,15 @@ Das Profil muss eine **geschlossene Fläche** (`Sketch`) sein – kein *Wire*, k
 ```python
 wandstaerke, breite, hoehe, laenge = 1.5, 27, 91, 148
 
-aussen = Polyline((0, 0), (breite, 0), (breite, hoehe), (0, hoehe), (0, 0))
-innen  = Polyline(
+aussen = bd.Polyline((0, 0), (breite, 0), (breite, hoehe), (0, hoehe), (0, 0))
+innen  = bd.Polyline(
     (wandstaerke,        wandstaerke),
     (breite-wandstaerke, wandstaerke),
     (breite-wandstaerke, hoehe-wandstaerke),
     (wandstaerke,        hoehe-wandstaerke),
     (wandstaerke,        wandstaerke),
 )
-gehaeuse = extrude(make_face(aussen), laenge) - extrude(make_face(innen), laenge)
+gehaeuse = bd.extrude(bd.make_face(aussen), laenge) - bd.extrude(bd.make_face(innen), laenge)
 ```
 
 → Dünnwandiges Zellengehäuse (27 × 91 mm Querschnitt, Wandstärke 1,5 mm)
@@ -199,17 +199,17 @@ gehaeuse = extrude(make_face(aussen), laenge) - extrude(make_face(innen), laenge
 ### revolve() – Rotationskörper
 
 ```python
-revolve(profil, axis=Axis.Z, revolution_arc=360) -> Part
+bd.revolve(profil, axis=bd.Axis.Z, revolution_arc=360) -> bd.Part
 ```
 
 Das Profil muss vollständig auf **einer Seite** der Rotationsachse liegen.
 
 ```python
-profil = Plane.XZ * make_face(Polyline(
+profil = bd.Plane.XZ * bd.make_face(bd.Polyline(
     (8, 0), (20, 0), (20, 5), (8, 5), (8, 0)
 ))
-scheibe = revolve(profil, axis=Axis.Z)               # 360° → Ringscheibe
-bogen   = revolve(profil, axis=Axis.Z, revolution_arc=270)  # ¾-Körper
+scheibe = bd.revolve(profil, axis=bd.Axis.Z)               # 360° → Ringscheibe
+bogen   = bd.revolve(profil, axis=bd.Axis.Z, revolution_arc=270)  # ¾-Körper
 ```
 
 **Halbprofil-Schema:**
@@ -235,8 +235,8 @@ Geschlossene Kurve → Fläche → Rotationskörper: das ist die feste Abfolge.
 
 ```python
 # Polyline muss geschlossen sein (letzter Punkt = erster Punkt)
-profil = make_face(
-    Polyline((0, 0), (30, 0), (30, 50), (0, 50), (0, 0))
+profil = bd.make_face(
+    bd.Polyline((0, 0), (30, 0), (30, 50), (0, 50), (0, 0))
 )
 ```
 
@@ -244,12 +244,12 @@ Beliebige Kurventypen kombinieren:
 
 ```python
 kurve = (
-    Line((0, 0), (30, 0))
-    + RadiusArc((30, 0), (30, 40), 60)
-    + Line((30, 40), (0, 40))
-    + Line((0, 40), (0, 0))
+    bd.Line((0, 0), (30, 0))
+    + bd.RadiusArc((30, 0), (30, 40), 60)
+    + bd.Line((30, 40), (0, 40))
+    + bd.Line((0, 40), (0, 0))
 )
-profil = make_face(kurve)
+profil = bd.make_face(kurve)
 ```
 
 ## Übung 2: Zylindrische Batteriezelle (18650)
@@ -294,8 +294,8 @@ Zylindrische Zellen im **Sechseckraster** (dichteste Packung):
 ```python
 # HexLocations(radius, x_count, y_count)
 # Mindestabstand zwischen Zellmitten = 2 * radius
-locs_hex = HexLocations(r_aussen + 1, 3, 3)
-modul    = Part() + [loc * zelle_rund for loc in locs_hex]
+locs_hex = bd.HexLocations(r_aussen + 1, 3, 3)
+modul    = bd.Part() + [loc * zelle_rund for loc in locs_hex]
 ```
 
 1. Wie viele Körper zählt `len(modul.solids())`?
