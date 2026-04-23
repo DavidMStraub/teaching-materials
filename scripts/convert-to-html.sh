@@ -59,6 +59,12 @@ for md_file in "${MARKDOWN_FILES[@]}"; do
         output_dir=$(dirname "$md_file")
         mkdir -p "$output_dir"
         
+        # Skip files without marp: true in frontmatter
+        if ! awk 'BEGIN{fm=0} /^---$/{fm++; next} fm==1 && /^marp:[[:space:]]*true/{exit 0} fm>=2{exit 1} END{exit 1}' "$md_file"; then
+            echo "Skipping $md_file (no marp: true in frontmatter)"
+            continue
+        fi
+
         html_file="${md_file%.md}.html"
         echo "Converting $md_file to $html_file..."
         
