@@ -60,7 +60,7 @@ for md_file in "${MARKDOWN_FILES[@]}"; do
         mkdir -p "$output_dir"
         
         # Skip files without marp: true in frontmatter
-        if ! awk 'BEGIN{fm=0} /^---$/{fm++; next} fm==1 && /^marp:[[:space:]]*true/{exit 0} fm>=2{exit 1} END{exit 1}' "$md_file"; then
+        if ! awk 'BEGIN{fm=0;found=0} /^---$/{fm++; next} fm==1 && /^marp:[[:space:]]*true/{found=1; exit} fm>=2{exit} END{exit !found}' "$md_file"; then
             echo "Skipping $md_file (no marp: true in frontmatter)"
             continue
         fi
