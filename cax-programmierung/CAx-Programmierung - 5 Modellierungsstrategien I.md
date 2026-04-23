@@ -156,8 +156,6 @@ Parameter: `n_zellen=6`, `spiel=0.5`, `wand=4`, `plattendicke=8` (mm)
 Setzen Sie `n_zellen` Zellen in den Halter ein – als Baugruppe, nicht als verschmolzener Körper.
 
 - Wann `Compound`, wann `+` (Boolesche Union)? Was wäre der Unterschied?
-- Passen die Terminals durch die Platte hindurch? Was müsste man anpassen?
-- *(Schnell)* Ergänzen Sie passende Bohrungen für die Terminals.
 
 ## Extrude & Revolve
 
