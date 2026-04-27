@@ -214,6 +214,17 @@ rank(A)           % 1 (nicht 2!)
 $$\text{rank}(A) \leq \min(m, n)$$
 
 
+### ✍️ Übung: Rang bestimmen
+
+Welchen Rang haben diese Matrizen? Überlegen Sie erst, dann prüfen mit `rank()`:
+
+```matlab
+A1 = [1 2 3; 2 4 6; 1 1 1];
+A2 = [1 0 0; 0 1 0; 0 0 1];
+A3 = [1 2; 3 6; 2 4];
+```
+
+
 ### Geometrische Interpretation
 
 **2 Gleichungen, 2 Unbekannte:** Jede Gleichung = **Gerade**
