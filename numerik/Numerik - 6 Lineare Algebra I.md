@@ -229,6 +229,7 @@ Lösung = **Schnittpunkt** der Geraden
 
 Lösung = **Schnittpunkt** der Ebenen
 
+![bg right:50% 90%](assets/lgs1.png)
 
 ### Lösbarkeit: Quadratisches System
 
