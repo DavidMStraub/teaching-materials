@@ -372,13 +372,10 @@ A = [-1  1;
 b = [2; 5];
 
 x = A \ b           % Lösung: [1.5; 3.5]
-% Äquivalent:
-x = mldivide(A, b)  % Gleiche Funktion, anderer Name
 ```
 
 $$A\boldsymbol{x} = \boldsymbol{b} \quad \Longrightarrow \quad \boldsymbol{x} = A \backslash \boldsymbol{b}$$
 
-**`\` ist die bevorzugte Schreibweise für `mldivide`!**
 
 
 ### `\` vs. `/` – Linksdivision vs. Rechtsdivision
@@ -423,7 +420,7 @@ b = [2; 5];
 x = A \ b      % [1.5; 3.5]
 
 % Probe:
-norm(A*x - b)  % 0 (oder ~1e-16) → Exakte Lösung!
+norm(A*x - b)  % 0 → Exakte Lösung!
 ```
 
 
@@ -435,11 +432,11 @@ A = [-1    1;
      -0.4  1];
 b = [0; 2; 0.5];
 
-x = A \ b      % [1.04; 0.91]
+x = A \ b 
 
 % Probe:
-A * x          % [0.13; 1.94; 0.49] ≠ b
-norm(A*x - b)  % 0.29 → Keine exakte Lösung!
+A * x          % ≠ b!
+norm(A*x - b)  % ≠ 0 → Keine exakte Lösung!
 ```
 
 **Matlab gibt automatisch Least-Squares-Lösung!**
@@ -498,11 +495,11 @@ x = A \ b
 **Ausgabe:**
 ```
 Warning: Matrix is close to singular or badly scaled.
-         Results may be inaccurate. RCOND = 2.47e-17.
+         Results may be inaccurate. RCOND = 1.233581e-17. 
 x =
   1.0e+15 *
-   -4.5036
-    2.2518
+   -9.0072
+    4.5036
 ```
 
 **Bei schlechter Konditionierung:** Kleine Fehler → riesige Ergebnisse!
@@ -525,7 +522,7 @@ A * IA              % [1 0; 0 1] = Einheitsmatrix
 det(A) * det(IA)    % -2 * -0.5 = 1
 ```
 
-**Aber:** Für große Matrizen sehr langsam und ungenau!
+**Aber:** Für große Matrizen langsam und ungenau!
 
 
 
