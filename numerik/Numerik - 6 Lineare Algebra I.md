@@ -27,7 +27,6 @@ jupyter:
 
 David Straub
 
-
 ### Gliederung
 
 1. Einführung in Matlab
