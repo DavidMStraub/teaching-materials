@@ -477,7 +477,6 @@ Nicht jeder Zusammenhang lässt sich sinnvoll durch ein Polynom beschreiben. Zu 
 ![bg right:50% vertical fit](https://upload.wikimedia.org/wikipedia/commons/1/12/Myplot_p2.svg)
 
 
-
 ### Zusammenfassung
 
 **Polynome:** Koeffizientenvektor, `polyval`, `roots`, `polyder`, `polyint`

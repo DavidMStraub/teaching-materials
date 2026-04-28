@@ -75,17 +75,18 @@ jobs:
         run: |
           # Verify xelatex format was created during package installation
           if ! kpsewhich xelatex.fmt; then
-            echo "ERROR: xelatex.fmt not found after package installation"
-            echo "Available formats:"
-            sudo fmtutil-sys --listcfg | grep -i xelatex || echo "No xelatex format configured"
-            echo "Attempting to generate format manually..."
+            echo "xelatex.fmt not found in kpsewhich database, generating manually..."
             sudo fmtutil-sys --byfmt xelatex
+            # Update the TeX filename database
+            sudo mktexlsr
           fi
           
           if kpsewhich xelatex.fmt; then
             echo "XeLaTeX format file found at: $(kpsewhich xelatex.fmt)"
           else
-            echo "FATAL: Cannot find or generate xelatex.fmt"
+            echo "FATAL: Cannot find xelatex.fmt via kpsewhich"
+            echo "Checking if file exists directly:"
+            ls -la /var/lib/texmf/web2c/xetex/xelatex.fmt 2>&1 || echo "File not found"
             exit 1
           fi
 
