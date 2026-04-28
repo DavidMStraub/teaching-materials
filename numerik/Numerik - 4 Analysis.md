@@ -190,9 +190,7 @@ Was liefert `polyder([4, -6, 0, 2])`?
 
 Überprüfen Sie anschließend in Matlab.
 
----
-
-Bonus: Was ergibt `roots(polyder([4, -6, 0, 2]))`? Was bedeutet das geometrisch?
+**Bonus:** Was ergibt `roots(polyder([4, -6, 0, 2]))`? Was bedeutet das geometrisch?
 
 
 ### Polynome – Ausprobieren ✍️
