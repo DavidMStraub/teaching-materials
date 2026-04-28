@@ -73,20 +73,19 @@ jobs:
 
       - name: Initialize XeTeX format files
         run: |
-          # Verify xelatex format was created during package installation
-          if ! kpsewhich xelatex.fmt; then
-            echo "xelatex.fmt not found in kpsewhich database, generating manually..."
+          # Generate format files if needed
+          if [ ! -f /var/lib/texmf/web2c/xetex/xelatex.fmt ]; then
+            echo "Generating xelatex format..."
             sudo fmtutil-sys --byfmt xelatex
-            # Update the TeX filename database
-            sudo mktexlsr
           fi
           
-          if kpsewhich xelatex.fmt; then
-            echo "XeLaTeX format file found at: $(kpsewhich xelatex.fmt)"
+          # Verify XeLaTeX actually works by testing compilation
+          echo "Testing XeLaTeX..."
+          if echo '\documentclass{article}\begin{document}Hello\end{document}' | xelatex --interaction=nonstopmode > /tmp/xelatex-test.log 2>&1; then
+            echo "✓ XeLaTeX is working correctly"
           else
-            echo "FATAL: Cannot find xelatex.fmt via kpsewhich"
-            echo "Checking if file exists directly:"
-            ls -la /var/lib/texmf/web2c/xetex/xelatex.fmt 2>&1 || echo "File not found"
+            echo "ERROR: XeLaTeX test compilation failed"
+            cat /tmp/xelatex-test.log
             exit 1
           fi
 
