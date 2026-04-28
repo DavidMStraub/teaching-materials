@@ -73,7 +73,21 @@ jobs:
           version: 1.0
 
       - name: Initialize XeTeX format files
-        run: sudo fmtutil-sys --all
+        run: |
+          # Rebuild the TeX configuration database
+          sudo mktexlsr
+          # Update format configuration
+          sudo update-texmf
+          # Generate format files
+          sudo fmtutil-sys --all
+          # Verify xelatex format was created
+          if ! kpsewhich xelatex.fmt; then
+            echo "ERROR: xelatex.fmt not found after fmtutil-sys"
+            echo "Checking available formats:"
+            sudo fmtutil-sys --listcfg | head -20
+            exit 1
+          fi
+          echo "XeLaTeX format file found at: $(kpsewhich xelatex.fmt)"
 
       - name: Restore PDF cache
         # Restores previously built PDFs and the success manifest from the last run.
