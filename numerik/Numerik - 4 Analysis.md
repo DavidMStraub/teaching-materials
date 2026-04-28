@@ -99,7 +99,7 @@ $$p(x) = a_n x^n + \cdots + a_1 x + a_0 \quad \longrightarrow \quad \texttt{[}a_
 | Konvention | Vektor |
 |---|---|
 | Mathematik (aufsteigend) | `[1, -2, 3]` |
-| **Matlab (absteigend)** | **`[3, -2, 1]`** |
+| Matlab (absteigend) | `[3, -2, 1]` |
 
 > 💡 Eselsbrücke: In Matlab steht der **höchste Grad zuerst** – wie man ein Polynom beim Aufschreiben liest: $3x^2 - 2x + 1$.
 
@@ -211,7 +211,7 @@ p = [-80, 500, 0];
 
 ### Polynom-Funktionen: Matlab vs. NumPy
 
-| Operation | **Matlab** | **NumPy** |
+| Operation | Matlab | NumPy |
 |---|---|---|
 | Koeffizientenvektor | `p = [-80, 500, 0]` | `p = np.array([-80, 500, 0])` |
 | Auswerten | `polyval(p, x)` | `np.polyval(p, x)` |
@@ -283,7 +283,7 @@ g = @(x, y) sqrt(x.^2 + y.^2);
 g(3, 4)            % → 5
 ```
 
-| | **Anonymous Function** | **`.m`-Datei** |
+| | Anonymous Function | `.m`-Datei |
 |---|---|---|
 | Länge | Einzeiler | beliebig komplex |
 | Geltungsbereich | lokal im Skript | überall aufrufbar |
