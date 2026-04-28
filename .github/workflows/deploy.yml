@@ -59,35 +59,35 @@ jobs:
           pandoc --version
 
       - name: Install PDF dependencies
-        uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: >-
-            texlive-xetex
-            texlive-fonts-recommended
-            texlive-fonts-extra
-            texlive-latex-extra
-            inkscape
-            curl
-            fonts-firacode
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-latex-extra \
+            inkscape \
+            curl \
+            fonts-firacode \
             librsvg2-bin
-          version: 1.0
 
       - name: Initialize XeTeX format files
         run: |
-          # Rebuild the TeX configuration database
-          sudo mktexlsr
-          # Update format configuration
-          sudo update-texmf
-          # Generate format files
-          sudo fmtutil-sys --all
-          # Verify xelatex format was created
+          # Verify xelatex format was created during package installation
           if ! kpsewhich xelatex.fmt; then
-            echo "ERROR: xelatex.fmt not found after fmtutil-sys"
-            echo "Checking available formats:"
-            sudo fmtutil-sys --listcfg | head -20
+            echo "ERROR: xelatex.fmt not found after package installation"
+            echo "Available formats:"
+            sudo fmtutil-sys --listcfg | grep -i xelatex || echo "No xelatex format configured"
+            echo "Attempting to generate format manually..."
+            sudo fmtutil-sys --byfmt xelatex
+          fi
+          
+          if kpsewhich xelatex.fmt; then
+            echo "XeLaTeX format file found at: $(kpsewhich xelatex.fmt)"
+          else
+            echo "FATAL: Cannot find or generate xelatex.fmt"
             exit 1
           fi
-          echo "XeLaTeX format file found at: $(kpsewhich xelatex.fmt)"
 
       - name: Restore PDF cache
         # Restores previously built PDFs and the success manifest from the last run.
