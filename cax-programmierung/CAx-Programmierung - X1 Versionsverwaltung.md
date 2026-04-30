@@ -80,6 +80,23 @@ Jeder Commit hat: Zeitstempel, Autor, Nachricht, eindeutiger Hash.
 
 ## Grundbefehle
 
+### Git konfigurieren
+
+Einmalig nach der Installation – wird in jeden Commit geschrieben:
+
+```bash
+git config --global user.name "Vorname Nachname"
+git config --global user.email "email@example.com"
+```
+
+Editor für Commit-Messages und Merge-Konflikte:
+
+```bash
+git config --global core.editor "code --wait"
+```
+
+`--wait` sorgt dafür, dass Git wartet, bis das VS-Code-Fenster geschlossen wird.
+
 ### Repository einrichten und committen
 
 ```bash
