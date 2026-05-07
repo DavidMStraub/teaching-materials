@@ -257,7 +257,7 @@ Tipp: `.edges()` liefert alle Kanten – mit `.filter_by()` oder `.sort_by()` ge
 `mirror` spiegelt einen Körper an einer Ebene:
 
 ```python
-halbkoerper = bd.Box(30, 50, 20)
+halbkoerper = bd.Box(30, 50, 20, align=(bd.Align.MIN, bd.Align.MIN, bd.Align.MIN))
 
 # An der YZ-Ebene spiegeln und vereinigen
 voll = halbkoerper + bd.mirror(halbkoerper, about=bd.Plane.YZ)
