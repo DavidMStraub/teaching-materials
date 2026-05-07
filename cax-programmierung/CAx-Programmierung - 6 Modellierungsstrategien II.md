@@ -146,7 +146,7 @@ bd.loft(sections, ruled=False) -> bd.Part
 | Parameter | Bedeutung |
 |-----------|-----------|
 | `sections` | Liste von Profilen (`Face` oder `Wire`) in verschiedenen Ebenen |
-| `ruled` | `True` → lineare Interpolation (Regelfläche), `False` → glatt (Spline) |
+| `ruled` | `True` → Regelflächen zwischen Profilen (C0, Knick an jedem Profil), `False` → glatte Übergänge  |
 
 **Anwendung:** Übergang zwischen unterschiedlichen Querschnitten, aerodynamische Profile, Gehäuseformen
 
@@ -190,13 +190,14 @@ bd.loft([p1, p2, p3], ruled=False)  # glatt (Spline-Interpolation)
 bd.loft([p1, p2, p3], ruled=True)   # linear (Regelfläche)
 ```
 
-**Ruled (Regelfläche):**
-- Gerade Linien zwischen entsprechenden Punkten der Profile
-- Gut für technische Teile mit klaren Kanten
+**Ruled (`ruled=True`):**
+- Zwischen je zwei Profilen: Regelfläche (gerade Verbindungslinien)
+- Tangente springt an jedem Profil (C0-stetig, nicht C1)
+- Sichtbare Kante an jedem Querschnitt
 
-**Smooth (Spline):**
-- Sanfte Übergänge, natürlicher für organische Formen
-- Standard (`ruled=False`)
+**Smooth (`ruled=False`, Standard):**
+- Tangentenstetiger Übergang an den Profilen (C1/C2)
+- Sanfte, organische Form ohne Knicke
 
 ### Loft mit Vertex-Spitze
 
