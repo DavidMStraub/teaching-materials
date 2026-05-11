@@ -68,7 +68,7 @@ Die Zahl $\lambda$ heißt **Eigenwert** zum Eigenvektor $\mathbf{x}$.
 
 ### Beispiel: Gitarrensaite
 
-Modell: $n$ Massen $m$, durch Fadenkraft $T$ verbunden, Abstand $h$
+Modell: $n$ Massen $m$, durch Fadenspannung $T$ verbunden, Abstand $h$
 
 ```
 ○─────○─────○─────○─────○
