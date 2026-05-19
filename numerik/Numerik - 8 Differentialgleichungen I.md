@@ -61,23 +61,69 @@ David Straub
 
 ### Schnellladen einer Batteriezelle
 
-
 Beim Schnellladen steigt die Temperatur – aber wie schnell, und wie hoch?
 
-
-### Energiebilanz der Zelle
-
-Wärmeleistung **ein**: Verlustleistung durch Innenwiderstand
+Wärmeleistung durch Innenwiderstand:
 
 $$P_\text{Verlust} = I^2 \cdot R_\text{innen}$$
 
-Wärmeleistung **aus**: Abgabe an die Umgebung (proportional zur Temperaturdifferenz)
+| Größe | Wert |
+|-------|------|
+| $C_\text{th}$ (Wärmekapazität) | $100\,\text{J/K}$ |
+| $R_\text{innen}$ | $0{,}05\,\Omega$ |
+| $I$ | $50\,\text{A}$ → $P = 125\,\text{W}$ |
+| $T_0$ | $25\,°\text{C}$ |
 
-$$P_\text{ab} = \lambda \cdot (T - T_\infty)$$
 
-Änderung der gespeicherten Wärme = ein $-$ aus:
+### Fall 1: Konstanter Strom, keine Wärmeabgabe
+
+Die gesamte Verlustleistung heizt die Zelle auf:
+
+$$C_\text{th}\,\dot{T} = P_\text{Verlust} = \text{const}$$
+
+$\dot{T}$ ist konstant → direktes Integral:
+
+$$T(t) = T_0 + \frac{P_\text{Verlust}}{C_\text{th}}\,t$$
+
+Mit den Zahlenwerten: $T$ steigt um $1{,}25\,\text{K/s}$ – nach 60 s bereits $+75\,\text{K}$.
+
+Realistisch?
+
+
+### Fall 2: Variabler Strom $I(t)$
+
+Ein reales Ladeprofil: $I(t)$ ist nicht konstant.
+
+$$C_\text{th}\,\dot{T} = P(t) = I(t)^2 \cdot R$$
+
+$P(t)$ ist nun eine gemessene Kurve → $T(t) = T_0 + \dfrac{1}{C_\text{th}} \int_0^t P(\tau)\,d\tau$
+
+Das kennen wir: **numerisch mit `trapz`**.
+
+```matlab
+T_end = T0 + trapz(t, P) / C_th
+```
+
+Aber: wir erhalten nur den Endwert oder müssen $T(t)$ mühsam schrittweise berechnen.
+
+Und noch etwas fehlt…
+
+
+### Fall 3: Wärmeabgabe dazu
+
+Die Zelle gibt Wärme an die Umgebung ab:
+
+$$P_\text{ab} = \lambda\,(T - T_\infty)$$
+
+Energiebilanz: ein $-$ aus:
 
 $$C_\text{th}\,\dot{T} = P_\text{Verlust} - \lambda\,(T - T_\infty)$$
+
+**Problem:** $P_\text{ab}$ hängt von $T(t)$ selbst ab – der Wert den wir suchen!
+
+$$\int \ldots\,dt \quad \text{geht nicht mehr}$$
+
+Wir brauchen etwas Neues: eine **Differentialgleichung**.
 
 
 ### Die Differentialgleichung der Batteriezelle
@@ -91,8 +137,6 @@ $$\boxed{C_\text{th}\,\dot{T} = P - \lambda\,(T - T_\infty)}$$
 | $P = I^2 R$ | Verlustleistung | $125\,\text{W}$ |
 | $T_\infty$ | Umgebungstemperatur | $25\,°\text{C}$ |
 | $T_0$ | Starttemperatur | $25\,°\text{C}$ |
-
-**Frage:** Wie entwickelt sich $T(t)$? Überhitzt die Zelle?
 
 
 ### Gleichung vs. Differentialgleichung
