@@ -32,7 +32,7 @@ def finde_material(name):
 Irgendwo anders im Projekt:
 
 ```python
-dichte = finde_material("Staht").dichte   # Tippfehler im Namen
+dichte = finde_material("Stahl").dichte   # Tippfehler im Namen
                                            # → AttributeError: 'NoneType' has no attribute 'dichte'
 ```
 
@@ -64,7 +64,7 @@ def finde_material(name: str) -> dict | None:
 Jetzt warnt Pylance **sofort beim Schreiben**:
 
 ```python
-dichte = finde_material("Staht").dichte   # ⚠ Object is possibly None
+dichte = finde_material("Stahl").dichte   # ⚠ Object is possibly None
 ```
 
 **Ziel:** Fehler so früh wie möglich sichtbar machen – idealerweise bevor der Code läuft.
