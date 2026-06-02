@@ -63,11 +63,11 @@ David Straub
 
 Aus Einheit 1: Das Euler-Verfahren löst DGLn der Form
 
-$$\dot{z} = f(t,\, z), \qquad z(t_0) = z_0$$
+$$\dot{y} = f(t,\, y), \qquad y(t_0) = y_0$$
 
 Schrittweise Approximation mit Schrittweite $h$:
 
-$$z_{i+1} = z_i + h \cdot f(t_i,\, z_i)$$
+$$y_{i+1} = y_i + h \cdot f(t_i,\, y_i)$$
 
 Konkret – die Batterie-DGL: $\quad f(t, T) = \dfrac{P - \lambda\,(T - T_\infty)}{C_\text{th}}$
 
@@ -85,7 +85,7 @@ Beide DGLn sind 1. Ordnung, aber **gekoppelt** – $\dot{T}_1$ hängt von $T_2$ 
 
 Als Vektor geschrieben hat das genau die gleiche Form wie vorher:
 
-$$\dot{\boldsymbol{z}} = f(t,\, \boldsymbol{z}), \qquad \boldsymbol{z} = \begin{pmatrix}T_1\\T_2\end{pmatrix}$$
+$$\dot{\boldsymbol{y}} = f(t,\, \boldsymbol{y}), \qquad \boldsymbol{y} = \begin{pmatrix}T_1\\T_2\end{pmatrix}$$
 
 Das Euler-Verfahren funktioniert **unverändert** – nur mit Vektoren statt Skalaren.
 
@@ -94,9 +94,9 @@ Das Euler-Verfahren funktioniert **unverändert** – nur mit Vektoren statt Ska
 
 Das Euler-Verfahren (und alle anderen Löser) arbeiten mit der **Standardform**:
 
-$$\boxed{\dot{\boldsymbol{z}} = f(t,\, \boldsymbol{z}), \qquad \boldsymbol{z}(t_0) = \boldsymbol{z}_0}$$
+$$\boxed{\dot{\boldsymbol{y}} = f(t,\, \boldsymbol{y}), \qquad \boldsymbol{y}(t_0) = \boldsymbol{y}_0}$$
 
-- $\boldsymbol{z}(t) \in \mathbb{R}^n$: Zustandsvektor
+- $\boldsymbol{y}(t) \in \mathbb{R}^n$: Zustandsvektor
 - $f$: vektorwertige Funktion der Zeit und des Zustands
 - Skalarer Fall ($n=1$): die bekannte Form aus Einheit 1
 
@@ -117,35 +117,35 @@ $$\dot{x} = v, \qquad \dot{v} = -\frac{k}{m}\,x$$
 
 In Vektorschreibweise – jetzt wieder Standardform!
 
-$$\dot{\boldsymbol{z}} = \underbrace{\begin{pmatrix}v\\-\dfrac{k}{m}\,x\end{pmatrix}}_{=f(t,\,\boldsymbol{z})}, \qquad \boldsymbol{z} = \begin{pmatrix}x\\v\end{pmatrix}$$
+$$\dot{\boldsymbol{y}} = \underbrace{\begin{pmatrix}v\\-\dfrac{k}{m}\,x\end{pmatrix}}_{=f(t,\,\boldsymbol{y})}, \qquad \boldsymbol{y} = \begin{pmatrix}x\\v\end{pmatrix}$$
 
 
 ### Standardform: Vorgehensweise
 
-**Wie viele Komponenten hat $\boldsymbol{z}$?**
+**Wie viele Komponenten hat $\boldsymbol{y}$?**
 → Gleich der **Ordnung** der DGL.
 
 **Vorgehen:**
 
 1. DGL nach der **höchsten Ableitung** auflösen: $\ddot{x} = \ldots$
 2. Neue Variablen einführen:
-   $z_1 := x, \quad z_2 := \dot{x}$
+   $y_1 := x, \quad y_2 := \dot{x}$
 3. System aufschreiben:
-   $\dot{z}_1 = z_2, \quad \dot{z}_2 = \ldots$
+   $\dot{y}_1 = y_2, \quad \dot{y}_2 = \ldots$
 4. Anfangsbedingungen als Vektor:
-   $\boldsymbol{z}_0 = \begin{pmatrix}x(0)\\\dot{x}(0)\end{pmatrix}$
+   $\boldsymbol{y}_0 = \begin{pmatrix}x(0)\\\dot{x}(0)\end{pmatrix}$
 
 
 ### ✍️ Aufgabe: Standardform
 
 Schreiben Sie die folgende DGL in ein System von DGLn 1. Ordnung um.
-Geben Sie auch die Anfangsbedingungen als Vektor $\boldsymbol{z}_0$ an.
+Geben Sie auch die Anfangsbedingungen als Vektor $\boldsymbol{y}_0$ an.
 
 **Gedämpfte Schwingung mit äußerer Anregung:**
 
 $$m\ddot{x} + d\,\dot{x} + k\,x = F_0\cos(\omega t), \qquad x(0) = 0,\quad \dot{x}(0) = v_0$$
 
-*Wie viele Komponenten hat $\boldsymbol{z}$?*
+*Wie viele Komponenten hat $\boldsymbol{y}$?*
 
 
 ## Numerische Lösungsverfahren
@@ -157,7 +157,7 @@ Wir haben das Euler-Verfahren bereits kennengelernt – aber wie gut funktionier
 
 **Testfall:** Federschwinger ohne Dämpfung
 
-$$\ddot{x} + x = 0 \quad \Rightarrow \quad \dot{\boldsymbol{z}} = \begin{pmatrix}v \\ -x\end{pmatrix}, \quad \boldsymbol{z}_0 = \begin{pmatrix}1\\0\end{pmatrix}$$
+$$\ddot{x} + x = 0 \quad \Rightarrow \quad \dot{\boldsymbol{y}} = \begin{pmatrix}v \\ -x\end{pmatrix}, \quad \boldsymbol{y}_0 = \begin{pmatrix}1\\0\end{pmatrix}$$
 
 Exakte Lösung: $x(t) = \cos(t)$ – eine gleichmäßige Schwingung, **keine wachsende Amplitude**.
 
@@ -167,15 +167,15 @@ Exakte Lösung: $x(t) = \cos(t)$ – eine gleichmäßige Schwingung, **keine wac
 ### Euler-Verfahren: Grenzen – Live-Demo
 
 ```matlab
-f = @(t, z) [z(2); -z(1)];   % Federschwinger: z = [x; v]
+f = @(t, y) [y(2); -y(1)];   % Federschwinger: y = [x; v]
 dt = 0.001;
 t = 0:dt:30;
-z = zeros(2, length(t));
-z(:,1) = [1; 0];              % x(0)=1, v(0)=0
+y = zeros(2, length(t));
+y(:,1) = [1; 0];              % x(0)=1, v(0)=0
 for i = 1:length(t)-1
-    z(:,i+1) = z(:,i) + dt * f(t(i), z(:,i));
+    y(:,i+1) = y(:,i) + dt * f(t(i), y(:,i));
 end
-plot(t, z(1,:), t, cos(t), '--')
+plot(t, y(1,:), t, cos(t), '--')
 legend('Euler', 'Exakt'),  grid on
 ```
 
@@ -193,14 +193,14 @@ legend('Euler', 'Exakt'),  grid on
 
 **Euler** nutzt nur die Steigung am **Anfang** des Intervalls:
 
-$$k_1 = f(t_i, z_i), \qquad z_{i+1} = z_i + dt \cdot k_1$$
+$$k_1 = f(t_i, y_i), \qquad y_{i+1} = y_i + dt \cdot k_1$$
 
 → Analogie: **Rechteckregel** aus der Numerischen Integration.
 
 **Modifiziertes Euler-Verfahren:** Erst einen halben Schritt, Steigung dort auswerten, dann ganzen Schritt:
 
-$$k_1 = f(t_i, z_i), \quad k_2 = f\!\left(t_i+\tfrac{dt}{2},\; z_i + \tfrac{dt}{2}\,k_1\right)$$
-$$z_{i+1} = z_i + dt \cdot k_2$$
+$$k_1 = f(t_i, y_i), \quad k_2 = f\!\left(t_i+\tfrac{dt}{2},\; y_i + \tfrac{dt}{2}\,k_1\right)$$
+$$y_{i+1} = y_i + dt \cdot k_2$$
 
 → Analogie: **Mittelpunktregel**. Genauer als Euler, weil die Steigung in der Mitte repräsentativer ist.
 
@@ -209,9 +209,9 @@ $$z_{i+1} = z_i + dt \cdot k_2$$
 
 **RK3:** Steigung am Anfang, in der Mitte und am Ende:
 
-$$k_1 = f(t_i, z_i), \quad k_2 = f\!\left(t_i+\tfrac{dt}{2},\; z_i+\tfrac{dt}{2}k_1\right), \quad k_3 = f(t_i+dt,\; z_i+dt\,k_2)$$
+$$k_1 = f(t_i, y_i), \quad k_2 = f\!\left(t_i+\tfrac{dt}{2},\; y_i+\tfrac{dt}{2}k_1\right), \quad k_3 = f(t_i+dt,\; y_i+dt\,k_2)$$
 
-$$z_{i+1} = z_i + \frac{dt}{6}(k_1 + 4k_2 + k_3)$$
+$$y_{i+1} = y_i + \frac{dt}{6}(k_1 + 4k_2 + k_3)$$
 
 → Gewichte $\frac{1}{6}, \frac{4}{6}, \frac{1}{6}$ – das ist die **Simpsonregel** (Analysis II / Keplersche Fassregel), angewendet auf die Steigungsfunktion $f$.
 
@@ -220,12 +220,12 @@ $$z_{i+1} = z_i + \frac{dt}{6}(k_1 + 4k_2 + k_3)$$
 
 **RK4:** Die Mitte wird **zweimal** ausgewertet – $k_3$ verbessert die Schätzung von $k_2$:
 
-$$k_1 = f(t_i,\; z_i)$$
-$$k_2 = f\!\left(t_i+\tfrac{dt}{2},\; z_i + \tfrac{dt}{2}\,k_1\right)$$
-$$k_3 = f\!\left(t_i+\tfrac{dt}{2},\; z_i + \tfrac{dt}{2}\,k_2\right)$$
-$$k_4 = f\!\left(t_i+dt,\; z_i + dt\,k_3\right)$$
+$$k_1 = f(t_i,\; y_i)$$
+$$k_2 = f\!\left(t_i+\tfrac{dt}{2},\; y_i + \tfrac{dt}{2}\,k_1\right)$$
+$$k_3 = f\!\left(t_i+\tfrac{dt}{2},\; y_i + \tfrac{dt}{2}\,k_2\right)$$
+$$k_4 = f\!\left(t_i+dt,\; y_i + dt\,k_3\right)$$
 
-$$z_{i+1} = z_i + \frac{dt}{6}(\,k_1 + 2k_2 + 2k_3 + k_4\,)$$
+$$y_{i+1} = y_i + \frac{dt}{6}(\,k_1 + 2k_2 + 2k_3 + k_4\,)$$
 
 
 
@@ -234,13 +234,13 @@ $$z_{i+1} = z_i + \frac{dt}{6}(\,k_1 + 2k_2 + 2k_3 + k_4\,)$$
 Unser Euler-Code:
 
 ```matlab
-f  = @(t, z) [z(2); -z(1)];
+f  = @(t, y) [y(2); -y(1)];
 dt = 0.01;
 t  = 0:dt:20;
-z  = zeros(2, length(t));
-z(:,1) = [1; 0];
+y  = zeros(2, length(t));
+y(:,1) = [1; 0];
 for i = 1:length(t)-1
-    z(:,i+1) = z(:,i) + dt * f(t(i), z(:,i));
+    y(:,i+1) = y(:,i) + dt * f(t(i), y(:,i));
 end
 ```
 
@@ -252,12 +252,12 @@ Dieser Code braucht nur drei Dinge: die **DGL** `f`, den **Zeitbereich** und die
 ### Euler als Funktion
 
 ```matlab
-function [t, z] = ode_euler(f, tspan, z0, dt)
+function [t, y] = ode_euler(f, tspan, y0, dt)
     t = tspan(1):dt:tspan(2);
-    z = zeros(length(z0), length(t));  % funktioniert für 1D und nD
-    z(:,1) = z0;
+    y = zeros(length(y0), length(t));  % funktioniert für 1D und nD
+    y(:,1) = y0;
     for i = 1:length(t)-1
-        z(:,i+1) = z(:,i) + dt * f(t(i), z(:,i));
+        y(:,i+1) = y(:,i) + dt * f(t(i), y(:,i));
     end
 end
 ```
@@ -273,14 +273,14 @@ MATLAB löst DGLn in Standardform mit `ode45` – der Name steht für **Runge-Ku
 - `ode45` passt $dt$ automatisch an
 
 ```matlab
-[t, y] = ode45(f, tspan, z0)
+[t, y] = ode45(f, tspan, y0)
 ```
 
 | Argument | Bedeutung | Beispiel |
-|----------|-----------|---------|
-| `f` | Function-Handle für $f(t, \boldsymbol{z})$ | `@(t,z) [z(2); -z(1)]` |
+|----------|-----------|-------|
+| `f` | Function-Handle für $f(t, \boldsymbol{y})$ | `@(t,y) [y(2); -y(1)]` |
 | `tspan` | Zeitbereich `[t0, tend]` | `[0, 20]` |
-| `z0` | Anfangsbedingung (Spaltenvektor) | `[1; 0]` |
+| `y0` | Anfangsbedingung (Spaltenvektor) | `[1; 0]` |
 | `t` | Zeitpunkte (Spaltenvektor) | |
 | `y` | Lösungsmatrix: eine Spalte pro Variable | `y(:,1)` = $x$, `y(:,2)` = $v$ |
 
@@ -288,7 +288,7 @@ MATLAB löst DGLn in Standardform mit `ode45` – der Name steht für **Runge-Ku
 ### Federschwinger mit `ode45`
 
 ```matlab
-f = @(t, z) [z(2); -z(1)];   % z = [x; v]
+f = @(t, y) [y(2); -y(1)];   % y = [x; v]
 
 [t, y] = ode45(f, [0, 20], [1; 0]);
 
@@ -308,7 +308,7 @@ $$m\ddot{x} + d\,\dot{x} + k\,x = F_0\cos(\omega t), \qquad x(0) = 0,\quad \dot{
 
 mit $m = 1$, $d = 0{,}2$, $k = 4$, $F_0 = 1$, $\omega = 2$.
 
-1. Schreiben Sie die Funktion `f(t, z)` in MATLAB
+1. Schreiben Sie die Funktion `f(t, y)` in MATLAB
 2. Lösen Sie mit `ode45` für $t \in [0, 30]$
 3. Plotten Sie $x(t)$ und $v(t)$
 
