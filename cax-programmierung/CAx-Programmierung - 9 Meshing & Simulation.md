@@ -21,7 +21,7 @@ David Straub
 4. Modellierungsstrategien
 5. Datenaustausch
 6. **Meshing & Simulation**
-7. Optimierung
+7. Parametrische Robustheit & Optimierung
 
 
 ### Übersicht
