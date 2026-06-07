@@ -75,14 +75,14 @@ $$C_\text{th}\,\dot{T} = \underbrace{F_\text{Brems} \cdot \dot{x}}_{\text{Reibun
 
 Schreiben Sie das Gleichungssystem in die Standardform
 
-$$\dot{\boldsymbol{z}} = f(t,\, \boldsymbol{z}), \qquad \boldsymbol{z}(t_0) = \boldsymbol{z}_0$$
+$$\dot{\boldsymbol{y}} = f(t,\, \boldsymbol{y}), \qquad \boldsymbol{y}(t_0) = \boldsymbol{y}_0$$
 
-**a)** Welche Größen enthält der Zustandsvektor $\boldsymbol{z}$? Wie viele Komponenten hat er?
+**a)** Welche Größen enthält der Zustandsvektor $\boldsymbol{y}$? Wie viele Komponenten hat er?
 *Hinweis: Die Bewegungsgleichung ist 2. Ordnung.*
 
-**b)** Geben Sie $f(t, \boldsymbol{z})$ explizit an. Drücken Sie alles durch die Komponenten von $\boldsymbol{z}$ aus.
+**b)** Geben Sie $f(t, \boldsymbol{y})$ explizit an. Drücken Sie alles durch die Komponenten von $\boldsymbol{y}$ aus.
 
-**c)** Geben Sie den Anfangszustandsvektor $\boldsymbol{z}_0$ an. Der Fahrer startet aus dem Stillstand bei Umgebungstemperatur.
+**c)** Geben Sie den Anfangszustandsvektor $\boldsymbol{y}_0$ an. Der Fahrer startet aus dem Stillstand bei Umgebungstemperatur.
 
 
 ### Aufgabe 2 – Konstantes Bremsen
@@ -104,7 +104,7 @@ Die mittlere Bremskraft soll dieselbe sein wie in Aufgabe 2.
 
 **a)** Wie groß muss $F_\text{Brems}$ während der Bremsintervalle sein?
 
-**b)** Passen Sie $f(t, \boldsymbol{z})$ an – $F_\text{Brems}$ wird jetzt zeitabhängig.
+**b)** Passen Sie $f(t, \boldsymbol{y})$ an – $F_\text{Brems}$ wird jetzt zeitabhängig.
 
 **c)** Lösen Sie erneut mit `ode45` und stellen Sie beide $T(t)$-Kurven in einem gemeinsamen Plot dar.
 
