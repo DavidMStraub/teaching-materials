@@ -109,3 +109,9 @@ Die mittlere Bremskraft soll dieselbe sein wie in Aufgabe 2.
 **c)** Lösen Sie erneut mit `ode45` und stellen Sie beide $T(t)$-Kurven in einem gemeinsamen Plot dar.
 
 **d)** Wann überhitzt die Bremse schneller – und warum?
+
+Hinweis: für die Bremskraft können Sie folgende Funktion verwenden, die ein Rechtecksignal mit Amplitude $A$ und Periode $P$ erzeugt. Überlegen Sie sich, wie das funktioniert.
+
+```matlab
+rechteck = @(t, A, T) A * (mod(t, T) < T/2);
+```
