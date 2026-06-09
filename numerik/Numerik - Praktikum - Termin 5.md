@@ -37,7 +37,7 @@ Ein Mountainbiker fährt eine lange Abfahrt hinunter.
 - Die Bremsscheibe erwärmt sich durch Reibung
 - Kühlung durch den Fahrtwind – je schneller, desto besser
 
-**Frage:** Wann überhitzt die Bremse – bei konstantem Bremsen oder bei intervallartiger Bremsung?
+**Frage:** Wie beeinflusst die Bremsstrategie die Temperaturentwicklung – bei gleicher mittlerer Bremskraft?
 
 ![bg right:35% 90%](assets/mountainbike_bremse.png)
 
@@ -82,12 +82,13 @@ $$\dot{\boldsymbol{y}} = f(t,\, \boldsymbol{y}), \qquad \boldsymbol{y}(t_0) = \b
 
 **b)** Geben Sie $f(t, \boldsymbol{y})$ explizit an. Drücken Sie alles durch die Komponenten von $\boldsymbol{y}$ aus.
 
-**c)** Geben Sie den Anfangszustandsvektor $\boldsymbol{y}_0$ an. Der Fahrer startet aus dem Stillstand bei Umgebungstemperatur.
+**c)** Geben Sie den Anfangszustandsvektor $\boldsymbol{y}_0$ an. Der Fahrer fährt zu Beginn mit $\dot{x}_0 = 10\,\text{m/s}$ bergab; die Bremsscheibe ist auf Umgebungstemperatur.
+*Hinweis: Das Modell setzt $\dot{x} > 0$ voraus. Warum?*
 
 
 ### Aufgabe 2 – Konstantes Bremsen
 
-Bremskraft: $F_\text{Brems} = 150\,\text{N}$ (konstant)
+Bremskraft: $F_\text{Brems} = 70\,\text{N}$ (konstant)
 
 **a)** Lösen Sie das System mit `ode45` für $t \in [0,\, 120\,\text{s}]$.
 
@@ -99,19 +100,19 @@ Bremskraft: $F_\text{Brems} = 150\,\text{N}$ (konstant)
 
 ### Aufgabe 3 – Intervallartiges Bremsen
 
-Nun bremst der Fahrer abwechselnd: 10 Sekunden bremsen, 10 Sekunden frei.
+Nun bremst der Fahrer abwechselnd: 10 Sekunden bremsen, 10 Sekunden frei rollen.
 Die mittlere Bremskraft soll dieselbe sein wie in Aufgabe 2.
 
-**a)** Wie groß muss $F_\text{Brems}$ während der Bremsintervalle sein?
+**a)** Wie groß muss $F_\text{Brems}$ während der Bremsintervalle sein? Überprüfen Sie, dass dabei stets $\dot{x} > 0$ bleibt.
 
 **b)** Passen Sie $f(t, \boldsymbol{y})$ an – $F_\text{Brems}$ wird jetzt zeitabhängig.
 
 **c)** Lösen Sie erneut mit `ode45` und stellen Sie beide $T(t)$-Kurven in einem gemeinsamen Plot dar.
 
-**d)** Wann überhitzt die Bremse schneller – und warum?
+**d)** Bei welcher Bremsstrategie wird die Bremsscheibe heißer – und warum?
 
 Hinweis: für die Bremskraft können Sie folgende Funktion verwenden, die ein Rechtecksignal mit Amplitude $A$ und Periode $P$ erzeugt. Überlegen Sie sich, wie das funktioniert.
 
 ```matlab
-rechteck = @(t, A, T) A * (mod(t, T) < T/2);
+rechteck = @(t, A, P) A * (mod(t, P) < P/2);
 ```
