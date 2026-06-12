@@ -1,6 +1,5 @@
-from build123d import Cylinder, export_step
-import subprocess
-import meshio
+import cadgmsh
+from build123d import Cylinder
 import numpy as np
 import pyvista as pv
 from skfem import MeshTet, Basis, ElementVector, ElementTetP1
@@ -9,19 +8,11 @@ from skfem.utils import solve, condense
 
 # 1. CAD-Modell
 part = Cylinder(radius=10, height=40)  # r=10 mm, h=40 mm, z ∈ [-20, 20]
-export_step(part, "zylinder.step")
 
 # 2. Vernetzung
-subprocess.run(
-    ["gmsh", "zylinder.step", "-3", "-clmax", "4.0", "-o", "zylinder.msh"],
-    check=True,
-    capture_output=True,
-)
-
-# 3. Gitter einlesen
-m = meshio.read("zylinder.msh")
-tet_cells = next(c for c in m.cells if c.type == "tetra")
-mesh = MeshTet(m.points.T, tet_cells.data.T)
+cadmesh = cadgmsh.mesh(part, dim=3, lc=4.0)
+tet_cells = next(c for c in cadmesh.cells if c.type == "tetra")
+mesh = MeshTet(cadmesh.points.T, tet_cells.data.T)
 
 # 4. FEM-Aufbau  (Einheiten: MPa, mm)
 E, nu = 210e3, 0.3  # Stahl

@@ -27,8 +27,8 @@ David Straub
 ### Übersicht
 
 1. Gitter (Mesh) – Grundbegriffe
-2. Oberflächengitter & STL – 3D-Druck und Visualisierung
-3. Volumengitter & Gmsh – Vernetzung für Simulation
+2. STL – Oberflächentessellierung für 3D-Druck
+3. FEM-Gitter & Gmsh – Vernetzung für Simulation (2D und 3D)
 4. Finite-Elemente-Methode (FEM) – Struktursimulation
 
 ### Lernziele
@@ -36,8 +36,9 @@ David Straub
 Nach dieser Einheit können Sie…
 
 - erklären, was ein Gitter ist und warum es für Simulation gebraucht wird
+- den Unterschied zwischen STL-Tessellierung und FEM-Vernetzung erklären
 - ein CAD-Modell als STL exportieren und visualisieren
-- mit Gmsh ein Volumengitter aus einem STEP-Modell erzeugen
+- mit Gmsh ein FEM-Gitter (2D oder 3D) aus einem Modell erzeugen
 - eine einfache FEM-Simulation aufsetzen, ausführen und das Ergebnis plausibilisieren
 
 **Nicht** erwartet: FEM-Theorie im Detail, komplexe Geometrien oder Randbedingungen.
@@ -69,21 +70,22 @@ Ein Gitter macht die Geometrie **diskret** – und damit für numerische Methode
 
 > **Faustregel:** Je feiner das Gitter, desto genauer die Annäherung – und desto mehr Rechenaufwand.
 
-### Oberflächengitter vs. Volumengitter
+### Zwei Gittertypen – zwei Zwecke
 
-Nicht jede Anwendung braucht dasselbe:
+Nicht alle Gitter sind gleich – der Zweck bestimmt, was ein „gutes" Gitter ist:
 
-| | Oberflächengitter | Volumengitter |
+| | STL | FEM-Gitter |
 |---|---|---|
-| Elemente | Dreiecke auf der Hülle | Tetraeder im Inneren |
-| Beschreibt | Außenform | gesamtes Volumen |
-| Anwendung | 3D-Druck, Visualisierung | FEM (Strukturmechanik), CFD (Strömung) |
-| Typisches Format | STL | .msh |
+| **Beschreibt** | Außenhülle des Körpers | Fläche (2D) oder Volumen (3D) |
+| **Elemente** | Dreiecke auf der Oberfläche | Dreiecke/Vierecke (2D), Tetraeder/Hexaeder (3D) |
+| **Qualitätsziel** | geometrische Treue | gleichmäßige, gut geformte Elemente |
+| **Ebene Flächen** | wenige große Dreiecke genügen | gleichmäßige Elementgröße nötig |
+| **Anwendung** | 3D-Druck, Visualisierung | Struktursimulation, Strömungssimulation |
 
-> Für **3D-Druck** reicht die Hülle – der Drucker füllt selbst aus.
-> Für **FEM** muss das Innere diskretisiert sein – die Physik findet im Material statt.
+> STL fragt: *Stimmt die Form?*
+> FEM fragt: *Sind die Elemente gut genug für die Numerik?*
 
-## Oberflächengitter & STL
+## STL – Oberflächentessellierung
 
 ### Das STL-Format
 
@@ -164,24 +166,23 @@ Der Slicer berechnet Schichten, Füllmuster und Stützstrukturen **aus dem STL**
 
 Für die meisten FDM-Drucker reicht `0.1 mm` – die Druckauflösung ist ohnehin der limitierende Faktor.
 
-### Gitter visualisieren mit PyVista
+### STL visualisieren
 
-**PyVista** ist eine Python-Bibliothek zur 3D-Visualisierung von Gitterdaten.
-
-```bash
-pip install pyvista
-```
+Ein exportiertes STL lässt sich direkt zurückladen und im CAD-Viewer anzeigen:
 
 ```python
-import pyvista as pv
+import build123d as bd
+import ocp_vscode
 
-mesh = pv.read("bauteil.stl")   # STL, VTK, MSH, ...
-mesh.plot(show_edges=True)
+mesh = bd.import_stl("bauteil.stl")
+ocp_vscode.show(mesh)
 ```
 
-- Liest alle gängigen Gitterformate (STL, VTK, MSH, ...)
-- Interaktives 3D-Fenster, drehbar mit der Maus
-- Funktioniert mit Oberflächen- und Volumengittern
+- Kein zusätzliches Paket nötig
+- Zeigt das Gitter im gewohnten CAD-Viewer
+- Gut zum Prüfen: Stimmt die Form? Dreiecke sichtbar?
+
+> Für Gitterdaten (MSH, Simulationsergebnisse) braucht man **PyVista** – das lernen wir im nächsten Abschnitt.
 
 ### ✍️ Rundzelle mit Crimp-Nut
 
@@ -190,15 +191,17 @@ Modellieren Sie eine zylindrische Rundzelle (18650: ∅18 mm, Höhe 65 mm) mit e
 Exportieren Sie die Zelle als STL bei zwei verschiedenen Toleranzen und vergleichen Sie:
 
 ```python
-mesh = pv.read("rundzelle.stl")
-print(f"Dreiecke: {mesh.n_cells}")
-mesh.plot(show_edges=True)
+import os, build123d as bd, ocp_vscode
+
+mesh = bd.import_stl("rundzelle.stl")
+print(f"Dateigröße: {os.path.getsize('rundzelle.stl') / 1024:.0f} KB")
+ocp_vscode.show(mesh)
 ```
 
-| `tolerance` | Dreiecke | Dateigröße | Sichtbare Qualität |
-|---|---|---|---|
-| 0.5 mm | ? | ? | ? |
-| 0.05 mm | ? | ? | ? |
+| `tolerance` | Dateigröße | Sichtbare Qualität |
+|---|---|---|
+| 0.5 mm | ? | ? |
+| 0.05 mm | ? | ? |
 
 **Frage:** Wo ist eine feine Toleranz besonders wichtig – und warum?
 
@@ -212,29 +215,111 @@ Jede Darstellung auf dem Bildschirm braucht Dreiecke. Ohne Tessellierung: kein B
 
 `build123d.export_stl`, `ocp_vscode.show`, `pyvista_cad.plot_cad` – alle nutzen denselben Kern
 
-## Volumengitter & Gmsh
+## FEM-Gitter & Gmsh
 
-### Warum reicht STL nicht?
+### Warum ein eigenes Gitter für FEM?
 
-STL beschreibt die **Hülle** – und nur die Hülle.
+STL beschreibt nur die **Hülle** – und hat ein anderes Qualitätsziel als FEM.
 
-Für Simulationen im Inneren des Bauteils (Spannungen, Wärme, Strömung) braucht man:
+Für Simulationen braucht man:
 
-- Elemente **im Volumen**, nicht nur an der Oberfläche
-- Zusammenhangsinformation: welche Elemente sind Nachbarn?
-- Kontrollierbare Elementgröße und -qualität
+- Elemente **im Inneren** (Fläche bei 2D, Volumen bei 3D) – nicht nur an der Oberfläche
+- **Gleichmäßig geformte Elemente** – schlechte Dreiecke führen zu Rechenfehlern
+- Kontrollierbare **Elementgröße** – fein dort, wo die Physik interessant ist
+- Nachbarschaftsinformation: welche Elemente teilen einen Knoten?
 
-> **STL enthält kein Volumen, keine Topologie, keine Nachbarschaftsbeziehungen.**
->
-> Für Volumenberechnungen braucht man ein anderes Gitterformat.
+> STL ist für FEM ungeeignet: falsches Qualitätsziel, kein Inneres, keine Topologie.
 
-### Qualität von Volumengittern
+### Gitter visualisieren mit PyVista
 
-Nicht jedes Gitter ist gleich gut – schlechte Elemente führen zu Rechenfehlern.
+**PyVista** liest alle gängigen Gitterformate – STL, MSH, VTK – und zeigt sie mit Kanten:
+
+```bash
+pip install pyvista
+```
+
+```python
+import pyvista as pv
+
+mesh = pv.read("bauteil.stl")   # oder .msh, .vtk, ...
+mesh.plot(show_edges=True)
+```
+
+- Interaktives 3D-Fenster, drehbar mit der Maus
+- Zeigt Gitterkanten – Elementgröße und -form werden sichtbar
+- Funktioniert für STL (Hülle) **und** FEM-Gitter (Fläche oder Volumen)
+
+> Damit können wir jetzt STL und FEM-Gitter direkt vergleichen.
+
+### Beispiel: Platte mit Bohrung
+
+Gleiche Geometrie – zwei völlig verschiedene Gitter:
+
+<div style="display:flex; gap:2em;">
+<div>
+
+**STL** (Hülle für 3D-Druck)
+- Dreiecke nur auf der Außenfläche
+- Flachseiten: wenige, große Dreiecke
+- Am Bohrungsrand: kleinere Dreiecke (Kreisbogen)
+- Kein Inneres – der Drucker füllt selbst aus
+
+</div>
+<div>
+
+**FEM-Gitter** (Fläche für Simulation)
+- Dreiecke füllen das **Innere** der Platte
+- Überall gleichmäßige Elementgröße
+- Verfeinerung am Bohrungsrand möglich
+- 2D – kein Volumen nötig
+
+</div>
+</div>
+
+> Ein STL-Gitter sieht auf einer ebenen Fläche spärlich aus – das ist **korrekt**.
+> Ein FEM-Gitter auf derselben Fläche ist gleichmäßig dicht – das ist **nötig**.
+
+### Platte mit Bohrung – STL
+
+```python
+import build123d as bd, pyvista as pv
+
+plate = bd.Box(100, 50, 2)
+hole = bd.Cylinder(radius=10, height=2)
+part = plate - bd.Pos(50, 25) * hole
+bd.export_stl(part, "platte.stl")
+
+pv.read("platte.stl").plot(show_edges=True)
+```
+
+- Nur die **Hülle** – 6 Flächen des Quaders + Bohrungswand
+- Flachseiten: wenige große Dreiecke (ebene Fläche → braucht keine feinen Elemente)
+- Bohrungsrand: kleinere Dreiecke (Kreisbogen muss approximiert werden)
+
+### Platte mit Bohrung – FEM-Gitter (2D)
+
+```python
+import cadgmsh, build123d as bd, pyvista as pv
+
+plate = bd.Box(100, 50, 2)
+hole = bd.Cylinder(radius=10, height=2)
+part = plate - bd.Pos(50, 25) * hole
+
+mesh = cadgmsh.mesh(part, dim=2, lc=5)
+pv.from_meshio(mesh).plot(show_edges=True)
+```
+
+- `dim=2`: 2D-Flächengitter – füllt das Innere der Platte
+- `lc=5`: maximale Elementgröße in mm
+- `pv.from_meshio(mesh)`: direkt von cadgmsh zu PyVista – keine Datei nötig
+
+### Qualität von FEM-Gittern
+
+Nicht jedes Gitter ist gleich gut – schlechte Elemente führen zu Rechenfehlern. Gilt für 2D und 3D:
 
 **Wichtige Qualitätskriterien:**
 
-- **Elementgröße:** passend zur erwarteten Detailgröße
+- **Elementgröße:** passend zur erwarteten Detailgröße – auch auf ebenen Flächen!
 - **Seitenverhältnis** (*Aspect Ratio*): Verhältnis der längsten zur kürzesten Kante – 1 ist ideal, > 10 ist problematisch
 - **Skewness:** Winkelabweichung von der idealen Form – 0 ist ideal, → 1 ist entartet
 
@@ -243,45 +328,42 @@ Nicht jedes Gitter ist gleich gut – schlechte Elemente führen zu Rechenfehler
 
 Zielkonflikt: feineres Gitter → genauere Ergebnisse → mehr Rechenzeit
 
-### Gmsh: Werkzeug und Konzept
+### Gmsh: Werkzeug und Workflow
 
-**Gmsh** ist ein freies Werkzeug zum Erzeugen von Volumengittern, steuerbar per Python:
-
-Workflow:
+**Gmsh** ist das Standard-Werkzeug zur FEM-Vernetzung – frei, leistungsfähig, skriptbar:
 
 ```
-build123d → STEP → Gmsh → .msh → Solver
+Geometrie → Gmsh → .msh → Solver
 ```
 
-- Geometrie und Netzparameter werden direkt in Python definiert
-- Reproduzierbar, versionierbar, automatisierbar
-- GUI nur zur **Inspektion** – das Skript ist die eigentliche Quelle
+- Vernetzt beliebige 2D- und 3D-Geometrien
+- Steuerbar über GUI, Kommandozeile oder **Python-API**
+- Ausgabe als `.msh` – lesbar von allen gängigen Solvern
+
+Die native Python-API ist mächtig, aber ausführlich: Geometrie aufbauen, synchronisieren, Optionen setzen, Datei schreiben, finalize – viele Schritte für ein einfaches Ergebnis.
+
+### cadgmsh: Gmsh für build123d
+
+**cadgmsh** ist ein schlanker Wrapper um die Gmsh-API, der build123d-Modelle direkt entgegennimmt:
 
 ```bash
-pip install gmsh
+pip install cadgmsh   # installiert gmsh mit
 ```
-
-### Gmsh: Vernetzung aus build123d
-
-build123d-Modell als STEP exportieren, dann Gmsh über die Kommandozeile aufrufen:
 
 ```python
-import subprocess, build123d as bd, pyvista as pv
+import cadgmsh, build123d as bd, pyvista as pv
 
 part = bd.Cylinder(radius=10, height=40)
-bd.export_step(part, "zylinder.step")
-
-subprocess.run([
-    "gmsh", "zylinder.step",
-    "-3",                   # 3D-Volumengitter erzeugen
-    "-clmax", "4.0",        # maximale Elementgröße in mm
-    "-o", "zylinder.msh"
-], check=True)
-
-pv.read("zylinder.msh").plot(show_edges=True)
+mesh = cadgmsh.mesh(part, dim=3, lc=4)   # meshio.Mesh
+pv.from_meshio(mesh).plot(show_edges=True)
 ```
 
-> STEP enthält die exakte B-Rep-Geometrie – Gmsh vernetzt direkt daraus.
+| Parameter | Bedeutung |
+|---|---|
+| `dim=2` / `dim=3` | 2D-Flächen- oder 3D-Volumengitter |
+| `lc` | maximale Elementgröße |
+
+Ein Funktionsaufruf – kein Zwischenschritt, keine Hilfsdatei.
 
 ## Finite-Elemente-Methode (FEM)
 
@@ -297,11 +379,11 @@ Die **Finite-Elemente-Methode (FEM)** ist ein numerisches Verfahren zur Lösung 
 **Werkzeugkette:**
 
 ```
-build123d → STEP → Gmsh → MSH → scikit-fem → Ergebnis → PyVista
+build123d → cadgmsh → scikit-fem → Ergebnis → PyVista
 ```
 
 ```bash
-pip install scikit-fem meshio
+pip install cadgmsh scikit-fem
 ```
 
 ### Grundidee der FEM
@@ -398,14 +480,15 @@ $$\sigma_z = \frac{F}{A} = \frac{1000}{\pi \cdot 10^2} \approx 3{,}18\,\text{MPa
 ### scikit-fem: Überblick
 
 ```python
-# Gitter laden
-m = meshio.read("zylinder.msh")
-tet_cells = next(c for c in m.cells if c.type == "tetra")
-mesh = MeshTet(m.points.T, tet_cells.data.T)
+# Gitter erzeugen
+import cadgmsh, build123d as bd
+mesh = cadgmsh.mesh(bd.Cylinder(radius=10, height=40), dim=3, lc=4)
+tet_cells = next(c for c in mesh.cells if c.type == "tetra")
+skfem_mesh = MeshTet(mesh.points.T, tet_cells.data.T)
 
 # Steifigkeitsmatrix (Stahl: E=210 GPa, ν=0.3)
 lam, mu = lame_parameters(E=210e3, nu=0.3)
-basis = Basis(mesh, ElementVector(ElementTetP1()))
+basis = Basis(skfem_mesh, ElementVector(ElementTetP1()))
 K = linear_elasticity(lam, mu).assemble(basis)
 
 # Lastvektor + Randbedingungen
