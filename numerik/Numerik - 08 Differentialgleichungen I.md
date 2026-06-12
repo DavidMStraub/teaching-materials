@@ -278,7 +278,7 @@ Anfangswertproblem: $\quad \dot{y} = f(t, y), \quad y(t_0) = y_0$
 
 $$y_{n+1} = y_n + f(t_n,\, y_n) \cdot \Delta t$$
 
-```
+```matlab
 t = t0 : dt : tend
 y = zeros(size(t))
 y(1) = y0
