@@ -435,23 +435,20 @@ Ohne Randbedingungen ist das Gleichungssystem singulär – der Körper könnte 
 
 ### Randbedingungen in scikit-fem
 
-- `basis`: verbindet Gitter und Ansatzraum – kennt alle Knoten und ihre DOFs
-- `f = basis.zeros()`: Lastvektor, initial überall 0
-
-`get_dofs(bedingung)` wählt Knoten per Koordinatenfilter aus:
+Physical Groups aus cadgmsh werden direkt als benannte Ränder übernommen:
 
 ```python
 f = basis.zeros()   # Lastvektor: 1 Eintrag pro DOF, initial 0
 
 # Unterseite: alle 3 DOFs pro Knoten fixieren (x, y, z)
-fixed = basis.get_dofs(lambda x: x[2] < -19.9).all()
+fixed = basis.get_dofs(skfem_mesh.boundaries["bottom"]).all()
 
 # Oberseite: nur z-DOFs – Kraft in z-Richtung aufprägen
-top = basis.get_dofs(lambda x: x[2] > 19.9).nodal["u^3"]
+top = basis.get_dofs(skfem_mesh.boundaries["top"]).nodal["u^3"]
 f[top] = 1000.0 / len(top)   # 1000 N gleichmäßig verteilt
 ```
 
-`< -19.9` statt `== -20`: Toleranz für Gleitkommazahlen.
+Kein Koordinatenfilter, keine Gleitkomma-Toleranz – die Geometrie ist bereits bekannt.
 
 ### Von-Mises-Vergleichsspannung
 
@@ -480,11 +477,16 @@ $$\sigma_z = \frac{F}{A} = \frac{1000}{\pi \cdot 10^2} \approx 3{,}18\,\text{MPa
 ### scikit-fem: Überblick
 
 ```python
-# Gitter erzeugen
 import cadgmsh, build123d as bd
-mesh = cadgmsh.mesh(bd.Cylinder(radius=10, height=40), dim=3, lc=4)
-tet_cells = next(c for c in mesh.cells if c.type == "tetra")
-skfem_mesh = MeshTet(mesh.points.T, tet_cells.data.T)
+from skfem.io.meshio import from_meshio
+
+# Gitter erzeugen mit benannten Rändern
+part = bd.Cylinder(radius=10, height=40)
+cadmesh = cadgmsh.mesh(part, dim=3, lc=4, physical={
+    "top":    part.faces().sort_by(bd.Axis.Z).last,
+    "bottom": part.faces().sort_by(bd.Axis.Z).first,
+})
+skfem_mesh = from_meshio(cadmesh)
 
 # Steifigkeitsmatrix (Stahl: E=210 GPa, ν=0.3)
 lam, mu = lame_parameters(E=210e3, nu=0.3)
@@ -493,9 +495,9 @@ K = linear_elasticity(lam, mu).assemble(basis)
 
 # Lastvektor + Randbedingungen
 f = basis.zeros()
-top_dofs = basis.get_dofs(lambda x: x[2] > 19.9).nodal["u^3"]
+top_dofs = basis.get_dofs(skfem_mesh.boundaries["top"]).nodal["u^3"]
 f[top_dofs] = 1000.0 / len(top_dofs)
-fixed_dofs = basis.get_dofs(lambda x: x[2] < -19.9).all()
+fixed_dofs = basis.get_dofs(skfem_mesh.boundaries["bottom"]).all()
 
 # Lösen
 u = solve(*condense(K, f, D=fixed_dofs))

@@ -1,18 +1,26 @@
 import cadgmsh
-from build123d import Cylinder
+from build123d import Cylinder, Axis
+from skfem.io.meshio import from_meshio
 import numpy as np
 import pyvista as pv
-from skfem import MeshTet, Basis, ElementVector, ElementTetP1
+from skfem import Basis, ElementVector, ElementTetP1
 from skfem.models.elasticity import linear_elasticity, lame_parameters, sym_grad
 from skfem.utils import solve, condense
 
 # 1. CAD-Modell
 part = Cylinder(radius=10, height=40)  # r=10 mm, h=40 mm, z ∈ [-20, 20]
 
-# 2. Vernetzung
-cadmesh = cadgmsh.mesh(part, dim=3, lc=4.0)
-tet_cells = next(c for c in cadmesh.cells if c.type == "tetra")
-mesh = MeshTet(cadmesh.points.T, tet_cells.data.T)
+# 2. Vernetzung mit benannten Rändern
+cadmesh = cadgmsh.mesh(
+    part,
+    dim=3,
+    lc=2.0,
+    physical={
+        "top": part.faces().sort_by(Axis.Z).last,
+        "bottom": part.faces().sort_by(Axis.Z).first,
+    },
+)
+mesh = from_meshio(cadmesh)
 
 # 4. FEM-Aufbau  (Einheiten: MPa, mm)
 E, nu = 210e3, 0.3  # Stahl
@@ -23,11 +31,11 @@ K = linear_elasticity(lam, mu).assemble(basis)
 
 # 1000 N Zug an Oberseite, gleichmäßig verteilt
 f = basis.zeros()
-top_dofs = basis.get_dofs(lambda x: x[2] > 19.9).nodal["u^3"]
+top_dofs = basis.get_dofs(mesh.boundaries["top"]).nodal["u^3"]
 f[top_dofs] = 1000.0 / len(top_dofs)
 
 # Einspannung Unterseite
-fixed_dofs = basis.get_dofs(lambda x: x[2] < -19.9).all()
+fixed_dofs = basis.get_dofs(mesh.boundaries["bottom"]).all()
 
 # 5. Lösen
 u = solve(*condense(K, f, D=fixed_dofs))
