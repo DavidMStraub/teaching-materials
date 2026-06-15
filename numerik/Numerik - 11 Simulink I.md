@@ -42,7 +42,7 @@ David Straub
 
 ### Was ist Simulink?
 
-**Simulink** ist eine blockbasierte, grafische Simulationsumgebung in Matlab.
+**Simulink** ist eine blockbasierte, graphische Simulationsumgebung in Matlab.
 
 Statt einen Algorithmus zu schreiben, beschreibt man das System als **Signalflussplan**: Blöcke berechnen mathematische Operationen, Verbindungen transportieren Signale.
 
@@ -84,7 +84,7 @@ $y$ taucht auf **beiden** Seiten auf → Rückkopplung:
 
 $$\xrightarrow{\;y\;}\boxed{f(t,y)}\xrightarrow{\;\dot{y}\;}\boxed{\int dt}\xrightarrow{\;y\;}\;\;\circlearrowleft$$
 
-Ein **Signalflussplan** ist eine grafische for-Schleife.
+Ein **Signalflussplan** ist eine graphische for-Schleife.
 
 
 ### Signalflussplan und Solver
