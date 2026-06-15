@@ -47,6 +47,13 @@ David Straub
 Statt einen Algorithmus zu schreiben, beschreibt man das System als **Signalflussplan**: Blöcke berechnen mathematische Operationen, Verbindungen transportieren Signale.
 
 
+### Beispiel: Batteriezelle als dynamisches System
+
+![width:20cm](assets/batterie_system.svg)
+
+Der Ausgang hängt vom **gespeicherten Zustand** ab → **dynamisches** System
+
+
 ## Vom Anfangswertproblem zum Signalflussplan
 
 
