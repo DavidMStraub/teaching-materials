@@ -401,7 +401,7 @@ Zwei konzeptionell verschiedene Fälle:
 
 **Quantitative Nebenbedingung** — Verletzungsgröße ist messbar:
 $$p_\text{quad} = \max(0,\; g(x))^2 \cdot \rho$$
-Beispiel: $g(x) = V_\min - V_\text{in}$ — je weiter daneben, desto teurer.
+Beispiel: $g(x) = V_{\min} - V_\text{in}$ — je weiter daneben, desto teurer.
 
 **Qualitative / binäre Nebenbedingung** — Modell existiert oder nicht:
 ```python
@@ -616,6 +616,6 @@ Führen Sie die Optimierung durch – einmal mit `differential_evolution`, einma
 
 ### Zusatz: Interpretation
 
-- Verdoppeln Sie $I_\min = 2000\;\text{mm}^4$ – wie ändert sich `dicke_h`?
+- Verdoppeln Sie $I_{\min} = 2000\;\text{mm}^4$ – wie ändert sich `dicke_h`?
 - Setzen Sie `workers=-1` – was passiert?
 - Versuchen Sie Nelder-Mead mit `x0 = [5, 5, 60]` – konvergiert es zuverlässig?
