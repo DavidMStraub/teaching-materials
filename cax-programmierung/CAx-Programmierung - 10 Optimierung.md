@@ -222,7 +222,8 @@ print(p)     # RundzellParam(r_aussen=12.0, wandstaerke=2.0, hoehe=65.0)
 
 ### L-Halter
 
-![bg right:25% 90%](assets/l_halter_iso.svg)
+![bg right:20% 90%](assets/l_halter_iso.svg)
+![bg right:20% 90% vertical](assets/l_halter_front.svg)
 
 ```python
 @dataclass
