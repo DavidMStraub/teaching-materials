@@ -329,7 +329,7 @@ innenecke = (halter.edges()
 halter = bd.fillet(innenecke, radius=p.r_vr).solids()[0]
 ```
 
-## Optimierungsproblem formulieren
+## Optimierung
 
 ### Design-Variablen, Zielfunktion, Nebenbedingungen
 
@@ -384,14 +384,12 @@ def zielfunktion(x: np.ndarray) -> float:
 ```python
 V_MIN = 15_000  # mm³ – Mindest-Innenvolumen
 
-def jelly_roll(r_a, t, h) -> bd.Solid:
-    return bd.Cylinder(radius=r_a - t, height=h).solids()[0]
-
 def zielfunktion(x: np.ndarray) -> float:
     r_a, t, h = x   # Außenradius, Wandstärke, Höhe
     try:
-        strafe = max(0, V_MIN - jelly_roll(r_a, t, h).volume)**2 * 0.1
-        return rundzelle(r_a, t, h).volume + strafe
+        v_innen = np.pi * (r_a - t)**2 * h          # analytisch berechenbar
+        strafe  = max(0, V_MIN - v_innen)**2 * 1e-1
+        return rundzelle(r_a, t, h).volume + strafe  # Materialvolumen: CAD nötig
     except Exception:
         return float('inf')
 ```
@@ -462,6 +460,8 @@ print(result.fun)
 
 **Vorteil:** Kein Startwert nötig – der Algorithmus erkundet den gesamten Parameterraum.
 
+**Nachteil:** Viele Auswertungen — typisch Populationsgröße × Iterationen (oft 10.000+). Bei CAD-Modellen mit Sekunden pro Auswertung und mehr als ~5–10 Design-Variablen wird DE schnell prohibitiv teuer.
+
 ### Konvergenz visualisieren
 
 Mit einem **Callback** lässt sich der Optimierungsverlauf aufzeichnen:
@@ -505,9 +505,6 @@ plt.show()
 ```python
 V_MIN = 15_000  # mm³
 
-def jelly_roll(r_a, t, h) -> bd.Solid:
-    return bd.Cylinder(radius=r_a - t, height=h).solids()[0]
-
 def rundzelle(r_a, t, h) -> bd.Solid:
     if t <= 0 or r_a - t <= 0.5 or h <= 0:
         raise ValueError("Ungültige Parameter")
@@ -519,8 +516,9 @@ def rundzelle(r_a, t, h) -> bd.Solid:
 def zielfunktion(x: np.ndarray) -> float:
     r_a, t, h = x
     try:
-        strafe = max(0, V_MIN - jelly_roll(r_a, t, h).volume)**2 * 1e-1
-        return rundzelle(r_a, t, h).volume + strafe
+        v_innen = np.pi * (r_a - t)**2 * h          # analytisch
+        strafe  = max(0, V_MIN - v_innen)**2 * 1e-1
+        return rundzelle(r_a, t, h).volume + strafe  # CAD-Aufruf nur wo nötig
     except Exception:
         return float('inf')
 
@@ -533,6 +531,9 @@ print(f"Materialvolumen: {result.fun:.0f} mm³")
 
 ### Ergebnis interpretieren
 
+*Auch `rundzelle().volume` ließe sich hier analytisch berechnen. Bei komplexen Geometrien — Verrundungen, Bohrungen, Freiformflächen — ist das nicht mehr möglich: dort ist der CAD-Aufruf unverzichtbar (→ Praktikum).*
+
+
 ```
 r_aussen=13.1 mm,  wandstaerke=0.50 mm,  hoehe=30.0 mm
 Materialvolumen: 1213 mm³
@@ -544,6 +545,28 @@ Materialvolumen: 1213 mm³
 - Höhe geht auf die untere Grenze (30 mm), Radius ergibt sich aus $V_{\text{in}} = V_{\text{min}}$
 
 *Frage:* Was ändert sich, wenn wir `r_aussen ≤ 10 mm` als zusätzliche Bound einführen?
+
+## Ausblick: Optimierung mit Simulation
+
+### Physikbasierte Optimierung
+
+Dieselbe Zielfunktionsstruktur — aber statt `.volume` steht ein FEM-Ergebnis im Mittelpunkt:
+
+```python
+def zielfunktion(x: np.ndarray) -> float:
+    p = dataclasses.replace(P_FIX, dicke_h=x[0], dicke_v=x[1])
+    try:
+        bauteil = l_halter(p)
+        netz    = mesh(bauteil)           # Einheit 6: Meshing
+        result  = simulate(netz, load=F)  # FEM-Löser
+        return result.max_stress          # Spannung minimieren
+    except Exception:
+        return float('inf')
+```
+
+FEM-Auswertungen können teuer sein → DE mit vielen Auswertungen stößt schnell an Grenzen.
+
+Ansatz: **Surrogatmodell** — wenige FEM-Auswertungen, Rest durch Interpolation approximieren.
 
 ## Praktikum: L-Halter optimieren
 
