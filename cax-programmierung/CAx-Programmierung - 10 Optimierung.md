@@ -228,14 +228,15 @@ print(p)     # RundzellParam(r_aussen=12.0, wandstaerke=2.0, hoehe=65.0)
 ```python
 @dataclass
 class LHalterParam:
-    laenge:    float = 80.0
-    breite:    float = 40.0
-    dicke_h:   float = 5.0
-    hoehe_v:   float = 60.0
-    dicke_v:   float = 5.0
-    r_bohrung: float = 4.0
-    t_bohrung: float = 4.0
-    r_vr:      float = 2.0
+    laenge:           float = 80.0
+    breite:           float = 40.0
+    dicke_h:          float = 5.0
+    hoehe_v:          float = 60.0
+    dicke_v:          float = 5.0
+    r_bohrung:        float = 4.0
+    t_bohrung:        float = 4.0
+    abstand_bohrung:  float = 40.0
+    r_vr:             float = 2.0
 
 def l_halter(p: LHalterParam) -> bd.Solid: ...
 ```
@@ -260,7 +261,7 @@ Testen Sie danach – was beobachten Sie?
 - `bd.Box(laenge, breite, hoehe)` — Mittelpunkt im Ursprung
 - `bd.Pos(x, y, z) * körper` — verschiebt den Körper (nur Positionsargumente, keine Keywords)
 - Sacklöcher: Zylinder mit `height = p.t_bohrung + 1` — Werkzeug soll nach oben überragen
-- Bohrpositionen: eine im rechten Drittel des horizontalen Flansches, eine über dem vertikalen
+- Bohrpositionen: symmetrisch um die Mittelachse, Abstand `p.abstand_bohrung` → bei `x = ±p.abstand_bohrung / 2`
 
 *Frage:* Was passiert bei `LHalterParam(t_bohrung=9)`? Öffnen Sie das Modell im Viewer.
 
@@ -274,6 +275,7 @@ Ergänzen Sie `l_halter` um **Gültigkeitsprüfungen** – jede kritische Beding
 | `p.hoehe_v <= 0` | kein vertikaler Flansch |
 | `p.r_bohrung >= p.breite / 2` | Bohrung breiter als Bauteil |
 | `p.t_bohrung > p.dicke_h` | Sackloch wird Durchgangsbohrung |
+| `p.abstand_bohrung > p.laenge - 2·p.r_bohrung` | Bohrung außerhalb des Flansches |
 
 ### Aufgabe 2 *(Forts.)*
 
