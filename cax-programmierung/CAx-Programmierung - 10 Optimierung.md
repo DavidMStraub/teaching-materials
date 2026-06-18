@@ -257,22 +257,10 @@ Testen Sie danach – was beobachten Sie?
 
 ### Aufgabe 1: Hinweise
 
-```python
-def l_halter(p: LHalterParam) -> bd.Solid:
-    h = bd.Box(p.laenge, p.breite, p.dicke_h)
-
-    v = bd.Box(p.dicke_v, p.breite, p.hoehe_v)
-    v = bd.Pos(..., 0, ...) * v  # x: linkes Ende; z: auf den horizontalen Flansch
-
-    halter = h + v
-
-    for x_pos in [p.laenge / 4, -p.laenge / 4 + p.dicke_v / 2]:
-        bohrung = bd.Cylinder(radius=p.r_bohrung, height=p.t_bohrung + 1)
-        bohrung = bd.Pos(x_pos, 0, ...) * bohrung  # z so wählen, dass Werkzeug überragt
-        halter = halter - bohrung
-
-    return bd.Solid(halter)
-```
+- `bd.Box(laenge, breite, hoehe)` — Mittelpunkt im Ursprung
+- `bd.Pos(x, y, z) * körper` — verschiebt den Körper (nur Positionsargumente, keine Keywords)
+- Sacklöcher: Zylinder mit `height = p.t_bohrung + 1` — Werkzeug soll nach oben überragen
+- Bohrpositionen: eine im rechten Drittel des horizontalen Flansches, eine über dem vertikalen
 
 *Frage:* Was passiert bei `LHalterParam(t_bohrung=9)`? Öffnen Sie das Modell im Viewer.
 
@@ -296,17 +284,9 @@ Ergänzen Sie außerdem:
 
 ### Aufgabe 2: Hinweis – Koinzidente Flächen
 
-Bei naiver Positionierung liegen die Oberkante von `h` und die Unterkante von `v` exakt aufeinander:
+Liegt die Unterkante von `v` exakt auf der Oberkante von `h`, entstehen durch Fließkomma-Ungenauigkeiten „Geisterflächen".
 
-```python
-# ✗ koinzidente Fläche: Unterkante v liegt genau auf Oberkante h
-v = bd.Pos(..., 0, p.dicke_h / 2 + p.hoehe_v / 2) * v
-
-# ✓ vertikaler Flansch überragt 0,5 mm nach unten
-v = bd.Pos(..., 0, p.dicke_h / 2 + p.hoehe_v / 2 - 0.5) * v
-```
-
-→ Selbes Prinzip wie `height = hoehe + 1` beim Innenzylinder.
+Gegenmittel: `v` leicht in `h` hineinragen lassen — selbes Prinzip wie `height = t_bohrung + 1` bei den Sacklöchern.
 
 ### Aufgabe 3: Verrundung *(Zusatz)*
 
@@ -320,15 +300,13 @@ Variieren Sie `p.dicke_v`: 3 mm, 8 mm, 15 mm. Was passiert?
 
 ### Aufgabe 3: Verrundung *(Zusatz, Forts.)*
 
-Beheben Sie das Topological Naming Problem. Die Innenecke ist die Y-Kante auf Höhe der Oberkante des horizontalen Flansches – linkeste Kante in der mittleren Z-Gruppe:
+Beheben Sie das Topological Naming Problem mit geometrischen Selektoren:
 
-```python
-innenecke = (halter.edges()
-                   .filter_by(Axis.Y)
-                   .group_by(Axis.Z)[1]
-                   .sort_by(Axis.X)[0])
-halter = bd.fillet(innenecke, radius=p.r_vr).solids()[0]
-```
+- `filter_by(Axis.Y)` — nur Y-parallele Kanten
+- `group_by(Axis.Z)` — nach Höhe gruppieren
+- `sort_by(Axis.X)` — innerhalb einer Gruppe nach X sortieren
+
+Hinweis: `bd.fillet()` gibt `Part` zurück, nicht `Solid` — extrahieren Sie das erste Solid.
 
 ## Optimierung
 
