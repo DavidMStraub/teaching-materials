@@ -576,7 +576,8 @@ Implementieren Sie `zielfunktion(x: list[float]) -> float`.
 
 - `dataclasses.replace(P_FIX, ...)` erzeugt eine Kopie mit geänderten Feldern
 - Strafterm-Schema: `max(0, GRENZWERT - kennwert)**2 * rho`
-- `except Exception: return float('inf')` schützt den Optimierungsloop
+- Das Gewicht `rho` muss zur Skala des Constraints passen: $I_h$ in mm⁴ braucht ein anderes `rho` als $A_v$ in mm²
+- `except Exception: return float('inf')` schützt die Optimierungsschleife
 
 *Prüfen:* Was gibt `zielfunktion([5, 5, 60])` zurück? Sind die Nebenbedingungen erfüllt?
 
