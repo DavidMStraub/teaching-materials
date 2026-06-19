@@ -276,6 +276,7 @@ Ergänzen Sie `l_halter` um **Gültigkeitsprüfungen** – jede kritische Beding
 | `p.r_bohrung >= p.breite / 2` | Bohrung breiter als Bauteil |
 | `p.t_bohrung > p.dicke_h` | Sackloch wird Durchgangsbohrung |
 | `p.abstand_bohrung > p.laenge - 2·p.r_bohrung` | Bohrung außerhalb des Flansches |
+| `p.abstand_bohrung/2 - p.r_bohrung < p.laenge/2 - p.dicke_v` | Bohrung überlappt vertikalen Flansch |
 
 ### Aufgabe 2 *(Forts.)*
 
@@ -328,7 +329,7 @@ $$\min_{\mathbf{x}} \; f(\mathbf{x}) \quad \text{sodass} \quad \underbrace{g_i(\
 
 ### Beispiel: Rundzelle mit minimalem Materialverbrauch
 
-**Aufgabe:** Zylindrisches Zellengehäuse mit kleinstmöglichem Materialvolumen.
+**Aufgabe:** Zylindrisches Zellengehäuse (Mantel + Boden + Deckel) mit kleinstmöglichem Materialvolumen.
 
 | Größe | Symbol | Beschreibung |
 |-------|--------|--------------|
@@ -338,7 +339,7 @@ $$\min_{\mathbf{x}} \; f(\mathbf{x}) \quad \text{sodass} \quad \underbrace{g_i(\
 | **Materialvolumen** | $V_{\text{mat}}$ | **Zielfunktion** (minimieren) |
 | Innenvolumen | $V_{\text{in}}$ | Nebenbedingung: $V_{\text{in}} \geq 15\,000 \;\text{mm}^3$ |
 
-$$V_{\text{in}} = \pi\,(r_a - t)^2\,h \geq V_{\text{min}}$$
+$$V_{\text{in}} = \pi\,(r_a - t)^2\,(h - 2t) \geq V_{\text{min}}$$
 
 ### scipy.optimize
 
@@ -368,7 +369,7 @@ V_MIN = 15_000  # mm³ – Mindest-Innenvolumen
 def zielfunktion(x: np.ndarray) -> float:
     r_a, t, h = x   # Außenradius, Wandstärke, Höhe
     try:
-        v_innen = np.pi * (r_a - t)**2 * h          # analytisch berechenbar
+        v_innen = np.pi * (r_a - t)**2 * (h - 2*t)  # analytisch berechenbar
         strafe  = max(0, V_MIN - v_innen)**2 * 1e-1
         return rundzelle(r_a, t, h).volume + strafe  # Materialvolumen: CAD nötig
     except Exception:
@@ -413,22 +414,24 @@ Beispiel: Boolean-Operation schlägt fehl, Fillet nicht erzeugbar.
 ```python
 from scipy.optimize import minimize
 
+bounds = [(5, 25), (0.5, 5), (20, 120)]  # [r_aussen, wandstaerke, hoehe]
 x0     = [12.0, 2.0, 65.0]
 result = minimize(zielfunktion, x0, method='Nelder-Mead',
-                  options={'xatol': 0.1, 'fatol': 10, 'maxiter': 1000})
+                  bounds=bounds,
+                  options={'xatol': 0.01, 'fatol': 1, 'maxiter': 5000})
 print(f"Optimale Parameter:  {result.x}")
 print(f"Materialvolumen:     {result.fun:.0f} mm³")
 print(f"Konvergiert:         {result.success}")
 ```
 
-**Einschränkung:** Nelder-Mead ignoriert Bounds – Gültigkeitsprüfung in `zielfunktion` ist zwingend nötig.
+**Hinweis:** Mit `bounds=` transformiert scipy die Variablen intern (z. B. $t \mapsto \sin^2 u$) — NM arbeitet im unbeschränkten Raum und hält Bounds implizit ein. Die engen Toleranzen (`xatol=0.01`) sind nötig, weil die Zielfunktion nahe am Optimum sehr flach ist (~3 mm³ über 5 mm Höhe).
 
 ### scipy.optimize.differential_evolution
 
 ```python
 from scipy.optimize import differential_evolution
 
-bounds = [(5, 25), (0.5, 5), (30, 120)]  # [r_aussen, wandstaerke, hoehe]
+# bounds bereits oben definiert: [(5, 25), (0.5, 5), (20, 120)]
 
 result = differential_evolution(
     zielfunktion, bounds,
@@ -487,9 +490,11 @@ plt.show()
 V_MIN = 15_000  # mm³
 
 def rundzelle(r_a, t, h) -> bd.Solid:
-    if t <= 0 or r_a - t <= 0.5 or h <= 0:
+    if t <= 0 or r_a - t <= 0.5 or h <= 2 * t:
         raise ValueError("Ungültige Parameter")
-    ergebnis = bd.Cylinder(radius=r_a, height=h) - bd.Cylinder(radius=r_a - t, height=h + 1)
+    aussen    = bd.Cylinder(radius=r_a, height=h)
+    innenraum = bd.Pos(0, 0, t) * bd.Cylinder(radius=r_a - t, height=h - 2 * t)
+    ergebnis  = aussen - innenraum
     solids = ergebnis.solids()
     assert len(solids) == 1, "Boolean hat keinen Solid erzeugt"
     return solids[0]
@@ -497,13 +502,13 @@ def rundzelle(r_a, t, h) -> bd.Solid:
 def zielfunktion(x: np.ndarray) -> float:
     r_a, t, h = x
     try:
-        v_innen = np.pi * (r_a - t)**2 * h          # analytisch
+        v_innen = np.pi * (r_a - t)**2 * (h - 2*t)  # analytisch
         strafe  = max(0, V_MIN - v_innen)**2 * 1e-1
         return rundzelle(r_a, t, h).volume + strafe  # CAD-Aufruf nur wo nötig
     except Exception:
         return float('inf')
 
-bounds = [(5, 25), (0.5, 5), (30, 120)]
+bounds = [(5, 25), (0.5, 5), (20, 120)]
 result = differential_evolution(zielfunktion, bounds, rng=42, maxiter=300)
 r_a, t, h = result.x
 print(f"r_aussen={r_a:.1f} mm,  wandstaerke={t:.2f} mm,  hoehe={h:.1f} mm")
@@ -512,20 +517,15 @@ print(f"Materialvolumen: {result.fun:.0f} mm³")
 
 ### Ergebnis interpretieren
 
-*Auch `rundzelle().volume` ließe sich hier analytisch berechnen. Bei komplexen Geometrien — Verrundungen, Bohrungen, Freiformflächen — ist das nicht mehr möglich: dort ist der CAD-Aufruf unverzichtbar (→ Praktikum).*
-
-
 ```
-r_aussen=13.1 mm,  wandstaerke=0.50 mm,  hoehe=30.0 mm
-Materialvolumen: 1213 mm³
+r_aussen=13.9 mm,  wandstaerke=0.50 mm,  hoehe=27.7 mm
+Materialvolumen: 1747 mm³
 ```
 
 **Geometrische Intuition:**
-- Wandstärke geht auf die untere Grenze (0,5 mm) → so dünn wie erlaubt
-- Material $\approx 2t \cdot V_{\text{min}} / r_a$ → minimiert durch **großen Radius**
-- Höhe geht auf die untere Grenze (30 mm), Radius ergibt sich aus $V_{\text{in}} = V_{\text{min}}$
-
-*Frage:* Was ändert sich, wenn wir `r_aussen ≤ 10 mm` als zusätzliche Bound einführen?
+- Wandstärke geht auf die untere Schranke (0,5 mm) → so dünn wie erlaubt
+- Bei $h$ gibt es einen **echten Kompromiss**: kleineres $h$ → größeres $r_a$ → schwere Platten; größeres $h$ → mehr Mantel
+- Das Optimum liegt bei $h = 2\,r_a \approx 27{,}7\,\text{mm}$ — klassische Regel: **Höhe = Durchmesser**
 
 ## Ausblick: Optimierung mit Simulation
 
