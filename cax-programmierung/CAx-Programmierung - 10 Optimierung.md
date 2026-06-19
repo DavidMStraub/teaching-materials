@@ -557,26 +557,29 @@ Ausgangspunkt: der robuste `l_halter` aus dem ersten Teil. Design-Variablen (Res
 
 | Variable | Bounds | Bedeutung |
 |----------|--------|-----------|
-| `dicke_h` | 5–12 mm | Dicke des horizontalen Flansches |
-| `dicke_v` | 5–12 mm | Dicke des vertikalen Flansches |
-| `hoehe_v` | 20–80 mm | Höhe des vertikalen Flansches |
+| `dicke_h` | 3–12 mm | Dicke des horizontalen Flansches |
+| `dicke_v` | 3–12 mm | Dicke des vertikalen Flansches |
+| `hoehe_v` | 15–80 mm | Höhe des vertikalen Flansches |
 
-**Zielfunktion:** Materialvolumen des Halters minimieren.
+**Zielfunktion:** Materialvolumen minimieren. `LHalterParam()` ist Ausgangspunkt — die Optimierung sucht ein leichteres Design.
 
-**Nebenbedingungen** (als Strafterme):
+### Aufgabe: Nebenbedingungen
 
 | Nebenbedingung | Formel | Grenzwert |
 |----------------|--------|-----------|
-| Biegesteifigkeit | $I_h = b \cdot t_h^3 / 12$ | $\geq 1000\;\text{mm}^4$ |
-| Befestigungsfläche | $A_v = h_v \cdot t_v$ | $\geq 400\;\text{mm}^2$ |
+| Biegesteifigkeit | $I_h = b \cdot t_h^3 / 12$ | $\geq 300\;\text{mm}^4$ |
+| Befestigungsfläche | $A_v = h_v \cdot t_v$ | $\geq 250\;\text{mm}^2$ |
 
-Implementieren Sie `zielfunktion(x: list[float]) -> float`.
+`LHalterParam()` erfüllt beide ($I_h \approx 417$, $A_v = 300$) — der Optimierer darf Material sparen, solange die Constraints erfüllt bleiben.
+
+Implementieren Sie `zielfunktion(x: np.ndarray) -> float`.
 
 ### Aufgabe: Hinweise – Zielfunktion
 
+- `P_FIX = LHalterParam(r_vr=1.0)` — kleinere Verrundung damit Fillet bei `dicke` bis 3 mm funktioniert
 - `dataclasses.replace(P_FIX, ...)` erzeugt eine Kopie mit geänderten Feldern
-- Strafterm-Schema: `max(0, GRENZWERT - kennwert)**2 * rho`
-- Das Gewicht `rho` muss zur Skala des Constraints passen: $I_h$ in mm⁴ braucht ein anderes `rho` als $A_v$ in mm²
+- Lineares Penalty für DE: `max(0, GRENZWERT - kennwert) * rho` — konstanter Gradient, konvergiert sauber auf die Constraint-Grenze
+- `rho` muss zur Skala passen: für $I_h$ (mm⁴) anderes `rho` als für $A_v$ (mm²)
 - `except Exception: return float('inf')` schützt die Optimierungsschleife
 
 *Prüfen:* Was gibt `zielfunktion([5, 5, 60])` zurück? Sind die Nebenbedingungen erfüllt?
@@ -585,18 +588,17 @@ Implementieren Sie `zielfunktion(x: list[float]) -> float`.
 
 Führen Sie die Optimierung durch – einmal mit `differential_evolution`, einmal mit `minimize` (Nelder-Mead, `x0 = [5, 5, 60]`).
 
-- Bounds für DE: `dicke_h` 5–12 mm, `dicke_v` 5–12 mm, `hoehe_v` 20–80 mm
+- Bounds: `dicke_h` 3–12 mm, `dicke_v` 3–12 mm, `hoehe_v` 15–80 mm
 - Zeichnen Sie den Konvergenzverlauf mit einem Callback auf.
-- Welches Verfahren liefert ein besseres Ergebnis? Warum?
 
 ### Aufgabe: Ergebnis analysieren
 
 1. Sind $I_h$ und $A_v$ im Ergebnis erfüllt?
 2. Visualisieren Sie den Konvergenzverlauf.
-3. Vergleichen Sie mit `l_halter(LHalterParam()).volume` – warum ist das Optimum größer?
+3. Vergleichen Sie mit `l_halter(LHalterParam()).volume` – warum ist das Optimum **kleiner**?
 
 ### Zusatz: Interpretation
 
-- Verdoppeln Sie $I_{\min} = 2000\;\text{mm}^4$ – wie ändert sich `dicke_h`?
+- Verdoppeln Sie $I_{\min} = 600\;\text{mm}^4$ – wie ändert sich `dicke_h`?
 - Setzen Sie `workers=-1` – was passiert?
 - Versuchen Sie Nelder-Mead mit `x0 = [5, 5, 60]` – konvergiert es zuverlässig?
