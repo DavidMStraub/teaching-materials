@@ -37,7 +37,7 @@ David Straub
 | [Termin 3](#termin-3) | Schleifen, Listen |
 | [Termin 4](#termin-4) | Funktionen vertieft, Module, Fehlerbehandlung |
 | [Termin 5](#termin-5) | Listen, verschachtelte Schleifen |
-| [Termin 6](#termin-6) | Klausurvorbereitung |
+| [Termin 6](#termin-6) | Typische Aufgabentypen |
 
 
 ## Termin 1
@@ -780,9 +780,7 @@ Stellen Sie die Temperaturen der drei Stationen mit `matplotlib.pyplot` als Lini
 | T4 | Funktionen vertieft, Module (`import`), `try`/`except` |
 | T5 | Verschachtelte Schleifen, Listen durchsuchen, List Comprehensions |
 
-Heute: **Klausurvorbereitung** – typische Aufgabentypen üben.
-
-Tipp: Versuchen Sie, jede Aufgabe zuerst ohne Hilfe zu lösen. Erst wenn Sie nicht weiterkommen: Mitschriften, Dokumentation, Kommilitonen.
+Heute: **typische Aufgabentypen** – von Schleifen über Funktionen bis Textverarbeitung.
 
 
 ### Übungsaufgabe 1: Zahlen erraten
