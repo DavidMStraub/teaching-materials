@@ -33,8 +33,10 @@ David Straub
 → Vom Anfangswertproblem (AWP) zum Signalflussplan
 → Simulink-Blöcke, Subsysteme und Parameter
 
-**Einheit 2**
-→ Weitere Beispiele und Anwendungen
+**Einheit 2 – Simulink II**
+→ DGL 2. Ordnung → mehrere Integratoren
+→ Gedämpfte und angeregte Schwingung (Resonanz)
+→ Nichtlineare DGL, Solver-Einstellungen, To Workspace
 
 
 ## Einführung in Simulink
@@ -140,6 +142,25 @@ Scope mit einem Mux-Eingang → mehrere Kurven in einem Fenster.
 Alternativ: Scope mit mehreren Eingängen direkt konfigurieren (Number of Input Ports).
 
 
+### Matlab Function-Block
+
+Beliebige Berechnung als Matlab-Funktion direkt im Modell:
+
+```matlab
+function y_dot = f(y)
+    % Eingang: Zustandsgröße y
+    % Ausgang: Ableitung y_dot
+    y_dot = ...;
+end
+```
+
+- Eingang(sfeil) → entspricht dem Funktionsparameter
+- Ausgang(sfeil) → entspricht dem Rückgabewert
+- Doppelklick auf den Block öffnet den Editor
+
+Kompakter als Elementarblöcke — besonders bei mehreren Zustandsgrößen.
+
+
 ### ✍️ Aufgabe: Batterie-DGL in Simulink
 
 Implementieren Sie das Batterie-Modell $\dot{T} = f(T) = \dfrac{P - \lambda(T-T_\infty)}{C_\text{th}}$ in Simulink. $P=125\,\text{W}$, $T_\infty = 25\,^\circ\text{C}$, $C_\text{th} = 100\,\text{J/K}$, $\lambda = 2\,\text{W/K}$, $T_0 = 25\,^\circ\text{C}$.
@@ -211,40 +232,3 @@ Im **From Workspace**-Block: Feldname `lastprofil` eintragen.
 Simulink interpoliert zwischen den Stützstellen — der Block gibt bei jedem Zeitschritt den passenden $P(t)$-Wert aus.
 
 
-### Federschwinger (2. Ordnung)
-
-Standardform mit $y_1 := x,\; y_2 := \dot{x}$:
-
-$$\dot{y}_1 = y_2, \qquad \dot{y}_2 = -\frac{k}{m}\,y_1$$
-
-**Euler-Schritt** – **zwei** Akkumulationszeilen, beide mit demselben $\Delta t$:
-
-$$\dot{x}_{n+1} = \dot{x}_n + \Delta t\cdot\ddot{x}_n \qquad x_{n+1} = x_n + \Delta t\cdot\dot{x}_n$$
-
-Zwei Akkumulationszeilen → **zwei Integratoren**:
-
-$$\xrightarrow{\;\ddot{x}\;} \boxed{\int dt} \xrightarrow{\;\dot{x}\;} \boxed{\int dt} \xrightarrow{\;x\;} \boxed{\times(-k/m)} \xrightarrow{\;\ddot{x}\;} \;\; \circlearrowleft$$
-
-
-### Vorgehen: DGL $n$-ter Ordnung → Signalflussplan
-
-| Schritt | |
-|---------|---|
-| 1 | DGL nach der **höchsten Ableitung** auflösen |
-| 2 | $n$ **Integratoren** in Reihe zeichnen |
-| 3 | Ausgänge benennen: $y^{(n-1)},\,\ldots,\,\dot{y},\,y$ |
-| 4 | Rechte Seite als Signalpfad aufbauen |
-| 5 | Ergebnis zurück in den ersten Integratoreingang; Anfangswerte einstellen |
-
-
-### ✍️ Aufgabe: Federschwinger in Simulink
-
-Implementieren Sie den harmonischen Oszillator $m\ddot{x} + kx = 0$ mit $m = 1$, $k = 1$, $x(0) = 1$, $\dot{x}(0) = 0$ in Simulink.
-
-1. Signalflussplan aufzeichnen (zwei Integratoren, Gain-Block)
-2. Modell in Simulink aufbauen
-3. Anfangswerte an den Integratoren einstellen
-4. $x(t)$ und $\dot{x}(t)$ mit Scope darstellen (Mux verwenden)
-5. Ergebnis mit der analytischen Lösung $x(t) = \cos(t)$ vergleichen
-
-**Extraaufgabe:** $k$ und $m$ als Workspace-Variablen definieren.
