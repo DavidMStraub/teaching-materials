@@ -106,7 +106,7 @@ Auflösen nach der höchsten Ableitung:
 
 $$\ddot{x} = -\frac{d}{m}\,\dot{x} - \frac{k}{m}\,x$$
 
-Drei Integratoren? Nein – **zwei** Integratoren, zwei Signalpfade zurück:
+DGL 2. Ordnung → **zwei** Integratoren, aber jetzt zwei Signalpfade zurück:
 
 $$\xrightarrow{\;\ddot{x}\;} \boxed{\int dt} \xrightarrow{\;\dot{x}\;} \boxed{\int dt} \xrightarrow{\;x\;}$$
 
@@ -152,7 +152,7 @@ $c_1 = 0{,}4\,\text{s}^{-1}$ (Reifenreibung), $c_2 = 0{,}004\,\text{m}^{-1}$ (Lu
 
 Signalflussplan:
 
-$$\xrightarrow{\;v\;}\Big[\text{Sum}\Big]\xrightarrow{\;\dot{v}\;}\boxed{\int dt}\xrightarrow{\;v\;}\;\circlearrowleft$$
+$$\Big[\text{Sum}\Big]\xrightarrow{\;\dot{v}\;}\boxed{\int dt}\xrightarrow{\;v\;}\;\circlearrowleft$$
 
 Rückkopplung liefert $-c_1 v$ (Gain) und $-c_2 v^2$ (Gain + Product).
 
