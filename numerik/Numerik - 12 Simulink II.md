@@ -26,17 +26,17 @@ David Straub
 7. **Einführung in Simulink** 👈
 
 
-### Fahrplan: Simulink II
+### Fahrplan: Einführung in Simulink
 
-**Rückblick Simulink I**
-→ Signalflussplan, Integrator, Batterie-DGL (1. Ordnung)
+**Einheit 1 – Simulink I**
+→ Was ist Simulink?
+→ Vom Anfangswertproblem (AWP) zum Signalflussplan
+→ Simulink-Blöcke, Subsysteme und Parameter
 
-**Heute**
-→ DGL 2. Ordnung → zwei Integratoren (Federschwinger)
+**Einheit 2 – Heute**
+→ DGL 2. Ordnung → mehrere Integratoren
 → Gedämpfte und angeregte Schwingung (Resonanz)
-→ Nichtlineare DGL (Fallschirm)
-→ Solver-Einstellungen
-→ To Workspace: Ergebnisse in MATLAB weiterverarbeiten
+→ Nichtlineare DGL, Solver-Einstellungen, To Workspace
 
 
 ## DGL 2. Ordnung in Simulink
