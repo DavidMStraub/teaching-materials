@@ -62,7 +62,7 @@ Zwei Akkumulationszeilen → **zwei Integratoren**.
 
 ### Vom Euler-Schritt zum Signalflussplan
 
-Jede Akkumulationszeile $\square_{n+1} = \square_n + \Delta t \cdot \dot{\square}_n$ wird ein Integrator:
+Jede Akkumulationszeile $u_{n+1} = u_n + \Delta t \cdot \dot{u}_n$ wird ein Integrator:
 
 $$\xrightarrow{\;\ddot{x}\;} \boxed{\int dt} \xrightarrow{\;\dot{x}\;} \boxed{\int dt} \xrightarrow{\;x\;}$$
 
