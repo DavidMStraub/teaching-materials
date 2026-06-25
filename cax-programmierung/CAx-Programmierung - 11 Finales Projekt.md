@@ -28,15 +28,18 @@ David Straub
 
 End-to-end-Workflow für ein **Windkraftanlagen-Rotorblatt** in vier Schritten:
 
-**Äußere Geometrie → Vernetzung → Simulation → Optimierung**
+**Äußere Geometrie → Innenstruktur → Vernetzung → Simulation → Optimierung**
 
-In dieser Einheit: **Schritt 1 – äußere Geometrie**
 
 Ein Rotorblatt entsteht durch das Zusammensetzen **aerodynamischer Querschnitte** entlang der Spannweite und ist vollständig **parametrisch**:
 
 - Profilform (NACA-Parameter)
 - Sehnenlänge entlang der Spannweite
 - Verwindungswinkel entlang der Spannweite
+
+![bg right:35% vertical](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Volvo_FH_520_mit_Windkraft-Rotorblatt.jpg/1280px-Volvo_FH_520_mit_Windkraft-Rotorblatt.jpg)
+![bg right:35% vertical](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Windrad-Wind-Turbine.jpg/1280px-Windrad-Wind-Turbine.jpg)
+
 
 ## Aerodynamisches Profil
 
