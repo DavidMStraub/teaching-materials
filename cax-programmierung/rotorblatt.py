@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import build123d as bd
 import numpy as np
@@ -48,6 +48,33 @@ class BladeParam:
 
     flange_length: float = 150.0 * bd.CM
     """Length of the cylindrical root flange in millimetres."""
+
+
+@dataclass
+class StructureParam:
+    """Internal structural parameters for the rotor blade.
+
+    Decoupled from BladeParam so that aerodynamic geometry and structural layout
+    can be varied independently — e.g. in a structural optimisation loop.
+    All lengths in millimetres.
+    """
+
+    wall_thickness: float = 15.0 * bd.MM
+    """Shell wall thickness of the aerodynamic blade surface.
+    Typical GFK sandwich laminate on a 45 m blade: 10–20 mm."""
+
+    root_wall_thickness: float = 80.0 * bd.MM
+    """Wall thickness of the cylindrical root flange.
+    Root carries the highest bending loads — typical value 60–100 mm."""
+
+    spar_positions: list[float] = field(default_factory=lambda: [0.25, 0.60])
+    """Chordwise positions of spar webs as fractions of chord length [0, 1].
+    Length of this list determines the number of spars."""
+
+    spar_thickness: float = 50.0 * bd.MM
+    """Web thickness of each spar in millimetres.
+    Real shear webs are 8–15 mm; 50 mm is used here so the spars are visible
+    in the 3-D viewer at full blade scale."""
 
 
 def _naca_compute(m: float, p: float, t: float, n: int) -> NacaPoints:
@@ -198,6 +225,24 @@ def pts_to_face(
     return faces[0]
 
 
+def _inner_naca(naca: str, chord: float, wall: float) -> str:
+    """Reduce a NACA 4-digit code so that subtraction of the resulting inner profile
+    gives a wall of thickness `wall` mm at the upper/lower surface maximum.
+
+    Derivation: we want
+        inner_half_height = outer_half_height - wall
+        inner_tt * chord_inner / 100 / 2 = outer_tt * chord / 100 / 2 - wall
+    Solving for inner_tt (as a percentage):
+        inner_tt = (chord * tt - 200 * wall) / (chord - 2 * wall)
+
+    Camber digits (M and P) are left unchanged.
+    """
+    tt_outer = int(naca[2:])
+    chord_inner = chord - 2 * wall
+    tt_inner = max(1, round((chord * tt_outer - 200 * wall) / chord_inner))
+    return f"{naca[:2]}{tt_inner:02d}"
+
+
 def _circular_face_aligned(
     r: float, radius: float, twist_deg: float, n: int = 60
 ) -> bd.Face:
@@ -258,14 +303,19 @@ class SpanParams:
 
 
 def _span_params(p: BladeParam) -> SpanParams:
-    """Precompute all spanwise geometry arrays and root circle faces for loft_sections."""
-    # Two circles at the root: the first sits flush with the flange end face,
-    # the second is offset by 1 m. This gives the loft a short parallel segment
-    # there, which forces a C1 (tangent-continuous) transition from the cylinder.
+    """Precompute all spanwise geometry arrays and root circle faces for loft_sections.
+
+    All sections — including the root cylindrical portion — are built with
+    _circular_face_aligned so every face in the loft has the same Spline edge type.
+    A separate bd.Cylinder is not needed and would introduce a Spline-vs-Circle
+    junction that creates sliver faces in boolean operations.
+    """
     circles: list[bd.Face] = [
+        _circular_face_aligned(0.0, p.flange_radius, p.twist_root),
+        _circular_face_aligned(10.0 * bd.CM, p.flange_radius, p.twist_root),
         _circular_face_aligned(p.flange_length, p.flange_radius, p.twist_root),
         _circular_face_aligned(
-            p.flange_length + 1.0 * bd.M, p.flange_radius, p.twist_root
+            p.flange_length + 20.0 * bd.CM, p.flange_radius, p.twist_root
         ),
     ]
 

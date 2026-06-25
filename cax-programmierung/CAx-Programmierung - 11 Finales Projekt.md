@@ -143,8 +143,6 @@ Erstellen Sie mit `naca_profile` und `pts_to_face` für jede Sektion eine Face, 
 
 Implementieren Sie `rotor_blade(p: BladeParam) -> bd.Solid`:
 
-1. Flansch: `bd.Cylinder` mit `bd.Align.MIN` entlang *z*
-2. `bd.loft(loft_sections(p))`
-3. `flange + blade_loft`
+`bd.loft(loft_sections(p))` — der Flansch ist bereits als Kreisquerschnitte in `sp.circles` enthalten; kein separater Zylinder nötig.
 
 ### *Fortsetzung folgt …*
