@@ -822,7 +822,6 @@ Beispiele: 1900 → kein Schaltjahr, 2000 → Schaltjahr, 2024 → Schaltjahr
 
 - Schreiben Sie eine Funktion `ist_schaltjahr(jahr)` → `True`/`False`
 - Zählen Sie alle Schaltjahre zwischen 1900 und 2100
-- Geben Sie alle Schaltjahre aus, die durch 400 teilbar sind
 - **Zusatz:** Berechnen Sie, wie viele Tage das 21. Jahrhundert (2001–2100) hat
 
 
