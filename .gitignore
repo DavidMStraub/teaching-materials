@@ -3,6 +3,10 @@
 !cax-programmierung/w7x_lcfs.html
 !cax-programmierung/w7x_lcfs_coarse.html
 
+# demo scripts
+demo_*.py
+demo_*.m
+
 # Generated PDF files from markdown conversion
 *.pdf
 
