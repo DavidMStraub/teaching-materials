@@ -46,7 +46,7 @@ class StructureParam:
     spar_thickness:      float       = 50.0 * bd.MM  # Holmstegdicke
 ```
 
-Holmpositionen als Sehnenanteil $\in [0, 1]$ — Länge der Liste bestimmt die Anzahl der Holme.
+Holmpositionen als Sehnenanteil $\in [0, 1]$ (Sehne = Profiltiefe, engl. *chord*) — Länge der Liste bestimmt die Anzahl der Holme.
 
 Reale 45-m-Blätter: Schale 10–20 mm GFK-Sandwich, Flansch 60–100 mm.
 Holme verlaufen **spanwise** (von der Wurzel zur Spitze) als Scherstege.
@@ -57,24 +57,35 @@ Implementieren Sie `hollow_blade(blade: bd.Solid, p: BladeParam, s: StructurePar
 
 `bd.offset` schlägt auf Freiform-Loft-Geometrie fehl. Stattdessen: inneren Loft durch `loft_sections(p_inner)` aufbauen und subtrahieren.
 
-1. `dataclasses.replace(p, ...)` — reduzierte `chord_max`, `chord_tip`, `flange_radius` sowie `naca_root`/`naca_tip` via `_inner_naca(naca, chord, wall)`
+```python
+from dataclasses import replace
+from rotorblatt import _inner_naca
+```
+
+1. `replace(p, ...)` — reduzierte `chord_max`, `chord_tip`, `flange_radius` sowie `naca_root`/`naca_tip` via `_inner_naca(naca, chord, wall)`
 2. `inner_loft = bd.loft(loft_sections(p_inner))`
-3. `blade - inner_loft`
+3. `blade - inner_loft` — liefert ein `Compound`; analog zu Aufgabe 3 `.solids()[0]` zurückgeben
 
 ### Aufgabe 5: Holme
 
-Für jede Holmposition `x_s` in `s.spar_positions`:
+Implementieren Sie `blade_spars(hollow: bd.Solid, outer: bd.Solid, p: BladeParam, s: StructureParam) -> bd.Solid`:
+
+`hollow` = Hohlstruktur (Aufgabe 4), `outer` = massives Außen-Solid (Aufgabe 3).
+
+Initialisieren Sie `result = hollow` und iterieren Sie über `s.spar_positions`:
 
 1. `x_center = (x_s - 0.5) * p.chord_max`
-2. `bd.Box(length=s.spar_thickness, width=2*p.chord_max, height=p.span - p.flange_length)`, verschoben auf `z = p.flange_length`
-3. `spar_box & outer` — schneidet den Quader auf die Außengeometrie zu
-4. `result + spar`
+2. Box mit `align=(..., bd.Align.MIN)` auf der Z-Achse, dann `.move(bd.Location((x_center, 0, p.flange_length)))`
+3. `(spar_box & outer).solids()[0]` — schneidet den Quader auf die Außengeometrie zu
+4. `result = result + spar`
 
 ![bg right:30% 90%](assets/rotorblatt_holm_blick.png)
 
 ### Aufgabe 6a: Vernetzen & Visualisieren
 
 Wie in Einheit 9: `cadgmsh.mesh` direkt an PyVista übergeben — noch ohne Physical Groups.
+
+`structured` = Ergebnis von `blade_spars` (Aufgabe 5) — Hohlstruktur mit Holmen.
 
 ```python
 import cadgmsh, pyvista as pv
@@ -83,18 +94,23 @@ m = cadgmsh.mesh(structured, dim=3, lc=200)
 pv.from_meshio(m).plot(show_edges=True)
 ```
 
-### Aufgabe 6b: Physical Groups
+### Aufgabe 6b: Physical Groups — Flächenauswahl
 
-FEM-Solver brauchen benannte Randflächen für Randbedingungen. Wählen Sie aus `structured.faces()`:
+FEM-Solver brauchen benannte Randflächen für Randbedingungen. Kapseln Sie den Mesh-Code in `mesh_blade(solid: bd.Solid, lc: float = 200.0)`.
 
-1. **`upper_skin` / `lower_skin`** — die gekrümmten Außenflächen (BSPLINE), getrennt nach Saug-/Druckseite
-2. **`root`** — die ebene Flanschfläche an der Wurzel (kleinste Z-Position)
-3. **`spars`** — die ebenen Holmflächen (übrige PLANE-Faces)
+Wählen Sie aus `solid.faces()` mit `f.geom_type` und `f.center()`:
 
-`f.geom_type` (`bd.GeomType.BSPLINE` / `.PLANE`) und `f.center()` liefern, was Sie brauchen — wie schon in Aufgabe 4/5 zur Flächenauswahl genutzt.
+| Gruppe | Typ | Kriterium |
+|--------|-----|-----------|
+| `upper_skin` | BSPLINE | `f.center().Y > 0` |
+| `lower_skin` | BSPLINE | `f.center().Y < 0` |
+| `root` | PLANE | kleinstes `f.center().Z` |
+| `spars` | PLANE | alle übrigen |
+
+### Aufgabe 6b: Physical Groups — Vernetzung
 
 ```python
-m = cadgmsh.mesh(structured, dim=3, lc=200, physical={
+m = cadgmsh.mesh(solid, dim=3, lc=lc, physical={
     "upper_skin": ..., "lower_skin": ..., "root": ..., "spars": ...,
 })
 grid = pv.from_meshio(m)
@@ -198,4 +214,4 @@ for positions in konfigurationen:
         continue
 ```
 
-Ergebnis: `[0.33, 0.62]` schlägt Default `[0.25, 0.60]` um −4 % Durchbiegung, −6 % Spannung.
+Vergleichen Sie Durchbiegung und Von-Mises-Spannung zwischen den Konfigurationen. Welche schneidet am besten ab, und warum?

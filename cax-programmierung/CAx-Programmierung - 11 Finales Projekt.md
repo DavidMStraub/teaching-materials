@@ -143,6 +143,12 @@ Erstellen Sie mit `naca_profile` und `pts_to_face` für jede Sektion eine Face, 
 
 Implementieren Sie `rotor_blade(p: BladeParam) -> bd.Solid`:
 
-`bd.loft(loft_sections(p))` — der Flansch ist bereits als Kreisquerschnitte in `sp.circles` enthalten; kein separater Zylinder nötig.
+`bd.loft(loft_sections(p))` gibt ein `Compound` zurück — extrahieren Sie mit `.solids()[0]` das enthaltene Solid. Der Flansch ist bereits als Kreisquerschnitte in `sp.circles` enthalten; kein separater Zylinder nötig.
+
+```python
+loft = bd.loft(loft_sections(p))
+assert len(loft.solids()) == 1
+return loft.solids()[0]
+```
 
 ### *Fortsetzung folgt …*
