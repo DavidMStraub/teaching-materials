@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 440" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <!-- Reihe 1: + + stoßen sich ab -->
+  <line x1="150" y1="80" x2="60" y2="80" stroke="#111827" stroke-width="4" marker-end="url(#arrF)"/>
+  <circle cx="190" cy="80" r="28" fill="#ef4444"/>
+  <text x="190" y="91" fill="#fff" font-size="34" text-anchor="middle" font-weight="bold">+</text>
+  <circle cx="430" cy="80" r="28" fill="#ef4444"/>
+  <text x="430" y="91" fill="#fff" font-size="34" text-anchor="middle" font-weight="bold">+</text>
+  <line x1="470" y1="80" x2="560" y2="80" stroke="#111827" stroke-width="4" marker-end="url(#arrF)"/>
+
+  <!-- Reihe 2: − − stoßen sich ab -->
+  <line x1="150" y1="220" x2="60" y2="220" stroke="#111827" stroke-width="4" marker-end="url(#arrF)"/>
+  <circle cx="190" cy="220" r="28" fill="#3b82f6"/>
+  <text x="190" y="230" fill="#fff" font-size="34" text-anchor="middle" font-weight="bold">&#8722;</text>
+  <circle cx="430" cy="220" r="28" fill="#3b82f6"/>
+  <text x="430" y="230" fill="#fff" font-size="34" text-anchor="middle" font-weight="bold">&#8722;</text>
+  <line x1="470" y1="220" x2="560" y2="220" stroke="#111827" stroke-width="4" marker-end="url(#arrF)"/>
+
+  <!-- Reihe 3: + − ziehen sich an -->
+  <line x1="230" y1="360" x2="290" y2="360" stroke="#111827" stroke-width="4" marker-end="url(#arrF)"/>
+  <circle cx="190" cy="360" r="28" fill="#ef4444"/>
+  <text x="190" y="371" fill="#fff" font-size="34" text-anchor="middle" font-weight="bold">+</text>
+  <circle cx="430" cy="360" r="28" fill="#3b82f6"/>
+  <text x="430" y="370" fill="#fff" font-size="34" text-anchor="middle" font-weight="bold">&#8722;</text>
+  <line x1="390" y1="360" x2="330" y2="360" stroke="#111827" stroke-width="4" marker-end="url(#arrF)"/>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 510" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrFk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="vecD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="vecB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Panel a: positive Probeladung ===== -->
+  <text x="30" y="42" fill="#111827" font-size="30" font-weight="bold">a)  Q &gt; 0</text>
+
+  <!-- Feldlinien -->
+  <line x1="40" y1="75" x2="565" y2="75" stroke="#2563eb" stroke-width="3" marker-end="url(#arrE)"/>
+  <line x1="40" y1="235" x2="565" y2="235" stroke="#2563eb" stroke-width="3" marker-end="url(#arrE)"/>
+  <text x="585" y="88" fill="#2563eb" font-size="36" font-style="italic">E</text>
+  <line x1="584" y1="56" x2="606" y2="56" stroke="#2563eb" stroke-width="3" marker-end="url(#vecB)"/>
+
+  <!-- Gleichung: mittig zwischen den Feldlinien, links -->
+  <text x="55" y="167" fill="#111827" font-size="34" font-style="italic">F</text>
+  <line x1="55" y1="135" x2="77" y2="135" stroke="#111827" stroke-width="3" marker-end="url(#vecD)"/>
+  <text x="85" y="167" fill="#111827" font-size="34" font-style="italic">= Q&#183;E</text>
+  <line x1="163" y1="135" x2="185" y2="135" stroke="#111827" stroke-width="3" marker-end="url(#vecD)"/>
+
+  <!-- Ladung + Kraftpfeil -->
+  <circle cx="320" cy="155" r="30" fill="#ef4444"/>
+  <text x="320" y="168" fill="#fff" font-size="38" text-anchor="middle" font-weight="bold">+</text>
+  <line x1="358" y1="155" x2="490" y2="155" stroke="#111827" stroke-width="5" marker-end="url(#arrFk)"/>
+
+  <!-- ===== Panel b: negative Probeladung ===== -->
+  <text x="30" y="297" fill="#111827" font-size="30" font-weight="bold">b)  Q &lt; 0</text>
+
+  <!-- Feldlinien -->
+  <line x1="40" y1="330" x2="565" y2="330" stroke="#2563eb" stroke-width="3" marker-end="url(#arrE)"/>
+  <line x1="40" y1="490" x2="565" y2="490" stroke="#2563eb" stroke-width="3" marker-end="url(#arrE)"/>
+  <text x="585" y="343" fill="#2563eb" font-size="36" font-style="italic">E</text>
+  <line x1="584" y1="311" x2="606" y2="311" stroke="#2563eb" stroke-width="3" marker-end="url(#vecB)"/>
+
+  <!-- Gleichung: mittig zwischen den Feldlinien, rechts (Kraft zeigt nach links) -->
+  <text x="420" y="422" fill="#111827" font-size="34" font-style="italic">F</text>
+  <line x1="420" y1="390" x2="442" y2="390" stroke="#111827" stroke-width="3" marker-end="url(#vecD)"/>
+  <text x="450" y="422" fill="#111827" font-size="34" font-style="italic">= Q&#183;E</text>
+  <line x1="528" y1="390" x2="550" y2="390" stroke="#111827" stroke-width="3" marker-end="url(#vecD)"/>
+
+  <!-- Ladung + Kraftpfeil -->
+  <circle cx="320" cy="410" r="30" fill="#3b82f6"/>
+  <text x="320" y="421" fill="#fff" font-size="38" text-anchor="middle" font-weight="bold">&#8722;</text>
+  <line x1="282" y1="410" x2="150" y2="410" stroke="#111827" stroke-width="5" marker-end="url(#arrFk)"/>
+</svg>
