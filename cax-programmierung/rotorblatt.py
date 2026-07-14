@@ -72,9 +72,7 @@ class StructureParam:
     Length of this list determines the number of spars."""
 
     spar_thickness: float = 50.0 * bd.MM
-    """Web thickness of each spar in millimetres.
-    Real shear webs are 8–15 mm; 50 mm is used here so the spars are visible
-    in the 3-D viewer at full blade scale."""
+    """Web thickness of each spar in millimetres."""
 
 
 def _naca_compute(m: float, p: float, t: float, n: int) -> NacaPoints:
