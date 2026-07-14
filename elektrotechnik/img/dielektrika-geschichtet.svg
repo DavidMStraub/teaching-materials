@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 15 360 540" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+
+  <!-- ===== a) nebeneinander ===== -->
+  <text x="20" y="45" fill="#111827" font-size="28" font-weight="bold">a)</text>
+
+  <!-- Platten -->
+  <rect x="60" y="70" width="240" height="14" fill="#374151"/>
+  <rect x="60" y="196" width="240" height="14" fill="#374151"/>
+  <text x="46" y="84" fill="#111827" font-size="24">+</text>
+  <text x="44" y="212" fill="#111827" font-size="28">&#8722;</text>
+
+  <!-- Dielektrika nebeneinander -->
+  <rect x="60" y="84" width="120" height="112" fill="#dbeafe"/>
+  <rect x="180" y="84" width="120" height="112" fill="#dcfce7"/>
+  <text x="120" y="148" fill="#1e40af" font-size="26" text-anchor="middle" font-style="italic">&#949;<tspan font-size="18" dy="7">r1</tspan></text>
+  <text x="240" y="148" fill="#166534" font-size="26" text-anchor="middle" font-style="italic">&#949;<tspan font-size="18" dy="7">r2</tspan></text>
+  <text x="120" y="112" fill="#1e40af" font-size="20" text-anchor="middle" font-style="italic">A<tspan font-size="15" dy="6">1</tspan></text>
+  <text x="240" y="112" fill="#166534" font-size="20" text-anchor="middle" font-style="italic">A<tspan font-size="15" dy="6">2</tspan></text>
+
+  <!-- Abstand d -->
+  <line x1="322" y1="86" x2="322" y2="194" stroke="#4b5563" stroke-width="2.5" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <text x="334" y="148" fill="#4b5563" font-size="24" font-style="italic">d</text>
+
+  <!-- ===== b) hintereinander ===== -->
+  <text x="20" y="310" fill="#111827" font-size="28" font-weight="bold">b)</text>
+
+  <!-- Platten -->
+  <rect x="60" y="335" width="240" height="14" fill="#374151"/>
+  <rect x="60" y="505" width="240" height="14" fill="#374151"/>
+  <text x="46" y="349" fill="#111827" font-size="24">+</text>
+  <text x="44" y="521" fill="#111827" font-size="28">&#8722;</text>
+
+  <!-- Dielektrika geschichtet -->
+  <rect x="60" y="349" width="240" height="75" fill="#dbeafe"/>
+  <rect x="60" y="424" width="240" height="81" fill="#dcfce7"/>
+  <text x="180" y="396" fill="#1e40af" font-size="26" text-anchor="middle" font-style="italic">&#949;<tspan font-size="18" dy="7">r1</tspan></text>
+  <text x="180" y="474" fill="#166534" font-size="26" text-anchor="middle" font-style="italic">&#949;<tspan font-size="18" dy="7">r2</tspan></text>
+
+  <!-- Dicken d1, d2 -->
+  <line x1="322" y1="351" x2="322" y2="422" stroke="#4b5563" stroke-width="2.5" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <text x="334" y="392" fill="#4b5563" font-size="22" font-style="italic">d<tspan font-size="16" dy="6">1</tspan></text>
+  <line x1="322" y1="426" x2="322" y2="503" stroke="#4b5563" stroke-width="2.5" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <text x="334" y="470" fill="#4b5563" font-size="22" font-style="italic">d<tspan font-size="16" dy="6">2</tspan></text>
+</svg>
