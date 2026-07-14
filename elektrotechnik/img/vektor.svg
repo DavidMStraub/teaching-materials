@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 42 412 532" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="arrGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/>
+    </marker>
+    <marker id="vecBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="vecRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <!-- Koordinatenachsen -->
+  <line x1="60" y1="530" x2="410" y2="530" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrGray)"/>
+  <line x1="60" y1="530" x2="60" y2="60" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrGray)"/>
+  <text x="398" y="558" fill="#6b7280" font-size="24" font-style="italic">x</text>
+  <text x="28" y="75" fill="#6b7280" font-size="24" font-style="italic">y</text>
+
+  <!-- Vektor v -->
+  <line x1="110" y1="500" x2="330" y2="160" stroke="#1d4ed8" stroke-width="6" marker-end="url(#arrBlue)"/>
+  <text x="158" y="288" fill="#1d4ed8" font-size="38" font-style="italic">v</text>
+  <line x1="157" y1="254" x2="181" y2="254" stroke="#1d4ed8" stroke-width="3" marker-end="url(#vecBlue)"/>
+
+  <!-- Betrag (Länge), parallel versetzt -->
+  <path d="M122,512 L342,172" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="200" y="408" fill="#4b5563" font-size="26">L&#228;nge: <tspan font-style="italic">v</tspan> = {v}&#183;[v]</text>
+
+  <!-- Einheitsvektor e_v -->
+  <line x1="110" y1="500" x2="154" y2="432" stroke="#b91c1c" stroke-width="6" marker-end="url(#arrRed)"/>
+  <text x="185" y="494" fill="#b91c1c" font-size="32" font-style="italic">e<tspan font-size="22" dy="7">v</tspan></text>
+  <line x1="184" y1="462" x2="204" y2="462" stroke="#b91c1c" stroke-width="3" marker-end="url(#vecRed)"/>
+  <text x="185" y="522" fill="#b91c1c" font-size="20">(L&#228;nge 1)</text>
+</svg>

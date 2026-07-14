@@ -92,6 +92,8 @@ Beispiele:
 - $\vec{v} = 10 \, \frac{\text{m}}{\text{s}} \cdot \vec{e}_x$ (Geschwindigkeit)
 - $\vec{a} = 9{,}81 \, \frac{\text{m}}{\text{s}^2} \cdot (\vec{e}_{-z})$ (Beschleunigung)
 
+![bg 90% right:30%](img/vektor.svg)
+
 ### Das Internationale Einheitensystem (SI)
 
 | Basisgröße                    | Größensymbol      | Dimensionssymbol         | Einheit   | Einheitenzeichen |
