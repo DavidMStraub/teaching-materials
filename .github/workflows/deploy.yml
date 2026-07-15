@@ -54,15 +54,17 @@ jobs:
       - name: Install Pandoc from GitHub releases
         run: |
           PANDOC_VERSION=3.7.0.2
-          wget -q https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb
-          sudo dpkg -i pandoc-${PANDOC_VERSION}-1-amd64.deb
+          wget -q -P /tmp https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb
+          sudo dpkg -i /tmp/pandoc-${PANDOC_VERSION}-1-amd64.deb
           pandoc --version
 
       - name: Install Typst
         run: |
+          # Extract outside the workspace — anything left in the repo dir gets
+          # picked up by create-index.sh and deployed!
           TYPST_VERSION=v0.15.0
-          curl -sL "https://github.com/typst/typst/releases/download/${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" | tar -xJ
-          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
+          curl -sL "https://github.com/typst/typst/releases/download/${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" | tar -xJ -C /tmp
+          sudo mv /tmp/typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
           typst --version
 
       - name: Install fonts
@@ -90,11 +92,11 @@ jobs:
           path: |
             **/*.pdf
             ~/.cache/pdf-manifest.txt
-          # v2: typst pipeline — key bump discards all xelatex-era PDFs and
-          # the manifest, forcing a full rebuild
-          key: ${{ runner.os }}-pdf-v2-${{ github.run_id }}
+          # v3: discards PDFs from the first typst run, which had recorded
+          # rate-limited placeholder builds as successes in the manifest
+          key: ${{ runner.os }}-pdf-v3-${{ github.run_id }}
           restore-keys: |
-            ${{ runner.os }}-pdf-v2-
+            ${{ runner.os }}-pdf-v3-
 
       - name: Clean up orphaned HTML/PDF files
         run: |
@@ -168,7 +170,7 @@ jobs:
           path: |
             **/*.pdf
             ~/.cache/pdf-manifest.txt
-          key: ${{ runner.os }}-pdf-v2-${{ github.run_id }}
+          key: ${{ runner.os }}-pdf-v3-${{ github.run_id }}
 
       - name: Generate Index
         run: |

@@ -301,23 +301,35 @@ while IFS= read -r url; do
         fi
     fi
 
-    # Download with retries
+    # Download with retries. Rate limits (429, HTML error pages) get a real
+    # backoff — in CI a fresh cache means many requests in a burst, and
+    # Wikimedia throttles cloud IPs aggressively. Hard 4xx errors don't retry.
     if [[ $download_success == false ]]; then
-        max_retries=3; retry=0
+        max_retries=4; retry=0
         while [[ $retry -lt $max_retries ]] && [[ $download_success == false ]]; do
-            # No curl-internal --retry: on 429 curl would honor Retry-After
-            # and sleep for minutes; the outer loop already retries
-            curl -s -L --max-time 60 --connect-timeout 10 \
-                -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+            # No curl-internal --retry: it would honor Retry-After blindly and
+            # can sleep for minutes; we cap the wait ourselves below
+            http_code=$(curl -s -L --max-time 60 --connect-timeout 10 \
+                -w '%{http_code}' -D "$TEMP_DIR/headers.txt" \
+                -H "User-Agent: public-slides-pdf-build/1.0 (+https://github.com/DavidMStraub/teaching-materials)" \
                 -H "Accept: image/png,image/jpeg,image/webp,image/svg+xml,image/*,*/*;q=0.8" \
-                -H "Referer: https://github.com/" \
-                "$url" -o "$cached_file" 2>/dev/null || true
-            sleep 0.3
-            if [[ -s "$cached_file" ]]; then
+                "$url" -o "$cached_file" 2>/dev/null || echo "000")
+            sleep 1  # be polite: throttle between requests
+            if [[ "$http_code" == "429" ]]; then
+                retry_after=$(grep -i '^retry-after:' "$TEMP_DIR/headers.txt" 2>/dev/null | tail -1 | tr -dc '0-9')
+                wait_s=$(( ${retry_after:-15} < 60 ? ${retry_after:-15} : 60 ))
+                echo "  -> Rate limited (429), waiting ${wait_s}s before retry $((retry+1))/$max_retries"
+                rm -f "$cached_file"
+                sleep "$wait_s"
+            elif [[ "$http_code" =~ ^4 ]]; then
+                echo "  -> HTTP $http_code, giving up"
+                rm -f "$cached_file"; break
+            elif [[ -s "$cached_file" ]]; then
                 mime=$(file --mime-type -b "$cached_file" 2>/dev/null || echo "")
                 if [[ "$mime" == "text/html" ]]; then
-                    echo "  -> Got HTML (not an image), skipping"
-                    rm -f "$cached_file"; break
+                    echo "  -> Got HTML instead of an image (soft block?), retry $((retry+1))/$max_retries"
+                    rm -f "$cached_file"
+                    sleep $(( (retry + 1) * 10 ))
                 elif check_image_integrity "$cached_file"; then
                     download_success=true
                 else
