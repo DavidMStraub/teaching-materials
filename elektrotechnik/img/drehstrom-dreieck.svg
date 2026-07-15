@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 10 540 380" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrId" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="arrUd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <!-- Dreieckseiten -->
+    <line x1="310" y1="80" x2="160" y2="320"/>
+    <line x1="310" y1="80" x2="460" y2="320"/>
+    <line x1="160" y1="320" x2="460" y2="320"/>
+
+    <!-- Impedanzen auf den Seiten -->
+    <rect x="205" y="188" width="60" height="24" fill="#fff" transform="rotate(122 235 200)"/>
+    <rect x="355" y="188" width="60" height="24" fill="#fff" transform="rotate(58 385 200)"/>
+    <rect x="280" y="308" width="60" height="24" fill="#fff"/>
+
+    <!-- Zuleitungen und Klemmen -->
+    <line x1="310" y1="42" x2="310" y2="80"/>
+    <circle cx="310" cy="37" r="5" fill="#fff"/>
+    <line x1="91" y1="320" x2="160" y2="320"/>
+    <circle cx="86" cy="320" r="5" fill="#fff"/>
+    <line x1="460" y1="320" x2="529" y2="320"/>
+    <circle cx="534" cy="320" r="5" fill="#fff"/>
+  </g>
+
+  <!-- Strompfeile -->
+  <line x1="285" y1="46" x2="285" y2="72" stroke="#111827" stroke-width="3" fill="none" marker-end="url(#arrId)"/>
+  <line x1="398" y1="130" x2="415" y2="157" stroke="#111827" stroke-width="3" fill="none" marker-end="url(#arrId)"/>
+
+  <!-- Strangspannung unten -->
+  <line x1="278" y1="352" x2="342" y2="352" stroke="#6b7280" stroke-width="2.5" fill="none" marker-end="url(#arrUd)"/>
+
+  <!-- Beschriftungen -->
+  <text x="330" y="44" fill="#111827" font-size="20" font-weight="bold">L1</text>
+  <text x="86" y="300" fill="#111827" font-size="20" font-weight="bold" text-anchor="middle">L2</text>
+  <text x="534" y="300" fill="#111827" font-size="20" font-weight="bold" text-anchor="middle">L3</text>
+  <text x="240" y="62" fill="#111827" font-size="20" font-style="italic">I<tspan font-size="15" dy="6">1</tspan></text>
+  <text x="428" y="142" fill="#111827" font-size="20" font-style="italic">I<tspan font-size="15" dy="6">Str</tspan></text>
+  <text x="172" y="196" fill="#111827" font-size="22" font-style="italic" text-decoration="underline">Z</text>
+  <text x="432" y="196" fill="#111827" font-size="22" font-style="italic" text-anchor="end" text-decoration="underline">Z</text>
+  <text x="310" y="300" fill="#111827" font-size="22" font-style="italic" text-anchor="middle" text-decoration="underline">Z</text>
+  <text x="352" y="360" fill="#6b7280" font-size="19" font-style="italic">U<tspan font-size="14" dy="6">Str</tspan></text>
+</svg>

@@ -61,9 +61,11 @@ Die drei Quellen werden im **Sternpunkt N** zusammengeschaltet:
 
 $$\underline{U}_{12} = \underline{U}_1 - \underline{U}_2, \qquad \underline{U}_{23} = \underline{U}_2 - \underline{U}_3, \qquad \underline{U}_{31} = \underline{U}_3 - \underline{U}_1$$
 
-Aus dem Zeigerdiagramm (→ Tafel: Zeigersubtraktion, gleichschenkliges Dreieck mit 30°):
+Aus dem Zeigerdiagramm (Zeigersubtraktion, gleichschenkliges Dreieck mit 30°):
 
 $$\boxed{U_\Delta = \sqrt{3} \cdot U_Y}$$
+
+![bg right:36% 90%](img/drehstrom-zeiger.svg)
 
 **Unser Niederspannungsnetz:** $U_Y = 230\,\text{V}$, $U_\Delta = \sqrt{3} \cdot 230\,\text{V} = 400\,\text{V}$
 
@@ -81,6 +83,8 @@ $$I_\text{Str} = I = \frac{U_Y}{Z}$$
 
 **Neutralleiterstrom:** $\underline{I}_N = \underline{I}_1 + \underline{I}_2 + \underline{I}_3 = 0$ — bei symmetrischer Last fließt im Neutralleiter **kein Strom**!
 
+![bg right:38% 90%](img/drehstrom-stern.svg)
+
 ### Verbraucher in Dreieckschaltung (Δ)
 
 Drei gleiche Impedanzen $\underline{Z}$, jeweils **zwischen zwei Außenleitern**:
@@ -88,8 +92,10 @@ Drei gleiche Impedanzen $\underline{Z}$, jeweils **zwischen zwei Außenleitern**
 **Strangspannung = Dreieckspannung:**
 $$U_\text{Str} = U_\Delta = \sqrt{3} \cdot U_Y$$
 
-**Strangstrom vs. Außenleiterstrom** (Knotenregel an den Ecken, → Tafel):
+**Strangstrom vs. Außenleiterstrom** (Knotenregel an den Ecken):
 $$I_\text{Str} = \frac{U_\Delta}{Z} = \frac{I}{\sqrt{3}}$$
+
+![bg right:38% 90%](img/drehstrom-dreieck.svg)
 
 **Merke:** Der Faktor $\sqrt{3}$ sitzt bei Y zwischen den *Spannungen*, bei Δ zwischen den *Strömen*.
 

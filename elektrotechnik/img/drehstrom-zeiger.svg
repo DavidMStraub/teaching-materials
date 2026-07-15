@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 30 440 380" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrPh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="arrD" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Dreieck der Aussenleiterspannungen (gestrichelt, grau) -->
+  <g stroke="#6b7280" stroke-width="2.5" fill="none" stroke-dasharray="7 5">
+    <line x1="165" y1="327.6" x2="330" y2="222.6"/>
+    <line x1="165" y1="90" x2="165" y2="332"/>
+    <line x1="360" y1="215" x2="188" y2="118"/>
+  </g>
+  <g stroke="#6b7280" stroke-width="2.5" fill="none">
+    <line x1="325" y1="225.3" x2="352" y2="215" marker-end="url(#arrD)"/>
+    <line x1="165" y1="300" x2="165" y2="320.7" marker-end="url(#arrD)"/>
+    <line x1="192" y1="120.5" x2="169" y2="109.3" marker-end="url(#arrD)"/>
+  </g>
+
+  <!-- Sternspannungen -->
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <line x1="230" y1="215" x2="352" y2="215" marker-end="url(#arrPh)"/>
+    <line x1="230" y1="215" x2="169" y2="320.7" marker-end="url(#arrPh)"/>
+    <line x1="230" y1="215" x2="169" y2="109.3" marker-end="url(#arrPh)"/>
+  </g>
+  <circle cx="230" cy="215" r="4" fill="#111827"/>
+
+  <!-- Beschriftungen -->
+  <text x="236" y="243" fill="#111827" font-size="20">N</text>
+  <text x="370" y="222" fill="#111827" font-size="22" font-style="italic" text-decoration="underline">U<tspan font-size="16" dy="6">1</tspan></text>
+  <text x="135" y="355" fill="#111827" font-size="22" font-style="italic" text-decoration="underline">U<tspan font-size="16" dy="6">2</tspan></text>
+  <text x="135" y="93" fill="#111827" font-size="22" font-style="italic" text-decoration="underline">U<tspan font-size="16" dy="6">3</tspan></text>
+  <text x="272" y="300" fill="#6b7280" font-size="20" font-style="italic" text-decoration="underline">U<tspan font-size="15" dy="6">12</tspan></text>
+  <text x="105" y="222" fill="#6b7280" font-size="20" font-style="italic" text-decoration="underline">U<tspan font-size="15" dy="6">23</tspan></text>
+  <text x="278" y="140" fill="#6b7280" font-size="20" font-style="italic" text-decoration="underline">U<tspan font-size="15" dy="6">31</tspan></text>
+</svg>
