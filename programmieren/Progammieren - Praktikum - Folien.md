@@ -181,7 +181,7 @@ $\kappa$: Effizienz < 1, $T=mg$: Schubkraft, $\rho$: Luftdichte, $A=n \pi r^2$: 
 
 Akku: 3 Ah bei 11,1 V. Berechnen Sie die Schwebedauer in Abhängigkeit von $m$, $n$, $2r$ (mit $\kappa = 0{,}5$).
 
-![bg right:25%](https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Quadcopter_Drone_in_flight.jpg/1024px-Quadcopter_Drone_in_flight.jpg)
+![bg right:25%](https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Quadcopter_Drone_in_flight.jpg/960px-Quadcopter_Drone_in_flight.jpg)
 
 
 ## Termin 2
@@ -512,7 +512,7 @@ In dieser Aufgabe programmieren Sie einen Simulator für ein Würfelspiel und an
 
 **Ihre Aufgabe**: Testen Sie verschiedene Strategien durch Simulation!
 
-![bg right:25%](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/6sided_dice.jpg/640px-6sided_dice.jpg)
+![bg right:25%](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/6sided_dice.jpg/960px-6sided_dice.jpg)
 
 ### Würfelspiel-Simulator (Teil 1)
 
