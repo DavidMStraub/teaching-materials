@@ -119,10 +119,6 @@ f = @(t, y) [y(2);  -(k/m)*y(1)];
 ## Einschub: Matlab-Plots
 
 
-### Zwei Subplots übereinander
-
-![width:20cm](assets/subplot_demo.png)
-
 
 ### Mehrere Subplots
 

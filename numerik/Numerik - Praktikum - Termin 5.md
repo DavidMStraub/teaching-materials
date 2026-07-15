@@ -39,7 +39,8 @@ Ein Mountainbiker fährt eine lange Abfahrt hinunter.
 
 **Frage:** Wie beeinflusst die Bremsstrategie die Temperaturentwicklung – bei gleicher mittlerer Bremskraft?
 
-![bg right:35% 90%](assets/mountainbike_bremse.png)
+<!-- TODO: Bild fehlt im Repo -->
+<!-- ![bg right:35% 90%](assets/mountainbike_bremse.png) -->
 
 
 ### Physikalisches Modell: Bewegungsgleichung

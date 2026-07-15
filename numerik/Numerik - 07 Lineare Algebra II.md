@@ -273,7 +273,7 @@ D(3,3) * V(:,3)         % [0.544; 0.544; 1.424] ✓
 
 ### 2-Massen-Feder-System
 
-![bg right:35% 100%](https://www.geogebra.org/m/djmjpdcj)
+🔗 [GeoGebra: 2-Massen-Feder-System](https://www.geogebra.org/m/djmjpdcj)
 
 Zwei Massen $m_1$, $m_2$ sind durch Federn verbunden.
 

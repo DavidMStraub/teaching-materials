@@ -5,6 +5,7 @@ paginate: true
 language: de
 footer: Elektrotechnik – Straub
 headingDivider: 3
+math: katex
 ---
 # Elektrotechnik (Teil 2/3)
 
@@ -15,14 +16,14 @@ David Straub
 
 ### Gliederung des Kurses
 
-1. [Einführung](#einführung) (Physikalische Größen, Einheiten)
-2. [Das elektrische Feld](#das-elektrische-feld) (Ladungen, Kräfte, Felder, Potential, Spannung, Kapazität, Kondensatoren)
-3. [Gleichstrom](#gleichstrom) (Stromstärke, Widerstand, Stromkreisberechnungen, Energie, Leistung)
+1. Einführung (Physikalische Größen, Einheiten) — Teil 1
+2. Das elektrische Feld (Ladungen, Kräfte, Felder, Potential, Spannung, Kapazität, Kondensatoren) — Teil 1
+3. Gleichstrom (Stromstärke, Widerstand, Stromkreisberechnungen, Energie, Leistung) — Teil 1
 4. [Magnetismus](#magnetismus) (Feld in Vakuum und Materie, Kräfte, magnetischer Kreis)
 5. [Elektromagnetische Induktion](#elektromagnetische-induktion) (Induktion, Selbstinduktion, Energie)
-6. [Wechselstrom](#wechselstrom) (Komplexe Wechselstromrechnung, Schaltungen, Leistung)
-7. [Drehstrom](#drehstrom) (Dreiphasensystem)
-8. [Schaltvorgänge an Kapazitäten und Induktivitäten](#schaltvorgänge-an-kapazitäten-und-induktivitäten)
+6. Wechselstrom (Komplexe Wechselstromrechnung, Schaltungen, Leistung) — Teil 3
+7. Drehstrom (Dreiphasensystem) — Teil 3
+8. Schaltvorgänge an Kapazitäten und Induktivitäten — Teil 3
 
 
 

@@ -5,6 +5,7 @@ paginate: true
 language: de
 footer: Elektrotechnik – Straub
 headingDivider: 3
+math: katex
 ---
 # Elektrotechnik (Teil 3/3)
 
@@ -14,11 +15,11 @@ David Straub
 
 ### Gliederung des Kurses
 
-1. [Einführung](#einführung) (Physikalische Größen, Einheiten)
-2. [Das elektrische Feld](#das-elektrische-feld) (Ladungen, Kräfte, Felder, Potential, Spannung, Kapazität, Kondensatoren)
-3. [Gleichstrom](#gleichstrom) (Stromstärke, Widerstand, Stromkreisberechnungen, Energie, Leistung)
-4. [Magnetismus](#magnetismus) (Feld in Vakuum und Materie, Kräfte, magnetischer Kreis)
-5. [Elektromagnetische Induktion](#elektromagnetische-induktion) (Induktion, Selbstinduktion, Energie)
+1. Einführung (Physikalische Größen, Einheiten) — Teil 1
+2. Das elektrische Feld (Ladungen, Kräfte, Felder, Potential, Spannung, Kapazität, Kondensatoren) — Teil 1
+3. Gleichstrom (Stromstärke, Widerstand, Stromkreisberechnungen, Energie, Leistung) — Teil 1
+4. Magnetismus (Feld in Vakuum und Materie, Kräfte, magnetischer Kreis) — Teil 2
+5. Elektromagnetische Induktion (Induktion, Selbstinduktion, Energie) — Teil 2
 6. [Wechselstrom](#wechselstrom) (Komplexe Wechselstromrechnung, Schaltungen, Leistung)
 7. [Drehstrom](#drehstrom) (Dreiphasensystem)
 8. [Schaltvorgänge an Kapazitäten und Induktivitäten](#schaltvorgänge-an-kapazitäten-und-induktivitäten)
@@ -1062,7 +1063,7 @@ Mit Ihrem jetzigen Wissen über Wechselstrom und Gleichstrom, Wirkleistung und B
 ## Drehstrom
 
 - [Grundlagen des Drehstromsystems](#grundlagen-des-drehstromsystems)
-- [Stern- und Dreieckspannung](#stern--und-dreieckspannung)
+- Stern- und Dreieckspannung
 - [Symmetrische Verbraucher](#symmetrische-verbraucher)
 - [Leistung im Drehstromsystem](#leistung-im-drehstromsystem)
 
