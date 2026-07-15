@@ -628,7 +628,20 @@ pandoc "$TEMP_MD" \
 if [[ -f "$OUTPUT_FILE" ]]; then
     echo "Success! PDF created: $OUTPUT_FILE"
 else
-    echo "ERROR: PDF creation failed. See /tmp/pandoc_output.log for details"
+    echo "ERROR: PDF creation failed."
+    echo "---- last 40 lines of pandoc/xelatex output ----"
+    tail -n 40 /tmp/pandoc_output.log 2>/dev/null || true
+    echo "---- end of pandoc/xelatex output ----"
+    # If xelatex complained about an image, try to identify it
+    badfile=$(grep -oE "Unable to load picture or PDF file '[^']+'" /tmp/pandoc_output.log 2>/dev/null | sed "s/.*'\(.*\)'/\1/" | head -1)
+    if [ -n "$badfile" ]; then
+        echo "Failing image file: $badfile"
+    fi
+    echo "---- image URL -> file mapping ----"
+    for url in "${!final_url_map[@]}"; do
+        echo "  $url -> ${final_url_map[$url]}"
+    done
+    echo "---- end of mapping ----"
     # Clean up temporary directory
     # rm -rf "$TEMP_DIR"
     exit 1
