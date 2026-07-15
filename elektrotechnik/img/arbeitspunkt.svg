@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 60 450 395" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="axG2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- Achsen -->
+  <line x1="70" y1="400" x2="435" y2="400" stroke="#9ca3af" stroke-width="2" marker-end="url(#axG2)"/>
+  <line x1="70" y1="400" x2="70" y2="105" stroke="#9ca3af" stroke-width="2" marker-end="url(#axG2)"/>
+  <text x="440" y="425" fill="#6b7280" font-size="24" font-style="italic">I</text>
+  <text x="38" y="117" fill="#6b7280" font-size="24" font-style="italic">U</text>
+
+  <!-- Quellen-Kennlinie (fallend) -->
+  <line x1="70" y1="130" x2="380" y2="400" stroke="#1d4ed8" stroke-width="4"/>
+  <text x="92" y="98" fill="#1d4ed8" font-size="20">Quelle: <tspan font-style="italic">U = U&#8320; &#8722; R</tspan><tspan font-size="15" dy="5" font-style="italic">i</tspan><tspan dy="-5" font-style="italic">&#183;I</tspan></text>
+
+  <!-- Last-Kennlinie (steigend) -->
+  <line x1="70" y1="400" x2="370" y2="130" stroke="#b91c1c" stroke-width="4"/>
+  <text x="345" y="160" fill="#b91c1c" font-size="20">Last</text>
+  <text x="342" y="186" fill="#b91c1c" font-size="18" font-style="italic">U = R&#183;I</text>
+
+  <!-- Arbeitspunkt -->
+  <circle cx="223" cy="263" r="8" fill="#111827"/>
+  <line x1="223" y1="263" x2="223" y2="400" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="223" y1="263" x2="70" y2="263" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <text x="145" y="190" fill="#111827" font-size="21" font-weight="bold">Arbeitspunkt</text>
+  <line x1="205" y1="200" x2="220" y2="253" stroke="#6b7280" stroke-width="1.8"/>
+
+  <!-- Achsenabschnitte -->
+  <text x="30" y="138" fill="#1d4ed8" font-size="22" font-style="italic">U<tspan font-size="16" dy="6">0</tspan></text>
+  <text x="370" y="430" fill="#1d4ed8" font-size="22" font-style="italic">I<tspan font-size="16" dy="6">k</tspan></text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 20 190 340" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrUqs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <!-- Klemmen -->
+    <circle cx="100" cy="40" r="6"/>
+    <circle cx="100" cy="320" r="6"/>
+    <!-- Zuleitungen -->
+    <line x1="100" y1="46" x2="100" y2="144"/>
+    <line x1="100" y1="216" x2="100" y2="314"/>
+    <!-- Quellensymbol: Kreis mit Längsstrich -->
+    <circle cx="100" cy="180" r="36"/>
+    <line x1="100" y1="144" x2="100" y2="216"/>
+  </g>
+
+  <!-- Spannungspfeil daneben -->
+  <line x1="160" y1="140" x2="160" y2="222" stroke="#6b7280" stroke-width="2.5" marker-end="url(#arrUqs)"/>
+  <text x="174" y="188" fill="#6b7280" font-size="26" font-style="italic">U<tspan font-size="19" dy="7">0</tspan></text>
+</svg>

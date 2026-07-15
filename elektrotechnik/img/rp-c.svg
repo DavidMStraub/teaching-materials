@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 170" font-family="Helvetica, Arial, sans-serif">
+  <text x="10" y="28" fill="#111827" font-size="24" font-weight="bold">c)</text>
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <!-- Klemmen -->
+    <circle cx="22" cy="110" r="5"/>
+    <circle cx="318" cy="110" r="5"/>
+    <!-- Hauptpfad -->
+    <line x1="27" y1="110" x2="100" y2="110"/>
+    <rect x="100" y="98" width="60" height="24" fill="#fff"/>
+    <line x1="160" y1="110" x2="200" y2="110"/>
+    <rect x="215" y="98" width="60" height="24" fill="#fff"/>
+    <line x1="200" y1="110" x2="215" y2="110"/>
+    <line x1="275" y1="110" x2="313" y2="110"/>
+    <!-- Draht über R1 -->
+    <line x1="70" y1="110" x2="70" y2="52"/>
+    <line x1="70" y1="52" x2="200" y2="52"/>
+    <line x1="200" y1="52" x2="200" y2="110"/>
+  </g>
+  <!-- Knoten -->
+  <circle cx="70" cy="110" r="5" fill="#111827"/>
+  <circle cx="200" cy="110" r="5" fill="#111827"/>
+  <text x="115" y="88" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">1</tspan></text>
+  <text x="230" y="88" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">2</tspan></text>
+</svg>

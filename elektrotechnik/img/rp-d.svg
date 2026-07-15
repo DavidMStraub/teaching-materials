@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 230" font-family="Helvetica, Arial, sans-serif">
+  <text x="10" y="28" fill="#111827" font-size="24" font-weight="bold">d)</text>
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <!-- Klemmen -->
+    <circle cx="22" cy="60" r="5"/>
+    <circle cx="342" cy="60" r="5"/>
+    <!-- oberer Pfad: R1 -> M -> R2 -> B -->
+    <line x1="27" y1="60" x2="90" y2="60"/>
+    <rect x="90" y="48" width="60" height="24" fill="#fff"/>
+    <line x1="150" y1="60" x2="230" y2="60"/>
+    <rect x="230" y="48" width="60" height="24" fill="#fff"/>
+    <line x1="290" y1="60" x2="337" y2="60"/>
+    <!-- unterer Pfad: M -> R3 -> B -->
+    <line x1="190" y1="60" x2="190" y2="180"/>
+    <line x1="190" y1="180" x2="230" y2="180"/>
+    <rect x="230" y="168" width="60" height="24" fill="#fff"/>
+    <line x1="290" y1="180" x2="320" y2="180"/>
+    <line x1="320" y1="180" x2="320" y2="60"/>
+  </g>
+  <!-- Knoten -->
+  <circle cx="190" cy="60" r="5" fill="#111827"/>
+  <circle cx="320" cy="60" r="5" fill="#111827"/>
+  <text x="105" y="38" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">1</tspan></text>
+  <text x="245" y="38" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">2</tspan></text>
+  <text x="245" y="215" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">3</tspan></text>
+</svg>

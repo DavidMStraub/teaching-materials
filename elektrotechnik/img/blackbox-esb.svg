@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 20 320 540" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrBig" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="arrUq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Black Box -->
+  <rect x="40" y="40" width="260" height="140" rx="14" fill="#f3f4f6" stroke="#111827" stroke-width="2.5"/>
+  <text x="170" y="95" fill="#111827" font-size="23" text-anchor="middle">beliebiges lineares</text>
+  <text x="170" y="125" fill="#111827" font-size="23" text-anchor="middle">Netzwerk</text>
+  <text x="170" y="158" fill="#6b7280" font-size="18" text-anchor="middle">(R, U-Quellen, I-Quellen &#8230;)</text>
+
+  <!-- Klemmen der Box -->
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <line x1="100" y1="180" x2="100" y2="225"/>
+    <line x1="240" y1="180" x2="240" y2="225"/>
+    <circle cx="100" cy="232" r="6"/>
+    <circle cx="240" cy="232" r="6"/>
+  </g>
+  <text x="72" y="240" fill="#111827" font-size="22" font-weight="bold">a</text>
+  <text x="256" y="240" fill="#111827" font-size="22" font-weight="bold">b</text>
+
+  <!-- Pfeil "wirkt wie" -->
+  <line x1="170" y1="264" x2="170" y2="316" stroke="#6b7280" stroke-width="4" marker-end="url(#arrBig)"/>
+  <text x="188" y="296" fill="#6b7280" font-size="20">wirkt wie</text>
+
+  <!-- Ersatzquelle -->
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <circle cx="100" cy="352" r="6"/>
+    <circle cx="240" cy="352" r="6"/>
+    <line x1="100" y1="359" x2="100" y2="405"/>
+    <circle cx="100" cy="430" r="24"/>
+    <line x1="100" y1="406" x2="100" y2="454"/>
+    <line x1="100" y1="454" x2="100" y2="500"/>
+    <line x1="100" y1="500" x2="145" y2="500"/>
+    <rect x="145" y="488" width="60" height="24" fill="#fff"/>
+    <line x1="205" y1="500" x2="240" y2="500"/>
+    <line x1="240" y1="500" x2="240" y2="359"/>
+  </g>
+  <text x="72" y="360" fill="#111827" font-size="22" font-weight="bold">a</text>
+  <text x="256" y="360" fill="#111827" font-size="22" font-weight="bold">b</text>
+  <!-- U0-Pfeil -->
+  <line x1="140" y1="410" x2="140" y2="452" stroke="#6b7280" stroke-width="2" marker-end="url(#arrUq)"/>
+  <text x="152" y="438" fill="#6b7280" font-size="22" font-style="italic">U<tspan font-size="16" dy="6">0</tspan></text>
+  <text x="152" y="480" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">i</tspan></text>
+</svg>

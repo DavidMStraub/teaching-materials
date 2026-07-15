@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 230" font-family="Helvetica, Arial, sans-serif">
+  <text x="10" y="28" fill="#111827" font-size="24" font-weight="bold">b)</text>
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <!-- Klemmen (unterbrechen die linke Seite) -->
+    <circle cx="22" cy="90" r="5"/>
+    <circle cx="22" cy="150" r="5"/>
+    <line x1="27" y1="90" x2="70" y2="90"/>
+    <line x1="27" y1="150" x2="70" y2="150"/>
+    <!-- linke Seite (oben und unten, mit Lücke zwischen den Klemmen) -->
+    <line x1="70" y1="90" x2="70" y2="55"/>
+    <line x1="70" y1="150" x2="70" y2="185"/>
+    <!-- obere Seite mit R1 -->
+    <line x1="70" y1="55" x2="150" y2="55"/>
+    <rect x="150" y="43" width="60" height="24" fill="#fff"/>
+    <line x1="210" y1="55" x2="300" y2="55"/>
+    <!-- rechte Seite (durchgehend) -->
+    <line x1="300" y1="55" x2="300" y2="185"/>
+    <!-- untere Seite mit R2 -->
+    <line x1="300" y1="185" x2="210" y2="185"/>
+    <rect x="150" y="173" width="60" height="24" fill="#fff"/>
+    <line x1="150" y1="185" x2="70" y2="185"/>
+  </g>
+  <text x="165" y="33" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">1</tspan></text>
+  <text x="165" y="222" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">2</tspan></text>
+</svg>
