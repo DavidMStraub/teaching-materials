@@ -15,9 +15,14 @@ INPUT_DIR=$(dirname "$INPUT_FILE")
 TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
-# Fira Sans/Mono and Libertinus Math OTFs live in the texlive tree, not in fontconfig
-FIRA_DIR="/usr/share/texlive/texmf-dist/fonts/opentype/public/fira"
-LIBERTINUS_DIR="/usr/share/texlive/texmf-dist/fonts/opentype/public/libertinus-fonts"
+# Fira Sans/Mono and Libertinus Math OTFs: locally they live in the texlive
+# tree; in CI they are downloaded to a dir given via TYPST_FONT_PATHS (which
+# typst picks up on its own). Only pass --font-path for dirs that exist.
+FONT_ARGS=()
+for d in "/usr/share/texlive/texmf-dist/fonts/opentype/public/fira" \
+         "/usr/share/texlive/texmf-dist/fonts/opentype/public/libertinus-fonts"; do
+    [[ -d "$d" ]] && FONT_ARGS+=("--pdf-engine-opt=--font-path=$d")
+done
 
 echo "Converting: $INPUT_FILE -> $OUTPUT_FILE"
 
@@ -490,8 +495,7 @@ pandoc "$TEMP_MD" \
     -o "$OUTPUT_FILE" \
     --defaults="$DEFAULTS_YAML" \
     --pdf-engine=typst \
-    --pdf-engine-opt=--font-path="$FIRA_DIR" \
-    --pdf-engine-opt=--font-path="$LIBERTINUS_DIR" \
+    "${FONT_ARGS[@]}" \
     --pdf-engine-opt=--root=/ \
     --resource-path="$INPUT_DIR" \
     --lua-filter="$REPLACE_LUA" \

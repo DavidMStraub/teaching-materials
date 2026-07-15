@@ -53,41 +53,34 @@ jobs:
 
       - name: Install Pandoc from GitHub releases
         run: |
-          PANDOC_VERSION=3.1.11.1
-          wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb
+          PANDOC_VERSION=3.7.0.2
+          wget -q https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb
           sudo dpkg -i pandoc-${PANDOC_VERSION}-1-amd64.deb
           pandoc --version
 
-      - name: Install PDF dependencies
+      - name: Install Typst
+        run: |
+          TYPST_VERSION=v0.15.0
+          curl -sL "https://github.com/typst/typst/releases/download/${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" | tar -xJ
+          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
+          typst --version
+
+      - name: Install fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            texlive-xetex \
-            texlive-fonts-recommended \
-            texlive-fonts-extra \
-            texlive-latex-extra \
-            inkscape \
-            curl \
-            fonts-firacode \
-            librsvg2-bin
-
-      - name: Initialize XeTeX format files
-        run: |
-          # Generate format files if needed
-          if [ ! -f /var/lib/texmf/web2c/xetex/xelatex.fmt ]; then
-            echo "Generating xelatex format..."
-            sudo fmtutil-sys --byfmt xelatex
-          fi
-          
-          # Verify XeLaTeX actually works by testing compilation
-          echo "Testing XeLaTeX..."
-          if echo '\documentclass{article}\begin{document}Hello\end{document}' | xelatex --interaction=nonstopmode > /tmp/xelatex-test.log 2>&1; then
-            echo "✓ XeLaTeX is working correctly"
-          else
-            echo "ERROR: XeLaTeX test compilation failed"
-            cat /tmp/xelatex-test.log
-            exit 1
-          fi
+          sudo apt-get install -y fonts-noto-color-emoji curl unzip
+          mkdir -p ~/.fonts
+          # Fira Sans / Fira Mono (headings, code)
+          curl -sL -o /tmp/fira.zip https://github.com/mozilla/Fira/archive/refs/tags/4.202.zip
+          unzip -q /tmp/fira.zip -d /tmp/fira 'Fira-4.202/otf/FiraSans-*' 'Fira-4.202/otf/FiraMono-*'
+          cp /tmp/fira/Fira-4.202/otf/*.otf ~/.fonts/
+          # Libertinus incl. Math (body font is bundled with typst, Math is not)
+          LIBERTINUS_VERSION=7.051
+          curl -sL -o /tmp/libertinus.zip "https://github.com/alerque/libertinus/releases/download/v${LIBERTINUS_VERSION}/Libertinus-${LIBERTINUS_VERSION}.zip"
+          unzip -q /tmp/libertinus.zip -d /tmp/libertinus
+          cp /tmp/libertinus/Libertinus-${LIBERTINUS_VERSION}/static/OTF/*.otf ~/.fonts/
+          echo "TYPST_FONT_PATHS=$HOME/.fonts" >> "$GITHUB_ENV"
+          fc-cache -f ~/.fonts || true
 
       - name: Restore PDF cache
         # Restores previously built PDFs and the success manifest from the last run.
@@ -97,9 +90,11 @@ jobs:
           path: |
             **/*.pdf
             ~/.cache/pdf-manifest.txt
-          key: ${{ runner.os }}-pdf-v1-${{ github.run_id }}
+          # v2: typst pipeline — key bump discards all xelatex-era PDFs and
+          # the manifest, forcing a full rebuild
+          key: ${{ runner.os }}-pdf-v2-${{ github.run_id }}
           restore-keys: |
-            ${{ runner.os }}-pdf-v1-
+            ${{ runner.os }}-pdf-v2-
 
       - name: Clean up orphaned HTML/PDF files
         run: |
@@ -122,7 +117,7 @@ jobs:
 
       - name: Convert Markdown to PDF
         run: |
-          chmod +x scripts/convert-to-pdf.sh
+          chmod +x scripts/convert-to-pdf-typst.sh
           # Manifest format: "<sha256hash>\t<filepath>" — one line per successfully compiled file.
           # A file is skipped only if its hash matches the manifest AND the PDF exists.
           # On failure the entry is removed, so the next run retries even without a file change.
@@ -148,7 +143,7 @@ jobs:
             fi
 
             echo "Converting $file to PDF..."
-            if ./scripts/convert-to-pdf.sh "$file"; then
+            if ./scripts/convert-to-pdf-typst.sh "$file"; then
               awk -v p="$file" -F'\t' '$2 != p' "$MANIFEST" > "$MANIFEST.tmp" && mv "$MANIFEST.tmp" "$MANIFEST"
               printf '%s\t%s\n' "$FILE_HASH" "$file" >> "$MANIFEST"
             else
@@ -173,7 +168,7 @@ jobs:
           path: |
             **/*.pdf
             ~/.cache/pdf-manifest.txt
-          key: ${{ runner.os }}-pdf-v1-${{ github.run_id }}
+          key: ${{ runner.os }}-pdf-v2-${{ github.run_id }}
 
       - name: Generate Index
         run: |
