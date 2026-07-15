@@ -58,6 +58,20 @@ cat > "$MISSING_IMAGE" << 'EOF'
 </svg>
 EOF
 
+# Verify image file integrity (catches truncated downloads that would fail in xelatex)
+check_image_integrity() {
+    local f="$1"
+    local mime
+    mime=$(file --mime-type -b "$f" 2>/dev/null || echo "")
+    case "$mime" in
+        image/png)  tail -c 12 "$f" | grep -aq "IEND" ;;
+        image/jpeg) [ "$(tail -c 2 "$f" | od -An -tx1 | tr -d ' \n')" = "ffd9" ] ;;
+        image/svg+xml|text/xml) grep -aq "</svg>" "$f" ;;
+        text/html|"") return 1 ;;
+        *) return 0 ;;
+    esac
+}
+
 # Copy input file to temp location
 cp "$INPUT_FILE" "$TEMP_MD"
 
@@ -112,10 +126,11 @@ while IFS= read -r url; do
              if [[ $file_size -gt 100 ]]; then
                  # Check mime type to ensure it's not an error page or empty file
                  mime_type=$(file --mime-type -b "$cached_file" 2>/dev/null || echo "application/octet-stream")
-                 if [[ "$mime_type" != "text/html" ]]; then
+                 if [[ "$mime_type" != "text/html" ]] && check_image_integrity "$cached_file"; then
                     is_valid_cache=true
                  else
-                    echo "  -> Found cached text/html (likely error page), invalidating: $cached_file"
+                    echo "  -> Cached file is HTML or fails integrity check (truncated?), invalidating: $cached_file"
+                    rm -f "$cached_file" 2>/dev/null || true
                  fi
              fi
         fi
@@ -153,6 +168,9 @@ while IFS= read -r url; do
                              echo "  -> Head of content:"
                              head -n 5 "$downloaded_file" | sed 's/^/     /'
                              rm -f "$downloaded_file" 2>/dev/null || true
+                        elif ! check_image_integrity "$downloaded_file"; then
+                             echo "  -> Error: Downloaded image fails integrity check (truncated?), retrying"
+                             rm -f "$downloaded_file" 2>/dev/null || true
                         else
                              download_success=true
                         fi
@@ -176,6 +194,9 @@ while IFS= read -r url; do
                         mime_type=$(file --mime-type -b "$downloaded_file" 2>/dev/null || echo "application/octet-stream")
                         if [[ "$mime_type" == "text/html" ]]; then
                              echo "  -> Error: Downloaded content is HTML (likely 403/404 page), not image"
+                             rm -f "$downloaded_file" 2>/dev/null || true
+                        elif ! check_image_integrity "$downloaded_file"; then
+                             echo "  -> Error: Downloaded image fails integrity check (truncated?), retrying"
                              rm -f "$downloaded_file" 2>/dev/null || true
                         else
                              download_success=true
