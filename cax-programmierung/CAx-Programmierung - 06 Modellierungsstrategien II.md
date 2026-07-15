@@ -275,7 +275,6 @@ Parameter:
 - `radius_verj = 20` mm (Verjüngungsradius oben)
 - `wandstaerke = 3` mm
 
-![bg right:30% 80%](https://www.researchgate.net/publication/351579625/figure/fig1/AS:1023507642114048@1620803722326/Battery-pack-housing-structure.png)
 
 ### Aufgabe 2.1 – Basis und Oberseite
 
