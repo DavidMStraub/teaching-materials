@@ -5,6 +5,19 @@ paginate: true
 language: de
 footer: Programmieren – D. Straub
 headingDivider: 3
+jupyter:
+  jupytext:
+    cell_metadata_filter: -all
+    formats: ipynb,md
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.3'
+      jupytext_version: 1.17.3
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
 ---
 
 # Programmieren
@@ -31,7 +44,7 @@ Sie in die Lage zu versetzen, Software zu produzieren,
 - Und konkret für Sie: Numerik im 2. Semester, Praktika, Projektarbeit, Bachelorarbeit
 
 
-![bg right:33% 90%](https://upload.wikimedia.org/wikipedia/commons/5/55/X-43A_%28Hyper_-_X%29_Mach_7_computational_fluid_dynamic_%28CFD%29.jpg)
+![bg right:33% 90%](assets/x43a-cfd.jpg)
 
 ### Demo: Was Sie am Ende des Semesters können
 
@@ -160,7 +173,7 @@ Ein gemeinsamer Raum für alle: TBD
 
 Bitte mit Foto im Profil 📷
 
-![bg right:30% 50%](https://upload.wikimedia.org/wikipedia/commons/c/cb/Element_%28software%29_logo.svg)
+![bg right:30% 50%](assets/element-logo.svg)
 
 ### Jetzt Sie: Ihr erstes Programm
 
