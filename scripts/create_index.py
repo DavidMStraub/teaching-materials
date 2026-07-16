@@ -19,7 +19,7 @@ from jinja2 import Environment, FileSystemLoader
 REPO_ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = Path(__file__).resolve().parent / "templates"
 REPO_URL = "https://github.com/DavidMStraub/teaching-materials"
-EXCLUDED_DIRS = {"scripts", "assets", "__pycache__", "slprj"}
+EXCLUDED_DIRS = {"scripts", "assets", "__pycache__", "slprj", "lite", "_lite_content"}
 
 
 @dataclass
@@ -44,6 +44,7 @@ class Course:
     dir: str
     title: str
     binder: bool = False
+    jupyterlite: bool = False
     decks: list[Deck] = field(default_factory=list)
 
 
@@ -99,16 +100,24 @@ def title_from_md_footer(directory: Path) -> str | None:
 def read_course(directory: Path) -> Course:
     title = None
     binder = False
+    jupyterlite = False
     course_yaml = directory / "course.yaml"
     if course_yaml.is_file():
         meta = yaml.safe_load(course_yaml.read_text(encoding="utf-8")) or {}
         title = meta.get("title")
         binder = bool(meta.get("binder", False))
+        jupyterlite = bool(meta.get("jupyterlite", False))
     if not title:
         title = title_from_md_footer(directory)
     if not title:
         title = directory.name.replace("-", " ").title()
-    return Course(dir=directory.name, title=title, binder=binder, decks=find_decks(directory))
+    return Course(
+        dir=directory.name,
+        title=title,
+        binder=binder,
+        jupyterlite=jupyterlite,
+        decks=find_decks(directory),
+    )
 
 
 def main() -> None:

@@ -4,5 +4,6 @@
   <span class="formats">
     {% if deck.html %}<a href="./{{ deck.basename }}.html">HTML</a>{% endif %}
     {% if deck.pdf %}<a href="./{{ deck.basename }}.pdf">PDF</a>{% endif %}
+    {% if deck.html and course is defined and course.jupyterlite %}<a href="../lite/lab/index.html?path={{ (course.dir ~ '/' ~ deck.basename ~ '.ipynb') | urlencode }}">Lite</a>{% endif %}
   </span>
 </li>

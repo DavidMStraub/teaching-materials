@@ -172,6 +172,31 @@ jobs:
             ~/.cache/pdf-manifest.txt
           key: ${{ runner.os }}-pdf-v3-${{ github.run_id }}
 
+      - name: Build JupyterLite site
+        run: |
+          pip install jupyterlite-core jupyterlite-pyodide-kernel jupytext pyyaml
+          # Collect decks from courses with "jupyterlite: true" in course.yaml.
+          # Only Marp decks are converted (planning docs etc. have no marp frontmatter).
+          rm -rf _lite_content lite
+          for dir in */; do
+            dir="${dir%/}"
+            [ -f "$dir/course.yaml" ] || continue
+            python3 -c "import sys, yaml; sys.exit(0 if yaml.safe_load(open('$dir/course.yaml')).get('jupyterlite') else 1)" || continue
+            mkdir -p "_lite_content/$dir"
+            find "$dir" -maxdepth 1 -name "*.md" | while read -r md; do
+              if head -5 "$md" | grep -q "^marp: true"; then
+                echo "Converting to notebook: $md"
+                jupytext --to ipynb --output "_lite_content/${md%.md}.ipynb" "$md"
+              fi
+            done
+          done
+          if [ -d _lite_content ]; then
+            jupyter lite build --contents _lite_content --output-dir lite
+            rm -rf _lite_content
+          else
+            echo "No jupyterlite-enabled courses found, skipping build"
+          fi
+
       - name: Generate Index
         run: |
           pip install jinja2 pyyaml

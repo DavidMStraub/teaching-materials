@@ -4,6 +4,9 @@
 <header>
   <h1>{{ course.title }}</h1>
 </header>
+{% if course.jupyterlite %}
+<a class="binder-button" href="../lite/lab/index.html">🐍 Open in JupyterLite</a>
+{% endif %}
 {% if course.binder %}
 <a class="binder-button" href="https://mybinder.org/v2/gh/DavidMStraub/teaching-materials/HEAD?filepath={{ course.dir }}">🚀 Open in Binder</a>
 {% endif %}
