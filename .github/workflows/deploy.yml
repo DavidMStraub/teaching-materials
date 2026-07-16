@@ -188,6 +188,10 @@ jobs:
             [ -f "$dir/course.yaml" ] || continue
             python3 -c "import sys, yaml; sys.exit(0 if yaml.safe_load(open('$dir/course.yaml')).get('jupyterlite') else 1)" || continue
             mkdir -p "_lite_content/$dir"
+            # Ship course assets so relative image paths in notebooks resolve
+            if [ -d "$dir/assets" ]; then
+              cp -r "$dir/assets" "_lite_content/$dir/assets"
+            fi
             find "$dir" -maxdepth 1 -name "*.md" | while read -r md; do
               if head -5 "$md" | grep -q "^marp: true"; then
                 echo "Converting to notebook: $md"
@@ -213,14 +217,10 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload HTML and PDF files from the repository root
+          # Upload everything from the repository root. Note: this action has
+          # no "exclude" input — .md sources etc. are deployed too (they are
+          # public on GitHub anyway).
           path: '.'
-          # Exclude markdown files and scripts from deployment
-          exclude: |
-            *.md
-            scripts/
-            .git/
-            .github/
 
   # Deployment job
   deploy:
