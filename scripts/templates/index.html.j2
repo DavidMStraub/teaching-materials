@@ -1,0 +1,27 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<a class="back" href="https://davidstraub.de/docs/teaching/">← davidstraub.de</a>
+<header>
+  <h1>Teaching Materials</h1>
+</header>
+{% if not courses and not decks %}
+<div class="empty">No presentations found.</div>
+{% endif %}
+{% if courses %}
+<ul class="course-list">
+  {% for course in courses %}
+  <li><a class="course-card" href="./{{ course.dir }}/index.html">
+    <span class="name">{{ course.title }}</span>
+    <span class="count">{{ course.decks | length }} document{{ "s" if course.decks | length != 1 }}</span>
+  </a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% if decks %}
+<ul class="deck-list" {% if courses %}style="margin-top: 1.6rem;"{% endif %}>
+  {% for deck in decks %}
+  {% include "deck-row.html.j2" %}
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -61,7 +61,7 @@ jobs:
       - name: Install Typst
         run: |
           # Extract outside the workspace — anything left in the repo dir gets
-          # picked up by create-index.sh and deployed!
+          # picked up by create_index.py and deployed!
           TYPST_VERSION=v0.15.0
           curl -sL "https://github.com/typst/typst/releases/download/${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" | tar -xJ -C /tmp
           sudo mv /tmp/typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
@@ -174,8 +174,8 @@ jobs:
 
       - name: Generate Index
         run: |
-          chmod +x scripts/create-index.sh
-          ./scripts/create-index.sh
+          pip install jinja2 pyyaml
+          python3 scripts/create_index.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

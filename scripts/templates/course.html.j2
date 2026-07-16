@@ -1,0 +1,19 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<a class="back" href="../index.html">← All Courses</a>
+<header>
+  <h1>{{ course.title }}</h1>
+</header>
+{% if course.binder %}
+<a class="binder-button" href="https://mybinder.org/v2/gh/DavidMStraub/teaching-materials/HEAD?filepath={{ course.dir }}">🚀 Open in Binder</a>
+{% endif %}
+{% if course.decks %}
+<ul class="deck-list">
+  {% for deck in course.decks %}
+  {% include "deck-row.html.j2" %}
+  {% endfor %}
+</ul>
+{% else %}
+<div class="empty">No presentations found in this course.</div>
+{% endif %}
+{% endblock %}

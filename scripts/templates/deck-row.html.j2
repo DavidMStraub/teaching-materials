@@ -1,0 +1,8 @@
+<li class="deck">
+  <span class="num">{{ deck.number or "" }}</span>
+  <span class="title">{{ deck.title }}</span>
+  <span class="formats">
+    {% if deck.html %}<a href="./{{ deck.basename }}.html">HTML</a>{% endif %}
+    {% if deck.pdf %}<a href="./{{ deck.basename }}.pdf">PDF</a>{% endif %}
+  </span>
+</li>

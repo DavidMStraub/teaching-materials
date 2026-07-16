@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page_title }}</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --fg: #1f2328;
+  --fg-muted: #6a737d;
+  --border: #e4e7eb;
+  --hover: #f6f8fa;
+  --accent: #0055bb;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16181c;
+    --fg: #e6e8eb;
+    --fg-muted: #8b949e;
+    --border: #2d323a;
+    --hover: #1e2127;
+    --accent: #84b2ff;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+.back {
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+.back:hover { color: var(--accent); }
+header { margin: 0.6rem 0 2rem; }
+h1 {
+  font-size: 1.7rem;
+  font-weight: 650;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.course-list { display: flex; flex-direction: column; gap: 0.6rem; padding: 0; margin: 0; list-style: none; }
+.course-card {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.course-card:hover { background: var(--hover); border-color: var(--fg-muted); }
+.course-card .name { font-weight: 550; }
+.course-card .count { font-size: 0.85rem; color: var(--fg-muted); white-space: nowrap; }
+.deck-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+.deck {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.7rem 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.deck:hover { background: var(--hover); }
+.num {
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  min-width: 1.6rem;
+}
+.deck .title { flex: 1; }
+.formats { display: flex; gap: 0.45rem; }
+.formats a {
+  font-size: 0.75rem;
+  font-weight: 550;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  color: var(--fg-muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.formats a:hover { color: var(--accent); border-color: var(--accent); }
+.binder-button {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.25rem 0.7rem;
+  margin-bottom: 1.4rem;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.binder-button:hover { color: var(--accent); border-color: var(--accent); }
+.empty {
+  text-align: center;
+  color: var(--fg-muted);
+  font-style: italic;
+  margin: 3rem 0;
+}
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  display: flex;
+  justify-content: space-between;
+}
+footer a { color: var(--fg-muted); }
+footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+{% block content %}{% endblock %}
+<footer>
+  <span>David Straub</span>
+  <span><a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a> unless noted otherwise</span>
+  <a href="{{ repo_url }}">View source on GitHub</a>
+</footer>
+</body>
+</html>
