@@ -174,7 +174,7 @@ jobs:
 
       - name: Build JupyterLite site
         run: |
-          pip install jupyterlite-core jupyterlite-pyodide-kernel jupytext pyyaml
+          pip install jupyterlite-core jupyterlite-pyodide-kernel jupyter-server jupytext pyyaml
           # Collect decks from courses with "jupyterlite: true" in course.yaml.
           # Only Marp decks are converted (planning docs etc. have no marp frontmatter).
           rm -rf _lite_content lite
