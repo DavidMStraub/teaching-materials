@@ -20,6 +20,10 @@ pip install jupytext
 
 Then, open Jupyter Notebook or JupyterLab in the folder where you cloned the repository content and right-click on the desired Markdown file. Select "Open With" -> "Jupytext Notebook". This will open the slides as a Jupyter notebook where you can run and modify the code blocks interactively.
 
+### Run in the browser
+
+For some courses, the slides can be run directly in the browser as Jupyter notebooks – no installation, no login, works on phones too. Just click "▶ Run" next to a deck on the course page.
+
 ### Binder
 
 For courses with interactive content, click the "🚀 Open in Binder" button on the course page. This launches a pre-configured Jupyter environment in your browser where you can run the code without any local setup.
