@@ -1,0 +1,8 @@
+title: Programm
+body:
+  - "Eingabe: zahl"
+  - while: "solange zahl < 1 oder zahl > 100"
+    body:
+      - "Ausgabe: \"Ungültig!\""
+      - "Eingabe: zahl"
+  - "Ausgabe: zahl"

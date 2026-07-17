@@ -1,0 +1,7 @@
+title: Zählen
+body:
+  - "i = 0"
+  - while: "solange i < 3"
+    body:
+      - "Ausgabe: i"
+      - "i = i + 1"

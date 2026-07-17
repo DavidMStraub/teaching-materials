@@ -1,0 +1,10 @@
+title: finde_maximum(werte)
+body:
+  - "maximum = werte[0]"
+  - for: "für jedes wert in werte"
+    body:
+      - if: "wert > maximum"
+        then:
+          - "maximum = wert"
+        else: []
+  - "Rückgabe (return) von maximum"

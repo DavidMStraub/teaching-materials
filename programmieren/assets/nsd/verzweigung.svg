@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="538" height="146" viewBox="0 0 538 146">
+<text x="4" y="19" font-family="Fira Sans, sans-serif" font-size="16" font-weight="bold" fill="#1f2328">Grenzwertprüfung</text>
+<rect x="4.0" y="32.0" width="530.1" height="32.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<text x="269.0" y="49.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Eingabe: messwert</text>
+<rect x="4.0" y="64.0" width="530.1" height="46.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<line x1="4.0" y1="64.0" x2="297.4" y2="110.0" stroke="#1f2328" stroke-width="1.3"/>
+<line x1="534.1" y1="64.0" x2="297.4" y2="110.0" stroke="#1f2328" stroke-width="1.3"/>
+<text x="297.4" y="77.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">messwert &gt; 100</text>
+<text x="144.7" y="100.0" font-family="Fira Sans, sans-serif" font-size="13" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Ja</text>
+<text x="421.7" y="100.0" font-family="Fira Sans, sans-serif" font-size="13" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Nein</text>
+<rect x="4.0" y="110.0" width="293.4" height="32.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<text x="150.7" y="127.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Ausgabe: &quot;Grenzwert überschritten&quot;</text>
+<rect x="297.4" y="110.0" width="236.7" height="32.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<text x="415.7" y="127.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Ausgabe: &quot;Alles im Bereich&quot;</text>
+</svg>

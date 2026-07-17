@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="285" height="196" viewBox="0 0 285 196">
+<text x="4" y="19" font-family="Fira Sans, sans-serif" font-size="16" font-weight="bold" fill="#1f2328">Programm</text>
+<rect x="4.0" y="32.0" width="277.2" height="32.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<text x="142.6" y="49.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Eingabe: zahl</text>
+<rect x="4.0" y="64.0" width="277.2" height="96.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<text x="142.6" y="81.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">solange zahl &lt; 1 oder zahl &gt; 100</text>
+<rect x="30.0" y="96.0" width="251.2" height="32.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<text x="155.6" y="113.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Ausgabe: &quot;Ungültig!&quot;</text>
+<rect x="30.0" y="128.0" width="251.2" height="32.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<text x="155.6" y="145.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Eingabe: zahl</text>
+<rect x="4.0" y="160.0" width="277.2" height="32.0" fill="white" stroke="#1f2328" stroke-width="1.3"/>
+<text x="142.6" y="177.0" font-family="Fira Sans, sans-serif" font-size="15" fill="#1f2328" text-anchor="middle" dominant-baseline="middle">Ausgabe: zahl</text>
+</svg>

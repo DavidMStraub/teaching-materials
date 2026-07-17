@@ -1,0 +1,6 @@
+title: Summe
+body:
+  - "Eingabe: x"
+  - "Eingabe: y"
+  - "summe = x + y"
+  - "Ausgabe: summe"

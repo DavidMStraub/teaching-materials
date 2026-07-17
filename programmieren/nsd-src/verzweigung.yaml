@@ -1,0 +1,8 @@
+title: Grenzwertprüfung
+body:
+  - "Eingabe: messwert"
+  - if: "messwert > 100"
+    then:
+      - "Ausgabe: \"Grenzwert überschritten\""
+    else:
+      - "Ausgabe: \"Alles im Bereich\""
