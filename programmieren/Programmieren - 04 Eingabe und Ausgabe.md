@@ -119,7 +119,6 @@ TypeError: unsupported operand type(s) for /: 'str' and 'int'
 
 - Umwandlung vergessen: `energie` ist Text, und Text lässt sich nicht dividieren
 - `TypeError` mit `str` in der Meldung nach einem `input()`: fast immer ein fehlendes `int(...)` oder `float(...)`
-- Klausur-Klassiker in „Finden Sie die Fehler“-Aufgaben!
 
 ## Ausgabe
 
@@ -185,7 +184,7 @@ r = u / i
 print(f"Widerstand: {r:.2f} Ohm")
 ```
 
-Fast jedes Programm folgt diesem Muster – von der Mini-Aufgabe bis zur Klausur.
+Fast jedes Programm folgt diesem Muster – vom Mini-Skript bis zur Messdaten-Auswertung.
 
 ## Transfer
 

@@ -130,7 +130,6 @@ SyntaxError: invalid syntax. Maybe you meant '==' instead of '='?
 
 - In einer Bedingung wird **verglichen**, nie gespeichert
 - Python 3 sagt es Ihnen sogar – Fehlermeldungen lesen lohnt sich
-- Klausur-Klassiker in „Finden Sie die Fehler“-Aufgaben!
 
 ### Mehr als zwei Wege: `elif`
 

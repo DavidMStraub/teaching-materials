@@ -182,8 +182,7 @@ print(20 % 4)
 print(7 % 2)
 ```
 
-- `x % 2` verrät: gerade (`0`) oder ungerade (`1`)
-- Klassiker in Klausuraufgaben!
+- `x % 2` verrät: gerade (`0`) oder ungerade (`1`) – und Reste braucht man überall: Takte, Zyklen, Prüfziffern
 
 ### Vorhersage-Aufgabe (2 min)
 
