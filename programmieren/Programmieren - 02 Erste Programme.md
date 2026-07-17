@@ -42,7 +42,7 @@ print("3 * 7")
 - Die drei wichtigsten **Datentypen** unterscheiden: ganze Zahlen, Kommazahlen, Text
 - Mit Python **rechnen** – und vorhersagen, was ein kleines Programm ausgibt
 
-Arbeitsumgebung wie letzte Woche: https://davidstraub.de/teaching-materials/lite/lab/ – oder dieses Deck direkt als Notebook: „▶ Run" auf der Kursseite
+Arbeitsumgebung wie letzte Woche: https://davidstraub.de/teaching-materials/lite/lab/ – oder dieses Deck direkt als Notebook: „▶ Run“ auf der Kursseite
 
 ## Variablen
 

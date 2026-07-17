@@ -221,10 +221,10 @@ Alle Folien zum Mitlesen und als PDF: https://davidstraub.de/teaching-materials/
 ### Online-Ressourcen
 
 - KI-Quizze zur Vorlesung (OneTutor): https://hm.onetutor.ai/
-- Vorlesungsunterlagen „Ingenieurinformatik" von Dr. Christina Mayr: https://ingenieurinformatik-buch-fcbc5c.pages.gitlab.lrz.de
+- Vorlesungsunterlagen „Ingenieurinformatik“ von Dr. Christina Mayr: https://ingenieurinformatik-buch-fcbc5c.pages.gitlab.lrz.de
 - Offizielles Python-Tutorial: https://docs.python.org/3/tutorial/index.html
-- OpenStax-Lehrbuch „Introduction to Python Programming": https://openstax.org/details/books/introduction-python-programming
-- Tutorial „Research Software Engineering with Python": https://alan-turing-institute.github.io/rse-course/html/index.html
+- OpenStax-Lehrbuch „Introduction to Python Programming“: https://openstax.org/details/books/introduction-python-programming
+- Tutorial „Research Software Engineering with Python“: https://alan-turing-institute.github.io/rse-course/html/index.html
 
 ### Bis nächste Woche!
 

@@ -130,7 +130,7 @@ SyntaxError: invalid syntax. Maybe you meant '==' instead of '='?
 
 - In einer Bedingung wird **verglichen**, nie gespeichert
 - Python 3 sagt es Ihnen sogar – Fehlermeldungen lesen lohnt sich
-- Klausur-Klassiker in „Finden Sie die Fehler"-Aufgaben!
+- Klausur-Klassiker in „Finden Sie die Fehler“-Aufgaben!
 
 ### Mehr als zwei Wege: `elif`
 
@@ -194,9 +194,9 @@ if wert < 1 or wert > 100:
     print("Ungültiger Messwert!")
 ```
 
-- Sprachgefühl sagt: „kleiner als 1 **und** größer als 100 ist verboten"
+- Sprachgefühl sagt: „kleiner als 1 **und** größer als 100 ist verboten“
 - Logik sagt: keine Zahl ist *gleichzeitig* kleiner als 1 und größer als 100 – mit `and` wäre die Bedingung **immer falsch**
-- Faustregel: „ungültig" ist fast immer ein `or` aus mehreren Verstößen
+- Faustregel: „ungültig“ ist fast immer ein `or` aus mehreren Verstößen
 
 ### Vorhersage-Aufgabe (3 min)
 
