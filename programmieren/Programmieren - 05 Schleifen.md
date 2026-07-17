@@ -59,21 +59,22 @@ Kopierter Code ist der Anfang allen Übels. Es geht besser:
 ### Die `while`-Schleife
 
 ```python
-i = 0
-while i < 3:
-    print(i)
+i = 1
+while i <= 3:
+    print(f"Messung {i}")
     i = i + 1
 ```
 
 - Solange die Bedingung `True` ist, läuft der eingerückte Block – **immer wieder**
+- Gleiche Ausgabe wie eben – aber der Code wächst nicht mit der Anzahl: für 1000 Messungen ändert sich nur die `3`
 - Von Hand verfolgen (so prüft man Schleifen!):
 
-| Durchlauf | `i` | `i < 3`? | Ausgabe |
+| Durchlauf | `i` | `i <= 3`? | Ausgabe |
 |---|---|---|---|
-| 1 | 0 | True | 0 |
-| 2 | 1 | True | 1 |
-| 3 | 2 | True | 2 |
-| – | 3 | False | *(Ende)* |
+| 1 | 1 | True | Messung 1 |
+| 2 | 2 | True | Messung 2 |
+| 3 | 3 | True | Messung 3 |
+| – | 4 | False | *(Ende)* |
 
 Kurzform für das Hochzählen: `i += 1` bedeutet `i = i + 1` – diese Kurzform sehen Sie überall in echtem Code.
 
