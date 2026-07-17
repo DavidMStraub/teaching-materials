@@ -216,7 +216,7 @@ Wir entwickeln die Lösung jetzt zusammen.
 
 ### Bis nächste Woche!
 
-Nächste Woche: **Zahlensysteme** – warum `0.1 + 0.2` nicht `0.3` ist (und die Batterie-Schleife hing)
+Nächste Woche: **Zahlensysteme** – wie Computer Zahlen speichern, und warum `0.1 + 0.2` nicht `0.3` ist
 
 - Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
 - Fragen: jederzeit im Matrix-Chat
