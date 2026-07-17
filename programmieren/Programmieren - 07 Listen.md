@@ -265,7 +265,7 @@ Ohne Computer:
 
 ### Bis nächste Woche!
 
-Nächste Woche: **Strings und Wiederholung** – außerdem eine kurze **Mini-Probeklausur** (15 min, zählt nicht, zeigt Ihnen, wo Sie stehen)
+Nächste Woche: **Strings** – außerdem eine kurze **Mini-Probeklausur** (15 min, zählt nicht, zeigt Ihnen, wo Sie stehen)
 
 - Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
 - Fragen: jederzeit im Matrix-Chat
