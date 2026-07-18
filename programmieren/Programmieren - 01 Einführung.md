@@ -215,13 +215,13 @@ Alle Folien zum Mitlesen und als PDF: https://davidstraub.de/teaching-materials/
 
 - Im **Praktikum**: ohne KI-Unterstützung programmieren – Fehler selbst zu finden ist der Kern der Sache
 - **Außerhalb**: KI-Tools ausdrücklich erwünscht – zum Erklären, Üben, Vertiefen
-    - z. B. KI-Quizze zur Vorlesung auf OneTutor: https://hm.onetutor.ai/
+    - z. B. KI-Quizze zu den Kursinhalten auf OneTutor: https://hm.onetutor.ai/
 - Suchen Sie sich Programmierprojekte: Open Source, Smart Home, KI-Automatisierung, …
 
 ### Online-Ressourcen
 
-- KI-Quizze zur Vorlesung (OneTutor): https://hm.onetutor.ai/
-- Vorlesungsunterlagen „Ingenieurinformatik“ von Dr. Christina Mayr: https://ingenieurinformatik-buch-fcbc5c.pages.gitlab.lrz.de
+- KI-Quizze zu den Kursinhalten (OneTutor): https://hm.onetutor.ai/
+- Kursunterlagen „Ingenieurinformatik“ von Dr. Christina Mayr: https://ingenieurinformatik-buch-fcbc5c.pages.gitlab.lrz.de
 - Offizielles Python-Tutorial: https://docs.python.org/3/tutorial/index.html
 - OpenStax-Lehrbuch „Introduction to Python Programming“: https://openstax.org/details/books/introduction-python-programming
 - Tutorial „Research Software Engineering with Python“: https://alan-turing-institute.github.io/rse-course/html/index.html
