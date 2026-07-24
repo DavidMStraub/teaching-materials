@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" width="940" height="470" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <rect width="940" height="470" fill="#ffffff"/>
+
+  <!-- ============ links: bündig ============ -->
+  <g>
+    <text x="235" y="50" text-anchor="middle" fill="#333" font-size="27" font-weight="600">bündig</text>
+    <!-- Körper (Querschnitt) -->
+    <rect x="90" y="120" width="290" height="150" fill="#eef1f4" stroke="#333" stroke-width="2.5"/>
+    <!-- Bohrwerkzeug endet exakt auf der Unterseite -->
+    <rect x="200" y="120" width="70" height="150" fill="#4a90d9" fill-opacity="0.25" stroke="#1f6fc4" stroke-width="2.5" stroke-dasharray="6 4"/>
+    <!-- koinzidente Fläche unten hervorheben -->
+    <line x1="200" y1="270" x2="270" y2="270" stroke="#c0392b" stroke-width="6"/>
+    <text x="235" y="315" text-anchor="middle" fill="#c0392b" font-size="22" font-weight="600">Schnittfläche = Körperfläche</text>
+    <text x="235" y="345" text-anchor="middle" fill="#555" font-size="21">Geisterfläche, riskanter Boolean</text>
+  </g>
+
+  <line x1="470" y1="80" x2="470" y2="360" stroke="#ddd" stroke-width="2"/>
+
+  <!-- ============ rechts: h + ε ============ -->
+  <g>
+    <text x="705" y="50" text-anchor="middle" fill="#333" font-size="27" font-weight="600">h + ε</text>
+    <rect x="560" y="120" width="290" height="150" fill="#eef1f4" stroke="#333" stroke-width="2.5"/>
+    <!-- Werkzeug ragt oben und unten über -->
+    <rect x="670" y="95" width="70" height="200" fill="#4a90d9" fill-opacity="0.25" stroke="#1f6fc4" stroke-width="2.5" stroke-dasharray="6 4"/>
+    <!-- Überstand markieren -->
+    <line x1="705" y1="95" x2="705" y2="120" stroke="#2e9e4f" stroke-width="4"/>
+    <line x1="705" y1="270" x2="705" y2="295" stroke="#2e9e4f" stroke-width="4"/>
+    <text x="760" y="110" fill="#2e9e4f" font-size="21">ε</text>
+    <text x="760" y="292" fill="#2e9e4f" font-size="21">ε</text>
+    <text x="705" y="330" text-anchor="middle" fill="#2e9e4f" font-size="22" font-weight="600">Werkzeug ragt über</text>
+    <text x="705" y="360" text-anchor="middle" fill="#555" font-size="21">saubere Durchdringung</text>
+  </g>
+
+  <text x="470" y="430" text-anchor="middle" fill="#333" font-size="23">Schneide-Werkzeug in Schnittrichtung um ε überstehen lassen</text>
+</svg>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="660" height="292" viewBox="0 0 660 292" xmlns="http://www.w3.org/2000/svg">
+<text x="330.0" y="34" style="fill:#374151;font-family:Inter, sans-serif;font-size:24px;text-anchor:middle;font-weight:bold">Kubisch: 4 Punkte je Spanne</text>
+<polyline points="60,84 150,84 240,84 330,84 420,84 510,84 600,84" fill="none" stroke="#5B9BD5" stroke-width="2" stroke-dasharray="5,5"/>
+<circle cx="60" cy="84" r="9" fill="#5B9BD5" stroke="#2C3E50" stroke-width="2"/>
+<text x="60" y="62" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:23px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="14">0</tspan></text>
+<circle cx="150" cy="84" r="9" fill="#5B9BD5" stroke="#2C3E50" stroke-width="2"/>
+<text x="150" y="62" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:23px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="14">1</tspan></text>
+<circle cx="240" cy="84" r="9" fill="#5B9BD5" stroke="#2C3E50" stroke-width="2"/>
+<text x="240" y="62" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:23px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="14">2</tspan></text>
+<circle cx="330" cy="84" r="9" fill="#5B9BD5" stroke="#2C3E50" stroke-width="2"/>
+<text x="330" y="62" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:23px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="14">3</tspan></text>
+<circle cx="420" cy="84" r="9" fill="#5B9BD5" stroke="#2C3E50" stroke-width="2"/>
+<text x="420" y="62" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:23px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="14">4</tspan></text>
+<circle cx="510" cy="84" r="9" fill="#5B9BD5" stroke="#2C3E50" stroke-width="2"/>
+<text x="510" y="62" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:23px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="14">5</tspan></text>
+<circle cx="600" cy="84" r="9" fill="#5B9BD5" stroke="#2C3E50" stroke-width="2"/>
+<text x="600" y="62" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:23px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="14">6</tspan></text>
+<rect x="36" y="120" width="318" height="32" rx="16" fill="#2563eb" fill-opacity="0.16" stroke="#2563eb" stroke-width="2.2"/>
+<text x="195.0" y="143" style="fill:#2563eb;font-family:Inter, sans-serif;font-size:20px;text-anchor:middle;font-weight:normal">Spanne 1</text>
+<rect x="126" y="162" width="318" height="32" rx="16" fill="#2563eb" fill-opacity="0.16" stroke="#2563eb" stroke-width="2.2"/>
+<text x="285.0" y="185" style="fill:#2563eb;font-family:Inter, sans-serif;font-size:20px;text-anchor:middle;font-weight:normal">Spanne 2</text>
+<rect x="216" y="204" width="318" height="32" rx="16" fill="#2563eb" fill-opacity="0.16" stroke="#2563eb" stroke-width="2.2"/>
+<text x="375.0" y="227" style="fill:#2563eb;font-family:Inter, sans-serif;font-size:20px;text-anchor:middle;font-weight:normal">Spanne 3</text>
+<rect x="306" y="246" width="318" height="32" rx="16" fill="#2563eb" fill-opacity="0.16" stroke="#2563eb" stroke-width="2.2"/>
+<text x="465.0" y="269" style="fill:#2563eb;font-family:Inter, sans-serif;font-size:20px;text-anchor:middle;font-weight:normal">Spanne 4</text>
+</svg>

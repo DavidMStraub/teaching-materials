@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <rect width="760" height="560" fill="#ffffff"/>
+
+  <!-- Achsen-Ursprung -->
+  <!-- Plotbereich: x 120..720 (d=2..10), y 470..70 (r=1..5) -->
+  <!-- 9 Spalten (d=2..10), 5 Zeilen (r=1..5) -->
+
+  <!-- Zellen: baubar (gruen) / nicht baubar (grau) nach r < d/2 -->
+  <!-- generiert aus verifiziertem Grid -->
+  <g stroke="#ffffff" stroke-width="3">
+    <!-- r=1 (unterste Reihe, y 390..470) : d2 nein, d3-10 ja -->
+    <rect x="120" y="390" width="66.7" height="80" fill="#d9dde1"/>
+    <rect x="186.7" y="390" width="533.3" height="80" fill="#8fce9b"/>
+    <!-- r=2 (y 310..390): d2-4 nein, d5-10 ja -->
+    <rect x="120" y="310" width="200" height="80" fill="#d9dde1"/>
+    <rect x="320" y="310" width="400" height="80" fill="#8fce9b"/>
+    <!-- r=3 (y 230..310): d2-6 nein, d7-10 ja -->
+    <rect x="120" y="230" width="333.3" height="80" fill="#d9dde1"/>
+    <rect x="453.3" y="230" width="266.7" height="80" fill="#8fce9b"/>
+    <!-- r=4 (y 150..230): d2-8 nein, d9-10 ja -->
+    <rect x="120" y="150" width="466.7" height="80" fill="#d9dde1"/>
+    <rect x="586.7" y="150" width="133.3" height="80" fill="#8fce9b"/>
+    <!-- r=5 (y 70..150): nichts baubar -->
+    <rect x="120" y="70" width="600" height="80" fill="#d9dde1"/>
+  </g>
+
+  <!-- Grenzlinie r = Dicke/2 : Punkte (d, r=d/2) -> x(d), y(r) -->
+  <!-- x(d)=120+(d-2)/8*600 ; y(r)=470-(r-0.5)/5*400  (Zellmitte r bei r) -->
+  <!-- Linie r=d/2: d=2->r=1 ; d=10->r=5 -->
+  <polyline points="153.3,430 686.7,110" fill="none" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="9 6"/>
+  <text x="470" y="205" fill="#c0392b" font-size="24" font-weight="600" transform="rotate(-31 470 205)">r = Dicke/2</text>
+
+  <!-- Achsenrahmen -->
+  <line x1="120" y1="70" x2="120" y2="470" stroke="#333" stroke-width="2"/>
+  <line x1="120" y1="470" x2="720" y2="470" stroke="#333" stroke-width="2"/>
+
+  <!-- x-Ticks: d=2..10 -->
+  <g fill="#333" font-size="22" text-anchor="middle">
+    <text x="153" y="500">2</text><text x="220" y="500">3</text><text x="286" y="500">4</text>
+    <text x="353" y="500">5</text><text x="420" y="500">6</text><text x="486" y="500">7</text>
+    <text x="553" y="500">8</text><text x="620" y="500">9</text><text x="686" y="500">10</text>
+  </g>
+  <text x="420" y="536" fill="#333" font-size="26" text-anchor="middle">Plattenstärke [mm]</text>
+
+  <!-- y-Ticks: r=1..5 -->
+  <g fill="#333" font-size="22" text-anchor="end">
+    <text x="105" y="438">1</text><text x="105" y="358">2</text><text x="105" y="278">3</text>
+    <text x="105" y="198">4</text><text x="105" y="118">5</text>
+  </g>
+  <text x="46" y="270" fill="#333" font-size="26" text-anchor="middle" transform="rotate(-90 46 270)">Fillet-Radius [mm]</text>
+
+  <!-- Legende -->
+  <rect x="200" y="18" width="26" height="26" fill="#8fce9b"/>
+  <text x="234" y="39" fill="#333" font-size="23">baubar</text>
+  <rect x="380" y="18" width="26" height="26" fill="#d9dde1"/>
+  <text x="414" y="39" fill="#333" font-size="23">nicht baubar</text>
+</svg>

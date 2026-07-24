@@ -22,10 +22,11 @@ jupyter:
 
 # Programmierung von CAx-Systemen
 
+**Wintersemester 2026/27**
+
 David Straub
 
 ### Ziel dieser Lehrveranstaltung
-
 
 Die Studierenden erwerben ein fundiertes Verständnis der geometrischen **Grundlagen der 3D-Modellierung** sowie der **algorithmischen Erzeugung** und **Optimierung von CAD-Geometrien**.
 
@@ -35,434 +36,299 @@ Zudem entwickeln sie Kompetenzen im Zusammenspiel von skriptbasierter Geometriee
 
 *Modulhandbuch SoSe 2026, TBM 2.2*
 
+### Kurz gesagt
 
+Sie lernen, **3D-Bauteile mit Python-Code zu bauen** statt mit der Maus – damit Modelle automatisch anpassbar, testbar und optimierbar werden.
+
+Am Ende des Semesters: ein eigenes **Batteriemodul**, das Sie über Monate parametrisch aufgebaut, gegen die Zellquellung simuliert und auf Energiedichte optimiert haben.
+
+### Heute
+
+- Kennenlernen
+- Organisatorisches & Prüfung
+- Das Begleitbuch
+- Motivation: warum Code statt Maus?
+- **Pause**
+- Umgebung einrichten
+- Versionsverwaltung mit Git
+- Erstes Teil: die Modul-Grundplatte
 
 ## Organisatorisches
 
-- Termine (4 SWS):
-  - SU Donnerstag 9:00-10:30 Uhr, B158
-  - Ü Donnerstag 10:45-12:15 Uhr, B356
+### Rahmendaten
+
+<!-- TODO Wochentag ergänzen -->
+- Termin: 13:30–16:45 Uhr, Pause 15:00–15:15 Uhr, Raum B254
+  - SU und Ü nicht streng getrennt – fließender Wechsel je nach Thema
+  - Raum B358 (KCA-Labor) ebenfalls verfügbar
 - Hardware: eigenes Laptop oder Laborrechner
 - Prüfung: schriftlich, 90 Minuten
 
+### Das Praktikum
+
+![bg right:42% 92%](assets/pouch_module_teaser.png)
+
+- Sie bauen ein **Batteriemodul aus Pouch-Zellen** – dasselbe Teil wächst das ganze Semester
+- Jede Einheit endet mit einer **Referenzlösung**; die nächste startet darauf auf sauberem Stand
+- **Unbenotet** – gepushter Code heißt: ich schaue drauf und helfe gezielt
+- Zugang zu Ihrem Projekt-Repository: <!-- TODO: Ablauf hier ergänzen, sobald Infrastruktur final -->
+
+## Das Begleitbuch
+
+![bg right:32% 92%](assets/book_cover.png)
+
+- **Nachschlagewerk** für alle Kursthemen – mehr Tiefe, als die Sitzungen leisten
+- Buch auf **Englisch**, Kurs und Klausur auf **Deutsch** – die deutsche Fachterminologie kommt aus den Folien
+- Sauberen Python-Code und Ihr eigenes Projekt vertiefen wir im Kurs
+- **Leseauftrag:** jede Sitzung endet mit einem Buchkapitel zur Vorbereitung – heute Kapitel 1
+
+*CAD as Code* · D. M. Straub, HM · [doi.org/10.60948/OPUS-1358](https://doi.org/10.60948/OPUS-1358)
+
 ## Motivation
 
-### Parametrische Modellierung: warum überhaupt?
+### Parametrische Modellierung – als Code
 
-**Direkte Modellierung**
-- Geometrie wird manuell geformt (Push/Pull)
-- Feste Koordinaten, keine Historie
+**Parametrisch** heißt: Sie beschreiben ein **Rezept** – die Form ergibt sich aus Variablen und Beziehungen. Ändert sich ein Parameter, rechnet sich das Modell neu.
 
-**Parametrische Konstruktion**
-- **Rezept statt Endprodukt:** Form aus Variablen und Beziehungen
-- **Design Intent (Konstruktionsabsicht):** Regeln definieren Geometrie
-- Parameter ändern → Modell berechnet sich neu
-- Ideal für Variantenmanagement und Produktfamilien
+In CAD-Programmen lebt das im Feature-Baum und in der Bemaßung. Bei uns wird das Rezept **explizit: lesbarer Code**.
 
-![bg right:40% 80%](https://build123d.readthedocs.io/en/latest/_images/lego.svg)
+- Ein Parametersatz → viele Varianten (Produktfamilien)
+- Der Code ist die vollständige, nachvollziehbare Bauanleitung
 
+### Warum Code statt Maus?
 
-### Parametrische Moellierung: warum Code statt Maus?
+**GUI-Modellierung stößt an Grenzen:**
+- Schritte schwer nachvollziehbar
+- Wiederholungen von Hand, fehleranfällig
+- jede Variante eine eigene Datei
 
-**Problem: CAD-GUI-Modellierung**
-- Keine Nachvollziehbarkeit (Wer hat was wann geändert?)
-- Wiederholaufgaben manuell → fehleranfällig
-- Variantenbildung = viele Dateien kopieren
-- Design-Optimierung nur durch Trial & Error
+**Mit Code:**
+- **Versionsverwaltung** – jede Änderung nachvollziehbar, Teamarbeit über Branches
+- **Automatisierung** – Wiederholaufgaben einmal programmiert, reproduzierbar
+- **Optimierung** – den Rechner die beste Variante finden lassen
 
-**Lösung: Code-basierte CAD-Konstruktion**
-- Versionsverwaltung (Git)
-- Automatisierung von Wiederholaufgaben
-- Algorithmische Optimierung
-
-
-### Versionsverwaltung
-
-**Klassische CAD-Dateien (binär):**
-- `gehaeuse_v1.sldprt`, `gehaeuse_v2_final.sldprt`, `gehaeuse_v2_wirklich_final.sldprt`
-- Keine Änderungshistorie sichtbar
-- Merge-Konflikte unlösbar
-
-**Code-basierte CAD-Modelle (Text):**
-```python
-# Änderung nachvollziehbar in Git:
-- breite = 100  # alt
-+ breite = 120  # neu
-```
-- **Vollständige Historie** aller Änderungen
-- **Branching**: Parallele Varianten entwickeln
-- **Teamarbeit**: Mehrere Teammitglieder, ein Modell
-
-
-### Automatisierung
-**Szenario: 200 Schrauben in Normgrößen**
-
+### Beispiel: alle Varianten auf einmal
 
 ```python
-for durchmesser in [3, 4, 5, 6, 8, 10, ...]:
-    schraube = erzeuge_schraube(durchmesser, laenge)
-    exportiere(f"ISO4762_M{durchmesser}.step")
+# Alle Endplatten-Stärken automatisch durchrechnen:
+for plattenstaerke in [4.0, 6.0, 8.0, 10.0]:
+    modul = modell(plattenstaerke)
+    print(plattenstaerke, "mm →", masse(modul), "g")
 ```
 
-- **Fehlerfrei**, da einmal programmiert
-- **Reproduzierbar** auf Knopfdruck
+Eine Schleife rechnet alle vier Varianten in einem Durchlauf.
 
+Ein Optimierer findet am Ende die leichteste tragfähige Variante selbst – jedes Gramm Struktur senkt die Energiedichte.
 
-### Algorithmische Optimierung
+### Hardware entwickeln wie ein Software-Team
 
-```python
-result = minimize(
-    fun=berechne_masse,
-    x0=[wandstaerke, rippenabstand],
-    constraints={'type': 'ineq', 'fun': lambda x: festigkeit(x) - 500}
-)
-# Finde minimale Masse bei Festigkeit ≥ 500 MPa
-```
+Ein Bauteil als Code zu beschreiben bringt Werkzeuge in die Konstruktion, die die Softwarewelt seit Jahrzehnten nutzt – und die klassisches CAD nicht kennt. Sie zu beherrschen ist ein echter Teil dessen, was Sie mitnehmen:
 
-- **Hunderte Varianten** automatisch durchrechnen
-- **Optimales Design** mathematisch finden
-
-### Beispiel: Fusionsreaktor
-
-[Link](https://events.cels.anl.gov/event/610/contributions/1651/attachments/709/2378/shimwell-argonne-neutronics-meeting-presentation-2025.pdf)
-
-![width:15cm](https://upload.wikimedia.org/wikipedia/commons/c/cb/Wendelstein_7-X_schematic_view_of_magnets_system.jpg)
-
-### KI-CAD
-
-- KI-generierte Geometrie aus Textbeschreibung
-- Beispielanwendung: “Reverse Engineering CAD Code from Point Clouds” [arXiv:2412.14042](https://arxiv.org/pdf/2412.14042)
-
-![bg right:50% 90%](https://cdn-uploads.huggingface.co/production/uploads/6394434e872e49c02f5934c3/vRy7EwrKQ9na0EomZ90_8.png)
-
+- **Versionsverwaltung** (Git) – jeder Stand nachvollziehbar, gezielte Änderungen *(heute)*
+- **Automatisiertes Testen** – das Modell prüft seine Maße bei jeder Änderung *(Einheit 7)*
+- **Continuous Integration** – die Prüfung läuft bei jedem Push *(Einheit 7)*
+- **Robustheit & Optimierung** – Grenzfälle abfangen, beste Variante suchen *(Einheiten 9, 11)*
 
 ### Warum Python?
 
-- Nicht CAD-spezifisch, sondern **Allzweck-Programmiersprache**, bekannt aus Informatik 1
-- Derzeit weltweit **beliebteste Programmiersprache**
-- **Plattformunabhängig**: läuft auf Windows, Linux, macOS
-- **Quelloffen** und kostenlos
+- **Allzweck-Sprache** aus Informatik 1 – quelloffen, plattformunabhängig, weltweit meistgenutzt
+- **Großes Ökosystem:** die Bausteine für den ganzen CAx-Weg liegen bereit – Numerik (NumPy/SciPy), Vernetzung & FEM (Gmsh, scikit-fem), Tests (pytest)
 
+### Was ist CadQuery?
+
+- **CadQuery** – eine **quelloffene** Python-Bibliothek für skriptbasiertes, parametrisches CAD
+- Baut auf **OpenCascade** (OCCT) auf: demselben quelloffenen CAD-**Kernel** – dem Geometrie-Rechenkern –, den auch **FreeCAD** verwendet
+- Erzeugt **echte, exakte Geometrie**: dieselbe, die CAD-Systeme wie FreeCAD, Fusion oder CATIA per STEP austauschen
+
+*Was ein „Kernel“ genau ist, klären wir unterwegs – heute genügt: CadQuery erzeugt die Geometrie, wir schreiben das Rezept dafür.*
+
+### Herkunft: quelloffenes, skriptbares CAD
+
+| Jahr | Projekt | Bedeutung |
+|---|---|---|
+| 1999 | **OCCT** | professioneller CAD-Kernel, quelloffen |
+| 2002 | **FreeCAD** | grafisches CAD auf OCCT, aus Python skriptbar |
+| 2010 | **OpenSCAD** | „das Modell *ist* das Skript“ – populär gemacht |
+| 2013 | **CadQuery** | Python-CAD auf dem professionellen Kernel |
+
+CadQuery verbindet beide Stränge: **code-first** wie OpenSCAD, auf dem **exakten Kernel** (OCCT) wie FreeCAD.
 
 ### Gliederung
 
-1. Einführung
+1. **Einführung**
 2. Topologie
-3. Geometrie
-4. Modellierungsstrategien
-5. Datenaustausch
-6. Simulation
-7. Optimierung
-8. Fertigung
-
-## Einführung
-
-- ~~Motivation~~
-- Darstellung von Geometrie in CAD-Systemen
-- Geschichtlicher Exkurs: Open-Source-CAD-Programmierung
-- Moderner Python-CAD-Stack
-
-
-## Darstellung von Geometrie in CAD-Systemen
-
-Dreidimensionale Geometrie kann in CAD-Systemen auf verschiedene Arten dargestellt werden:
-
-- **CSG (Constructive Solid Geometry):** Volumen durch boolesche Operationen einfacher Körper
-- **B-Rep (Boundary Representation):** Oberfläche definiert Volumen, Kanten definieren Flächen
-- **Drahtgitter (Mesh):** Oberfläche aus Polygonen, z.B. Dreiecken
-
-### CSG (Constructive Solid Geometry)
-
-**Konstruktive Festkörpergeometrie**
-
-- Modellierung durch boolesche Operationen (Union, Intersection, Difference)
-- Basiert auf einfachen Grundkörpern (Würfel, Zylinder, Kugel, Kegel)
-- Hierarchische Struktur als CSG-Baum
-- **Vorteil**: Kompakte Darstellung, einfache Modifikation
-- **Nachteil**: Begrenzte geometrische Komplexität
-
-![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/8/8b/Csg_tree.png)
-
-### B-Rep (Boundary Representation)
-
-**Begrenzungsflächenmodell**
-
-- Geometrie durch **Oberfläche** beschrieben
-- Hierarchie: Faces (Flächen), Edges (Kanten), Vertices (Ecken)
-- Verwendet Splines für gekrümmte Flächen
-- **Vorteil**: Hohe Präzision, komplexe Formen möglich
-- **Nachteil**: Größerer Speicherbedarf, komplexe Datenstrukturen
-- Standard in professionellen CAD-Systemen
-
-![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/6/63/Tetraeder_f%C3%BCr_BRep.png)
-
-### Mesh (Netz)
-
-**Polygonnetz-Darstellung**
-
-- Oberfläche aus **Dreiecken** oder **Vierecken**
-- **Keine exakte Geometrie**, nur Annäherung
-- **Anwendungen**: 3D-Scanning, 3D-Druck (STL), FEM, Visualisierung
-- **Vorteil**: Einfache Darstellung, schnelle Visualisierung
-- **Nachteil**: Keine parametrische Bearbeitung, speicherintensiv
-
-![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/b/b8/Approx-3tori.svg)
-
-## Geschichtlicher Exkurs: Open-Source-CAD-Programmierung
-
-### OpenSCAD
-
-**Erste Open-Source-CAD-Skripting-Software (2010)**
-
-- Verwendet eine eigene Skriptsprache
-- Basiert auf CSG (Constructive Solid Geometry)
-- Kein Export in Standard-CAD-Formate wie STEP
-
-![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/8/87/Openscad_screen_english.png)
-
-
-### Open CASCADE Technology (OCCT)
-
-**Open-Source-CAD-Kernel (1999)**
-
-- C++-Bibliothek für **geometrische Modellierung** und **Visualisierung**
-- Basiert auf B-Rep
-- Grundlage für viele quelloffene und kommerzielle CAD-Systeme
-- Lizenz: LGPL (frei nutzbar, auch kommerziell)
-
-![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/c/c5/Opencascadedemo.jpg)
-
-### FreeCAD
-
-**Open-Source-CAD-Software (2002)**
-
-- Basiert auf **OCCT** als Geometrie-Kernel
-- GUI-basierte parametrische 3D-Modellierung
-- **Python-API** für Skripting und Automatisierung
-- Export in STEP, STL und andere Formate
-- Plattformunabhängig (Windows, Linux, macOS)
-
-![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/0/03/FreeCAD_1.0_Light_PartDesign_Pozidriv.png)
-
-
-### CadQuery 1.0
-
-**Python-Bibliothek für parametrisches CAD (2012)**
-
-- Erste Code-first-Bibliothek für **Python-basierte CAD-Modellierung**
-- Implementiert als Plugin für FreeCAD
-
-![bg right:40% 80%](https://pythonhosted.org/cadquery/_images/003.png)
-
-### CadQuery 2
-
-**Python-Bibliothek für parametrisches CAD (2020)**
-
-- Neuimplementierung von CadQuery als direkter Wrapper um **OCCT** (ohne FreeCAD-Abhängigkeit)
-- Erweiterte B-Rep-Funktionalität
-- Integration mit Jupyter Notebooks
-
-![bg right:30% 60%](https://cadquery.readthedocs.io/en/latest/_static/cadquery_logo_dark.svg)
-
-### Build123d
-
-**Python-Bibliothek für parametrisches CAD (2022)**
-
-- Entwickelt als **Alternative zu CadQuery 2** mit veränderter Syntax
-- Basiert ebenfalls auf **OCCT**
-- Geometrie-Objekte können mit CadQuery-Code ausgetauscht werden
-
-![bg right:40% 80%](https://build123d.readthedocs.io/en/latest/_images/logo-banner.svg)
-
-### Fazit: moderner Python-CAD-Stack
-
-- **OCCT** als Geometrie-Kernel
-- **CadQuery 2** oder **Build123d** als Python-Bibliotheken für parametrische Modellierung
-
-**Visualisierungs-Tools:**
-
-- **Jupyter-CadQuery** für interaktive Visualisierung in Jupyter Notebooks
-- **OCP CAD Viewer for VS Code** für interaktive Visualisierung in Visual Studio Code
-
-### Demo: unsere erste CAD-Geometrie in Python (build123d-Version)
-
-```python
-import jupyter_cadquery
-import build123d as bd
-
-length = 80
-width = 60
-height = 10
-
-base = bd.Box(length, width, height)
-hole = bd.Cylinder(radius=width / 4, height=height)
-part = base - hole
-
-top_f = part.faces().sort_by(bd.Axis.Z).last
-hole_edges = top_f.edges().filter_by(bd.GeomType.CIRCLE)
-result = part.fillet(radius=2, edge_list=hole_edges)
-
-result
-```
-
-### Demo: unsere erste CAD-Geometrie in Python (CadQuery-Version)
-
-```python
-import jupyter_cadquery
-from cadquery import func as cf
-
-length = 80
-width = 60
-height = 10
-
-base = cf.box(length, width, height)
-hole = cf.cylinder(d=width / 2, h=height)
-part = base - hole
-
-top_f = part.faces(">Z")
-hole_edge = top_f.edges("%CIRCLE")
-result = part.fillet(2.0, [hole_edge])
-
-result
-```
-
-### Zusammenfassung
-
-- **Parametrische Modellierung mit Code**: Versionsverwaltung, Automatisierung, Optimierung
-- **Python als CAD-Sprache**: Allzweck, plattformunabhängig, weit verbreitet
-- **Drei Geometrie-Darstellungen**: CSG, B-Rep, Mesh
-  - CSG: keine Freiformflächen, nicht allgemein genug
-  - B-Rep: Standard in professionellen CAD-Systemen -> von uns verwendet
-  - Mesh: für 3D-Druck (CAM) und Finite-Elemente-Simulation (CAE) relevant, nicht für Konstruktion
-- **OCCT**: Open-Source-Kernel mit B-Rep
-- **CadQuery 2 und Build123d**: Moderne Python-Bibliotheken für parametrisches CAD
-
-
-# Programmierung von CAx-Systemen
-
-**Übung 1**
-
-David Straub
-
-### Einrichten der Python-Executable
-
-- KCA-Rechner: Download von [WinPython 3.13](https://github.com/winpython/winpython/releases), entpacken ins Benutzerverzeichnis, z.B. `C:\Users\hm-abcd12ef`
-- Windows: Download des [Python Install Managers](https://www.python.org/downloads/latest/pymanager/) (Achtung: nicht Installers!)
-- macOS: Download des [Python Installers](https://www.python.org/downloads/macos/)
-- Debian/Ubuntu: `sudo apt install python python3-pip python3-venv`
-
-Test: in der Python-Eingabeaufforderung
-
-```python
-import sys
-print(sys.executable)
-```
-
-### Einrichten einer virtuellen Umgebung
-
-Im Verzeichnis, in dem die virtuelle Umgebung angelegt werden soll, z.B. im Benutzer-Verzeichnis:
-
-- Windows: `python -m venv cax-env`
-- macOS/Linux: `python3 -m venv cax-env`
-
-Aktivieren der virtuellen Umgebung:
-
-- Windows: `cax-env\Scripts\activate`
-- macOS/Linux: `source cax-env/bin/activate`
-
-### Installieren der benötigten Python-Pakete
+3. Grundformen
+4. Kurven
+5. Freiformgeometrie
+6. Profile
+7. Codequalität
+8. Datenaustausch
+9. Robustheit
+10. Simulation
+11. Optimierung
+
+# Pause
+
+## Umgebung einrichten
+
+### Python
+
+<!-- TODO: mit Zeitplan/ANLEITUNG abgleichen, falls sich Empfehlung ändert -->
+- KCA-Rechner: Download von [WinPython 3.13](https://github.com/winpython/winpython/releases), entpacken ins Benutzerverzeichnis
+- Windows: [Python Install Manager](https://www.python.org/downloads/latest/pymanager/) (nicht Installer!)
+- macOS: [Python Installer](https://www.python.org/downloads/macos/)
+- Debian/Ubuntu: `sudo apt install python3 python3-pip python3-venv`
+
+### Virtuelle Umgebung
 
 ```bash
-python -m pip install jupyterlab cadquery build123d jupyter-cadquery ocp-vscode
+python -m venv cax-env          # Windows
+python3 -m venv cax-env         # macOS/Linux
 ```
 
-### Test der Jupyter-Installation
+Aktivieren:
 
-- `jupyter lab`
-- Neues Notebook erstellen und speichern, z.B. `test.ipynb`
-
-```python
-import jupyter_cadquery
-import build123d as bd
-
-bd.Box(30, 20, 10)
+```bash
+cax-env\Scripts\activate        # Windows
+source cax-env/bin/activate     # macOS/Linux
 ```
 
-```python
-import jupyter_cadquery
-from cadquery import func as cq_func
+### Pakete installieren
 
-cq_func.box(30, 20, 10)
+```bash
+python -m pip install cadquery==2.8.0 ocp-vscode
 ```
 
-### Einrichten des OCP-CAD-Viewers in Visual Studio Code
+Die Version pinnen wir (`==2.8.0`), damit bei allen dasselbe Verhalten herauskommt.
 
-- Öffne VS Code
-- Erweiterungen installieren
-    - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-    - [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
-    - [OCP CAD Viewer](https://marketplace.visualstudio.com/items?itemName=bernhard-42.ocp-cad-viewer)
+### OCP CAD Viewer in VS Code
 
-Hinweise:
+- VS Code öffnen, Erweiterungen installieren:
+  - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+  - [OCP CAD Viewer](https://marketplace.visualstudio.com/items?itemName=bernhard-42.ocp-cad-viewer)
+- Interpreter wählen: `cax-env\Scripts\python.exe` (Windows) bzw. `cax-env/bin/python` (macOS/Linux)
 
-- OCP ist der Python-Wrapper um OCCT, auf dem CadQuery und Build123d basieren
-- Jupyter-CadQuery basiert auf dem Kern des OCP-CAD-Viewers
-
-### Einrichten von Python in VS Code und Test
-
-- Select Python Interpreter -> `cax-env\Scripts\python.exe` (Windows) oder `cax-env/bin/python` (macOS/Linux)
-- File -> New -> Jupyter Notebook
+### Test
 
 ```python
-import jupyter_cadquery
-import build123d as bd
+from cadquery import func as cf
+import ocp_vscode
 
-bd.Box(30, 20, 10)
+ocp_vscode.show(cf.box(30, 20, 10))
 ```
 
-## Aufgabe: LEGO-Stein (Außenhülle)
+Erscheint ein Quader im Viewer-Panel: Setup erfolgreich.
 
-![width:24cm](https://upload.wikimedia.org/wikipedia/commons/1/1a/Lego_dimensions.svg)
+## Versionsverwaltung mit Git
 
-### Grundkörper: `Box`
+### Das Problem ohne Versionsverwaltung
+
+```
+skript_final.py
+skript_final2.py
+skript_final_neu.py
+skript_final_neu_v3_STIMMT.py
+```
+
+Typische Fragen ohne Versionsverwaltung:
+
+- Wie war der Code letzte Woche?
+- Welche Version haben wir abgegeben?
+- Was genau habe ich seit gestern geändert?
+
+**Git** löst das: eine Historie aller Änderungen, an einem Ort, nachvollziehbar.
+
+Es ist die erste der Software-Engineering-Methoden dieses Kurses – der Standard, mit dem weltweit entwickelt wird, und ab heute Ihr Arbeitsstand.
+
+### Grundkonzepte
+
+**Repository** = Projektordner mit vollständiger Versionshistorie – bei uns: Ihr Projekt-Repository für das Semester
+
+**Commit** = Snapshot des Projekts zu einem Zeitpunkt, mit Nachricht
+
+```
+* b3f92a1  Vier Befestigungslöcher ergänzt
+* 7e4d5db  Grundplatte verrundet
+* 704671c  Erste Version der Grundplatte
+```
+
+**Push** = Ihre Commits auf den Server hochladen – erst danach sehe ich sie
+
+### Ihr Repository holen
+
+<!-- TODO: konkreten Zugangsweg zum eigenen Repo ergänzen (Link/Einladung) -->
+```bash
+git clone <ihre-repo-url>
+cd <repo>
+```
+
+Einmalig, jetzt gleich – danach arbeiten Sie nur noch lokal in diesem Ordner.
+
+### Grundbefehle
+
+![w:1000](assets/git_basics.png)
+
+```bash
+git add w01/                    # Änderungen zum nächsten Commit vormerken
+git commit -m "Modul-Grundplatte" # Snapshot mit Nachricht erstellen
+git push                        # Commits hochladen
+```
+
+- **Ihr Projekt-Repository ist ab jetzt Ihr Arbeitsstand** – jede Sitzung endet mit einem Push
+- Referenzlösungen kommen ebenfalls per Git zu Ihnen (`git pull`)
+- Mehr Tiefe (`.gitignore`, Branches, Merge Requests) im Selbststudium: **X1 Versionsverwaltung**
+
+## Erstes Teil: die Modul-Grundplatte
+
+### Grundkörper: `box`
 
 ```python
-import build123d as bd
+from cadquery import func as cf
 
-bd.Box(length=30, width=20, height=10)
+grundplatte = cf.box(170, 110, 6)
 ```
 
 - Erzeugt einen Quader mit den angegebenen Maßen in mm
-- Der Mittelpunkt liegt im **Ursprung** (0, 0, 0)
-- Parameter können auch ohne Namen angegeben werden: `bd.Box(30, 20, 10)`
+- In `x`/`y` um den **Ursprung** zentriert; steht auf der `xy`-Ebene (`z = 0 … 6`)
 
-### Grundkörper: `Cylinder`
-
-```python
-bd.Cylinder(radius=5, height=20)
-```
-
-- Erzeugt einen Zylinder mit dem angegebenen Radius und der Höhe
-- Achse entlang der **Z-Achse**, Mittelpunkt im Ursprung
-
-### Positionierung: `Pos()`
+### Kanten auswählen und verrunden
 
 ```python
-zylinder = bd.Cylinder(radius=5, height=10)
-
-bd.Pos(15, 0, 5) * zylinder
+grundplatte = grundplatte.fillet(6, grundplatte.edges("|Z"))
 ```
 
-- `Pos(x, y, z)` definiert eine Position im Raum (in mm)
-- Der `*`-Operator platziert den Körper an dieser Position
-- Der Original-Körper bleibt unverändert
+- `edges("|Z")` wählt alle Kanten parallel zur Z-Achse (die vier senkrechten)
+- `fillet(radius, kanten)` verrundet genau diese
 
-### Boole'sche Operationen
+*Warum genau diese Kanten? Dazu mehr in der nächsten Einheit (Topologie).*
+
+### Grundkörper: `cylinder`, Positionierung
 
 ```python
-vereinigung = quader + zylinder   # Vereinigung (Union)
-differenz   = quader - zylinder   # Differenz (Difference)
-schnitt     = quader & zylinder   # Schnitt (Intersection)
+loch = cf.cylinder(d=5, h=10).moved(cf.Location((75, 45, -2)))
+grundplatte = grundplatte - loch
 ```
 
-- Operationen erzeugen jeweils einen neuen B-Rep-Körper
+- `Location(x, y, z)` definiert eine Position im Raum (in mm)
+- `moved(...)` verschiebt eine Kopie – das Original bleibt unverändert
+- `-` erzeugt eine boolesche Differenz
+- Der Bohrer (`h = 10`) ragt oben **und** unten über die 6 mm dicke Platte hinaus – ein Schnitt genau auf einer Fläche macht später Ärger
+
+### Aufgabe: vier Befestigungslöcher
+
+Ergänzen Sie die Grundplatte um vier Bohrungen (d = 5 mm) in den Ecken, mit Abstand zum Rand – auf ihr steht später der Zellstapel.
+
+```python
+grundplatte.exportStep("w01/grundplatte.step")
+```
+
+Committen und pushen Sie `w01/` – das ist Ihr erster Beitrag zum Semesterprojekt.
+
+## Abschluss
+
+### Leseauftrag & Ausblick
+
+- **Leseauftrag:** Buch Kapitel 1–2
+- **Wer mehr will:** ein eigenes Wunschteil aus Box, Zylinder und Bohrungen bauen und pushen
+- **Nächste Woche:** Topologie – Aufbau der heute gebauten Grundplatte im Detail: Flächen, Kanten, Ecken, ihre Hierarchie
+- Bis dahin: `w01/` committet und gepusht; bei Setup-Problemen vor W2 melden

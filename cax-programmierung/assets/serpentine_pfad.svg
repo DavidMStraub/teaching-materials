@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 615" width="900" height="615" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <rect width="900" height="615" fill="#ffffff"/>
+  <defs>
+    <marker id="a1" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#666666"/>
+    </marker>
+    <marker id="a2" markerWidth="9" markerHeight="8" refX="1" refY="4" orient="auto">
+      <path d="M9,0 L0,4 L9,8 Z" fill="#666666"/>
+    </marker>
+  </defs>
+
+  <!-- Platte, Draufsicht -->
+  <rect x="150" y="70" width="600" height="400" fill="#f2f4f6" stroke="#333333" stroke-width="3"/>
+
+  <!-- Mittellinie -->
+  <line x1="120" y1="270" x2="780" y2="270" stroke="#bbbbbb" stroke-width="1.5" stroke-dasharray="14 6 3 6"/>
+
+  <!-- Kanalpfad -->
+  <path d="M 125,170 H 600 A 100,100 0 0 1 600,370 H 125"
+        fill="none" stroke="#4a90d9" stroke-width="30" stroke-opacity="0.5" stroke-linecap="round"/>
+  <path d="M 125,170 H 600 A 100,100 0 0 1 600,370 H 125"
+        fill="none" stroke="#1f6fc4" stroke-width="3"/>
+
+  <!-- Stützpunkte -->
+  <g fill="#1f6fc4">
+    <circle cx="125" cy="170" r="6"/><circle cx="450" cy="170" r="6"/><circle cx="600" cy="170" r="6"/>
+    <circle cx="700" cy="270" r="6"/>
+    <circle cx="600" cy="370" r="6"/><circle cx="450" cy="370" r="6"/><circle cx="125" cy="370" r="6"/>
+  </g>
+
+  <!-- Maß 120 -->
+  <line x1="150" y1="515" x2="750" y2="515" stroke="#666666" stroke-width="2" marker-start="url(#a2)" marker-end="url(#a1)"/>
+  <line x1="150" y1="475" x2="150" y2="522" stroke="#999999" stroke-width="1.5"/>
+  <line x1="750" y1="475" x2="750" y2="522" stroke="#999999" stroke-width="1.5"/>
+  <text x="450" y="505" text-anchor="middle" font-size="30" fill="#333333">120</text>
+
+  <!-- Maß 80 -->
+  <line x1="800" y1="70" x2="800" y2="470" stroke="#666666" stroke-width="2" marker-start="url(#a2)" marker-end="url(#a1)"/>
+  <line x1="755" y1="70" x2="807" y2="70" stroke="#999999" stroke-width="1.5"/>
+  <line x1="755" y1="470" x2="807" y2="470" stroke="#999999" stroke-width="1.5"/>
+  <text x="830" y="280" font-size="30" fill="#333333">80</text>
+
+  <!-- Maß Spurabstand 20 -->
+  <line x1="300" y1="170" x2="300" y2="270" stroke="#666666" stroke-width="2" marker-start="url(#a2)" marker-end="url(#a1)"/>
+  <text x="315" y="230" font-size="28" fill="#333333">20</text>
+
+  <!-- Kehre -->
+  <line x1="600" y1="270" x2="700" y2="270" stroke="#666666" stroke-width="2" marker-end="url(#a1)"/>
+  <text x="612" y="255" font-size="28" fill="#333333">R 20</text>
+
+  <!-- Ein-/Auslass -->
+  <text x="118" y="150" text-anchor="end" font-size="26" fill="#555555">Einlass</text>
+  <text x="118" y="390" text-anchor="end" font-size="26" fill="#555555">Auslass</text>
+
+  <!-- Hinweise -->
+  <text x="150" y="558" font-size="29" fill="#333333">Kanal ⌀ 6 in der Mittelebene z = 6</text>
+  <text x="150" y="592" font-size="29" fill="#555555">Enden ragen über den Plattenrand hinaus</text>
+</svg>

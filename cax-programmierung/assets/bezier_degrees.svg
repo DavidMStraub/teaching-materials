@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="630" viewBox="0 0 300 630" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,0)">
+  <text x="150.0" y="30" style="fill:#2C3E50;font-family:Inter, sans-serif;font-size:25px;font-weight:bold;text-anchor:middle">Grad 1</text>
+  <path d="M 40,155 L 250,80" style="stroke:#5B9BD5;stroke-width:2.2;fill:none;stroke-dasharray:5,5"/>
+  <path d="M 40,155 L 250,80" style="stroke:#1E1E2E;stroke-width:3.8;fill:none;stroke-linecap:round"/>
+  <rect x="33.5" y="148.5" width="13" height="13" style="fill:#fff;stroke:#2C3E50;stroke-width:2.4"/>
+  <text x="40" y="185" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">0</tspan></text>
+  <rect x="243.5" y="73.5" width="13" height="13" style="fill:#fff;stroke:#2C3E50;stroke-width:2.4"/>
+  <text x="250" y="62" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">1</tspan></text>
+  </g>
+  <g transform="translate(0,210)">
+  <text x="150.0" y="30" style="fill:#2C3E50;font-family:Inter, sans-serif;font-size:25px;font-weight:bold;text-anchor:middle">Grad 2</text>
+  <path d="M 40,155 L 145,72 L 250,155" style="stroke:#5B9BD5;stroke-width:2.2;fill:none;stroke-dasharray:5,5"/>
+  <path d="M 40,155 Q 145,72 250,155" style="stroke:#1E1E2E;stroke-width:3.8;fill:none;stroke-linecap:round"/>
+  <rect x="33.5" y="148.5" width="13" height="13" style="fill:#fff;stroke:#2C3E50;stroke-width:2.4"/>
+  <text x="40" y="185" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">0</tspan></text>
+  <circle cx="145" cy="72" r="7.0" style="fill:#5B9BD5;stroke:none"/>
+  <text x="145" y="54" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">1</tspan></text>
+  <rect x="243.5" y="148.5" width="13" height="13" style="fill:#fff;stroke:#2C3E50;stroke-width:2.4"/>
+  <text x="250" y="185" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">2</tspan></text>
+  </g>
+  <g transform="translate(0,420)">
+  <text x="150.0" y="30" style="fill:#2C3E50;font-family:Inter, sans-serif;font-size:25px;font-weight:bold;text-anchor:middle">Grad 3</text>
+  <path d="M 40,168 L 110,72 L 180,168 L 250,72" style="stroke:#5B9BD5;stroke-width:2.2;fill:none;stroke-dasharray:5,5"/>
+  <path d="M 40,168 C 110,72 180,168 250,72" style="stroke:#1E1E2E;stroke-width:3.8;fill:none;stroke-linecap:round"/>
+  <rect x="33.5" y="161.5" width="13" height="13" style="fill:#fff;stroke:#2C3E50;stroke-width:2.4"/>
+  <text x="40" y="198" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">0</tspan></text>
+  <circle cx="110" cy="72" r="7.0" style="fill:#5B9BD5;stroke:none"/>
+  <text x="110" y="54" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">1</tspan></text>
+  <circle cx="180" cy="168" r="7.0" style="fill:#5B9BD5;stroke:none"/>
+  <text x="180" y="198" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">2</tspan></text>
+  <rect x="243.5" y="65.5" width="13" height="13" style="fill:#fff;stroke:#2C3E50;stroke-width:2.4"/>
+  <text x="250" y="54" style="fill:#2C3E50;font-family:Inter, sans-serif;font-style:italic;font-size:25px;text-anchor:middle">P<tspan baseline-shift="sub" font-size="15">3</tspan></text>
+  </g>
+</svg>

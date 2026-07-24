@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" width="1000" height="470" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <rect width="1000" height="470" fill="#ffffff"/>
+  <defs>
+    <marker id="tang" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#888888"/>
+    </marker>
+  </defs>
+
+  <!-- ============ links: Pfad durchstößt die Profilebene ============ -->
+  <g>
+    <g transform="translate(180,255) rotate(-28)">
+      <path d="M -42,-92 L 42,-105 L 42,92 L -42,105 Z" fill="#eef1f4" stroke="#bbbbbb" stroke-width="2"/>
+      <ellipse cx="0" cy="0" rx="22" ry="58" fill="#4a90d9" fill-opacity="0.55" stroke="#1f6fc4" stroke-width="3"/>
+    </g>
+    <path d="M 180,255 C 270,213 340,185 415,152" fill="none" stroke="#888888" stroke-width="4" marker-end="url(#tang)"/>
+    <text x="335" y="128" text-anchor="middle" font-size="25" fill="#999999">Pfad</text>
+  </g>
+
+  <!-- ============ rechts: Pfad liegt in der Profilebene ============ -->
+  <g>
+    <path d="M 600,190 L 960,190 L 890,320 L 530,320 Z" fill="#eef1f4" stroke="#bbbbbb" stroke-width="2"/>
+    <path d="M 590,290 C 700,225 800,220 900,230" fill="none" stroke="#888888" stroke-width="4" marker-end="url(#tang)"/>
+    <ellipse cx="590" cy="290" rx="48" ry="15" fill="#4a90d9" fill-opacity="0.35" stroke="#1f6fc4" stroke-width="3" stroke-dasharray="8 5"/>
+  </g>
+
+  <!-- ============ Beschriftung ============ -->
+  <text x="255" y="400" text-anchor="middle" font-size="30" fill="#555555">Pfad durchstößt die Profilebene</text>
+  <text x="255" y="445" text-anchor="middle" font-size="31" font-weight="600" fill="#333333">Solid · V = 1414 mm³</text>
+
+  <text x="745" y="400" text-anchor="middle" font-size="30" fill="#555555">Pfad liegt in der Profilebene</text>
+  <text x="745" y="445" text-anchor="middle" font-size="31" font-weight="600" fill="#333333">Solid · V = 0</text>
+
+  <line x1="480" y1="60" x2="480" y2="460" stroke="#dddddd" stroke-width="2"/>
+</svg>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="940" height="250" viewBox="0 0 940 250" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1E1E2E"/></marker></defs>
+<rect x="40" y="55" width="130" height="90" rx="6" fill="none" stroke="#2563eb" stroke-width="4"/>
+<text x="105" y="190" style="fill:#2C3E50;font-family:Inter, sans-serif;font-size:22px;text-anchor:middle;font-weight:bold">Wire</text>
+<text x="105" y="216" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:middle;font-weight:normal">geschlossene Kurve</text>
+<line x1="200" y1="100" x2="285" y2="100" stroke="#1E1E2E" stroke-width="3" marker-end="url(#a)"/>
+<text x="242" y="84" style="fill:#1E1E2E;font-family:Inter, sans-serif;font-size:18px;text-anchor:middle;font-weight:normal">cf.face()</text>
+<rect x="315" y="55" width="130" height="90" rx="6" fill="#2563eb" fill-opacity="0.28" stroke="#2563eb" stroke-width="4"/>
+<text x="380" y="190" style="fill:#2C3E50;font-family:Inter, sans-serif;font-size:22px;text-anchor:middle;font-weight:bold">Face</text>
+<text x="380" y="216" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:middle;font-weight:normal">Fläche</text>
+<line x1="475" y1="100" x2="615" y2="100" stroke="#1E1E2E" stroke-width="3" marker-end="url(#a)"/>
+<text x="545" y="72" style="fill:#1E1E2E;font-family:Inter, sans-serif;font-size:18px;text-anchor:middle;font-weight:normal">cf.extrude()</text>
+<text x="545" y="90" style="fill:#1E1E2E;font-family:Inter, sans-serif;font-size:18px;text-anchor:middle;font-weight:normal">cf.revolve()</text>
+<polygon points="645,55 775,55 775,145 645,145" fill="#2563eb" fill-opacity="0.30" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+<polygon points="645,55 775,55 817,13 687,13" fill="#2563eb" fill-opacity="0.50" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+<polygon points="775,55 817,13 817,103 775,145" fill="#2563eb" fill-opacity="0.16" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+<text x="731" y="190" style="fill:#2C3E50;font-family:Inter, sans-serif;font-size:22px;text-anchor:middle;font-weight:bold">Solid</text>
+<text x="731" y="216" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:middle;font-weight:normal">Körper</text>
+</svg>

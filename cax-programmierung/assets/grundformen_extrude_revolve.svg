@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="340" viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<text x="220" y="30" style="fill:#374151;font-family:Inter, sans-serif;font-size:22px;text-anchor:middle;font-weight:bold">Extrude</text>
+<text x="220" y="52" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:14px;text-anchor:middle;font-weight:normal">Profil geradlinig schieben</text>
+<polygon points="120,300 300,300 340,272 160,272" fill="#2563eb" fill-opacity="0.15" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="230" y="326" style="fill:#2563eb;font-family:Inter, sans-serif;font-size:14px;text-anchor:middle;font-weight:normal">Profil (Face)</text>
+<line x1="230" y1="264" x2="230" y2="190" stroke="#374151" stroke-width="3" marker-end="url(#arr)"/>
+<text x="244" y="230" style="fill:#374151;font-family:Inter, sans-serif;font-size:14px;text-anchor:start;font-weight:normal">extrude (0, 0, h)</text>
+<polygon points="150,178 300,178 300,96 150,96" fill="#2563eb" fill-opacity="0.2" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
+<polygon points="150,96 300,96 340,68 190,68" fill="#2563eb" fill-opacity="0.4" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
+<polygon points="300,178 340,150 340,68 300,96" fill="#2563eb" fill-opacity="0.1" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
+<line x1="450" y1="40" x2="450" y2="315" stroke="#e5e7eb" stroke-width="2"/>
+<text x="670" y="30" style="fill:#374151;font-family:Inter, sans-serif;font-size:22px;text-anchor:middle;font-weight:bold">Revolve</text>
+<text x="670" y="52" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:14px;text-anchor:middle;font-weight:normal">Halbprofil um Achse drehen</text>
+<line x1="545" y1="95" x2="545" y2="312" stroke="#9ca3af" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="545" y="86" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:13px;text-anchor:middle;font-weight:normal">Achse</text>
+<polygon points="545,300 625,300 625,172 590,172 590,132 545,132" fill="#059669" fill-opacity="0.15" stroke="#059669" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="600" y="326" style="fill:#059669;font-family:Inter, sans-serif;font-size:14px;text-anchor:middle;font-weight:normal">Halbprofil</text>
+<text x="682" y="150" style="fill:#374151;font-family:Inter, sans-serif;font-size:14px;text-anchor:middle;font-weight:normal">revolve 360°</text>
+<path d="M 655 178 A 40 28 0 1 1 648 232" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#arr)"/>
+<rect x="730" y="204" width="120" height="96" fill="#059669" fill-opacity="0.15" stroke="none"/>
+<ellipse cx="790" cy="300" rx="60" ry="18" fill="#059669" fill-opacity="0.15" stroke="#059669" stroke-width="2.5"/>
+<line x1="730" y1="204" x2="730" y2="300" stroke="#059669" stroke-width="2.5"/>
+<line x1="850" y1="204" x2="850" y2="300" stroke="#059669" stroke-width="2.5"/>
+<ellipse cx="790" cy="204" rx="60" ry="18" fill="#059669" fill-opacity="0.35" stroke="#059669" stroke-width="2.5"/>
+<rect x="756" y="174" width="68" height="30" fill="#059669" fill-opacity="0.35" stroke="none"/>
+<line x1="756" y1="174" x2="756" y2="204" stroke="#059669" stroke-width="2.5"/>
+<line x1="824" y1="174" x2="824" y2="204" stroke="#059669" stroke-width="2.5"/>
+<ellipse cx="790" cy="174" rx="34" ry="10" fill="#059669" fill-opacity="0.5" stroke="#059669" stroke-width="2.5"/>
+</svg>

@@ -2,10 +2,22 @@
 marp: true
 theme: hm
 paginate: true
-html: true
 language: de
 footer: CAx-Programmierung – D. Straub
 headingDivider: 3
+jupyter:
+  jupytext:
+    cell_metadata_filter: -all
+    formats: ipynb,md
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.3'
+      jupytext_version: 1.17.3
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
 ---
 
 # Programmierung von CAx-Systemen
@@ -16,223 +28,215 @@ David Straub
 
 1. Einführung
 2. Topologie
-3. Geometrie
-4. Modellierungsstrategien
-5. **Datenaustausch**
-6. Meshing
-7. Simulation
-8. Optimierung
+3. Grundformen
+4. Kurven
+5. Freiformgeometrie
+6. Profile
+7. Codequalität
+8. **Datenaustausch**
+9. Robustheit
+10. Simulation
+11. Optimierung
 
 ## Datenaustausch
 
-- **STEP:** Industriestandard für CAD-Interoperabilität
-- **BREP:** Natives OpenCASCADE-Format zum Zwischenspeichern
+- **Formate:** STEP, BREP, STL – wofür welches
+- **Assembly:** Teile getrennt halten – Namen, Farben, Baum
+- **BOM:** Stückliste direkt aus der Baugruppe
+- **Release-Pipeline:** ein Skript erzeugt alle Liefer-Artefakte
 
-## Überblick: Dateiformate
+*Durchgängiges Beispiel:* die Wochenteile werden **eine Baugruppe** – exportiert und mit Stückliste
 
-### Welches Format wofür?
+### Rückblick: lauter Einzelteile
 
-| Format | Typ | Inhalt | Anwendungsfall |
-|--------|-----|--------|----------------|
-| **STEP** | 3D B-Rep | Exakte Geometrie, Farben, Labels | Austausch mit anderen CAD-Programmen |
-| **BREP** | 3D B-Rep | Exakte OpenCASCADE-Geometrie | Zwischenspeichern, build123d-intern |
-| **DXF / SVG** | 2D Vektor | Linien, Bögen (keine Bemaßung) | 2D-Weiterverarbeitung |
-| STL | 3D Mesh | Dreiecksnetze (verlustbehaftet) | 3D-Druck → *siehe Einheit Meshing* |
+![bg right:38% 92%](assets/pouch_module_teaser.png)
 
-> **B-Rep-Formate** erhalten exakte Geometrie (Kurven, Flächen) –
-> Mesh-Formate approximieren sie durch Dreiecke.
+Sieben Wochen: Grundplatte, Zellen, Endplatten, Zuganker, Cold Plate.
 
-## STEP
+Bisher haben Sie Teile mit `+` zu **einem** Körper verschmolzen. Für den Austausch muss mehr mit:
 
-### STEP – Standard for the Exchange of Product Model Data
+- welches Teil eine **Kaufzelle** ist und welches Eigenfertigung
+- **Stückliste**, Farben und Namen
 
-**ISO 10303** – universeller Austauschstandard für CAD-Daten
+**Heute:** Teile getrennt zusammenhalten – als Baugruppe.
 
-- Exakte Geometrie (Kurven, Flächen, Volumenkörper)
-- Produktstruktur: Baugruppen mit Unterkomponenten
-- Metadaten: **Farben**, **Labels**, Maßeinheiten
-- Unterstützt von allen professionellen CAD-Systemen (FreeCAD, Fusion 360, CATIA, …)
+## Theorie A: Formate und Assembly
 
-> **Faustregel:** STEP verwenden, wenn das Modell in einem anderen CAD-Programm weiterbearbeitet werden soll.
+### Dateiformate: wofür welches
 
-### STEP exportieren
+| Format | Typ | Inhalt | Einsatz |
+|---|---|---|---|
+| **STEP** | B-Rep | exakte Geometrie + Namen, Farben, Baum | Austausch mit anderen CAD-Systemen |
+| **BREP** | B-Rep | exakte Kernel-Geometrie, roh | Zwischenspeichern (Eigenbedarf) |
+| **STL** | Mesh | Dreiecksnetz, verlustbehaftet | 3D-Druck, FEM |
 
-```python
-from pathlib import Path
-from build123d import Cylinder, Color, Shape, export_step
+> **B-Rep** hält exakte Kurven und Flächen; **Mesh** nähert sie durch Dreiecke an.
 
-def exportiere_welle(radius: float, laenge: float, pfad: Path) -> bool:
-    welle = Cylinder(radius, laenge)
-    welle.color = Color("steelblue")
-    welle.label = "Welle"
-    return export_step(welle, pfad)
+### STEP – der Industriestandard
 
-exportiere_welle(10, 80, Path("welle.step"))
-```
+**ISO 10303** – universeller Austausch für CAD-Daten:
 
-### STEP – Baugruppe exportieren
+- Exakte Geometrie (Kurven, Flächen, Volumen)
+- **Produktstruktur:** Baugruppe mit Unterkomponenten
+- **Metadaten:** Farben, Namen, Einheiten
 
-```python
-from pathlib import Path
-from build123d import Box, Compound, Color, Location, Align, export_step
+Alle professionellen Systeme lesen STEP (FreeCAD, Fusion 360, CATIA, NX). Faustregel: STEP, wenn das Modell woanders weiterbearbeitet wird.
 
-def baue_gehaeuse(l: float, b: float, h: float) -> Compound:
-    deckel = Box(l, b, 5)
-    deckel.color = Color("lightgrey")
-    deckel.label = "Deckel"
+### Assembly: Teile getrennt halten
 
-    korpus = Box(l, b, h, align=(Align.CENTER, Align.CENTER, Align.MIN))
-    korpus.color = Color("darkgrey")
-    korpus.label = "Korpus"
-
-    baugruppe = Compound(children=[deckel.moved(Location((0, 0, h))), korpus])
-    baugruppe.label = "Gehäuse"
-    return baugruppe
-
-export_step(baue_gehaeuse(60, 40, 30), Path("gehaeuse.step"))
-```
-
-→ FreeCAD / Fusion 360 öffnet die Baugruppe mit Farben und Bauteilnamen.
-
-### STEP importieren
+Ein `+` verschmilzt Körper zu einem. Eine **Baugruppe** hält sie getrennt – jedes Teil mit Name, Farbe und Platz im Baum:
 
 ```python
-from pathlib import Path
-from build123d import Compound, import_step
-
-def lade_baugruppe(pfad: Path) -> Compound:
-    return import_step(pfad)
-
-modell: Compound = lade_baugruppe(Path("gehaeuse.step"))
-
-for teil in modell.children:
-    print(f"{teil.label}: {teil.bounding_box().size}")
+import cadquery as cq
+from cadquery import func as cf
 ```
 
-> `import_step` liefert immer ein `Compound` –
-> auch wenn die Datei nur einen einzigen Körper enthält.
+`cq.Assembly` und `cq.Color` liegen im **Top-Level** `cadquery`, nicht in `cadquery.func` – es ist eine **Struktur-Ebene über** den Shapes, keine neue Geometrie-Operation.
 
-## BREP
-
-### BREP – Boundary Representation
-
-**OpenCASCADE-natives Format** – verlustfrei und schnell
-
-- Speichert exakt die interne Datenstruktur von build123d / OpenCASCADE
-- Kein Informationsverlust, keine Konvertierung
-- **Kein** Industriestandard → nur für den Eigenbedarf
-
-**Typischer Einsatz:**
-- Zwischenergebnisse langer Berechnungen speichern (Caching)
-- Debugging: Modellzustand zu einem bestimmten Schritt festhalten
-
-### BREP vs. STEP
-
-| | BREP | STEP |
-|-|------|------|
-| Geometrie | ✅ exakt (keine Konvertierung) | ✅ exakt (standardisiert) |
-| Kompatibilität | ❌ nur OpenCASCADE | ✅ universell |
-| Farben / Labels | ❌ nein | ✅ ja |
-| Geschwindigkeit | ✅ sehr schnell | etwas langsamer |
-
-STEP ist ebenfalls exakt – aber BREP überspringt die Konvertierung in das STEP-Format vollständig.
-Kein Rundungsfehler, keine Toleranzentscheidung, keine Neuinterpretation.
-
-### BREP exportieren und importieren
+### Baugruppe bauen
 
 ```python
-from pathlib import Path
-from build123d import Sphere, Shape, export_brep, import_brep
-
-def speichere(form: Shape, pfad: Path) -> bool:
-    return export_brep(form, pfad)
-
-def lade(pfad: Path) -> Shape:
-    return import_brep(pfad)
-
-speichere(Sphere(25), Path("kugel.brep"))
-kugel: Shape = lade(Path("kugel.brep"))
+def modul(p: ModulParam) -> cq.Assembly:
+    assy = cq.Assembly(name="pouch_modul")
+    assy.add(grundplatte, name="grundplatte", color=cq.Color("gray"))
+    zelle = zelle_bauen(p)
+    for i in range(p.n_zellen):
+        loc = cf.Location((0, 0, 10 + i * (p.zell_t + p.spacer)))
+        assy.add(zelle, name=f"zelle_{i}", color=cq.Color("steelblue"), loc=loc)
+    return assy
 ```
 
-### BREP – Caching
+- `add(shape, name=, color=, loc=)` hängt ein Teil in den Baum
+- Die Zellen kommen per **Schleife** über `Location`s – dasselbe Muster wie beim Stapel
+
+### Verschachteln: Modul → Pack
+
+Ein Kind einer Baugruppe darf selbst eine Baugruppe sein – der Baum ist wörtlich gemeint:
 
 ```python
-from pathlib import Path
-from build123d import Box, Cylinder, Location, Shape, export_brep, import_brep
+def pack(p: ModulParam, n_module: int = 2) -> cq.Assembly:
+    packung = cq.Assembly(name="pack")
+    for i in range(n_module):
+        packung.add(modul(p), name=f"modul_{i}", loc=cf.Location((0, i * 130, 0)))
+    return packung
 
-def berechne_lochplatte(n: int) -> Shape:
-    platte: Shape = Box(200, 200, 10)
-    for i in range(n):
-        x, y = (i % 10) * 20 - 90, (i // 10) * 20 - 90
-        platte -= Cylinder(4, 12).moved(Location((x, y, 0)))
-    return platte
-def lade_oder_berechne(cache: Path) -> Shape:
-    if cache.exists():
-        return import_brep(cache)
-    ergebnis: Shape = berechne_lochplatte(n=50)
-    export_brep(ergebnis, cache)
-    return ergebnis
-
-platte = lade_oder_berechne(Path("lochplatte.brep"))
+print([c.name for c in pack(ModulParam()).children])   # ['modul_0', 'modul_1']
 ```
 
-> Zweiter Aufruf: sofort – die Geometrie wird nicht neu berechnet.
+Die Lage komponiert **den Baum hinab**: jedes Modul wird einmal platziert, seine Zellen bleiben relativ dazu.
 
-## Praktikum
+## Praktikum A: das Modul als Baugruppe
 
-### Too Tall Toby – Modellierungsaufgaben
+### Aufgabe 1: Baugruppe aus den Wochenteilen
 
-**Too Tall Toby (TTT)** ist eine bekannte Serie von CAD-Speedmodeling-Aufgaben.
-Jede Aufgabe zeigt eine technische Zeichnung – das Ziel ist, das Bauteil nachzubauen und die angegebene Masse zu treffen.
+Bauen Sie `modul(p)` als Baugruppe mit allen Teilen der letzten Wochen: Grundplatte, 12 Zellen, 2 Endplatten, 4 Zuganker, Cold Plate.
 
-**Regeln:**
-- ❌ Keine Builder API (`with BuildPart()`) – nur Algebra-Modus
-- ❌ Keine Referenzimplementierung anschauen
-- ✅ Konstanten für alle Maße
+1. Jedes Teil mit sprechendem Namen und eigener Farbe.
+2. `len(assy.children)` – stimmt die Teilezahl?
 
-### Schema
+*Hinweise:* `cq.Assembly(name=...)`, `.add(shape, name=, color=cq.Color(...), loc=)`, die Zellen per Schleife über `cf.Location`
+
+### Aufgabe 2: STEP exportieren
+
+Exportieren Sie die Baugruppe nach `w08/pouch_modul.step` und öffnen Sie die Datei in FreeCAD.
+
+1. Sind Namen und Farben erhalten?
+2. Erscheint der Baum mit allen Teilen?
+
+*Hinweise:* `assy.export(pfad)`; FreeCAD ist frei installierbar (freecad.org) – zum Prüfen, nicht zum Modellieren
+
+## Theorie B: BOM, Caching, Release
+
+### BOM: Stückliste aus der Baugruppe
+
+Die Baugruppe **ist** die Stückliste – man muss sie nur auszählen. `Counter` zählt gleiche Werte:
 
 ```python
-from build123d import ...         # Importe
-from ocp_vscode import show
+from collections import Counter
 
-HOEHE = 133.0                     # Konstanten
-...
+# Namen heißen "zelle_0", "zelle_1", … – der Teil vor dem "_" ist der Typ:
+typen = [c.name.split("_")[0] for c in assy.children]
+bom = Counter(typen)              # {"zelle": 12, "endplatte": 2, ...}
 
-teil = ...                        # Implementierung
-
-show(teil)                        # Visualisierung
-
-dichte = 1020 / 1e6
-assert abs(teil.volume * dichte - 57.08) < 1
+for typ, anzahl in bom.items():
+    print(f"{anzahl}x  {typ}")
 ```
 
-### Aufgabe 1: Paste Sleeve
+```
+1x  grundplatte
+12x  zelle
+2x  endplatte
+4x  zuganker
+1x  coldplate
+```
 
-![bg right:45% 90%](https://build123d.readthedocs.io/en/latest/_images/ttt-ppp0105.png)
+`"zelle_3".split("_")` ergibt `["zelle", "3"]`, `[0]` nimmt das erste Stück. Die Stückliste entsteht **aus dem Modell** – sie kann nicht veralten.
 
-[build123d.readthedocs.io → TTT → Party Pack 01-05](https://build123d.readthedocs.io/en/latest/tttt.html#ttt-ppp0105)
+### BREP: schnell und verlustfrei – für sich selbst
 
-- Material: ABS (ρ = 1,02 g/cm³)
-- Ziel: **57,08 g** (Toleranz ±1 g)
+```python
+koerper.exportBrep("stapel.brep")
+wieder = cf.Shape.importBrep("stapel.brep")
+```
 
-### Aufgabe 1: Hinweise
+- **BREP** ist das rohe Dateiformat des Kernels; **B-Rep** die Darstellung darin (Kanten + Flächen)
+- Speichert diese Struktur **direkt** – keine Konvertierung, kein Rundungsfehler
+- **Kein** Industriestandard → nur für den Eigenbedarf: teure Zwischenergebnisse zwischenspeichern
 
-**Nützliche Operationen:**
-- `SlotOverall(length, diameter)` – Langloch-Profil (Länge Mitte-Mitte + Durchmesser)
-- `loft([sketch1, sketch2])` – Übergang zwischen zwei Profilen
-- `offset(amount=...)` – Profil nach außen vergrößern
-- `Plane.XY.offset(z)` – verschobene Arbeitsebene
+### STL: das Netz für Druck und FEM
 
-**Vorgehen:**
-1. Äußere Hülle: Loft von unterem zu oberem Profil
-2. Innere Aussparung: Loft subtrahieren
-3. Bodenflansch: `extrude` der Unterseite nach unten
+```python
+assy.export("modul.stl", tolerance=0.1)
+```
 
-### Weitere Aufgaben *(falls Zeit)*
+- `assy.export` erkennt am Suffix, welches Format – `.step` wie `.stl`
+- Dreiecksnetz – die exakte Geometrie geht dabei verloren
+- Ziel für **3D-Druck** und **FEM-Vernetzung**; wie fein, entscheidet sich beim Simulieren
 
-| Teil | Link |
-|------|------|
-| Party Pack 01-03 C Clamp Base | [tttt.html#ttt-ppp0103](https://build123d.readthedocs.io/en/latest/tttt.html#ttt-ppp0103) |
-| Party Pack 01-08 Tie Plate | [tttt.html#ttt-ppp0108](https://build123d.readthedocs.io/en/latest/tttt.html#ttt-ppp0108) |
+### Release-Pipeline: alles aus einem Aufruf
 
+Ein Skript erzeugt reproduzierbar **alle** Liefer-Artefakte – jede Zeile ein Aufruf, den Sie schon kennen:
+
+```python
+def release(p: ModulParam, ordner: str) -> None:
+    assy = modul(p)
+    assy.export(f"{ordner}/modul.step")     # Austausch
+    assy.export(f"{ordner}/modul.stl")      # Druck
+    schreibe_bom(assy, f"{ordner}/bom.csv") # Stückliste (aus Aufgabe 3)
+```
+
+Aus einem Parametersatz fällt ein vollständiges, konsistentes Paket – der nächste Schritt nach der CI aus Einheit 7.
+
+## Praktikum B: Stückliste und Release
+
+### Aufgabe 3: BOM erzeugen
+
+Schreiben Sie `schreibe_bom(assy, pfad)` – die Funktion, die Aufgabe 4 wieder aufgreift.
+
+1. Zählen Sie die Teile Ihrer Baugruppe mit `Counter` aus.
+2. Ergänzen Sie je Teil **Material** und **Masse** (Dichte × Volumen) – schreiben Sie die BOM als CSV.
+
+*Hinweise:* `import csv`, dann `csv.writer(open(pfad, "w", newline=""))` und `.writerow([...])` je Zeile; Dichten in einem `dict` je Materialname
+
+### Aufgabe 4: Release-Funktion
+
+Fassen Sie STEP, STL und Ihre BOM aus Aufgabe 3 zu einer Funktion `release(p, ordner)` zusammen. Der eigentliche Test ist die **Reproduzierbarkeit**:
+
+1. Rufen Sie `release` für zwei `ModulParam`-Varianten auf (`n_zellen=12` und `16`) in getrennte Ordner.
+2. Vergleichen Sie die zwei `bom.csv`: unterscheidet sich nur die Zellzahl, oder auch anderes?
+3. Löschen Sie einen Ordner und erzeugen Sie ihn neu – sind die Dateien identisch?
+
+### Aufgabe 5 *(Zusatz)*: Platzierung lösen statt rechnen
+
+Lassen Sie die Zell-Höhe vom Solver bestimmen: Grundplatte und eine Zelle mit Platzhalter-Position in eine Baugruppe legen, die Zell-Unterseite mit der Plattenoberseite verknüpfen, lösen.
+
+*Hinweise:* `flaeche = platte.faces(">Z")`, dann `.constrain("platte", flaeche, "zelle", zelle.faces("<Z"), "Plane")`, `.solve()`; die Lage danach über `next(c for c in paar.children if c.name == "zelle").loc`
+
+## Abschluss
+
+### Leseauftrag & Ausblick
+
+- **Leseauftrag:** Buch Kapitel 9
+- **Wer mehr will:** die Baugruppe zu einem `pack()` aus mehreren Modulen verschachteln und exportieren
+- **Nächste Woche:** Robustheit – wenn Parameter das Modell sprengen: stille Kernel-Fehler, `isValid()` vs. richtig, Validierung vor dem Bauen
+- Bis dahin: `w08/` (Baugruppe + STEP + BOM) committet und gepusht

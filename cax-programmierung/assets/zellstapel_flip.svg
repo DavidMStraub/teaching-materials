@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="640" height="345" viewBox="0 0 640 345" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect x="195" y="62" width="260" height="26" rx="4" fill="#2563eb" fill-opacity="0.22" stroke="#2563eb" stroke-width="2.5"/>
+<rect x="455" y="68" width="38" height="14" rx="3" fill="#f0b562" stroke="#f0b562" stroke-width="2"/>
+<text x="503" y="82" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:start;font-weight:normal">Tab</text>
+<rect x="195" y="106" width="260" height="26" rx="4" fill="#2563eb" fill-opacity="0.22" stroke="#2563eb" stroke-width="2.5"/>
+<rect x="157" y="112" width="38" height="14" rx="3" fill="#f0b562" stroke="#f0b562" stroke-width="2"/>
+<text x="147" y="126" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:end;font-weight:normal">Tab</text>
+<text x="325.0" y="126" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:middle;font-weight:normal">180° gedreht</text>
+<rect x="195" y="150" width="260" height="26" rx="4" fill="#2563eb" fill-opacity="0.22" stroke="#2563eb" stroke-width="2.5"/>
+<rect x="455" y="156" width="38" height="14" rx="3" fill="#f0b562" stroke="#f0b562" stroke-width="2"/>
+<text x="503" y="170" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:start;font-weight:normal">Tab</text>
+<rect x="195" y="194" width="260" height="26" rx="4" fill="#2563eb" fill-opacity="0.22" stroke="#2563eb" stroke-width="2.5"/>
+<rect x="157" y="200" width="38" height="14" rx="3" fill="#f0b562" stroke="#f0b562" stroke-width="2"/>
+<text x="147" y="214" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:end;font-weight:normal">Tab</text>
+<text x="325.0" y="214" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:middle;font-weight:normal">180° gedreht</text>
+<rect x="195" y="238" width="260" height="26" rx="4" fill="#2563eb" fill-opacity="0.22" stroke="#2563eb" stroke-width="2.5"/>
+<rect x="455" y="244" width="38" height="14" rx="3" fill="#f0b562" stroke="#f0b562" stroke-width="2"/>
+<text x="503" y="258" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:start;font-weight:normal">Tab</text>
+<rect x="195" y="282" width="260" height="26" rx="4" fill="#2563eb" fill-opacity="0.22" stroke="#2563eb" stroke-width="2.5"/>
+<rect x="157" y="288" width="38" height="14" rx="3" fill="#f0b562" stroke="#f0b562" stroke-width="2"/>
+<text x="147" y="302" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:end;font-weight:normal">Tab</text>
+<text x="325.0" y="302" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:17px;text-anchor:middle;font-weight:normal">180° gedreht</text>
+<line x1="64" y1="312" x2="64" y2="54" stroke="#374151" stroke-width="2.5" marker-end="url(#a)"/>
+<text x="50" y="194.0" style="fill:#6b7280;font-family:Inter, sans-serif;font-size:16px;text-anchor:middle" transform="rotate(-90 50 194.0)">Stapelrichtung</text>
+<text x="320.0" y="30" style="fill:#374151;font-family:Inter, sans-serif;font-size:21px;text-anchor:middle;font-weight:bold">Jede zweite Zelle um 180° drehen</text>
+</svg>

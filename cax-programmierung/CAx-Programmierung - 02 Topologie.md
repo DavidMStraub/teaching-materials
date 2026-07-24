@@ -28,49 +28,74 @@ David Straub
 
 1. Einführung
 2. **Topologie**
-3. Geometrie
-4. Modellierungsstrategien
-5. Datenaustausch
-6. Simulation
-7. Optimierung
-8. Fertigung
+3. Grundformen
+4. Kurven
+5. Freiformgeometrie
+6. Profile
+7. Codequalität
+8. Datenaustausch
+9. Robustheit
+10. Simulation
+11. Optimierung
 
-## Topologie
+## Darstellung von Geometrie in CAD-Systemen
 
-- Geometrie vs. Topologie
-- Einstieg: Ein konkreter Körper
-- Topologische Grundelemente
-- Hierarchie und Konnektivität
-- Orientierung
-- B-Rep als Industriestandard
-- Topologie in build123d
+Dreidimensionale Geometrie kann in CAD-Systemen auf verschiedene Arten dargestellt werden:
 
-## Geometrie vs. Topologie
+- **CSG (Constructive Solid Geometry):** Volumen durch boolesche Operationen einfacher Körper
+- **B-Rep (Boundary Representation):** Oberfläche definiert Volumen, Kanten definieren Flächen
+- **Mesh (Netz):** Oberfläche aus Polygonen, z. B. Dreiecken
+
+### CSG (Constructive Solid Geometry)
+
+**Konstruktive Festkörpergeometrie**
+
+- Modellierung durch boolesche Operationen (Union, Intersection, Difference)
+- Grundkörper: Würfel, Zylinder, Kugel, Kegel
+- **Kompakt und intuitiv** – die Darstellung hinter **OpenSCAD** (2010), das code-basiertes CAD populär machte
+- **Grenze:** Freiformflächen, Verrundungen, gezielte Flächenauswahl brauchen mehr
+
+![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/8/8b/Csg_tree.png)
+
+### B-Rep (Boundary Representation)
+
+**Begrenzungsflächenmodell**
+
+- Geometrie durch **Oberfläche** beschrieben
+- Hierarchie: Faces (Flächen), Edges (Kanten), Vertices (Ecken)
+- Standard in professionellen CAD-Systemen – **das verwenden wir**
+- Boolesche Operationen (`+`, `-`) nutzen wir weiter – ihr Ergebnis ist ein B-Rep mit auswählbaren Flächen und Kanten
+
+![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/6/63/Tetraeder_f%C3%BCr_BRep.png)
+
+### Mesh (Netz)
+
+Die Geometrie wird durch viele kleine Facetten **angenähert** – in zwei Arten:
+
+- **Oberflächennetz:** Dreiecke/Vierecke auf der Haut → 3D-Druck (STL), Visualisierung
+- **Volumennetz:** Tetraeder/Hexaeder füllen den Körper → FEM
+
+Beide sind approximativ – die exakte Krümmung geht verloren.
+
+![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/b/b8/Approx-3tori.svg)
+
+## Theorie A: Geometrie vs. Topologie, Grundelemente
 
 ### Was ist der Unterschied?
 
 **Topologie** beschreibt die **Struktur** eines Körpers:
-- Wie viele Flächen, Kanten, Ecken hat er?
-- Wie sind diese miteinander verbunden?
-- Welche Elemente begrenzen welche anderen?
+- Wie viele Flächen, Kanten, Ecken hat er? Wie sind diese verbunden?
 
 **Geometrie** beschreibt die **Form** im Raum:
-- Wo liegen die Punkte (Koordinaten)?
-- Welche mathematische Kurve/Fläche liegt zugrunde?
-- Krümmung, Länge, Flächeninhalt
+- Wo liegen die Punkte? Welche Kurve/Fläche liegt zugrunde? Krümmung, Länge, Flächeninhalt
 
 > B-Rep = Topologie + Geometrie: Die Topologie liefert das Gerüst, die Geometrie füllt es mit konkreter Form.
 
 ### Beispiel: Würfel vs. Quader
 
-Beide haben dieselbe **Topologie**:
-- 8 Ecken, 12 Kanten, 6 Flächen
-- Jede Fläche von 4 Kanten begrenzt
-- Jede Kante von 2 Ecken begrenzt
+Beide haben dieselbe **Topologie**: 8 Ecken, 12 Kanten, 6 Flächen, jede Fläche von 4 Kanten begrenzt.
 
-Aber unterschiedliche **Geometrie**:
-- Würfel: alle Flächen quadratisch, alle Kanten gleich lang
-- Quader: Rechteckflächen, unterschiedliche Kantenlängen
+Aber unterschiedliche **Geometrie**: Würfel – alle Flächen quadratisch, alle Kanten gleich lang; Quader – Rechteckflächen, unterschiedliche Kantenlängen.
 
 → Gleiche Topologie, verschiedene Geometrie ist möglich!
 
@@ -82,156 +107,116 @@ Aber unterschiedliche **Geometrie**:
 
 **Geografische Karte (Geometrie):** Wo liegen die Stationen genau? Wie lang ist die Strecke in km?
 
-Beide Darstellungen beschreiben dasselbe Netz – aber unterschiedliche Aspekte davon.
-
 → In CAD: B-Rep trennt genauso **Struktur** (Topologie) von **Form** (Geometrie).
 
 ![bg right:25% vertical fit](https://upload.wikimedia.org/wikipedia/commons/6/6f/Netzplan_S-Bahn_M%C3%BCnchen.svg)
 ![bg right:35% vertical cover](https://upload.wikimedia.org/wikipedia/commons/e/e7/Karte_der_S-Bahn_M%C3%BCnchen.png)
 
-## Einstieg: Ein konkreter Körper
-
-### Unser erstes Objekt: der Zylinder
+### Zur Erinnerung: unsere Grundplatte
 
 ```python
-import build123d as bd
+from cadquery import func as cf
 
-zylinder = bd.Cylinder(radius=10, height=20)
-zylinder
+grundplatte = cf.box(170, 110, 6)
+grundplatte = grundplatte.fillet(6, grundplatte.edges("|Z"))
 ```
 
-Ein einfacher Zylinder – aber wie ist er intern aufgebaut?
+Letzte Woche gebaut, aber nicht angeschaut: **was für ein Objekt ist das eigentlich, strukturell?**
 
 ### Topologie inspizieren
 
 ```python
-print(zylinder.show_topology())
+print("Faces:   ", len(grundplatte.Faces()))
+print("Edges:   ", len(grundplatte.Edges()))
+print("Vertices:", len(grundplatte.Vertices()))
 ```
 
-Ausgabe (vereinfacht):
-```
-Solid
-└── Shell
-    ├── Face  (zylindrische Mantelfläche)
-    ├── Face  (untere Kreisfläche)
-    └── Face  (obere Kreisfläche)
-        ├── Wire
-        │   └── Edge  (Kreisbogen)
-        ...
-```
+**Ergebnis:** `Faces: 10  Edges: 24  Vertices: 16` – ein Quader hätte 6/12/8. Warum mehr? Jede Verrundung ersetzt eine gerade Kante durch eine gekrümmte Fläche mit **eigenen** neuen Kanten und Ecken.
 
-→ Drei Flächen, jede durch Kanten begrenzt, Kanten durch Ecken.
+### Zylinder: 3 Flächen, 3 Kanten, 2 Ecken
 
-### Elemente zählen
+Ein glatter Zylinder, ganz ohne Verrundung:
 
 ```python
-print("Solids:  ", len(zylinder.solids()))
-print("Shells:  ", len(zylinder.shells()))
-print("Faces:   ", len(zylinder.faces()))
-print("Wires:   ", len(zylinder.wires()))
-print("Edges:   ", len(zylinder.edges()))
-print("Vertices:", len(zylinder.vertices()))
+zyl = cf.cylinder(d=20, h=20)
+print(len(zyl.Faces()), len(zyl.Edges()), len(zyl.Vertices()))
+# 3 3 2
 ```
 
-**Ergebnis:**
-```
-Solids:   1
-Shells:   1
-Faces:    3
-Wires:    3
-Edges:    3
-Vertices: 2
-```
+Drei Flächen (Mantel, Boden, Deckel) sind klar. Aber **2 Ecken** und **3 Kanten** bei zwei runden Rändern – wie kommt das zustande?
 
-→ Warum nur 2 Ecken? Warum nur 3 Kanten?
+### Die Nahtkante
 
-### Anatomie des Zylinders
+```python
+def show_topology(shape, indent=""):
+    print(indent + shape.ShapeType())
+    for child in shape:
+        show_topology(child, indent + "  ")
 
-```
-Solid
-└── Shell
-    ├── Face: Mantel (Zylinderfläche)  — 1 Kante (Seam-Kante)
-    ├── Face: Boden (Kreisfläche)      — 1 Kante (Kreis)
-    └── Face: Deckel (Kreisfläche)     — 1 Kante (Kreis)
+show_topology(zyl)
 ```
 
-- Die Kreiskanten (Boden, Deckel) teilen sich je **einen Vertex** mit der Mantelkante
-- Die Mantel-Kante ist eine **Nahtkante** (seam edge)
-- Kanten werden zwischen Flächen **geteilt** – nicht dupliziert!
-
-## Topologische Grundelemente
+Die Mantelfläche ist ein aufgerolltes Rechteck; wo seine Enden zusammenstoßen, liegt eine **Nahtkante**, die dieselbe Fläche zweimal begrenzt. Ihre beiden Endpunkte sind die 2 Ecken; die beiden Kreisränder plus die Naht ergeben die 3 Kanten. Topologie zählt nach der tatsächlichen Verbindung der Elemente.
 
 ### Vertex – der Punkt
 
-- Nulldimensionales Element
-- Repräsentiert einen **Punkt** im Raum
-- Geometrie: ein 3D-Punkt $(x, y, z)$
+- Nulldimensional – ein **Punkt** im Raum, Geometrie (x, y, z)
 - Begrenzungselement von Kanten
 
 ```python
-v = zylinder.vertices()[0]
-print(type(v))       # <class 'build123d.topology.zero_d.Vertex'>
-print(v.center())    # Position im Raum
+quader = cf.box(30, 20, 10)
+v = quader.Vertices()[0]
+print(v.toTuple())          # Position einer Ecke
 ```
 
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/0/05/Vertex_edge_face_%28vertex%29.svg)
 
 ### Edge – die Kante
 
-- Eindimensionales Element
-- Ein **Kurvenstück**, begrenzt durch Vertices
+- Eindimensional – ein **Kurvenstück**, begrenzt durch Vertices
 - Geometrie: eine parametrische Kurve (Linie, Kreis, Spline, …)
 
 ```python
-kanten = zylinder.edges()
-for k in kanten:
-    print(k.geom_type)  # CIRCLE oder LINE oder ...
-    print(k.length)
+for k in quader.Edges():
+    print(k.geomType(), round(k.Length(), 1))   # beim Quader: alle LINE
 ```
 
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/a/ab/Vertex_edge_face_%28edge%29.svg)
 
-
 ### Wire – der Kantenzug
 
 - Geordnete, zusammenhängende Folge von Edges
-- Bildet eine **geschlossene Schleife** (Kontur einer Fläche)
-- Kein eigenes geometrisches Objekt – nur eine Anordnung
+- Bildet die **Kontur** einer Fläche – selbst kein geometrisches Objekt
 
 ```python
-wire = zylinder.faces()[0].wires()[0]
-print(len(wire.edges()), "Kanten im Wire")
+wire = quader.Faces()[0].Wires()[0]
+print(len(wire.Edges()), "Kanten im Wire")   # 4
 ```
 
-→ Flächen können mehrere Wires haben: **äußere Kontur + innere Löcher**
-
+→ Eine Fläche kann mehrere Wires haben: **äußere Kontur + innere Löcher**
 
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/0/0d/Cube_wire.svg)
 
 ### Face – die Fläche
 
-- Zweidimensionales Element
-- Ein **Flächenstück**, begrenzt durch Wires
+- Zweidimensional – ein **Flächenstück**, begrenzt durch Wires
 - Geometrie: eine parametrische Fläche (Ebene, Zylinder, Kugel, Spline, …)
 
 ```python
-flaechen = zylinder.faces()
-for f in flaechen:
-    print(f.geom_type)  # PLANE oder CYLINDER oder ...
-    print(f.area)
+for f in quader.Faces():
+    print(f.geomType(), round(f.Area(), 1))     # beim Quader: alle PLANE
 ```
 
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/5/51/Vertex_edge_face_%28face%29.svg)
 
-
 ### Shell – die Hülle
 
-- Zusammenhängende Menge von Faces (verbunden über gemeinsame Edges)
-- Bildet eine **geschlossene oder offene Hülle**
+- Zusammenhängende Menge von Faces, über gemeinsame Edges verbunden
+- Offen oder geschlossen
 
 ```python
-shell = zylinder.shells()[0]
-print(len(shell.faces()), "Flächen in der Shell")
+shell = quader.Shells()[0]
+print(len(shell.Faces()), "Flächen in der Shell")   # 6
 ```
 
 → Eine geschlossene Shell begrenzt ein Volumen
@@ -240,34 +225,30 @@ print(len(shell.faces()), "Flächen in der Shell")
 
 ### Solid – der Körper
 
-- Dreidimensionales Element
-- Ein **Volumenkörper**, begrenzt durch eine (oder mehrere) Shells
-- Das Zielobjekt in der parametrischen Konstruktion
+- Dreidimensional – ein **Volumenkörper**, begrenzt durch eine oder mehrere Shells
+- Das Zielobjekt der parametrischen Konstruktion
 
 ```python
-solid = zylinder.solids()[0]
-print(solid.volume)  # Volumen in mm³
-print(solid.area)    # Oberfläche in mm²
+solid = quader.Solids()[0]
+print(solid.Volume(), solid.Area())   # Volumen mm³, Oberfläche mm²
 ```
 
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/6/64/Cube_cad_solid.png)
 
 ### Compound – die Sammlung
 
-- Container für **beliebige Objekte** (*Shapes*, auch gemischter Typen)
-- Kein geometrisches Konzept, nur Verwaltung
-- `Part`, `Sketch`, `Curve` in build123d sind spezialisierte Compounds
+- Container für **beliebige Shapes**, auch gemischter Typen – ohne nötige Verbindung
 
 ```python
-quader = bd.Box(30, 20, 10)
-gruppe = bd.Compound([zylinder, quader])
-print(len(gruppe.solids()), "Solids in der Gruppe")
+gruppe = cf.compound([quader, cf.cylinder(d=10, h=10)])
+print(len(gruppe.Solids()), "Solids in der Gruppe")
 ```
 
+`geomType()` (mit `Area()`/`Length()`) zeigt die **Geometrie** – `PLANE`, `CYLINDER`, `CIRCLE`, … Diese Namen kehren gleich als Selektoren wieder (`%PLANE`, `%CYLINDER`, `%CIRCLE`).
 
 ### Übersicht: Topologie-Hierarchie
 
-| Typ | Dimension | Begrenzt durch | Geometrie |
+| Typ | Dim. | Begrenzt durch | Geometrie |
 |---|---|---|---|
 | Vertex | 0D | – | Punkt |
 | Edge | 1D | Vertices | Kurve |
@@ -275,432 +256,126 @@ print(len(gruppe.solids()), "Solids in der Gruppe")
 | Face | 2D | Wires | Fläche |
 | Shell | 2D | Faces | – |
 | Solid | 3D | Shells | – |
-| Compound | – | beliebig | – |
+| Compound | beliebig | – | – |
 
-## Hierarchie und Konnektivität
+## Praktikum A: Anatomie der Grundplatte
 
-### Der Topologie-Graph
+### Aufgabe 1: Zählen und vorhersagen
 
-Die Elemente bilden eine **hierarchische Struktur** (gerichteter Graph):
+Nutzen Sie Ihre Grundplatte aus Einheit 1 (`grundplatte`, mit vier Bohrungen).
 
-```
-Solid
- └── Shell
-      ├── Face
-      │    └── Wire
-      │         └── Edge
-      │              └── Vertex
-      └── Face
-           └── Wire
-                └── Edge
-                     └── Vertex  ← derselbe Vertex wie oben!
-```
+1. Zählen Sie Faces, Edges, Vertices – stimmen die Zahlen mit Ihrer Vorhersage überein?
+2. Was trägt jede Bohrung zur Topologie bei? Was jede Verrundung?
 
-Entscheidend: Teilelemente werden **geteilt**, nicht kopiert.
+### Aufgabe 2: Geometrietypen
+
+Gehen Sie Flächen und Kanten Ihrer Grundplatte durch.
+
+1. Welche Geometrietypen kommen bei Flächen vor? Bei Kanten?
+2. Wie viele Kanten sind Kreise? Passt das zur Anzahl der Bohrungen und Verrundungen?
+
+*Hinweise:* `.Faces()`, `.Edges()`, `.geomType()`, `.Area()`, `.Length()`
+
+### Aufgabe 3: Wie verändern Features die Topologie?
+
+Sagen Sie **vor** dem Ausführen voraus, wie sich Faces/Edges/Vertices ändern – dann prüfen:
+
+1. eine zusätzliche Bohrung in die Platte (`- cf.cylinder(...)`)
+2. `show_topology(grundplatte)` aufrufen und die Hierarchie ablesen: Wie viele Faces hat die Shell, wie viele Kanten begrenzen eine Fläche?
+
+## Theorie B: Hierarchie, Orientierung, Selektoren
 
 ### Konnektivität durch gemeinsame Teilelemente
 
-Zwei Objekte sind **verbunden**, wenn sie ein gemeinsames Begrenzungselement teilen:
-
-- Zwei **Flächen** sind verbunden, wenn sie eine gemeinsame **Kante** haben
-- Zwei **Kanten** sind verbunden, wenn sie einen gemeinsamen **Vertex** haben
+Zwei Flächen sind verbunden, wenn sie eine gemeinsame **Kante** haben; zwei Kanten, wenn sie einen gemeinsamen **Vertex** haben. Teilelemente werden **geteilt**, nicht kopiert.
 
 ```python
-quader = bd.Box(20, 20, 10)
-
-# Welche Flächen teilen eine bestimmte Kante?
-kante = quader.edges()[0]
-for f in quader.faces():
-    if kante in f.edges():
-        print("Fläche enthält diese Kante:", f.center())
+appearances = sum(len(f.Edges()) for f in grundplatte.Faces())
+print(appearances, "vs.", len(grundplatte.Edges()), "eindeutige Kanten")
 ```
 
-### Teilelemente abfragen
+Jede „normale“ Kante wird von zwei Flächen genutzt – die Differenz verrät, wie viele Kanten sich selbst teilen (Nahtkanten).
+
+### Orientierung: warum reicht Topologie allein nicht?
+
+**Gedankenexperiment:** Sechs quadratische Flächen, zu einer Shell verbunden – ein massiver Würfel, oder eine würfelförmige Aussparung? Die Topologie ist identisch. Fehlende Information: **wohin zeigt jede Fläche?**
+
+**Regel:** In einem gültigen Solid zeigt die Normale **immer vom Material weg**.
 
 ```python
-quader = bd.Box(20, 20, 10)
-
-# Alle Kanten einer bestimmten Fläche
-oberseite = quader.faces().sort_by(bd.Axis.Z).last
-print("Kanten der Oberseite:", len(oberseite.edges()))
-
-# Alle Vertices einer bestimmten Kante
-kante = oberseite.edges()[0]
-print("Vertices der Kante:", len(kante.vertices()))
+for f in grundplatte.Faces()[:3]:
+    print(f.normalAt())   # jede Normale zeigt nach außen
 ```
 
-→ Die Topologie erlaubt Navigation **von oben nach unten** durch die Hierarchie
+→ Wichtig für Boolesche Operationen, Wasserdichtheit, Export (falsche Orientierung → ungültige STL/STEP).
 
-### Topologie vs. Anzahl bei komplexeren Körpern
+### B-Rep ist Industriestandard
+
+| Software | Kernel |
+|---|---|
+| CATIA, SolidWorks, NX | CGM / Parasolid |
+| FreeCAD, CadQuery | OCCT |
+
+Vertex, Edge, Face, Shell, Solid – überall dieselben Konzepte. **STEP** (ISO 10303) transportiert diese Struktur zwischen Systemen, verlustfrei in der Topologie. *Vertiefung: Leseauftrag.*
+
+### String-Selektoren
+
+| Selektor | Bedeutung |
+|---|---|
+| `>Z` / `<Z` | größter / kleinster Z-Wert |
+| `\|Z` | parallel zur Z-Achse |
+| `%CIRCLE` / `%PLANE` / `%CYLINDER` | Geometrietyp |
+
+Kombinierbar: `grundplatte.edges("<Z and %CIRCLE")`. Was nicht als String geht: direkt in Python filtern.
 
 ```python
-# Quader nach boolescher Operation
-quader = bd.Box(40, 40, 20)
-loch = bd.Cylinder(radius=8, height=20)
-ergebnis = quader - loch
-
-print("Faces:   ", len(ergebnis.faces()))    # 7
-print("Edges:   ", len(ergebnis.edges()))    # 15
-print("Vertices:", len(ergebnis.vertices())) # 10
+groesste = max(grundplatte.Faces(), key=lambda f: f.Area())
+zylindrisch = [f for f in grundplatte.Faces() if f.geomType() == "CYLINDER"]
 ```
 
-Boolesche Operationen **verändern die Topologie** – neue Elemente entstehen, alte entfallen.
+### Warum String vor Index? Ein Vorgriff
 
-## Orientierung
+⚠️ `teil.Faces()[3]` meint nicht „diese bestimmte Fläche“, sondern „was gerade an Position 3 steht“. Fügt eine spätere Änderung irgendwo im Modell eine neue Fläche ein, kann Index 3 danach auf eine völlig andere Fläche zeigen – ohne Fehlermeldung.
 
-### Orientierung: Motivation
+Das heißt **Topological Naming Problem**; eng verwandt: ob ein Ergebnis überhaupt **gültig** ist (`isValid()`). Beides greifen wir später mit einem konkreten Beispiel vollständig auf.
 
-**Gedankenexperiment:** Sechs quadratische Flächen, topologisch zu einer Shell verbunden.
+## Praktikum B: Gezielte Selektion und Erweiterung
 
-Was entsteht?
+### Aufgabe 4: Gezielte Selektion
 
-- Ein **Würfel** (massiv, Material innen)?
-- Eine **würfelförmige Aussparung** (Hohlraum, Material außen)?
+1. Selektieren Sie die **Oberseite** der Platte – Typ und Flächeninhalt?
+2. Selektieren Sie alle **zylindrischen Flächen** (Bohrungswände) – wie viele?
+3. Fasen Sie gezielt die **unteren** Kreiskanten – über ein Selektor-Kriterium statt über den Index.
 
-Die Topologie ist identisch – 6 Faces, 12 Edges, 8 Vertices, alles verbunden.
+### Aufgabe 5: Zentrierzapfen auf der Oberseite *(Vorgriff)*
 
-→ Wir brauchen eine zusätzliche Information: **in welche Richtung zeigt jede Fläche?**
+Bauen Sie einen Zentrierzapfen (⌀ 16 mm, Höhe 8 mm) mittig auf die Oberseite der Platte – er positioniert später den Zellstapel. Nutzen Sie zunächst eine fest angenommene Höhe (`z = 6`).
 
-### Orientierung: Normale zeigt nach außen
+**Denkfrage:** Was passiert mit `z = 6`, wenn die Grundplatte dicker wird? Nächste Woche leiten wir die Platzierung **aus der Fläche selbst** ab.
 
-Die Lösung: Jede Face trägt eine **Richtungsinformation** – den Normalenvektor.
+### Zusatzaufgabe: Lüftungslochraster
 
-**Regel:** In einem gültigen Solid zeigt die Normale **immer vom Material weg** (nach außen).
+Bauen Sie eine Platte **170 × 110 × 6 mm** (Ecken r = 6) mit einem **4 × 3-Raster** von Lüftungslöchern (⌀ 8 mm), Rastermaß 36 mm (x) und 32 mm (y).
 
-- Würfel: Normalen zeigen nach außen → Material liegt innen ✓
-- Hohlraum: Normalen zeigen nach innen → das ist ein anderes Objekt (z.B. nach Boolean-Differenz)
+1. Wie viele Flächen hat die Platte, wie viele davon zylindrisch?
+2. Verrunden Sie alle **oberen** Kreiskanten.
 
+*Hinweise:* zwei verschachtelte `for`-Schleifen, `cf.cylinder`, `.moved(cf.Location(...))`, Selektor `">Z and %CIRCLE"`
 
-### Orientierung: Material liegt links
-
-Dieselbe Logik eine Ebene tiefer: Welche Seite einer Fläche ist „innen"?
-
-**Regel:** Wenn man **von außen auf eine Face schaut** (entgegen der Normalen), liegt das Material **links** von der Durchlaufrichtung jeder Kante.
-
-- **Outer Wire**: Material liegt links → Fläche ist begrenzt
-- **Inner Wire**: läuft entgegengesetzt → Material liegt rechts → Loch
-
-### Warum ist Orientierung wichtig?
-
-- **Boolesche Operationen** brauchen korrekte Orientierung (Vereinigung, Differenz, Schnitt)
-- **Wasserdichtheit**: Normalen müssen konsistent nach außen zeigen
-- **Export**: Falsche Orientierung → ungültige STL- oder STEP-Dateien
+### Zusatzaufgabe: Topologie eines fremden Modells
 
 ```python
-# build123d prüft automatisch die Orientierung
-ergebnis = quader - loch
-print(ergebnis.is_valid)  # True wenn korrekt
+import cadquery
+teil = cadquery.importers.importStep("mein_teil.step").val()
 ```
 
-→ build123d und OCCT kümmern sich meist automatisch darum – aber das Konzept erklärt, warum manche Operationen fehlschlagen.
+`importStep` ist die einzige Stelle im Kurs, an der kurz die `Workplane`-API auftaucht – `.val()` holt sofort die normale `Shape` heraus. Wie viele Faces/Edges/Vertices hat das fremde Teil? Welche Geometrietypen kommen vor?
 
-## B-Rep als Industriestandard
+## Abschluss
 
-### B-Rep – ein Standard
+### Leseauftrag & Ausblick
 
-Die Topologie-Konzepte dieser Vorlesung sind **nicht** an eine Software gebunden:
-
-| Software | Kernel | Standard |
-|---|---|---|
-| CATIA | CGM (Dassault) | B-Rep |
-| SolidWorks | Parasolid (Siemens) | B-Rep |
-| NX (Unigraphics) | Parasolid (Siemens) | B-Rep |
-| FreeCAD | OCCT | B-Rep |
-| build123d | OCCT | B-Rep |
-
-→ Vertex, Edge, Wire, Face, Shell, Solid – **überall dieselben Konzepte**, nur unterschiedliche Syntax.
-
-### STEP: der gemeinsame Nenner
-
-**ISO 10303 (STEP)** ist das universelle Austauschformat für B-Rep-Geometrie.
-
-- Exportiert von CATIA, SolidWorks, NX, FreeCAD, CadQuery, build123d …
-- Speichert exakt **dieselbe topologische Struktur**: Vertices, Edges, Faces, Shells, Solids
-- Kein Informationsverlust bei der Topologie
-
-```python
-import build123d as bd
-
-# Eine STEP-Datei aus CATIA laden:
-fremdes_teil = bd.import_step("catia_teil.step")
-
-# Und sofort mit denselben Methoden arbeiten:
-print(len(fremdes_teil.faces()))   # Flächen zählen
-print(len(fremdes_teil.edges()))   # Kanten zählen
-fremdes_teil.show_topology()       # Struktur anzeigen
-```
-
-### Kernel-Unterschiede: was variiert?
-
-**Das Gleiche** (normiert durch B-Rep / ISO 10303):
-- Hierarchie: Vertex → Edge → Wire → Face → Shell → Solid
-- Orientierungskonzept (FORWARD / REVERSED)
-- Boolesche Operationen (Union, Cut, Common)
-
-**Das Unterschiedliche** (kernel-spezifisch):
-- Welche Kurven-/Flächentypen unterstützt werden
-- Toleranzen und Präzisionsstrategie
-- Interne Datenstrukturen und Algorithmen
-- API-Syntax
-
-→ Wer B-Rep versteht, kann sich in **jedem** professionellen CAD-System orientieren.
-
-## Topologie in build123d
-
-### Teilelemente selektieren
-
-Jedes Objekt stellt Selektoren bereit, die `ShapeList` zurückgeben:
-
-```python
-part = bd.Box(40, 30, 20) - bd.Cylinder(radius=8, height=20)
-
-part.vertices()   # alle Vertices
-part.edges()      # alle Kanten
-part.wires()      # alle Wires
-part.faces()      # alle Flächen
-part.solids()     # alle Körper
-```
-
-`ShapeList` ist eine Liste mit Zusatzmethoden zum Filtern und Sortieren.
-
-### Selektoren: Sortieren
-
-```python
-part = bd.Box(40, 30, 20)
-
-# Nach Position entlang einer Achse
-oberseite  = part.faces().sort_by(bd.Axis.Z).last   # höchste Fläche
-unterseite = part.faces().sort_by(bd.Axis.Z).first  # tiefste Fläche
-
-# Nach Geometrieeigenschaft
-groesste = part.faces().sort_by(bd.SortBy.AREA).last
-laengste = part.edges().sort_by(bd.SortBy.LENGTH).last
-
-# Gruppieren
-gruppen = part.faces().group_by(bd.SortBy.AREA)  # Liste von Listen
-```
-
-### Selektoren: Filtern
-
-```python
-from build123d import GeomType
-
-part = bd.Box(30, 20, 10) - bd.Cylinder(radius=5, height=10)
-
-# Nach Achsausrichtung (Kanten parallel, Flächen normal)
-part.edges().filter_by(bd.Axis.Z)       # vertikale Kanten
-part.faces().filter_by(bd.Axis.Z)       # Ober-/Unterseite
-
-# Nach Geometrietyp
-part.edges().filter_by(GeomType.CIRCLE)    # Kreiskanten
-part.faces().filter_by(GeomType.PLANE)     # ebene Flächen
-part.faces().filter_by(GeomType.CYLINDER)  # zylindrische Flächen
-
-# Nach Position (Mittelpunkt der Kante/Fläche)
-part.edges().filter_by_position(bd.Axis.Z, 4, 6)
-```
-
-### Topologische Stabilität nach Operationen
-
-⚠️ **Problem**: Nach jeder Operation kann sich die interne Nummerierung der Objekte ändern!
-
-```python
-part_v1 = bd.Box(40, 30, 20)
-# part_v1.faces()[0]  ← Index 0 ist eine bestimmte Fläche
-
-part_v2 = bd.fillet(part_v1.edges(), radius=2)
-# part_v2.faces()[0]  ← Index 0 kann jetzt eine ANDERE Fläche sein!
-```
-
-→ Deshalb: immer **semantisch** selektieren (sort_by, filter_by), nie hart auf Index verlassen.
-
-## Zusammenfassung
-
-### Topologie vs. Geometrie
-
-| | Topologie | Geometrie |
-|---|---|---|
-| **Beschreibt** | Struktur, Verbindungen | Form, Position |
-| **Fragt** | Was ist womit verbunden? | Wo liegt was? |
-| **Beispiel** | 6 Flächen, 12 Kanten | Fläche liegt bei z=10 |
-| **Ändert sich bei** | Bool. Operationen | Skalierung, Verschiebung |
-
-### Topologische Hierarchie
-
-```
-Solid  →  Shell  →  Face  →  Wire  →  Edge  →  Vertex
-  3D         2D        2D      1D      1D        0D
-```
-
-- Elemente werden **geteilt** (nicht kopiert)
-- Zwei Objekte sind **verbunden** durch gemeinsame Teilelemente
-- Orientierung bestimmt, was „innen" und „außen" ist (Loch vs. Material, Hohlraum vs. Solid)
-
-### Selektoren in build123d
-
-```python
-part.faces().sort_by(bd.Axis.Z).last              # höchste Fläche
-part.edges().filter_by(bd.GeomType.CIRCLE)        # Kreiskanten
-part.faces().group_by(bd.SortBy.AREA)[-1]         # größte Flächen
-part.edges().filter_by_position(bd.Axis.Z, 4, 6)  # Kanten in Bereich
-```
-
-→ **Robuste Selektion** durch semantische Kriterien statt Indizes
-
-### B-Rep – ein universelles Konzept
-
-- Vertex, Edge, Face, Shell, Solid: **dieselben Konzepte** in CATIA, SolidWorks, NX, FreeCAD, build123d
-- **STEP** (ISO 10303) transportiert diese Struktur zwischen Systemen
-- Wer B-Rep-Topologie versteht, kann sich in jedem professionellen CAD-System orientieren
-- build123d ist unser Werkzeug – **nicht das Ziel**
-
-### Ausblick: Geometrie
-
-In der nächsten Einheit: **Wie wird Form mathematisch beschrieben?**
-
-- Kurven: Linien, Kreise, B-Splines
-- Flächen: Ebenen, Zylinder, NURBS-Flächen
-- Parameter und Koordinatensysteme
-- Wie OCCT Geometrie und Topologie verbindet (B-Rep)
-
-
-# Programmierung von CAx-Systemen
-
-**Übung 2: B-Rep Topologie**
-
-David Straub
-
-### Lernziele
-
-Nach dieser Übung können Sie:
-
-- Die topologische Struktur eines B-Rep-Körpers inspizieren und beschreiben
-- Sub-Shapes gezielt nach Position, Achsausrichtung und Geometrietyp selektieren
-- Operationen (Fillet, Chamfer, Aufbauen) auf topologisch selektierte Elemente anwenden
-- Robuste Selektionskriterien formulieren, die nach Modifikationen stabil bleiben
-
-### Startcode
-
-```python
-import build123d as bd
-from build123d import GeomType
-```
-
-```python
-# Unser Ausgangskörper: Montageplatte mit vier Bohrungen
-platte = bd.Box(80, 60, 8)
-
-for x, y in [(-27, -20), (27, -20), (-27, 20), (27, 20)]:
-    platte = platte - bd.Pos(x, y) * bd.Cylinder(radius=4, height=8)
-
-platte
-```
-
-## Aufgabe 1: Topologie erkunden
-
-### 1.1 – Strukturübersicht
-
-Untersuchen Sie die Topologie der Montageplatte:
-
-1. Rufen Sie `show_topology()` auf – was sehen Sie?
-2. Zählen Sie die Elemente: Faces, Edges, Vertices, ...
-3. Wie viele Flächen haben Sie erwartet? Was trägt jede Bohrung zur Topologie bei?
-
-*Hinweise:* `.show_topology()`, `.faces()`, `.edges()`, `.vertices()`, `len()`
-
-### 1.2 – Geometrietypen
-
-Geben Sie für jede Fläche den Geometrietyp und die Fläche aus. Dasselbe für jede Kante mit Länge.
-
-1. Welche Geometrietypen kommen bei Flächen vor? Und bei Kanten?
-2. Wie viele Kanten sind Kreise? Passt das zur Anzahl der Bohrungen?
-
-*Hinweise:* `.geom_type`, `.area`, `.length`, `for f in platte.faces():`
-
-## Aufgabe 2: Gezielte Selektion
-
-### 2.1 – Flächen selektieren
-
-1. Selektieren Sie die **Oberseite** der Platte. Geben Sie Typ und Flächeninhalt aus.
-2. Selektieren Sie alle **zylindrischen Flächen** (Bohrungswände). Wie viele sind es?
-
-*Hinweise:* `.faces()`, `.sort_by(Axis.Z)`, `.last`, `.filter_by(GeomType.CYLINDER)`, `.geom_type`, `.area`
-
-### 2.2 – Kanten selektieren und verrunden
-
-1. Selektieren Sie alle **kreisförmigen Kanten** und verrunden Sie sie mit `radius=1`.
-2. Verrunden Sie nur die **oberen** Kreiskanten (Bohrungseintritt oben). Was ist der visuelle Unterschied?
-
-*Hinweise:* `.edges()`, `.filter_by(GeomType.CIRCLE)`, `.filter_by_position(Axis.Z, min, max)`, `bd.fillet(..., radius=...)`
-
-### 2.3 – Selektion nach Flächengröße
-
-Selektieren Sie die **kleinste** und die **größte** Fläche der Platte. Geben Sie jeweils Typ und Flächeninhalt aus.
-
-Welche Flächen sind das geometrisch?
-
-*Hinweise:* `.sort_by(SortBy.AREA)`, `.first`, `.last`, `.area`, `.geom_type`
-
-## Aufgabe 3: Modell erweitern
-
-### 3.1 – Zapfen auf der Oberseite
-
-Bauen Sie einen Zylinder (`radius=12`, `height=15`) mittig auf der Oberseite der Platte auf.
-
-**Frage:** Warum `bd.Plane(oberseite)` statt `bd.Plane.XY.offset(8)`? Was wäre der Unterschied in einem komplexeren Modell?
-
-*Hinweise:* `.faces().sort_by(Axis.Z).last`, `bd.Plane(face)`, `ebene * zapfen`, `basis + ...`
-
-### 3.2 – Kanten des Zapfens verrunden
-
-1. Verrunden Sie die **Oberkante** des Zapfens mit `radius=2`.
-2. Verrunden Sie zusätzlich die **Übergangskante** zwischen Platte und Zapfen.
-
-*Hinweise:* `.edges().filter_by(GeomType.CIRCLE)`, `.sort_by(Axis.Z)`, `.last`, List-Slicing `[-2:]`, `bd.fillet()`
-
-## Zusatzaufgabe 1: Flansch mit Lochkreis
-
-### Flansch konstruieren
-
-Konstruieren Sie einen Flansch (Ringscheibe mit Bohrungen auf einem Lochkreis):
-
-```python
-import math
-
-# Ringscheibe: großer Zylinder minus kleiner Zylinder
-flansch = bd.Cylinder(radius=40, height=12) - bd.Cylinder(radius=18, height=12)
-
-# Lochkreis: 6 Bohrungen im Abstand von 60°
-for winkel in range(0, 360, 60):
-    x = 30 * math.cos(math.radians(winkel))
-    y = 30 * math.sin(math.radians(winkel))
-    flansch = flansch - bd.Pos(x, y) * bd.Cylinder(radius=4, height=12)
-
-flansch
-```
-
-### Flansch analysieren und bearbeiten
-
-1. Wie viele Flächen hat der Flansch? Wie viele davon sind zylindrisch?
-2. Verrunden Sie alle **oberen Kreiskanten** (Bohrungen + Innen-/Außenring) mit `radius=1`.
-3. Fügen Sie eine **Fase** an der Unterkante des Innenrings hinzu.
-
-*Hinweise:* `.filter_by(GeomType.CYLINDER)`, `.filter_by(GeomType.CIRCLE)`, `.filter_by_position(Axis.Z, ...)`, `bd.fillet()`, `bd.chamfer()`
-
-## Zusatzaufgabe 2: Topologie eines fremden Modells
-
-### STEP-Import
-
-Laden Sie eine STEP-Datei (z.B. aus FreeCAD, GrabCAD oder dem Kursordner):
-
-```python
-teil = bd.import_step("mein_teil.step")
-```
-
-### STEP-Analyse und Bearbeitung
-
-1. Wie viele Faces, Edges, Vertices hat das Teil?
-2. Welche Geometrietypen kommen bei den Flächen vor und wie häufig?
-3. Führen Sie eine sinnvolle Operation durch (z.B. Kreiskanten verrunden, auf einer Fläche aufbauen).
-
-*Hinweise:* `.show_topology()`, `.faces()`, `.geom_type`, `collections.Counter`, `.filter_by(GeomType.CIRCLE)`, `bd.fillet()`
+- **Leseauftrag:** Buch Kapitel 5 (erste Hälfte)
+- **Wer mehr will:** Prädikat-Selektoren für Fälle, die kein String trifft (Buch Kapitel 5)
+- **Nächste Woche:** Grundformen – Extrude, Muster; die Pouch-Zelle, der Zellstapel und die Endplatten kommen dazu
+- Bis dahin: `w02/` committet und gepusht
