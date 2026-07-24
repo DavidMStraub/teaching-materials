@@ -99,14 +99,16 @@ $$\mathbf{C}(u) = \sum_{i=0}^{n} B_{i,n}(u)\, \mathbf{P}_i, \quad u \in [0,1]$$
 - $\mathbf{C}(u)$ ist eine **Konvexkombination** → Kurve liegt in der konvexen Hülle
 - Läuft durch $\mathbf{P}_0$ und $\mathbf{P}_n$; Tangente in $\mathbf{P}_0$: Richtung $\mathbf{P}_1 - \mathbf{P}_0$
 
-### Bézier reicht nicht für CAD
+### Die Grenzen der einzelnen Bézier-Kurve
 
-- Grad = Punktzahl $- 1$: 20 Punkte → Grad 19 → numerisch instabil
-- Jeder Punkt beeinflusst die **ganze** Kurve – keine lokale Kontrolle
+Eine einzelne Bézier-Kurve über *alle* Punkte hat zwei Schwächen:
+
+- **Grad = Punktzahl − 1:** 20 Punkte → Grad 19 → numerisch instabil, wellig
+- **Globale Kontrolle:** jeder Punkt beeinflusst die **ganze** Kurve – kein lokales Anpassen
+
+### Stückweise Bézier: Übergänge von Hand
 
 **Ausweg:** die Kurve in **Segmente** teilen, jedes ein Bézier-Stück niedrigen Grades. Aber wie glatt müssen die Übergänge sein?
-
-Bei zwei kubischen Segmenten am Verbindungspunkt:
 
 | Bedingung | Effekt | fixiert |
 |---|---|---|
@@ -114,30 +116,44 @@ Bei zwei kubischen Segmenten am Verbindungspunkt:
 | $C^1$ | glatte Tangente | + 1 Punkt |
 | $C^2$ | glatte Krümmung | + 1 Punkt |
 
-→ Bei $C^2$ sind **3 von 4** Kontrollpunkten je Segment gebunden – bei vielen Segmenten mühsam.
+→ Bei $C^2$ sind **3 von 4** Kontrollpunkten je Segment gebunden – bei vielen Segmenten mühsam von Hand.
 
-### Vom Bézier zum B-Spline: überlappende Fenster
+**Interaktiv:** [Piecewise Bézier Editor](https://davidstraub.de/teaching-apps/bezier-editor/) – Segmente ziehen und die Übergänge selbst verwalten
+
+### Der B-Spline: überlappende Fenster
 
 ![bg right:46% 92%](assets/bspline_fenster.svg)
 
+Der **B-Spline** nimmt diese Buchhaltung ab: benachbarte Spannen teilen sich alle Kontrollpunkte **bis auf einen**.
+
 - **Eine Bézier-Kurve:** eine Spanne, jeder Punkt wirkt überall
-- **Stückweise Bézier:** eigene Punkte je Spanne, aber jeder Übergang kostet 3 von 4
+- **Stückweise Bézier:** eigene Punkte je Spanne, jeder Übergang von Hand
+- **B-Spline:** überlappende Spannen → Stetigkeit entsteht **von selbst**
 
-Der **B-Spline** liegt dazwischen: benachbarte Spannen teilen sich alle Punkte **bis auf einen**.
+→ Automatische Stetigkeit *und* lokale Kontrolle, ohne Übergangsgleichungen.
 
-→ Daraus entsteht die Stetigkeit **von selbst**, ohne Übergangsgleichungen.
+### Die B-Spline-Formel
 
-### B-Spline: Formel und Knotenvektor
+![bg right:38% 90%](assets/control_comparison.svg)
 
-![bg right:40% 90%](assets/control_comparison.svg)
-
-**Eine** Formel für die ganze Kurve:
 $$\mathbf{C}(u) = \sum_{i=0}^{n} \mathbf{P}_i\, N_{i,k}(u)$$
 
-Jede Basisfunktion $N_{i,k}$ ist genau über **ein Fenster** ungleich null; der **Knotenvektor** $T$ legt fest, wo die Spannen beginnen.
+- $\mathbf{P}_i$ – die $n+1$ **Kontrollpunkte** (die Griffe)
+- $N_{i,k}(u)$ – **Basisfunktionen** der Ordnung $k$ (Grad $k-1$): das Gewicht, mit dem $\mathbf{P}_i$ beim Parameter $u$ zieht
+- jede $N_{i,k}$ ist nur über ein **Fenster** ungleich null → **lokale** Kontrolle (rechts: Bézier global, B-Spline lokal)
+- $\sum_i N_{i,k}(u) = 1$ → Konvexkombination wie bei Bézier
 
-- **Lokale Kontrolle:** $\mathbf{P}_i$ bewegt nur seinen Abschnitt (rechts: Bézier global, B-Spline lokal)
-- **Stetigkeit:** Ordnung $k$ → $C^{k-2}$; kubisch ($k=4$) → $C^2$, der CAD-Standard
+### Der Knotenvektor
+
+Was die $N_{i,k}$ überhaupt festlegt, ist der **Knotenvektor**:
+
+$$T = (t_0 \le t_1 \le \dots \le t_m)$$
+
+- eine **nicht-fallende** Folge von Parameterwerten (die „Knoten"); sie teilen die Parameterachse in **Spannen** und legen fest, **wo** jede $N_{i,k}$ ihr Fenster hat
+- bei einfachen Knoten: Ordnung $k$ → **$C^{k-2}$** (kubisch, $k=4$ → $C^2$, der CAD-Standard)
+- **Multiplizität:** einen Knoten mehrfach setzen senkt dort die Stetigkeit; volle Multiplizität → Knick
+
+**Interaktiv:** [B-Spline-Editor](https://davidstraub.de/teaching-apps/bspline-editor/) – Knoten-Ticks ziehen, Multiplizität erhöhen und den Knick entstehen sehen
 
 ### Interpolation: Kurve durch gegebene Punkte
 
