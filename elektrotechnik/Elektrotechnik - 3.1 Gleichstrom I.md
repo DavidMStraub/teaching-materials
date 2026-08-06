@@ -28,8 +28,8 @@ David Straub
 
 Strom ist der gerichtete Fluss von elektrischer Ladung
 
-- Stromdichte $\vec{J} = \rho \cdot \vec{v}$
-    - $\vec{v}$: Geschwindigkeit *positiver* Ladungsträger
+- Stromdichte $\vec{J} = \rho_Q \cdot \vec{v}$
+    - $\rho_Q$: Ladungsdichte in $\frac{\text{C}}{\text{m}^3}$, $\vec{v}$: Geschwindigkeit *positiver* Ladungsträger
 - Stromstärke $I = \int_A \vec{J} \cdot d\vec{A} = \dfrac{dQ}{dt}$
 - $[I] = \text{A} = \dfrac{\text{C}}{\text{s}}$
 - $[\vec{J}] = \dfrac{\text{A}}{\text{m}^2}$
@@ -38,8 +38,11 @@ Strom ist der gerichtete Fluss von elektrischer Ladung
 
 ### Stromrichtung & Ladungsträger
 
-- $\vec{J} = \rho \cdot \vec{v}$ zeigt in die Richtung, in die sich *positive* Ladung bewegt – egal ob die tatsächlichen Ladungsträger positiv oder negativ sind!
+- $\vec{J} = \rho_Q \cdot \vec{v}$ zeigt in die Richtung, in die sich *positive* Ladung bewegt – egal ob die tatsächlichen Ladungsträger positiv oder negativ sind!
+- In Metallen ist $\rho_Q < 0$: die Elektronen bewegen sich *entgegen* $\vec{J}$
 - Das ist auch die *Zählrichtung* der Stromstärke $I$ („technische Stromrichtung")
+
+![bg 92% right:42%](img/stromrichtung.svg)
 
 ### Stromleitung in Metallen
 
@@ -50,7 +53,7 @@ Strom ist der gerichtete Fluss von elektrischer Ladung
 
 ### Metalle im elektrischen Feld
 
-Klassisches Bild: erfährt das Elektronengas ein elektrisches Feld, werden die Elektronen beschleunigt, nach kurzer Zeit aber durch Stöße mit dem Metallgitter wieder abgebremst. Im Mittel ergibt sich eine konstante **Driftgeschwindigkeit** $\vec{v}_d$, *entgegen* der Feldrichtung: $\vec{v}_d = \vec{J}/\rho$ mit $\rho = -ne$.
+Klassisches Bild: erfährt das Elektronengas ein elektrisches Feld, werden die Elektronen beschleunigt, nach kurzer Zeit aber durch Stöße mit dem Metallgitter wieder abgebremst. Im Mittel ergibt sich eine konstante **Driftgeschwindigkeit** $\vec{v}_d$, *entgegen* der Feldrichtung: $\vec{v}_d = \vec{J}/\rho_Q$ mit $\rho_Q = -ne$.
 
 ![bg right:35% 80%](https://physikbuch.schule/media/drude-model.svg)
 
@@ -59,9 +62,9 @@ Klassisches Bild: erfährt das Elektronengas ein elektrisches Feld, werden die E
 Kupfer, $A=1 \, \text{mm}^2$, $I=1 \, \text{A}$:
 
 - Dichte freier Elektronen: $n \approx 8{,}5 \cdot 10^{28} \, \frac{1}{\text{m}^3}$
-- Ladungsträgerdichte: $\rho = -n \cdot e \approx -1{,}36 \cdot 10^{10} \, \frac{\text{C}}{\text{m}^3}$
+- Ladungsdichte: $\rho_Q = -n \cdot e \approx -1{,}36 \cdot 10^{10} \, \frac{\text{C}}{\text{m}^3}$
 - Stromdichte: $|\vec{J}| = \frac{I}{A} = 1 \cdot 10^{6} \, \frac{\text{A}}{\text{m}^2}$
-- Driftgeschwindigkeit: $|\vec{v_d}| = \frac{|\vec{J}|}{|\rho|} \approx 7{,}35 \cdot 10^{-5} \, \frac{\text{m}}{\text{s}} \approx 0{,}26 \, \frac{\text{m}}{\text{h}}$ 🐌
+- Driftgeschwindigkeit: $|\vec{v_d}| = \frac{|\vec{J}|}{|\rho_Q|} \approx 7{,}35 \cdot 10^{-5} \, \frac{\text{m}}{\text{s}} \approx 0{,}26 \, \frac{\text{m}}{\text{h}}$ 🐌
 
 Warum geht das Licht trotzdem sofort an? → Das *Feld* breitet sich (fast) mit Lichtgeschwindigkeit aus, nicht die Elektronen.
 
@@ -84,7 +87,9 @@ $$I = J \cdot A = \sigma \cdot E \cdot A = \sigma \cdot \frac{U}{l} \cdot A = \f
 
 **Elektrischer Widerstand** (*electric resistance*):
 
-$$R = \frac{l}{\sigma \cdot A} = \rho_R \cdot \frac{l}{A}$$
+$$R = \frac{l}{\sigma \cdot A} = \rho \cdot \frac{l}{A}$$
+
+mit dem **spezifischen Widerstand** $\rho = 1/\sigma$ (ab hier ist $\rho$ *immer* der spezifische Widerstand, nicht mehr die Ladungsdichte!)
 
 ![bg right:30% 90%](https://physikbuch.schule/media/resistivity-geometry.svg)
 
@@ -123,14 +128,14 @@ Leitwert (*conductance*) | $G = \frac{1}{R}$ | $[G] = \text{S} = \frac{1}{\Omega
 spezifischer Widerstand (*resistivity*) | $\rho = R \frac{A}{l}$ | $[\rho] = \Omega \cdot \text{m}$ | Ohm-Meter
 Leitfähigkeit (*conductivity*) | $\sigma = \frac{1}{\rho}$ | $[\sigma] = \text{S/m}$ | Siemens pro Meter
 
-### 📝 Jetzt sind Sie dran: Stromdichte & Widerstand (zu zweit)
+Hinweis: In manchen Büchern heißt die Stromdichte $S$ statt $J$ – gemeint ist dasselbe.
 
-**Aufgabe 6**
+### 📝 Aufgabe 6: Stromdichte & Widerstand
 
 In einer Glühlampe (12 V, Kfz-Blinker) fließt ein Strom $I = 0{,}5 \, \text{A}$.
 
-a) Wie groß ist die Stromdichte $S_1$ im Glühfaden ($d_1 = 100 \, \mu\text{m}$)?
-b) Wie groß ist die Stromdichte $S_2$ in der Zuleitung ($d_2 = 1{,}5 \, \text{mm}$)?
+a) Wie groß ist die Stromdichte $J_1$ im Glühfaden ($d_1 = 100 \, \mu\text{m}$)?
+b) Wie groß ist die Stromdichte $J_2$ in der Zuleitung ($d_2 = 1{,}5 \, \text{mm}$)?
 c) Ein Kupferdraht hat die Länge $l = 5 \, \text{m}$ und den Querschnitt $A = 3 \, \text{mm}^2$ ($\rho_\text{Cu} = 1{,}79 \cdot 10^{-8} \, \Omega\text{m}$). Wie groß ist sein Widerstand $R$?
 d) Welchen Widerstand hat ein Draht gleicher Abmessungen aus Aluminium ($\rho_\text{Al} = 2{,}6 \cdot 10^{-8} \, \Omega\text{m}$)?
 
@@ -168,9 +173,19 @@ Die Temperaturabhängigkeit macht Metalle zu präzisen Temperatursensoren.
 
 **Vorteile:** hohe Langzeitstabilität, Messbereich −200 °C bis +850 °C, gute Linearität
 
-Klausur-Klassiker: aus gemessenem $R$ (oder $U$ bei bekanntem Strom) die Temperatur bestimmen! (→ Woche 5)
+Anwendung: aus gemessenem $R$ (oder $U$ bei bekanntem Strom) die Temperatur bestimmen (→ Woche 5).
 
 ![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Pt100_Resistors.jpg/1280px-Pt100_Resistors.jpg)
+
+### Zählpfeile: Vorzeichen festlegen
+
+Vor dem Rechnen bekommt **jede** Spannung und **jeder** Strom eine Zählrichtung – frei wählbar, ab dann verbindlich. Ein negatives Ergebnis heißt einfach: es fließt andersherum.
+
+- **Verbraucherzählpfeilsystem:** $U$ und $I$ am Bauteil gleichsinnig (Widerstände)
+- **Erzeugerzählpfeilsystem:** $U$ und $I$ gegensinnig (Quellen)
+- **Beim Maschenumlauf:** Pfeil in Umlaufrichtung → positiv zählen, sonst negativ
+
+![w:680](img/zaehlpfeile.svg)
 
 ### Knotenpunktregel (1. Kirchhoff’sches Gesetz)
 
@@ -199,8 +214,6 @@ Netzwerk mit $k$ Knoten und $z$ Zweigen:
 Zusammen: $z$ Gleichungen für $z$ unbekannte Zweigströme ✓
 
 Beispiel: 2 Knoten, 3 Zweige → 1 Knotengleichung + 2 Maschengleichungen
-
-**Typische Prüfungsfrage:** „Wie viele *unabhängige* Knotenpunktgleichungen gibt es hier? Stellen Sie diese auf."
 
 ### Reihenschaltung von Widerständen
 
@@ -256,9 +269,7 @@ $$\frac{I}{G_\text{ges}} = \frac{I_1}{G_1} = \frac{I_2}{G_2} = \dots = \frac{I_n
 ![w:410](img/rp-a.svg) ![w:410](img/rp-b.svg)
 ![w:410](img/rp-c.svg) ![w:430](img/rp-d.svg)
 
-### 📝 Jetzt sind Sie dran: Spannungsteiler (zu zweit)
-
-**Aufgabe 7**
+### 📝 Aufgabe 7: Spannungsteiler
 
 Ein Spannungsteiler besteht aus $R_1 = R_2 = 1 \, \text{k}\Omega$ an einer Quelle $U = 12 \, \text{V}$. Am Abgriff (über $R_2$) wird die Spannung $U_a$ abgenommen. **Zeichnen Sie die Schaltung selbst!**
 

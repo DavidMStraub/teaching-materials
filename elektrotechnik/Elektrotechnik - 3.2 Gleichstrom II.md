@@ -85,7 +85,7 @@ $$I = I_0 - \frac{U}{R_i}$$
 
 ### Die U-I-Kennlinie
 
-Alle vier Quellentypen auf einen Blick – die reale Quelle ist eine fallende Gerade zwischen zwei Punkten, die man messen (oder berechnen) kann:
+Die Kennlinien im Vergleich – die reale Quelle ist eine fallende Gerade zwischen zwei Punkten, die man messen (oder berechnen) kann:
 
 - $U_0$: Schnittpunkt mit der U-Achse (Leerlauf)
 - $I_k$: Schnittpunkt mit der I-Achse (Kurzschluss)
@@ -118,7 +118,7 @@ Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersat
    dann Widerstand von den Klemmen aus berechnen
 3. Kontrolle oder Alternative zu 2.: **Kurzschlussstrom** $I_k$ berechnen, dann $R_i = U_0 / I_k$
 
-**Das ist die zentrale Technik der Klausur-Netzwerkaufgaben!**
+**Das ist die zentrale Technik für Netzwerkaufgaben.**
 
 ![bg 92% right:30%](img/blackbox-esb.svg)
 
@@ -152,9 +152,7 @@ $$\frac{1}{R_{i,\text{ges}}} = \sum_j \frac{1}{R_{i,j}}$$
 **Anwendung:** höhere Ströme, Redundanz
 **Nachteil:** nur bei gleichen Spannungen sinnvoll (sonst Ausgleichsströme!)
 
-### 📝 Jetzt sind Sie dran: Ersatzquelle (zu zweit)
-
-**Aufgabe 8** *(Klausuraufgaben-Typ!)*
+### 📝 Aufgabe 8: Ersatzquelle
 
 Eine Spannungsquelle $U_e$ speist einen Spannungsteiler aus $R_1$ und $R_2$; an den Klemmen über $R_2$ wird $U_a$ abgenommen. **Schaltung zeichnen!**
 
@@ -164,7 +162,7 @@ b) Gegeben: $U_e = 150 \, \text{V}$, im Leerlauf $U_a = 50 \, \text{V}$, bei $I 
 
 c) Wie groß muss ein Lastwiderstand $R_a$ sein, damit er die größtmögliche Leistung aufnimmt, und wie groß ist diese? *(Vorgriff auf nächste Woche – Vermutung reicht!)*
 
-### 📝 Klausuraufgabe: Gleichstromnetzwerk (zu zweit)
+### 📝 Klausuraufgabe: Gleichstromnetzwerk
 
 Die Schaltung liefert an den Klemmen 1–2 die Spannung $U_a$:
 

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 20 480 350" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="sv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="sJ" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="vecJ" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- ===== positive Ladungsträger ===== -->
+  <text x="80" y="45" fill="#111827" font-size="20">positive Ladungsträger</text>
+  <rect x="80" y="60" width="440" height="70" fill="#f3f4f6" stroke="#9ca3af" stroke-width="2"/>
+  <g>
+    <circle cx="150" cy="95" r="17" fill="#ef4444"/>
+    <text x="150" y="103" fill="#fff" font-size="21" text-anchor="middle" font-weight="bold">+</text>
+    <line x1="172" y1="95" x2="205" y2="95" stroke="#111827" stroke-width="2.5" marker-end="url(#sv)"/>
+    <circle cx="290" cy="95" r="17" fill="#ef4444"/>
+    <text x="290" y="103" fill="#fff" font-size="21" text-anchor="middle" font-weight="bold">+</text>
+    <line x1="312" y1="95" x2="345" y2="95" stroke="#111827" stroke-width="2.5" marker-end="url(#sv)"/>
+    <circle cx="430" cy="95" r="17" fill="#ef4444"/>
+    <text x="430" y="103" fill="#fff" font-size="21" text-anchor="middle" font-weight="bold">+</text>
+    <line x1="452" y1="95" x2="485" y2="95" stroke="#111827" stroke-width="2.5" marker-end="url(#sv)"/>
+  </g>
+  <line x1="220" y1="163" x2="380" y2="163" stroke="#2563eb" stroke-width="5" marker-end="url(#sJ)"/>
+  <text x="284" y="153" fill="#2563eb" font-size="24" font-style="italic">J</text>
+  <line x1="283" y1="127" x2="301" y2="127" stroke="#2563eb" stroke-width="2.5" marker-end="url(#vecJ)"/>
+
+  <!-- ===== negative Ladungsträger ===== -->
+  <text x="80" y="240" fill="#111827" font-size="20">negative Ladungsträger</text>
+  <rect x="80" y="255" width="440" height="70" fill="#f3f4f6" stroke="#9ca3af" stroke-width="2"/>
+  <g>
+    <circle cx="180" cy="290" r="17" fill="#3b82f6"/>
+    <text x="180" y="299" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold">&#8722;</text>
+    <line x1="158" y1="290" x2="125" y2="290" stroke="#111827" stroke-width="2.5" marker-end="url(#sv)"/>
+    <circle cx="320" cy="290" r="17" fill="#3b82f6"/>
+    <text x="320" y="299" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold">&#8722;</text>
+    <line x1="298" y1="290" x2="265" y2="290" stroke="#111827" stroke-width="2.5" marker-end="url(#sv)"/>
+    <circle cx="460" cy="290" r="17" fill="#3b82f6"/>
+    <text x="460" y="299" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold">&#8722;</text>
+    <line x1="438" y1="290" x2="405" y2="290" stroke="#111827" stroke-width="2.5" marker-end="url(#sv)"/>
+  </g>
+  <line x1="220" y1="358" x2="380" y2="358" stroke="#2563eb" stroke-width="5" marker-end="url(#sJ)"/>
+  <text x="284" y="348" fill="#2563eb" font-size="24" font-style="italic">J</text>
+  <line x1="283" y1="322" x2="301" y2="322" stroke="#2563eb" stroke-width="2.5" marker-end="url(#vecJ)"/>
+</svg>

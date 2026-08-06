@@ -133,7 +133,7 @@ Damit lassen sich alle Verläufe **ohne Differentialgleichung** hinschreiben und
 
 ### 📝 Jetzt sind Sie dran: Spule abschalten (zu zweit)
 
-**Aufgabe 25** *(= Palme B7, Aufgabe 2)*
+**Aufgabe 25**
 
 Eine Spule $L = 250\,\text{mH}$ mit Wicklungswiderstand $R_S = 5\,\Omega$ liegt an einer idealen Spannungsquelle $U_0 = 100\,\text{V}$. Zum Zeitpunkt $t = 0$ wird sie von der Quelle getrennt und auf einen Entladewiderstand $R = 50\,\Omega$ geschaltet.
 

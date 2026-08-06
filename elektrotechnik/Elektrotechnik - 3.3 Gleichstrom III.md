@@ -53,7 +53,7 @@ $$P = R \cdot I^2 = U_0^2 \cdot \frac{R}{(R_i + R)^2}$$
 
 $$P_\text{max} = \frac{U_0^2}{4 R_i}$$
 
-![bg 95% right:40%](img/anpassung-kurven.svg)
+![bg 95% right:40%](img/anpassung-p.svg)
 
 ### Anpassungsverhältnis und Wirkungsgrad
 
@@ -75,9 +75,9 @@ $$\eta = \frac{P}{P_0} = \frac{R}{R_i + R} = \frac{\alpha}{1 + \alpha}$$
 |             | Last            | Leistung Quelle $P_0$                                | Leistung Last $P$               | Wirkungsgrad $\eta$ |
 |-----------------|----------------------|------------------------------------------------------|---------------------------------|---------------------|
 | Kurzschluss     | $R = 0$              | $P_0 = \frac{U_0^2}{R_i}$                            | $P = 0$                         | $\eta = 0$          |
-| Unteranpassung  | $R < R_i$            | $P_0 = \frac{U_0^2}{R_i} \cdot \frac{R}{R+R_i}$      | $0 < P < P_\text{max}$          | $0 < \eta < 0{,}5$    |
+| Unteranpassung  | $R < R_i$            | $P_0 = \frac{U_0^2}{R + R_i}$      | $0 < P < P_\text{max}$          | $0 < \eta < 0{,}5$    |
 | Anpassung       | $R = R_i$            | $P_0 = \frac{U_0^2}{2R_i}$                           | $P = \frac{U_0^2}{4R_i}$        | $\eta = 0{,}5$        |
-| Überanpassung   | $R > R_i$            | $P_0 = \frac{U_0^2}{R_i} \cdot \frac{R}{R+R_i}$      | $0 < P < P_\text{max}$          | $0{,}5 < \eta < 1$    |
+| Überanpassung   | $R > R_i$            | $P_0 = \frac{U_0^2}{R + R_i}$      | $0 < P < P_\text{max}$          | $0{,}5 < \eta < 1$    |
 | Leerlauf        | $R \to \infty$       | $P_0 = 0$                                            | $P = 0$                         | $\eta = 1$          |
 
 ### U-I-Kennlinie und Arbeitspunkt
@@ -88,13 +88,11 @@ Quelle und Verbraucher in einem Diagramm:
 - **Verbraucher:** steigende Gerade $U = R \cdot I$
 - Schnittpunkt = **Arbeitspunkt**: dort stellen sich $U$ und $I$ tatsächlich ein
 
-Grafische Lösung – Klausuraufgaben sagen: „Ermitteln Sie grafisch …" oder „Arbeitspunkt einzeichnen"!
+Grafische Lösung: beide Kennlinien zeichnen, Schnittpunkt ablesen.
 
 ![bg 95% right:42%](img/arbeitspunkt.svg)
 
-### 📝 Jetzt sind Sie dran: Autobatterie (zu zweit)
-
-**Aufgabe 9** *(= Klausuraufgaben-Typ „Kennlinie aus Messwerten")*
+### 📝 Aufgabe 9: Autobatterie
 
 An den Klemmen einer Autobatterie wird bei wechselnder Last gemessen:
 
@@ -116,6 +114,8 @@ Jedes reale Voltmeter hat einen **endlichen Innenwiderstand** und belastet die S
 
 Faustregel: Spannungsmessung ist unkritisch, solange $R_\text{Quelle} \ll R_{i,\text{Voltmeter}}$
 
+![bg 95% right:42%](img/voltmeter-lastfehler.svg)
+
 ### Reale Messungen: Strom mit dem Shunt
 
 Wie misst man große Ströme (z.B. 100 A im Bordnetz)? **Über einen Shunt:**
@@ -126,6 +126,8 @@ Wie misst man große Ströme (z.B. 100 A im Bordnetz)? **Über einen Shunt:**
 
 Heute überall: Batteriemanagement, Motorsteuerungen, jedes DMM im Amperebereich hat intern einen Shunt.
 
+![bg 95% right:40%](img/shunt.svg)
+
 ### Reale Messungen: Vierleitermessung
 
 Problem: Bei kleinen Widerständen (z.B. Pt100 mit $100 \, \Omega$) verfälscht der **Leitungswiderstand** der Zuleitungen die Messung.
@@ -135,15 +137,13 @@ Problem: Bei kleinen Widerständen (z.B. Pt100 mit $100 \, \Omega$) verfälscht 
 - Zwei Leitungen führen den (bekannten) Messstrom $I$
 - Zwei separate Leitungen messen die Spannung **direkt am Sensor** – durch sie fließt (ideales Voltmeter!) kein Strom → kein Spannungsabfall → Leitungswiderstand fällt heraus
 
-Klausur-Klassiker (SoSe 2019!) und Alltagstechnik: jedes Labornetzteil mit „Sense"-Klemmen.
+Alltagstechnik: jedes Labornetzteil mit „Sense"-Klemmen arbeitet so.
 
 ![bg 95% right:45%](img/vierleiter.svg)
 
-### 📝 Jetzt sind Sie dran: Temperaturmessung (zu zweit)
+### 📝 Aufgabe 10: Temperaturmessung
 
-**Aufgabe 10** *(Klausuraufgaben-Typ SoSe 2019)*
-
-Ein Pt100 ($R_0 = 100 \, \Omega$ bei $\vartheta_0 = 0 \, °\text{C}$, $\alpha = 4 \cdot 10^{-3} \, \text{K}^{-1}$) wird von einer idealen Stromquelle mit $I = 1 \, \text{mA}$ gespeist. Über eine Vierleitermessung wird direkt am Sensor $U_\vartheta = 120 \, \text{mV}$ gemessen.
+Ein Pt100 ($R_0 = 100 \, \Omega$ bei $\vartheta_0 = 0 \, °\text{C}$, $\alpha = 4 \cdot 10^{-3} \, \text{K}^{-1}$ – hier vereinfacht gerundet) wird von einer idealen Stromquelle mit $I = 1 \, \text{mA}$ gespeist. Über eine Vierleitermessung wird direkt am Sensor $U_\vartheta = 120 \, \text{mV}$ gemessen.
 
 a) Wie groß ist der Sensorwiderstand $R_\vartheta$?
 

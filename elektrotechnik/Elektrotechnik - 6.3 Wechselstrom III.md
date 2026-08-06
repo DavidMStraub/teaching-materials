@@ -144,7 +144,7 @@ Betrieb: $P = 100 \, \text{kW}$, $\cos\varphi_1 = 0{,}8$ ($\varphi_1 \approx 37�
 
 ### 📝 Jetzt sind Sie dran: Leuchtstoffröhre (zu zweit)
 
-**Aufgabe 20** *(= Palme B5, Aufgabe 2 — kompletter Klausur-Durchlauf)*
+**Aufgabe 20**
 
 Eine Leuchtstoffröhre mit Vorschaltdrossel (= Reihenschaltung aus $R$ und $L$; $P = 40 \, \text{W}$, $I = 0{,}4 \, \text{A}$) liegt am Netz ($U = 230 \, \text{V}$, $f = 50 \, \text{Hz}$).
 

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 30 480 250" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="shI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <!-- Strompfad -->
+    <line x1="70" y1="220" x2="200" y2="220"/>
+    <rect x="200" y="204" width="80" height="32" fill="#fff"/>
+    <line x1="280" y1="220" x2="480" y2="220"/>
+    <!-- Messabgriff über dem Shunt -->
+    <line x1="200" y1="220" x2="200" y2="120" stroke="#15803d" stroke-width="2.5"/>
+    <line x1="280" y1="220" x2="280" y2="120" stroke="#15803d" stroke-width="2.5"/>
+    <line x1="200" y1="120" x2="214" y2="120" stroke="#15803d" stroke-width="2.5"/>
+    <line x1="266" y1="120" x2="280" y2="120" stroke="#15803d" stroke-width="2.5"/>
+    <circle cx="240" cy="120" r="26" stroke="#15803d" stroke-width="2.5"/>
+  </g>
+
+  <circle cx="200" cy="220" r="5" fill="#111827"/>
+  <circle cx="280" cy="220" r="5" fill="#111827"/>
+
+  <text x="240" y="129" fill="#15803d" font-size="24" text-anchor="middle" font-weight="bold">V</text>
+  <text x="296" y="112" fill="#15803d" font-size="21" font-style="italic">U<tspan font-size="15" dy="5">S</tspan></text>
+
+  <line x1="95" y1="185" x2="165" y2="185" stroke="#111827" stroke-width="3.5" marker-end="url(#shI)"/>
+  <text x="122" y="175" fill="#111827" font-size="23" font-style="italic">I</text>
+
+  <text x="214" y="266" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="15" dy="5">S</tspan></text>
+  <text x="330" y="266" fill="#6b7280" font-size="20" font-style="italic">I = U<tspan font-size="14" dy="5">S</tspan><tspan dy="-5"> / R</tspan><tspan font-size="14" dy="5">S</tspan></text>
+</svg>

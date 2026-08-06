@@ -107,7 +107,7 @@ Herleitung wie bei der Parallelschaltung von Widerständen: $\frac{U}{L_\text{ge
 
 ### 📝 Jetzt sind Sie dran: Drosselspule (zu zweit)
 
-**Aufgabe 15** *(= Palme B4, Aufgabe 2 — die komplette Kette!)*
+**Aufgabe 15**
 
 Eine Drosselspule besteht aus einem Ringkern ($\mu_r = 4000$, $\ell_\text{Fe} = 20 \, \text{cm}$, $A = 4 \, \text{cm}^2$) mit Luftspalt $\ell_L = 0{,}5 \, \text{mm}$. Wicklung: $N = 50$, $I = 2 \, \text{A}$.
 

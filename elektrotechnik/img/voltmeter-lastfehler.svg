@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 40 580 265" font-family="Helvetica, Arial, sans-serif">
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <!-- Quelle -->
+    <circle cx="110" cy="170" r="26"/>
+    <line x1="110" y1="144" x2="110" y2="196"/>
+    <line x1="110" y1="90" x2="110" y2="144"/>
+    <line x1="110" y1="196" x2="110" y2="250"/>
+    <!-- Schienen -->
+    <line x1="110" y1="90" x2="470" y2="90"/>
+    <line x1="110" y1="250" x2="470" y2="250"/>
+    <!-- Messobjekt R -->
+    <line x1="290" y1="90" x2="290" y2="140"/>
+    <rect x="278" y="140" width="24" height="60" fill="#fff"/>
+    <line x1="290" y1="200" x2="290" y2="250"/>
+    <!-- Voltmeter parallel -->
+    <line x1="440" y1="90" x2="440" y2="144" stroke="#15803d"/>
+    <circle cx="440" cy="170" r="26" stroke="#15803d"/>
+    <line x1="440" y1="196" x2="440" y2="250" stroke="#15803d"/>
+  </g>
+
+  <circle cx="290" cy="90" r="5" fill="#111827"/>
+  <circle cx="290" cy="250" r="5" fill="#111827"/>
+
+  <text x="440" y="179" fill="#15803d" font-size="24" text-anchor="middle" font-weight="bold">V</text>
+  <text x="76" y="178" fill="#111827" font-size="23" font-style="italic" text-anchor="end">U<tspan font-size="16" dy="6">0</tspan></text>
+  <text x="316" y="178" fill="#111827" font-size="24" font-style="italic">R</text>
+  <text x="474" y="164" fill="#15803d" font-size="19" font-style="italic">R<tspan font-size="14" dy="5">i,V</tspan></text>
+  <text x="474" y="190" fill="#15803d" font-size="17">&#8776; 10 M&#937;</text>
+  <text x="110" y="292" fill="#6b7280" font-size="19">Voltmeter liegt <tspan font-weight="bold">parallel</tspan> &#8594; zieht Strom &#8594; Lastfehler</text>
+</svg>

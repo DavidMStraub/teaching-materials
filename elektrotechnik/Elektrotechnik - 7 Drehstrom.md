@@ -128,7 +128,7 @@ Das ist neben der Leitermaterial-Ersparnis *der* technische Grund für Drehstrom
 
 ### 📝 Jetzt sind Sie dran: Heizofen (zu zweit)
 
-**Aufgabe 22** *(= Palme B6, Aufgabe 1 — Klausurniveau)*
+**Aufgabe 22**
 
 Die Heizstäbe eines Heizofens ($R = 1\,\Omega$ pro Strang) liegen in **Dreieckschaltung** an einem Drehstromnetz mit $U = 400/230\,\text{V}$.
 
@@ -154,7 +154,7 @@ $$C_\Delta = \frac{Q_C}{3 \cdot U_\Delta^2 \cdot \omega} = \frac{C_Y}{3}$$
 
 ### 📝 Jetzt sind Sie dran: Kompensation (zu zweit)
 
-**Aufgabe 23** *(= Palme B6, Aufgabe 2 — Klausurniveau)*
+**Aufgabe 23**
 
 An einem Drehstromnetz ($U = 400/230\,\text{V}$, $f = 50\,\text{Hz}$) mit einem Wirkleistungsverbrauch $P_1 = 1\,\text{MW}$ bei $\cos\varphi_1 = 0{,}75$ (induktiv) soll ein weiterer Verbraucher mit $P_2 = 500\,\text{kW}$ und $\cos\varphi_2 = 0{,}5$ (induktiv) installiert werden. Kondensatoren sollen den $\cos\varphi$ des Gesamtnetzes auf $0{,}9$ verbessern.
 
