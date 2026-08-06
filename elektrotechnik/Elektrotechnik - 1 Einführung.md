@@ -28,7 +28,7 @@ David Straub
 
 ### So läuft jede Vorlesung ab
 
-- **Montagsaufgabe** (10 min): kleine Aufgabe zur Vorwoche, zu zweit
+- **Montagsaufgabe** (10 min): kleine Aufgabe zur Vorwoche
 - Theorie-Blöcke von max. 40 Minuten
 - Nach jedem Theorie-Block: **📝 Sie rechnen selbst** – die Aufgaben sind vom Typ der Prüfungsaufgaben
 - ☕ Pause: immer 11:30–11:45
@@ -90,7 +90,7 @@ Der Zahlenwert des Betrags ist immer positiv.
 Beispiele:
 
 - $\vec{v} = 10 \, \frac{\text{m}}{\text{s}} \cdot \vec{e}_x$ (Geschwindigkeit)
-- $\vec{a} = 9{,}81 \, \frac{\text{m}}{\text{s}^2} \cdot (\vec{e}_{-z})$ (Beschleunigung)
+- $\vec{a} = 9{,}81 \, \frac{\text{m}}{\text{s}^2} \cdot (-\vec{e}_{z})$ (Beschleunigung)
 
 ![bg 90% right:30%](img/vektor.svg)
 
@@ -137,9 +137,9 @@ Beispiele für abgeleitete Einheiten:
 - **Leistung**: $P = \frac{\Delta W}{\Delta t}$
 $[P]  = \frac{[W]}{[t]} = \frac{\text{J}}{\text{s}} = \frac{\text{kg} \cdot \text{m}^2}{\text{s}^3}= \text{W}$ (Watt)
 
-### 🎯 Prüfungsklassiker: Basiseinheiten
+### Basiseinheiten: herleiten statt auswendig lernen
 
-In der Prüfung gibt es regelmäßig eine Tabelle wie diese:
+Jede elektrische Einheit lässt sich auf die sieben Basiseinheiten zurückführen:
 
 | Elektrische Größe | Formelzeichen | Einheit | Basiseinheiten |
 |---|---|---|---|
@@ -152,27 +152,6 @@ In der Prüfung gibt es regelmäßig eine Tabelle wie diese:
 (z.B. $[F] = [m] \cdot [a]$).
 
 Diese Tabelle füllt sich im Laufe des Semesters – am Ende jedes Kapitels ergänzen wir sie.
-
-### 📝 Jetzt sind Sie dran: Einheiten (10 min, zu zweit)
-
-**Aufgabe 1**
-a) Rechnen Sie um: $v = 108 \, \text{km/h}$ in m/s.
-b) Die kinetische Energie ist $E = \frac{1}{2} m v^2$. Drücken Sie die Einheit von $E$ in Basiseinheiten aus und zeigen Sie: das ist genau 1 J.
-c) Ein Triebwerk leistet $P = 30 \, \text{MW}$ für $t = 2$ Minuten. Wie viel Energie in Joule?
-
-### Dimensionsanalyse
-
-Jede physikalische Größe hat – unabhängig von Einheit oder Zahlenwert – eine **Dimension**, die beschreibt, wie die Größe aus den Grundgrößen zusammengesetzt ist.
-
-Beispiele:
-
-- Geschwindigkeit: $\text{dim}[v] = \frac{\text{L}}{\text{T}}$
-- Kraft: $\text{dim}[F] = \text{M} \cdot \frac{\text{L}}{\text{T}^2}$
-- Winkel: $\text{dim}[\varphi] = \frac{\text{L}}{\text{L}} = 1$ (dimensionslos)
-
-**Beide Seiten einer Gleichung müssen dieselbe Dimension haben!**
-
-→ Der schnellste Fehler-Check in jeder Klausur: Einheiten am Ende prüfen.
 
 ### SI-Präfixe
 
@@ -187,18 +166,27 @@ Beispiele:
 
 In der Elektrotechnik alltäglich: µF, nF, pF (Kondensatoren), mH (Spulen), kΩ, MΩ (Widerstände), mA, kV, MW ...
 
-### µ & °C: praktische Tipps
+### 📝 Aufgabe 1: Einheiten
 
-- Mikro: µ (griechischer Buchstabe "My")
-    - Deutsches Tastaturlayout: `AltGr` + `m`
+a) Rechnen Sie um: $v = 108 \, \text{km/h}$ in m/s.
 
-- Grad Celsius: °C (Gradzeichen + Großbuchstabe C)
-    - Deutsches Tastaturlayout: `Shift` + `^` + `C`
+b) Die kinetische Energie ist $E = \frac{1}{2} m v^2$. Drücken Sie die Einheit von $E$ in Basiseinheiten aus und zeigen Sie: das ist genau 1 J.
 
-Nur in Systemen, die diese Schriftzeichen nicht unterstützen (ASCII), laut DIN 66030:2002-05:
+c) Ein Triebwerk leistet $P = 30 \, \text{MW}$ für $t = 2$ Minuten. Wie viel Energie in Joule?
 
-- µ -> u
-- °C -> Cel
+### Dimensionsanalyse
+
+Die **Dimension** (dritte Spalte der SI-Tabelle) beschreibt, wie eine Größe aus den Grundgrößen zusammengesetzt ist – unabhängig von Einheit und Zahlenwert.
+
+Beispiele:
+
+- Geschwindigkeit: $\text{dim}[v] = \frac{\text{L}}{\text{T}}$
+- Kraft: $\text{dim}[F] = \text{M} \cdot \frac{\text{L}}{\text{T}^2}$
+- Winkel: $\text{dim}[\varphi] = \frac{\text{L}}{\text{L}} = 1$ (dimensionslos)
+
+**Beide Seiten einer Gleichung müssen dieselbe Dimension haben!**
+
+→ Der schnellste Fehler-Check überhaupt: am Ende jeder Rechnung die Einheiten prüfen.
 
 ### ⚠️ Nicht-SI-Einheiten in der Luftfahrt ✈️
 
@@ -223,10 +211,9 @@ https://www.youtube.com/watch?v=MfavzjbZzl8
 
 - Physikalische Größe = Zahlenwert × Einheit; Vektoren zusätzlich mit Richtung
 - 7 SI-Basiseinheiten – für uns zentral: das **Ampere**
-- Abgeleitete Einheiten aus Formeln herleiten können ($\text{N}, \text{J}, \text{W}, \dots$) – **Prüfungsklassiker**
+- Abgeleitete Einheiten aus Formeln herleiten können ($\text{N}, \text{J}, \text{W}, \dots$)
 - Dimensionsanalyse: beide Seiten einer Gleichung müssen dieselbe Dimension haben → Fehler-Check
 - SI-Präfixe von p bis T sicher beherrschen
 - Luftfahrt: ft, NM, kt – Umrechnung in SI
 
 **Nächstes Kapitel:** Das elektrische Feld – Ladungen, Kräfte und warum der Blitz einschlägt ⚡
-

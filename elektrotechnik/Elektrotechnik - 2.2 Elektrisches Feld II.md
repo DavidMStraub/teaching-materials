@@ -28,6 +28,8 @@ David Straub
 - Sie verlaufen von positiven zu negativen Ladungen und zeigen die Richtung der Kraft an, die auf eine **positive** Probeladung wirken würde
 - Je dichter die Linien, desto stärker das Feld
 
+**Interaktiv:** [E-Feld-Editor](https://davidstraub.de/teaching-apps/efield-editor/) – Ladungen setzen, ziehen, Vorzeichen und Betrag ändern und die Feldlinien mitwandern sehen
+
 ![bg 85% right:38%](https://upload.wikimedia.org/wikipedia/commons/0/00/VFPt_plus.svg)
 
 ### Feldlinien: Beispiele
@@ -48,6 +50,8 @@ $$\vec{E}(\vec{r}) = \sum_{i} \vec{E}_i(\vec{r})$$
 
 - Felder stören sich nicht gegenseitig – sie addieren sich einfach
 - Für kontinuierliche Ladungsverteilungen wird aus der Summe ein Integral (hier nicht vertieft)
+
+![bg 92% right:38%](img/superposition.svg)
 
 ### Elektrische Flussdichte (*electric flux density*)
 
@@ -110,11 +114,10 @@ Vorteil: der Satz von Gauß gilt unverändert, wenn man nur die freien Ladungen 
 
 $$\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen, frei}}$$
 
-### 📝 Jetzt sind Sie dran: Feldlinien & Dielektrika (zu zweit)
+### 📝 Aufgabe 3: Feldlinien & Dielektrika
 
-**Aufgabe 3**
-
-a) Skizzieren Sie das Feldlinienbild zweier **gleichnamiger** Punktladungen. Wo ist das Feld null?
+a) **Zuerst auf Papier:** Skizzieren Sie das Feldlinienbild zweier gleichnamiger Punktladungen, von denen eine die **doppelte** Ladung trägt. Wo ist das Feld null – genau in der Mitte, näher an der großen oder näher an der kleinen Ladung?
+**Erst danach** mit dem [E-Feld-Editor](https://davidstraub.de/teaching-apps/efield-editor/) überprüfen.
 
 b) Die Punktladung aus letzter Woche ($Q = 10 \, \text{nC}$, $r = 24 \, \text{cm}$) wird von Vakuum in destilliertes Wasser ($\varepsilon_r = 81$) getaucht. Wie groß sind dort $E$ und $D$? Was ändert sich, was bleibt gleich?
 
@@ -131,9 +134,15 @@ $$W_{12} = \sum_{i} F_i \cdot \Delta r \quad \xrightarrow{\Delta r \to 0} \quad 
 
 ![bg 90% right:28%](img/arbeit-im-feld.svg)
 
-### Elektrisches Potential
+### Von der Arbeit zum Potential
 
 $$W_{12} = Q_P \int_{r_1}^{r_2} E(r) \, dr = Q_P \cdot \left[ \frac{Q^+}{4 \pi \varepsilon} \cdot \frac{1}{r_1} - \frac{Q^+}{4 \pi \varepsilon} \cdot \frac{1}{r_2} \right] = Q_P \cdot (\varphi_1 - \varphi_2)$$
+
+Die Arbeit hängt nur von **Anfangs- und Endpunkt** ab, und die Probeladung $Q_P$ steht als Faktor davor.
+
+→ Der Rest ist eine Eigenschaft **des Feldes allein**: jedem Ort lässt sich eine Zahl $\varphi$ zuordnen.
+
+### Elektrisches Potential und Äquipotentialflächen
 
 Das **elektrische Potential** $\varphi$ im Abstand $r$ von einer Punktladung $Q$:
 
@@ -141,9 +150,7 @@ $$\varphi(r) = \frac{Q}{4 \pi \varepsilon_0 \varepsilon_r \cdot r}$$
 
 Einheit: $[\varphi] = \frac{\text{J}}{\text{C}} = \text{V}$ (Volt)
 
-### Äquipotentialflächen
-
-Punkte gleichen Potentials bilden **Äquipotentialflächen** – sie stehen immer senkrecht auf den Feldlinien.
+Punkte gleichen Potentials bilden **Äquipotentialflächen**. Sie stehen immer **senkrecht** auf den Feldlinien – entlang einer solchen Fläche wird keine Arbeit verrichtet.
 
 ![bg 90% right:45%](https://upload.wikimedia.org/wikipedia/commons/3/3d/Electric-dipole-field-lines-and-equipotential-lines.svg)
 
@@ -176,9 +183,7 @@ Allgemeiner Zusammenhang zwischen Feldstärke und Spannung:
 
 $$U_{12} = \int_{P_1}^{P_2} \vec{E} \cdot d\vec{s} = \varphi_1 - \varphi_2$$
 
-### 📝 Jetzt sind Sie dran: Spannung (zu zweit)
-
-**Aufgabe 4**
+### 📝 Aufgabe 4: Spannung
 
 Noch einmal die Punktladung $Q = 10 \, \text{nC}$ (im Vakuum):
 
@@ -275,9 +280,7 @@ Anwendung: kapazitiver Ölstandsensor
 
 ![bg 90% right:30%](img/dielektrika-geschichtet.svg)
 
-### 📝 Jetzt sind Sie dran: Kondensatoren (zu zweit)
-
-**Aufgabe 5**
+### 📝 Aufgabe 5: Kondensatoren
 
 Zwei Kondensatoren $C_1 = 1 \, \mu\text{F}$ und $C_2 = 4 \, \mu\text{F}$ werden **in Reihe** geschaltet und an eine Spannung $U = 5000 \, \text{V}$ gelegt.
 

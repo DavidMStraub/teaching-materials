@@ -66,9 +66,13 @@ David Straub
 
 ### Coulomb’sches Gesetz (*Coulomb’s law*)
 
-Die Kraft zwischen zwei Punktladungen ist $\sim Q_1 \cdot Q_2$ und $\sim 1/r^2$:
+Die Kraft zwischen zwei Punktladungen ist $\sim Q_1 \cdot Q_2$ und $\sim 1/r^2$.
 
-$$|\vec{F}_{12}| = k \cdot \frac{Q_1 \cdot Q_2}{r^2}$$
+**Betrag:**
+
+$$|\vec{F}_{12}| = k \cdot \frac{|Q_1 \cdot Q_2|}{r^2}$$
+
+**Richtung:** $Q_1 Q_2 > 0$ (gleichnamig) → Abstoßung, $Q_1 Q_2 < 0$ → Anziehung.
 
 Im SI-System: $k = \frac{1}{4 \pi \varepsilon_0}$ mit der elektrischen Feldkonstante $\varepsilon_0 \approx 8{,}854 \cdot 10^{-12} \, \frac{\text{C}^2}{\text{N} \cdot \text{m}^2}$.
 
@@ -122,9 +126,7 @@ $$\vec{E}(\vec r) = \frac{Q}{4 \cdot \pi \cdot \varepsilon_0 \cdot r^2} \cdot \f
 
 ![bg 80% right:38%](https://upload.wikimedia.org/wikipedia/commons/0/00/VFPt_plus.svg)
 
-### 📝 Jetzt sind Sie dran: Coulomb & Feldstärke (zu zweit)
-
-**Aufgabe 2**
+### 📝 Aufgabe 2: Coulomb & Feldstärke
 
 a) Im Feld einer Punktladung $Q_1$ wirkt auf eine zweite Punktladung $Q_2$ eine Kraft $F_1 = 2 \cdot 10^{-8} \, \text{N}$. $Q_2$ wird entfernt. Welche Kraft $F_2$ wirkt auf eine neue Punktladung $Q_3$, die die **vierfache Ladung** besitzt und sich im **doppelten Abstand** zu $Q_1$ befindet? (Mit Begründung – ohne Taschenrechner lösbar!)
 
