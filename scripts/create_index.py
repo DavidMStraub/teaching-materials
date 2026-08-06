@@ -32,11 +32,12 @@ class Deck:
 
     @property
     def sort_key(self):
-        if self.number and self.number.isdigit():
-            return (0, int(self.number), self.title.lower())
+        if self.number and re.fullmatch(r"\d+(\.\d+)?", self.number):
+            major, _, minor = self.number.partition(".")
+            return (0, int(major), int(minor or 0), self.title.lower())
         if self.number:  # extra material numbered X1, X2, ...
-            return (1, int(self.number[1:]), self.title.lower())
-        return (2, 0, self.title.lower())
+            return (1, int(self.number[1:]), 0, self.title.lower())
+        return (2, 0, 0, self.title.lower())
 
 
 @dataclass
@@ -52,13 +53,14 @@ def parse_deck_name(basename: str) -> tuple[str | None, str]:
     """Split a filename into (lecture number, display title).
 
     "Elektrotechnik - 02 Elektrisches Feld" -> ("02", "Elektrisches Feld")
+    "Elektrotechnik - 2.1 Elektrisches Feld I" -> ("2.1", "Elektrisches Feld I")
     "CAx-Programmierung - X1 Versionsverwaltung" -> ("X1", "Versionsverwaltung")
     "build123d Cheat Sheet" -> (None, "build123d Cheat Sheet")
     """
     title = basename.replace("_", " ")
     if " - " in title:
         title = title.split(" - ", 1)[1]
-    match = re.match(r"^(X?\d+)\s+(.+)$", title)
+    match = re.match(r"^(X?\d+(?:\.\d+)?)\s+(.+)$", title)
     if match:
         return match.group(1), match.group(2)
     return None, title
