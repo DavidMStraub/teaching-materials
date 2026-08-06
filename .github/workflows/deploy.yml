@@ -235,3 +235,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          # Default sind 600000 ms (10 min). Das Artefakt braucht serverseitig
+          # inzwischen 5-10 min; 30 min Puffer, damit ein Push nicht am Timeout stirbt.
+          timeout: 1800000

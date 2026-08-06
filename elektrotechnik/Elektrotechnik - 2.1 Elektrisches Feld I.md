@@ -35,7 +35,7 @@ David Straub
 
 ###
 
-![bg](https://upload.wikimedia.org/wikipedia/commons/8/83/Lightning_in_Dallas_2015.jpg)
+![bg](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Lightning_in_Dallas_2015.jpg/1280px-Lightning_in_Dallas_2015.jpg)
 ![bg](https://upload.wikimedia.org/wikipedia/commons/8/8b/Chalcopyrite-Magnetite-cktsr-10c.jpg)
 
 ### Elektrische Ladung (*electric charge*)

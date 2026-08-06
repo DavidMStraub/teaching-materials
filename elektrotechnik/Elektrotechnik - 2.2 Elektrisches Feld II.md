@@ -63,7 +63,7 @@ Fluss durch eine Fläche $A$:
 
 $$\Psi = \int_{A} \vec{D} \cdot d\vec{A}$$
 
-![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/1/1f/Electric-flux.jpg)
+![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Electric-flux.jpg/1280px-Electric-flux.jpg)
 
 ### Satz von Gauß (*Gauss’s law*)
 
@@ -207,7 +207,7 @@ $$C := \frac{Q}{U}$$
 
 Einheit: $[C] = \frac{\text{C}}{\text{V}} = \text{F}$ (Farad)
 
-![bg 80% right:40%](https://upload.wikimedia.org/wikipedia/commons/b/b9/Capacitors_%287189597135%29.jpg)
+![bg 80% right:40%](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Capacitors_%287189597135%29.jpg/1280px-Capacitors_%287189597135%29.jpg)
 
 ### ⚠️ Kapazität ≠ Kapazität
 

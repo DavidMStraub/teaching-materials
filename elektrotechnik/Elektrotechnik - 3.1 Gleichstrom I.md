@@ -170,7 +170,7 @@ Die Temperaturabhängigkeit macht Metalle zu präzisen Temperatursensoren.
 
 Klausur-Klassiker: aus gemessenem $R$ (oder $U$ bei bekanntem Strom) die Temperatur bestimmen! (→ Woche 5)
 
-![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/b/b3/Pt100_Resistors.jpg)
+![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Pt100_Resistors.jpg/1280px-Pt100_Resistors.jpg)
 
 ### Knotenpunktregel (1. Kirchhoff’sches Gesetz)
 
