@@ -157,6 +157,8 @@ $$\oint_A \vec{B} \cdot d\vec{A} = 0$$
 
 (Vergleiche: Satz von Gauß, $\oint_A \vec{D} \cdot d\vec{A} = Q_{\text{innen}}$)
 
+![bg 92% right:36%](img/magnetischer-fluss.svg)
+
 ### Magnetische Feldstärke $\vec{H}$
 
 Die magnetische Feldstärke $\vec{H}$ beschreibt die Fähigkeit eines elektrischen Stroms, ein Magnetfeld zu erzeugen.
@@ -179,6 +181,8 @@ Erinnerung: in der Elektrostatik gilt aufgrund der Wegunabhängigkeit des Potent
 
 $$\oint \vec{E}(s) \cdot d\vec{s} = 0$$
 
+![bg 88% right:34%](img/durchflutung.svg)
+
 ### Vergleich: Gaußsches Gesetz und Ampèresches Gesetz
 
 | Elektrostatik | Magnetostatik |
@@ -198,17 +202,17 @@ Lange Spule mit $N$ Windungen, Länge $\ell$, Strom $I$. Durchflutungsgesetz:
 
 $$\oint \vec{H} \cdot d\vec{s} = N \cdot I$$
 
-**Im Inneren der Spule:**
+**Im Inneren der Spule** (Luft):
 
-$$H = \frac{N \cdot I}{\ell}, \qquad B = \mu_0 \mu_r H$$
+$$H = \frac{N \cdot I}{\ell}, \qquad B = \mu_0 H$$
 
 **Außerhalb:** $B \approx 0$
 
+Mit einem Eisenkern wird $B$ um ein Vielfaches größer – dazu gleich beim Magnetfeld in Materie.
+
 ![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/0/05/Cylindrical_long_tightly-wound_coil2.svg)
 
-### 📝 Jetzt sind Sie dran: Magnetfelder berechnen (zu zweit)
-
-**Aufgabe 11**
+### 📝 Aufgabe 11: Magnetfelder berechnen
 
 a) Eine lange Spule hat $N = 500$ Windungen auf $\ell = 25 \, \text{cm}$ und führt $I = 1 \, \text{A}$. Wie groß sind $H$ und $B$ im Inneren (Luft)? Vergleichen Sie mit dem Erdmagnetfeld!
 
@@ -274,7 +278,7 @@ Kuriosum: Diamagnete können in starken Feldern schweben →
 
 **Beispiele:** Eisen, Kobalt, Nickel
 
-### Weiß’sche Bezirke
+### Weiss’sche Bezirke
 
 - Bereiche mit **gleich orientierten magnetischen Dipolen**
 - Spontane Magnetisierung innerhalb der Bezirke
@@ -331,9 +335,7 @@ Durchflutung (*magnetomotive force*) | $\Theta = N \cdot I = \oint \vec{H} \cdot
 Magnetische Feldkonstante | $\mu_0$ | $[\mu_0] = \frac{\text{N}}{\text{A}^2}$
 Relative Permeabilität | $\mu_r = \frac{\mu}{\mu_0}$ | dimensionslos
 
-### 📝 Jetzt sind Sie dran: Materie im Magnetfeld (zu zweit)
-
-**Aufgabe 12** *(Begründungsfragen – Klausurstil!)*
+### 📝 Aufgabe 12: Materie im Magnetfeld
 
 a) Ein Elektromagnet soll in einer Recyclinganlage Metallteile sortieren. Kann er Aluminiumplatten anheben? Stahlplatten? (Mit Begründung!)
 

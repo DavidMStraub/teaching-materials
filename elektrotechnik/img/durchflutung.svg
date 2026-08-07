@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 30 340 320" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="dH" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="dS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="vecH2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Umlaufweg -->
+  <circle cx="250" cy="190" r="110" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-dasharray="8 6"/>
+
+  <!-- Leiter: Strom aus der Ebene heraus -->
+  <circle cx="250" cy="190" r="19" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <circle cx="250" cy="190" r="5" fill="#111827"/>
+  <text x="276" y="215" fill="#111827" font-size="24" font-style="italic">I</text>
+
+  <!-- H-Feld tangential (Rechte-Faust-Regel: gegen den Uhrzeigersinn) -->
+  <line x1="360" y1="205" x2="360" y2="163" stroke="#2563eb" stroke-width="4" marker-end="url(#dH)"/>
+  <line x1="265" y1="80" x2="228" y2="80" stroke="#2563eb" stroke-width="4" marker-end="url(#dH)"/>
+  <line x1="140" y1="175" x2="140" y2="217" stroke="#2563eb" stroke-width="4" marker-end="url(#dH)"/>
+  <line x1="235" y1="300" x2="272" y2="300" stroke="#2563eb" stroke-width="4" marker-end="url(#dH)"/>
+
+  <text x="374" y="160" fill="#2563eb" font-size="23" font-style="italic">H</text>
+  <line x1="374" y1="132" x2="392" y2="132" stroke="#2563eb" stroke-width="2.5" marker-end="url(#vecH2)"/>
+
+  <!-- Wegelement ds -->
+  <line x1="315" y1="105" x2="337" y2="127" stroke="#111827" stroke-width="4" marker-end="url(#dS)"/>
+  <text x="330" y="98" fill="#111827" font-size="22" font-style="italic">ds</text>
+
+  <text x="118" y="336" fill="#6b7280" font-size="19">geschlossener Umlaufweg</text>
+</svg>

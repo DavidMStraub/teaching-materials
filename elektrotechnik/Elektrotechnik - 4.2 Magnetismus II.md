@@ -105,7 +105,13 @@ Der gleiche Fluss $\Phi$ durchfließt alle Abschnitte (wie der Strom in der Reih
 
 $$\frac{1}{R_{m,\text{ges}}} = \frac{1}{R_{m,1}} + \frac{1}{R_{m,2}} + \ldots$$
 
-Am Verzweigungspunkt gilt die „Knotenregel": $\sum_k \Phi_k = 0$ — auch **magnetische Ersatzschaltbilder** zeichnet man wie Stromkreise! *(Klausuraufgabe WS 2000/01: Kern mit drei Schenkeln)*
+Am Verzweigungspunkt gilt die „Knotenregel": $\sum_k \Phi_k = 0$.
+
+### Vom Magnetkreis zum Ersatzschaltbild
+
+Durchflutung $\Theta = N I$ wirkt wie eine Quelle, jeder Abschnitt wie ein Widerstand – **magnetische Ersatzschaltbilder zeichnet man wie Stromkreise**.
+
+![w:880](img/magnetkreis-esb.svg)
 
 ### Praxisbeispiel: Elektromagnet mit Luftspalt
 
@@ -128,7 +134,7 @@ $$\frac{R_{m,L}}{R_{m,E}} = \frac{\delta \cdot \mu_r}{\ell_E} = \frac{0{,}001 \c
 
 **Der Luftspalt ist 7× wichtiger, obwohl er 300× kürzer ist!**
 
-**Praktische Näherung** für $\mu_r \gg 1$ und $\delta \mu_r \gg \ell_E$: Eisenwiderstand vernachlässigen, $R_{m,\text{ges}} \approx R_{m,L}$. In Klausuraufgaben oft als „$\mu_r \to \infty$" formuliert!
+**Praktische Näherung** für $\mu_r \gg 1$ und $\delta \mu_r \gg \ell_E$: Eisenwiderstand vernachlässigen, $R_{m,\text{ges}} \approx R_{m,L}$. In Aufgabenstellungen steht dafür oft kurz „$\mu_r \to \infty$".
 
 ### Kraft am Luftspalt
 
@@ -138,13 +144,11 @@ $$\boxed{F = \frac{B^2 \cdot A}{2 \mu_0}}$$
 
 - $B$: Flussdichte im Luftspalt, $A$: Polfläche
 - Herleitung über die Energie des Magnetfelds → Kapitel 5
-- ⚠️ Bei einem U-Kern gibt es **zwei** Polflächen → zwei Luftspalte, doppelte Kraft (bzw. halbe Kraft pro Fläche nötig)
+- ⚠️ Ein U-Kern hat **zwei** Polflächen, also zwei Luftspalte: die Gesamtkraft ist $2 \cdot \frac{B^2 A}{2\mu_0}$ – pro Spalt muss daher nur die **halbe** Last getragen werden
 
-**Typische Klausuraufgabe:** Hubmagnet/Bestückungsautomat dimensionieren – von der geforderten Kraft rückwärts zu $B$, $\Phi$ und $I$.
+**Typische Aufgabe:** Hubmagnet dimensionieren – von der geforderten Kraft rückwärts zu $B$, $\Phi$ und $I$.
 
-### 📝 Jetzt sind Sie dran: Elektromagnet dimensionieren (zu zweit)
-
-**Aufgabe 13** *(= Klausuraufgabe WiSe 2018/19!)*
+### 📝 Aufgabe 13: Elektromagnet dimensionieren
 
 Ein Elektromagnet am Roboterarm soll Eisenblechtafeln ($F_g = 160 \, \text{N}$) anheben. U-förmiger Kern, Querschnitt $A = 8 \, \text{cm}^2$ pro Pol, Luftspalt $d = 0{,}5 \, \text{mm}$ pro Pol (Verschmutzung), $\mu_r \to \infty$, $N = 1000$ Windungen. Hinweis: normierter Luftspalt (1 mm, 1 cm²) hat $R_{m} = 8 \cdot 10^6 \, \text{H}^{-1}$; $F = \frac{B^2 A}{2\mu_0}$ mit $\mu_0 = 1{,}25 \cdot 10^{-6} \, \frac{\text{Vs}}{\text{Am}}$.
 
