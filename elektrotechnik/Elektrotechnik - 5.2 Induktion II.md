@@ -81,7 +81,7 @@ $$L = N^2 \cdot \frac{\mu_0 A}{\frac{\ell_E}{\mu_r} + \delta} \approx N^2 \cdot 
 
 → $\mu_r$ hat kaum Einfluss auf $L$ bei kleinem Luftspalt $\delta$
 
-**Klausurfrage (WiSe 2018/19):** „Warum wird $L$ auch für $\delta \to 0$ nicht beliebig groß?" → weil der Eisenweg mit endlichem $\mu_r$ bleibt (und das Eisen sättigt).
+Und warum wird $L$ für $\delta \to 0$ trotzdem nicht beliebig groß? Weil der Eisenweg mit endlichem $\mu_r$ bleibt – und das Eisen irgendwann sättigt.
 
 ### Reihenschaltung von Induktivitäten
 
@@ -89,7 +89,7 @@ $$L_{\text{ges}} = L_1 + L_2 + \dots + L_n = \sum_i L_i$$
 
 Die induzierten Spannungen addieren sich, der Strom ist überall gleich.
 
-Intuition: Spulen verhalten sich wie eine einzige große Spule.
+Intuition: Spulen verhalten sich wie eine einzige große Spule. (Gilt so nur, wenn sich die Spulen **nicht magnetisch koppeln**.)
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/f/ff/Inductors_in_series.svg)
 
@@ -105,9 +105,7 @@ Herleitung wie bei der Parallelschaltung von Widerständen: $\frac{U}{L_\text{ge
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/e/e8/Inductors_in_parallel.svg)
 
-### 📝 Jetzt sind Sie dran: Drosselspule (zu zweit)
-
-**Aufgabe 15**
+### 📝 Aufgabe 15: Drosselspule
 
 Eine Drosselspule besteht aus einem Ringkern ($\mu_r = 4000$, $\ell_\text{Fe} = 20 \, \text{cm}$, $A = 4 \, \text{cm}^2$) mit Luftspalt $\ell_L = 0{,}5 \, \text{mm}$. Wicklung: $N = 50$, $I = 2 \, \text{A}$.
 
@@ -140,7 +138,7 @@ $$W_m = \frac{1}{2} H B \cdot V = \frac{1}{2} \frac{B^2}{\mu_0 \mu_r} \cdot V$$
 
 $$w_m = \frac{1}{2} H B$$
 
-Vergleiche Kondensator: $W = \frac{1}{2} C U^2$, $w_e = \frac{1}{2} E D$ — die Struktur ist identisch!
+Beim Kondensator kennen wir $W = \frac{1}{2} C U^2$; völlig analog gilt dort für die Energiedichte $w_e = \frac{1}{2} E D$ — die Struktur ist identisch.
 
 ### Kräfte an Grenzflächen: Herleitung
 
@@ -153,6 +151,8 @@ Mit $dW = F \cdot d\ell$ folgt die Kraft am einzelnen Luftspalt:
 $$\boxed{F = \frac{B^2 A}{2 \mu_0}}$$
 
 Damit ist die Formel aus Kapitel 4 (Elektromagnet!) hergeleitet. ✓
+
+![bg right:38% 95%](img/luftspalt-arbeit.svg)
 
 ### Maxwell’sche Zugspannung
 
@@ -168,9 +168,9 @@ $$\sigma = \frac{F}{A} = \frac{B^2}{2 \mu_0}$$
 
 Zahlengefühl: bei $B = 1 \, \text{T}$ ist $\sigma \approx 40 \, \frac{\text{N}}{\text{cm}^2}$ — 1 cm² trägt 4 kg!
 
-### 📝 Jetzt sind Sie dran: Induktivität & Schalten (zu zweit)
+### 📝 Aufgabe 16: Induktivität & Schalten
 
-**Aufgabe 16** *(Fortsetzung des Bestückungsautomaten aus Kapitel 4)*
+*Fortsetzung des Bestückungsautomaten aus Kapitel 4.*
 
 Der Elektromagnet hat $N = 1000$ Windungen und $R_{m,\text{ges}} = 10^6 \, \text{H}^{-1}$; Betriebsstrom $I = 0{,}4 \, \text{A}$.
 
@@ -190,7 +190,7 @@ d) An der Spule wird ein rechteckförmiger Spannungsverlauf angelegt ($+U_1$ fü
 | Magn. Flussdichte | $B$ | T | $\frac{\text{kg}}{\text{A} \cdot \text{s}^2}$ |
 | **Induktivität** | $L$ | H | $\frac{\text{kg} \cdot \text{m}^2}{\text{A}^2 \cdot \text{s}^2}$ |
 
-Herleitung an der Tafel: $[L] = \frac{[U] \cdot [t]}{[I]}$ — **damit ist die Klausur-Tabelle komplett!**
+Herleitung an der Tafel: $[L] = \frac{[U] \cdot [t]}{[I]}$ — **damit ist die Tabelle komplett.**
 
 ### Zusammenfassung: Elektromagnetische Induktion
 

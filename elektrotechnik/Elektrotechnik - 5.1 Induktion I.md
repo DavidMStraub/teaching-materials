@@ -24,7 +24,9 @@ David Straub
 - Bisher: elektrisches Feld ruhender Ladungen (Elektrostatik) und magnetisches Feld konstanter Ströme (Magnetostatik)
 - Sobald zeitliche Änderungen auftreten → Wechselwirkung zwischen elektrischen und magnetischen Feldern
 
-**Induktion: ein zeitlich veränderliches Magnetfeld erzeugt („induziert") ein elektrisches Feld**
+**Induktion: eine zeitliche Änderung des magnetischen Flusses erzeugt („induziert") eine Spannung**
+
+Der Fluss kann sich auf zwei Arten ändern – weil sich das Feld ändert oder weil sich der Leiter bewegt. Beides sehen wir gleich.
 
 ### Induktion: technische Anwendungen
 
@@ -100,6 +102,8 @@ $$U_\text{ind} = \oint \vec{E}_\text{ind} \cdot d\vec{s} \neq 0$$
 
 Ein Umlaufintegral entlang der Leiterschleife – über einen **geschlossenen** Weg!
 
+![bg right:34% 90%](img/wirbelfeld.svg)
+
 ### Vergleich: Elektrostatik vs. Induktion
 
 **Elektrostatik:** wirbelfrei, konservativ, Potential existiert:
@@ -131,11 +135,11 @@ Rechteckige Leiterschleife bewegt sich mit $\vec{v}$ durch ein homogenes, räuml
 - **Vollständig im Feld:** konstanter Fluss → keine Induktion!
 - **Austreten:** abnehmender Fluss → $U_\text{ind} \neq 0$ (umgekehrtes Vorzeichen)
 
-**Klausur-Klassiker:** Verläufe $\Phi(t)$ und $u(t)$ qualitativ skizzieren — $u(t)$ ist die (negative) *Steigung* von $\Phi(t)$!
+Merksatz für die Skizze: $u(t)$ ist die (negative) *Steigung* von $\Phi(t)$.
 
-### 📝 Jetzt sind Sie dran: Induktion (zu zweit)
+![w:800](img/leiterschleife-feldbereich.svg)
 
-**Aufgabe 14** *(= Klausuraufgabe SoSe 2019, Aufgabe 1.2!)*
+### 📝 Aufgabe 14: Induktion
 
 Im Luftspalt eines Ferritkerns (Querschnitt $A_1 = 4 \, \text{cm}^2$) sitzt eine bewegliche Messspule ($N_2 = 10$ Windungen, Fläche $A_2 = 1 \, \text{cm}^2$). Das Feld erzeugt eine feste Spule mit $N_1 = 2000$ Windungen; $R_{m,\text{ges}} = 10^7 \, \text{H}^{-1}$. Ab $t = 0$ wird die Messspule mit konstanter Geschwindigkeit herausgezogen; nach $0{,}1 \, \text{s}$ ist sie vollständig draußen.
 
@@ -143,3 +147,14 @@ a) Skizzieren Sie qualitativ $\Phi_2(t)$ durch die Messspule und die induzierte 
 b) Welcher Fluss $\Phi_2$ durchsetzt die Spule anfangs, damit $U_\text{ind} = 10 \, \text{mV}$ beträgt?
 c) Welche Flussdichte $B$ herrscht dann im Luftspalt, und welcher Gesamtfluss $\Phi_1$ durchsetzt die feste Spule ($A_1$)?
 d) Welcher Strom $I$ muss durch die feste Spule fließen?
+
+### Zwischenstand & Ausblick
+
+Heute:
+
+- Induktionsgesetz $U = -N \frac{d\Phi}{dt}$ – der Fluss ändert sich durch **Bewegung** oder durch ein **veränderliches Feld**
+- Lenz: der induzierte Strom wirkt seiner Ursache entgegen (Energieerhaltung)
+- Die induzierte Spannung ist **keine** Potentialdifferenz: das induzierte $\vec{E}$-Feld ist ein Wirbelfeld
+- Für Skizzen: $u(t)$ ist die (negative) Steigung von $\Phi(t)$
+
+**Nächste Woche:** Selbstinduktion – eine Spule induziert eine Spannung in sich selbst, und daraus wird die Induktivität $L$.

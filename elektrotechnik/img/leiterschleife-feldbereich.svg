@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 20 690 270" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="lv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <g font-size="17" fill="#6b7280" text-anchor="middle">
+    <text x="105" y="45">① eintretend</text>
+    <text x="345" y="45">② ganz im Feld</text>
+    <text x="585" y="45">③ austretend</text>
+  </g>
+
+  <!-- ===== Panel 1 ===== -->
+  <rect x="75" y="70" width="130" height="105" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+  <g stroke="#2563eb" stroke-width="2">
+    <path d="M96,91 l10,10 M106,91 l-10,10 M136,91 l10,10 M146,91 l-10,10 M176,91 l10,10 M186,91 l-10,10"/>
+    <path d="M96,141 l10,10 M106,141 l-10,10 M136,141 l10,10 M146,141 l-10,10 M176,141 l10,10 M186,141 l-10,10"/>
+  </g>
+  <rect x="35" y="88" width="110" height="70" fill="none" stroke="#111827" stroke-width="3.5"/>
+  <line x1="60" y1="200" x2="110" y2="200" stroke="#111827" stroke-width="3" marker-end="url(#lv)"/>
+  <text x="80" y="222" fill="#111827" font-size="20" font-style="italic" text-anchor="middle">v</text>
+
+  <!-- ===== Panel 2 ===== -->
+  <rect x="280" y="70" width="130" height="105" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+  <g stroke="#2563eb" stroke-width="2">
+    <path d="M301,91 l10,10 M311,91 l-10,10 M341,91 l10,10 M351,91 l-10,10 M381,91 l10,10 M391,91 l-10,10"/>
+    <path d="M301,141 l10,10 M311,141 l-10,10 M341,141 l10,10 M351,141 l-10,10 M381,141 l10,10 M391,141 l-10,10"/>
+  </g>
+  <rect x="290" y="88" width="110" height="70" fill="none" stroke="#111827" stroke-width="3.5"/>
+  <line x1="320" y1="200" x2="370" y2="200" stroke="#111827" stroke-width="3" marker-end="url(#lv)"/>
+  <text x="340" y="222" fill="#111827" font-size="20" font-style="italic" text-anchor="middle">v</text>
+
+  <!-- ===== Panel 3 ===== -->
+  <rect x="490" y="70" width="130" height="105" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+  <g stroke="#2563eb" stroke-width="2">
+    <path d="M511,91 l10,10 M521,91 l-10,10 M551,91 l10,10 M561,91 l-10,10 M591,91 l10,10 M601,91 l-10,10"/>
+    <path d="M511,141 l10,10 M521,141 l-10,10 M551,141 l10,10 M561,141 l-10,10 M591,141 l10,10 M601,141 l-10,10"/>
+  </g>
+  <rect x="565" y="88" width="110" height="70" fill="none" stroke="#111827" stroke-width="3.5"/>
+  <line x1="565" y1="200" x2="615" y2="200" stroke="#111827" stroke-width="3" marker-end="url(#lv)"/>
+  <text x="585" y="222" fill="#111827" font-size="20" font-style="italic" text-anchor="middle">v</text>
+
+  <!-- Legende -->
+  <text x="35" y="266" fill="#6b7280" font-size="17">✕ = <tspan font-style="italic">B</tspan> in die Zeichenebene hinein; außerhalb des blauen Bereichs ist <tspan font-style="italic">B</tspan> = 0</text>
+</svg>

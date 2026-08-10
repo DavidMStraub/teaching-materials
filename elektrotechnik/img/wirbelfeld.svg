@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 25 400 385" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="wE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="vecE2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <!-- Bereich mit zunehmendem B (in die Ebene hinein) -->
+  <circle cx="230" cy="205" r="72" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+  <text x="230" y="170" fill="#2563eb" font-size="18" text-anchor="middle"><tspan font-style="italic">B</tspan> nimmt zu</text>
+  <g stroke="#2563eb" stroke-width="2.5">
+    <path d="M203,196 l14,14 M217,196 l-14,14"/>
+    <path d="M243,196 l14,14 M257,196 l-14,14"/>
+    <path d="M203,228 l14,14 M217,228 l-14,14"/>
+    <path d="M243,228 l14,14 M257,228 l-14,14"/>
+  </g>
+
+  <!-- Induziertes E-Feld: geschlossene Linien, gegen den Uhrzeigersinn -->
+  <circle cx="230" cy="205" r="112" fill="none" stroke="#b91c1c" stroke-width="3"/>
+  <circle cx="230" cy="205" r="152" fill="none" stroke="#b91c1c" stroke-width="3"/>
+
+  <line x1="342" y1="215" x2="342" y2="195" stroke="#b91c1c" stroke-width="3" marker-end="url(#wE)"/>
+  <line x1="240" y1="93" x2="220" y2="93" stroke="#b91c1c" stroke-width="3" marker-end="url(#wE)"/>
+  <line x1="118" y1="195" x2="118" y2="215" stroke="#b91c1c" stroke-width="3" marker-end="url(#wE)"/>
+  <line x1="220" y1="317" x2="240" y2="317" stroke="#b91c1c" stroke-width="3" marker-end="url(#wE)"/>
+  <line x1="382" y1="215" x2="382" y2="195" stroke="#b91c1c" stroke-width="3" marker-end="url(#wE)"/>
+  <line x1="240" y1="53" x2="220" y2="53" stroke="#b91c1c" stroke-width="3" marker-end="url(#wE)"/>
+  <line x1="78" y1="195" x2="78" y2="215" stroke="#b91c1c" stroke-width="3" marker-end="url(#wE)"/>
+  <line x1="220" y1="357" x2="240" y2="357" stroke="#b91c1c" stroke-width="3" marker-end="url(#wE)"/>
+
+  <text x="330" y="80" fill="#b91c1c" font-size="22" font-style="italic">E<tspan font-size="15" dy="5">ind</tspan></text>
+  <line x1="330" y1="52" x2="348" y2="52" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#vecE2)"/>
+
+  <text x="48" y="400" fill="#6b7280" font-size="17">geschlossene Linien – kein Potential</text>
+</svg>
