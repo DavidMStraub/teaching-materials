@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" font-family="Helvetica, Arial, sans-serif">
+<path d="M56,62 L300,62 M56,240 L300,240" stroke="#111827" stroke-width="3" fill="none"/>
+<path d="M56,62 L56,125.0 M56,177.0 L56,240" stroke="#111827" stroke-width="3" fill="none"/>
+<circle cx="56" cy="151.0" r="26" fill="#ffffff" stroke="#111827" stroke-width="3"/><path d="M42.480000000000004,151.0 q6.76,-15.547999999999998 13.52,0 q6.76,15.547999999999998 13.52,0" fill="none" stroke="#111827" stroke-width="2.6"/>
+<path d="M190,62 L190,119.0 M190,183.0 L190,240" stroke="#111827" stroke-width="3" fill="none"/>
+<rect x="175.0" y="119.0" width="30" height="64" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="216" y="158.0" fill="#111827" font-size="22" font-style="italic">R</text>
+<path d="M300,62 L300,117.0 M300,185.0 L300,240" stroke="#111827" stroke-width="3" fill="none"/>
+<path d="M300,117.0 a8.5,8.5 0 0 1 0,17.0 a8.5,8.5 0 0 1 0,17.0 a8.5,8.5 0 0 1 0,17.0 a8.5,8.5 0 0 1 0,17.0" fill="none" stroke="#111827" stroke-width="3"/>
+<text x="316" y="158.0" fill="#111827" font-size="22" font-style="italic">L</text>
+<circle cx="190" cy="62" r="4.5" fill="#111827"/>
+<circle cx="190" cy="240" r="4.5" fill="#111827"/>
+<text x="50" y="46" fill="#6b7280" font-size="18"><tspan font-style="italic" text-decoration="underline">U</tspan> an beiden Zweigen gleich</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 470" font-family="Helvetica, Arial, sans-serif">
+<text x="48" y="38" fill="#6b7280" font-size="19">Serie</text>
+<path d="M56,62 L280,62 M56,196 L280,196" stroke="#111827" stroke-width="3" fill="none"/>
+<path d="M56,62 L56,103.0 M56,155.0 L56,196" stroke="#111827" stroke-width="3" fill="none"/>
+<circle cx="56" cy="129.0" r="26" fill="#ffffff" stroke="#111827" stroke-width="3"/><path d="M42.480000000000004,129.0 q6.76,-15.547999999999998 13.52,0 q6.76,15.547999999999998 13.52,0" fill="none" stroke="#111827" stroke-width="2.6"/>
+<rect x="136.0" y="47" width="64" height="30" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="168.0" y="38" fill="#111827" font-size="21" font-style="italic" text-anchor="middle">R</text>
+<path d="M280,62 L280,121.0 M280,137.0 L280,196" stroke="#111827" stroke-width="3" fill="none"/>
+<line x1="263.0" y1="123.0" x2="297.0" y2="123.0" stroke="#111827" stroke-width="4"/><line x1="263.0" y1="135.0" x2="297.0" y2="135.0" stroke="#111827" stroke-width="4"/>
+<text x="296" y="136.0" fill="#111827" font-size="21" font-style="italic">C</text>
+<text x="48" y="276" fill="#6b7280" font-size="19">parallel</text>
+<path d="M56,300 L292,300 M56,434 L292,434" stroke="#111827" stroke-width="3" fill="none"/>
+<path d="M56,300 L56,341.0 M56,393.0 L56,434" stroke="#111827" stroke-width="3" fill="none"/>
+<circle cx="56" cy="367.0" r="26" fill="#ffffff" stroke="#111827" stroke-width="3"/><path d="M42.480000000000004,367.0 q6.76,-15.547999999999998 13.52,0 q6.76,15.547999999999998 13.52,0" fill="none" stroke="#111827" stroke-width="2.6"/>
+<path d="M186,300 L186,335.0 M186,399.0 L186,434" stroke="#111827" stroke-width="3" fill="none"/>
+<rect x="171.0" y="335.0" width="30" height="64" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="212" y="374.0" fill="#111827" font-size="21" font-style="italic">R</text>
+<path d="M292,300 L292,359.0 M292,375.0 L292,434" stroke="#111827" stroke-width="3" fill="none"/>
+<line x1="275.0" y1="361.0" x2="309.0" y2="361.0" stroke="#111827" stroke-width="4"/><line x1="275.0" y1="373.0" x2="309.0" y2="373.0" stroke="#111827" stroke-width="4"/>
+<text x="308" y="374.0" fill="#111827" font-size="21" font-style="italic">C</text>
+<circle cx="186" cy="300" r="4.5" fill="#111827"/>
+<circle cx="186" cy="434" r="4.5" fill="#111827"/>
+</svg>

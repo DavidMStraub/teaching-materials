@@ -170,15 +170,21 @@ $$\underline{Y} = \frac{1}{R} - j\,\frac{1}{\omega L}$$
 **Betrag und Phase:**
 $$Z = \frac{1}{\sqrt{\frac{1}{R^2} + \frac{1}{(\omega L)^2}}}, \qquad \varphi = \arctan\frac{R}{\omega L}$$
 
+![bg right:32% 90%](img/rl-parallel.svg)
+
 ### Serienschaltung / Parallelschaltung R und C
 
-**Serie:**
-$$\underline{Z} = R - j\,\frac{1}{\omega C}, \qquad Z = \sqrt{R^2 + \left(\tfrac{1}{\omega C}\right)^2}, \qquad \varphi = -\arctan\frac{1}{\omega C R}$$
+**Serie:** $\underline{Z} = R - j\,\frac{1}{\omega C}$
 
-**Parallel:**
-$$\underline{Y} = \frac{1}{R} + j\omega C, \qquad Z = \frac{1}{\sqrt{\frac{1}{R^2} + (\omega C)^2}}, \qquad \varphi = -\arctan(\omega C R)$$
+$$Z = \sqrt{R^2 + \left(\tfrac{1}{\omega C}\right)^2}, \qquad \varphi = -\arctan\frac{1}{\omega C R}$$
+
+**Parallel:** $\underline{Y} = \frac{1}{R} + j\omega C$
+
+$$Z = \frac{1}{\sqrt{\frac{1}{R^2} + (\omega C)^2}}, \qquad \varphi = -\arctan(\omega C R)$$
 
 Vorzeichen von $\varphi$: **kapazitiv → negativ, induktiv → positiv**
+
+![bg right:30% 92%](img/rc-serie-parallel.svg)
 
 ### Übersichtstabelle Grundschaltungen
 
@@ -189,9 +195,7 @@ Vorzeichen von $\varphi$: **kapazitiv → negativ, induktiv → positiv**
 | R-C Serie | $R - j \frac{1}{\omega C}$ | $\frac{\omega C (\omega CR + j)}{1 + \omega^2 C^2 R^2}$ | $\sqrt{R^2 + \left(\frac{1}{\omega C}\right)^2}$ | $-\arctan\frac{1}{\omega CR}$ |
 | R-C Parallel | $\frac{R(1 - j\omega CR)}{1 + \omega^2 C^2 R^2}$ | $\frac{1}{R} + j\omega C$ | $\frac{1}{\sqrt{\frac{1}{R^2} + (\omega C)^2}}$ | $-\arctan\omega CR$ |
 
-### 📝 Jetzt sind Sie dran: RL-Schaltung komplett (zu zweit)
-
-**Aufgabe 19** *(Klausur-Grundmuster — mit Zeigerdiagramm!)*
+### 📝 Aufgabe 19: RL-Schaltung komplett
 
 Eine Reihenschaltung aus $R = 40 \, \Omega$ und einer Spule mit $\omega L = 30 \, \Omega$ liegt an $\underline{U} = 10 \, \text{V} \cdot e^{j0}$ (komplexer Effektivwert).
 

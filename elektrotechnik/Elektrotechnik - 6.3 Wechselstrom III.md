@@ -42,6 +42,9 @@ $$p(t) = \underbrace{U I \cos\varphi}_{P} \cdot [1 + \cos(2\omega t)] + \underbr
 
 - Die Leistung oszilliert mit **doppelter Frequenz**
 - Ein **konstanter** Anteil (wird verbraucht) + ein **pendelnder** Anteil (Mittelwert 0)
+- $p(t) < 0$ in Teilen der Periode: Energie fließt kurzzeitig **zurück** zur Quelle
+
+![bg right:34% 92%](img/momentanleistung.svg)
 
 ### Wirk-, Blind- und Scheinleistung
 
@@ -116,7 +119,7 @@ $$\lambda = \cos\varphi = \frac{P}{S}$$
 | Transformator | ≈ 0,8–0,9 | Streuinduktivität |
 | Modernes Netzteil (PFC) | > 0,95 | mit Kompensation |
 
-Energieversorger fordern $\cos\varphi > 0{,}9$; bei $\cos\varphi = 0{,}7$ statt $0{,}95$ fließt **26 % mehr Strom** für dieselbe Wirkleistung.
+Energieversorger fordern $\cos\varphi > 0{,}9$: wegen $I = \frac{P}{U \cos\varphi}$ fließt bei $\cos\varphi = 0{,}7$ statt $0{,}95$ für dieselbe Wirkleistung **36 % mehr Strom** ($\tfrac{0{,}95}{0{,}7} = 1{,}36$).
 
 ### Blindleistungskompensation
 
@@ -142,9 +145,7 @@ Betrieb: $P = 100 \, \text{kW}$, $\cos\varphi_1 = 0{,}8$ ($\varphi_1 \approx 37�
 
 - Strom: **−20 %**, Leitungsverluste ($\propto I^2$): **−36 %**, keine Strafzahlungen
 
-### 📝 Jetzt sind Sie dran: Leuchtstoffröhre (zu zweit)
-
-**Aufgabe 20**
+### 📝 Aufgabe 20: Leuchtstoffröhre
 
 Eine Leuchtstoffröhre mit Vorschaltdrossel (= Reihenschaltung aus $R$ und $L$; $P = 40 \, \text{W}$, $I = 0{,}4 \, \text{A}$) liegt am Netz ($U = 230 \, \text{V}$, $f = 50 \, \text{Hz}$).
 
@@ -169,7 +170,7 @@ Bei $\omega_0$:
 - $\underline{Z} = R$ — **rein reell**, minimal → Strom maximal
 - Der Zweipol nimmt **nur Wirkleistung** auf ($Q = 0$)
 
-**Klausur-Formulierung:** „Bei welcher Frequenz nimmt die Schaltung nur Wirkleistung auf? Wie nennt man diesen Arbeitspunkt?" → **Resonanz!**
+![bg right:36% 92%](img/resonanz-serie.svg)
 
 ### Resonanz: Der Parallelschwingkreis
 
@@ -184,6 +185,8 @@ Bei $\omega_0 = \frac{1}{\sqrt{LC}}$:
 
 Serienresonanz: $Z$ **minimal** • Parallelresonanz: $Z$ **maximal** — beide: $\underline{Z}$ reell, $Q = 0$
 
+![bg right:36% 92%](img/resonanz-parallel.svg)
+
 ### Impedanzcharakteristik
 
 Wie „verhält sich" ein Zweipol bei gegebener Frequenz?
@@ -197,11 +200,11 @@ Beispiel Serienschwingkreis:
 - $\omega < \omega_0$: $\frac{1}{\omega C} > \omega L$ → **kapazitiv**
 - $\omega > \omega_0$: → **induktiv**
 
-**Klausur-Frage:** „Welche Impedanzcharakteristik weist der Zweipol auf (Begründung)?" → Vorzeichen von $\text{Im}\,\underline{Z}$ oder $\text{Im}\,\underline{S}$ angeben!
+Zur Begründung genügt immer das **Vorzeichen** von $\text{Im}\,\underline{Z}$ (oder $\text{Im}\,\underline{S}$).
 
 ### Frequenzverhalten: Die Grenzfälle ω → 0 und ω → ∞
 
-Mächtige Kontrolltechnik (und Klausur-Standardfrage!): ersetze die Blindelemente durch ihre Grenzfälle —
+Mächtige Kontrolltechnik: ersetze die Blindelemente durch ihre Grenzfälle —
 
 | | $\omega \to 0$ (Gleichstrom) | $\omega \to \infty$ |
 |---|---|---|
@@ -212,9 +215,7 @@ Mächtige Kontrolltechnik (und Klausur-Standardfrage!): ersetze die Blindelement
 
 So erklärt man die **Filterwirkung** einer Schaltung: Was passiert mit dem Ausgangssignal bei tiefen/hohen Frequenzen? (Tiefpass, Hochpass, ...)
 
-### 📝 Jetzt sind Sie dran: Resonanz & Grenzfälle (zu zweit)
-
-**Aufgabe 21**
+### 📝 Aufgabe 21: Resonanz & Grenzfälle
 
 Ein Serienschwingkreis besteht aus $R = 50 \, \Omega$, $L = 20 \, \text{mH}$, $C = 50 \, \mu\text{F}$.
 
@@ -223,7 +224,7 @@ b) Wie groß ist $\underline{Z}$ bei $\omega_0$?
 c) Welche Impedanzcharakteristik hat die Schaltung bei $\omega = \omega_0/2$? (Begründung!)
 d) Geben Sie $\underline{Z}$ für $\omega \to 0$ und $\omega \to \infty$ an. Was macht diese Schaltung mit sehr langsamen und sehr schnellen Signalen?
 
-### 📝 Klausuraufgabe: Zweipol (zu zweit)
+### 📝 Klausuraufgabe: Zweipol
 
 $\underline{U} = 8 \, \text{V} \cdot e^{j\pi/2}$ (komplexer Effektivwert); $R = 0{,}8 \, \text{k}\Omega$, $L = 16 \, \text{mH}$. Bei $\omega_g = 5 \cdot 10^4 \, \text{s}^{-1}$ nimmt die Schaltung $\underline{S} = 40(1+j) \, \text{mVA}$ auf. *($C$ ist nicht gegeben — Sie brauchen es nicht!)*
 
