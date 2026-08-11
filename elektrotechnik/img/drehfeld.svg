@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 624 296" font-family="Helvetica, Arial, sans-serif">
+<defs>
+<marker id="dfB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.6" markerHeight="4.6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker>
+<marker id="dfI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#111827"/></marker>
+<marker id="dfC0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+<marker id="dfC1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b45309"/></marker>
+<marker id="dfC2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#047857"/></marker>
+</defs>
+<text x="104.0" y="34" fill="#6b7280" font-size="18" text-anchor="middle">ω<tspan font-style="italic">t</tspan> = 0°</text>
+<line x1="30.0" y1="132.0" x2="178.0" y2="132.0" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="141.0" y1="196.1" x2="67.0" y2="67.9" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="141.0" y1="67.9" x2="67.0" y2="196.1" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="104.0" y1="132" x2="156.0" y2="132.0" stroke="#2563eb" stroke-width="2.6" marker-end="url(#dfC0)"/>
+<line x1="104.0" y1="132" x2="117.0" y2="154.5" stroke="#b45309" stroke-width="2.6" marker-end="url(#dfC1)"/>
+<line x1="104.0" y1="132" x2="117.0" y2="109.5" stroke="#047857" stroke-width="2.6" marker-end="url(#dfC2)"/>
+<line x1="104.0" y1="132" x2="182.0" y2="132.0" stroke="#b91c1c" stroke-width="4" marker-end="url(#dfB)"/>
+<text x="203.8" y="139.0" fill="#b91c1c" font-size="19" font-style="italic" text-anchor="middle">B</text>
+<circle cx="104.0" cy="132" r="4" fill="#111827"/>
+<text x="312.0" y="34" fill="#6b7280" font-size="18" text-anchor="middle">ω<tspan font-style="italic">t</tspan> = 60°</text>
+<line x1="238.0" y1="132.0" x2="386.0" y2="132.0" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="349.0" y1="196.1" x2="275.0" y2="67.9" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="349.0" y1="67.9" x2="275.0" y2="196.1" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="312.0" y1="132" x2="338.0" y2="132.0" stroke="#2563eb" stroke-width="2.6" marker-end="url(#dfC0)"/>
+<line x1="312.0" y1="132" x2="299.0" y2="109.5" stroke="#b45309" stroke-width="2.6" marker-end="url(#dfC1)"/>
+<line x1="312.0" y1="132" x2="338.0" y2="87.0" stroke="#047857" stroke-width="2.6" marker-end="url(#dfC2)"/>
+<line x1="312.0" y1="132" x2="351.0" y2="64.5" stroke="#b91c1c" stroke-width="4" marker-end="url(#dfB)"/>
+<text x="361.9" y="52.5" fill="#b91c1c" font-size="19" font-style="italic" text-anchor="middle">B</text>
+<circle cx="312.0" cy="132" r="4" fill="#111827"/>
+<text x="520.0" y="34" fill="#6b7280" font-size="18" text-anchor="middle">ω<tspan font-style="italic">t</tspan> = 120°</text>
+<line x1="446.0" y1="132.0" x2="594.0" y2="132.0" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="557.0" y1="196.1" x2="483.0" y2="67.9" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="557.0" y1="67.9" x2="483.0" y2="196.1" stroke="#d1d5db" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line x1="520.0" y1="132" x2="494.0" y2="132.0" stroke="#2563eb" stroke-width="2.6" marker-end="url(#dfC0)"/>
+<line x1="520.0" y1="132" x2="494.0" y2="87.0" stroke="#b45309" stroke-width="2.6" marker-end="url(#dfC1)"/>
+<line x1="520.0" y1="132" x2="533.0" y2="109.5" stroke="#047857" stroke-width="2.6" marker-end="url(#dfC2)"/>
+<line x1="520.0" y1="132" x2="481.0" y2="64.5" stroke="#b91c1c" stroke-width="4" marker-end="url(#dfB)"/>
+<text x="470.1" y="52.5" fill="#b91c1c" font-size="19" font-style="italic" text-anchor="middle">B</text>
+<circle cx="520.0" cy="132" r="4" fill="#111827"/>
+<line x1="22" y1="242" x2="48" y2="242" stroke="#2563eb" stroke-width="2.6"/>
+<text x="54" y="248" fill="#2563eb" font-size="17">L1</text>
+<line x1="118" y1="242" x2="144" y2="242" stroke="#b45309" stroke-width="2.6"/>
+<text x="150" y="248" fill="#b45309" font-size="17">L2</text>
+<line x1="214" y1="242" x2="240" y2="242" stroke="#047857" stroke-width="2.6"/>
+<text x="246" y="248" fill="#047857" font-size="17">L3</text>
+<line x1="310" y1="242" x2="336" y2="242" stroke="#b91c1c" stroke-width="4"/>
+<text x="342" y="248" fill="#b91c1c" font-size="17">Summe <tspan font-style="italic">B</tspan></text>
+<text x="22" y="278" fill="#6b7280" font-size="17">Der Betrag der Summe bleibt konstant, ihre Richtung dreht sich mit ω</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 492" font-family="Helvetica, Arial, sans-serif">
+<text x="34" y="30" fill="#6b7280" font-size="19">Kondensatoren in Stern</text>
+<line x1="70" y1="88" x2="70" y2="123.0" stroke="#111827" stroke-width="3" fill="none"/>
+<line x1="55.0" y1="133.5" x2="85.0" y2="133.5" stroke="#111827" stroke-width="4"/><line x1="55.0" y1="144.5" x2="85.0" y2="144.5" stroke="#111827" stroke-width="4"/>
+<line x1="70" y1="155.0" x2="70" y2="190" stroke="#111827" stroke-width="3" fill="none"/>
+<circle cx="70" cy="88" r="5" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="70" y="72" fill="#111827" font-size="17" font-weight="bold" text-anchor="middle">L1</text>
+<line x1="170" y1="88" x2="170" y2="123.0" stroke="#111827" stroke-width="3" fill="none"/>
+<line x1="155.0" y1="133.5" x2="185.0" y2="133.5" stroke="#111827" stroke-width="4"/><line x1="155.0" y1="144.5" x2="185.0" y2="144.5" stroke="#111827" stroke-width="4"/>
+<line x1="170" y1="155.0" x2="170" y2="190" stroke="#111827" stroke-width="3" fill="none"/>
+<circle cx="170" cy="88" r="5" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="170" y="72" fill="#111827" font-size="17" font-weight="bold" text-anchor="middle">L2</text>
+<line x1="270" y1="88" x2="270" y2="123.0" stroke="#111827" stroke-width="3" fill="none"/>
+<line x1="255.0" y1="133.5" x2="285.0" y2="133.5" stroke="#111827" stroke-width="4"/><line x1="255.0" y1="144.5" x2="285.0" y2="144.5" stroke="#111827" stroke-width="4"/>
+<line x1="270" y1="155.0" x2="270" y2="190" stroke="#111827" stroke-width="3" fill="none"/>
+<circle cx="270" cy="88" r="5" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="270" y="72" fill="#111827" font-size="17" font-weight="bold" text-anchor="middle">L3</text>
+<line x1="70" y1="190" x2="270" y2="190" stroke="#111827" stroke-width="3" fill="none"/>
+<circle cx="170" cy="190" r="5" fill="#111827"/>
+<text x="298" y="145.0" fill="#111827" font-size="19" font-style="italic">C<tspan font-size="13" dy="5">Y</tspan></text>
+<text x="170" y="216" fill="#111827" font-size="17" text-anchor="middle">an <tspan font-style="italic">U</tspan><tspan font-size="12" dy="4">Y</tspan></text>
+<text x="34" y="250" fill="#6b7280" font-size="19">Kondensatoren in Dreieck</text>
+<line x1="170.0" y1="296.0" x2="125.3" y2="355.6" stroke="#111827" stroke-width="3" fill="none"/><line x1="118.7" y1="364.4" x2="74.0" y2="424.0" stroke="#111827" stroke-width="3" fill="none"/><line x1="137.3" y1="364.6" x2="113.3" y2="346.6" stroke="#111827" stroke-width="4"/><line x1="130.7" y1="373.4" x2="106.7" y2="355.4" stroke="#111827" stroke-width="4"/>
+<line x1="170.0" y1="296.0" x2="214.7" y2="355.6" stroke="#111827" stroke-width="3" fill="none"/><line x1="221.3" y1="364.4" x2="266.0" y2="424.0" stroke="#111827" stroke-width="3" fill="none"/><line x1="226.7" y1="346.6" x2="202.7" y2="364.6" stroke="#111827" stroke-width="4"/><line x1="233.3" y1="355.4" x2="209.3" y2="373.4" stroke="#111827" stroke-width="4"/>
+<line x1="74.0" y1="424.0" x2="164.5" y2="424.0" stroke="#111827" stroke-width="3" fill="none"/><line x1="175.5" y1="424.0" x2="266.0" y2="424.0" stroke="#111827" stroke-width="3" fill="none"/><line x1="164.5" y1="409.0" x2="164.5" y2="439.0" stroke="#111827" stroke-width="4"/><line x1="175.5" y1="409.0" x2="175.5" y2="439.0" stroke="#111827" stroke-width="4"/>
+<circle cx="170" cy="296" r="5" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="170" y="282" fill="#111827" font-size="17" font-weight="bold" text-anchor="middle">L1</text>
+<circle cx="74" cy="424" r="5" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="68" y="448" fill="#111827" font-size="17" font-weight="bold" text-anchor="middle">L2</text>
+<circle cx="266" cy="424" r="5" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+<text x="272" y="448" fill="#111827" font-size="17" font-weight="bold" text-anchor="middle">L3</text>
+<text x="260.0" y="360.0" fill="#111827" font-size="19" font-style="italic">C<tspan font-size="13" dy="5">Δ</tspan></text>
+<text x="170.0" y="464" fill="#111827" font-size="17" text-anchor="middle" xml:space="preserve">an <tspan font-style="italic">U</tspan><tspan font-size="12" dy="4">Δ</tspan><tspan dy="-4"> → nur </tspan><tspan font-style="italic">C</tspan><tspan font-size="12" dy="4">Y</tspan><tspan dy="-4">/3</tspan></text>
+</svg>

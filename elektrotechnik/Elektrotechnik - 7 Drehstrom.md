@@ -29,11 +29,17 @@ Fast die gesamte elektrische Energieversorgung arbeitet mit **drei** um 120° ve
 
 ![bg right:40% 95%](https://upload.wikimedia.org/wikipedia/commons/3/3f/Dreiphasenwechselstrom.svg)
 
+### Das Drehfeld
+
+Drei räumlich um $120°$ versetzte Spulen, gespeist mit den drei zeitversetzten Strömen: jede erzeugt ein Feld **entlang ihrer eigenen Achse**. Die Summe hat **konstanten Betrag** und dreht sich mit $\omega$ — ein Rotor folgt ihr: **Motor ohne Schleifringe oder Kommutator**.
+
+![w:800](img/drehfeld.svg)
+
 ### Das symmetrische Dreiphasensystem
 
-Drei Spannungsquellen mit gleicher Amplitude und Frequenz, jeweils um $120°$ ($\frac{2\pi}{3}$) verschoben — als Effektivwertzeiger:
+Drei Spannungsquellen mit gleicher Amplitude und Frequenz, jeweils um $120°$ ($\frac{2\pi}{3}$) verschoben — als Effektivwertzeiger (Länge $U_Y$, die **Sternspannung**):
 
-$$\underline{U}_1 = U_Y \cdot e^{j0°}, \qquad \underline{U}_2 = U_Y \cdot e^{-j120°}, \qquad \underline{U}_3 = U_Y \cdot e^{-j240°}$$
+$$\underline{U}_1 = U_Y \cdot e^{j0°}, \qquad \underline{U}_2 = U_Y \cdot e^{-j120°}, \qquad \underline{U}_3 = U_Y \cdot e^{+j120°}$$
 
 **Wichtige Eigenschaft** (Zeiger addieren!):
 
@@ -126,11 +132,11 @@ $$p(t) = p_1(t) + p_2(t) + p_3(t) = 3 \cdot U_\text{Str} I_\text{Str} \cos\varph
 
 Das ist neben der Leitermaterial-Ersparnis *der* technische Grund für Drehstrom.
 
-### 📝 Jetzt sind Sie dran: Heizofen (zu zweit)
+![bg right:40% 95%](img/drehstrom-leistung.svg)
 
-**Aufgabe 22**
+### 📝 Aufgabe 22: Heizofen
 
-Die Heizstäbe eines Heizofens ($R = 1\,\Omega$ pro Strang) liegen in **Dreieckschaltung** an einem Drehstromnetz mit $U = 400/230\,\text{V}$.
+Die Heizstäbe eines Industrie-Heizofens ($R = 20\,\Omega$ pro Strang) liegen in **Dreieckschaltung** an einem Drehstromnetz mit $U = 400/230\,\text{V}$.
 
 a) Wie groß sind die Strangströme $I_\text{Str}$ und die Außenleiterströme $I$?
 
@@ -152,17 +158,7 @@ $$C_\Delta = \frac{Q_C}{3 \cdot U_\Delta^2 \cdot \omega} = \frac{C_Y}{3}$$
 
 → In Dreieckschaltung genügt **ein Drittel der Kapazität** (aber: Kondensatoren müssen für $400\,\text{V}$ ausgelegt sein)
 
-### 📝 Jetzt sind Sie dran: Kompensation (zu zweit)
-
-**Aufgabe 23**
-
-An einem Drehstromnetz ($U = 400/230\,\text{V}$, $f = 50\,\text{Hz}$) mit einem Wirkleistungsverbrauch $P_1 = 1\,\text{MW}$ bei $\cos\varphi_1 = 0{,}75$ (induktiv) soll ein weiterer Verbraucher mit $P_2 = 500\,\text{kW}$ und $\cos\varphi_2 = 0{,}5$ (induktiv) installiert werden. Kondensatoren sollen den $\cos\varphi$ des Gesamtnetzes auf $0{,}9$ verbessern.
-
-a) Berechnen Sie Blind- und Scheinleistung beider Verbraucher.
-
-b) Welche kapazitive Blindleistung $Q_K$ müssen die Kondensatoren aufnehmen?
-
-c) Berechnen Sie die Kondensatorwerte für Dreieckschaltung ($C_\Delta$) und Sternschaltung ($C_Y$).
+![bg right:30% 92%](img/drehstrom-kompensation.svg)
 
 ### Zusammenfassung: Drehstrom
 
