@@ -4,28 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ page_title }}</title>
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <style>
+/* Colours and type mirror davidstraub.de (assets/styles/custom.css there). */
 :root {
-  --bg: #ffffff;
-  --fg: #1f2328;
+  --bg: white;
+  --fg: #1f2937;
   --fg-muted: #6a737d;
-  --border: #e4e7eb;
-  --hover: #f6f8fa;
-  --accent: #0055bb;
+  --border: #e9ecef;
+  --hover: #f8f9fa;
+  --accent: #1560bd;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #16181c;
-    --fg: #e6e8eb;
-    --fg-muted: #8b949e;
-    --border: #2d323a;
-    --hover: #1e2127;
+    --bg: #343a40;
+    --fg: #e9ecef;
+    --fg-muted: #999d9f;
+    --border: #5c6165;
+    --hover: #494e54;
     --accent: #84b2ff;
   }
 }
 * { box-sizing: border-box; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  font-size: 17.5px;
   background: var(--bg);
   color: var(--fg);
   line-height: 1.6;
@@ -33,12 +38,15 @@ body {
   margin: 0 auto;
   padding: 3rem 1.5rem;
 }
-.back {
+@supports (font-variation-settings: normal) {
+  body { font-family: InterVariable, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+}
+.back, .back a {
   font-size: 0.85rem;
   color: var(--fg-muted);
   text-decoration: none;
 }
-.back:hover { color: var(--accent); }
+.back a:hover, a.back:hover { color: var(--accent); }
 header { margin: 0.6rem 0 2rem; }
 h1 {
   font-size: 1.7rem;
