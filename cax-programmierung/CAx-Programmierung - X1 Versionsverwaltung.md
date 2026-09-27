@@ -136,7 +136,7 @@ git commit -m "Zellstapel parametrisch gemacht"
 git commit -m "Kollisionstest für Nachbarzellen ergänzt"
 ```
 
-**Faustregel:** „Wenn angewendet, wird dieser Commit *[Nachricht]*" muss einen sinnvollen Satz ergeben. (Viele Teams schreiben Commit-Nachrichten auf Englisch – im Kurs genügt Deutsch.)
+**Faustregel:** „Wenn angewendet, wird dieser Commit *[Nachricht]*“ muss einen sinnvollen Satz ergeben. (Viele Teams schreiben Commit-Nachrichten auf Englisch – im Kurs genügt Deutsch.)
 
 ![w:950](assets/git_history.png)
 

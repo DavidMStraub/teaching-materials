@@ -34,7 +34,7 @@ Sie lernen, parametrische Modelle **mithilfe geeigneter Programmiersprachen** od
 
 Zudem entwickeln sie Kompetenzen im Zusammenspiel von skriptbasierter Geometrieerzeugung und grafischen CAD-Umgebungen.
 
-*Modulhandbuch SoSe 2026, TBM 2.2*
+*Modulhandbuch WS 2026/27, TBM 2.2*
 
 ### Kurz gesagt
 
@@ -69,7 +69,7 @@ Am Ende des Semesters: ein eigenes **Batteriemodul**, das Sie über Monate param
 ![bg right:42% 92%](assets/pouch_module_teaser.png)
 
 - Sie bauen ein **Batteriemodul aus Pouch-Zellen** – dasselbe Teil wächst das ganze Semester
-- Jede Einheit endet mit einer **Referenzlösung**; die nächste startet darauf auf sauberem Stand
+- Jede Einheit endet mit einer **Referenzlösung**; die nächste setzt auf diesem sauberen Stand auf
 - **Unbenotet** – gepushter Code heißt: ich schaue drauf und helfe gezielt
 - Zugang zu Ihrem Projekt-Repository: <!-- TODO: Ablauf hier ergänzen, sobald Infrastruktur final -->
 
@@ -80,7 +80,7 @@ Am Ende des Semesters: ein eigenes **Batteriemodul**, das Sie über Monate param
 - **Nachschlagewerk** für alle Kursthemen – mehr Tiefe, als die Sitzungen leisten
 - Buch auf **Englisch**, Kurs und Klausur auf **Deutsch** – die deutsche Fachterminologie kommt aus den Folien
 - Sauberen Python-Code und Ihr eigenes Projekt vertiefen wir im Kurs
-- **Leseauftrag:** jede Sitzung endet mit einem Buchkapitel zur Vorbereitung – heute Kapitel 1
+- **Leseauftrag:** jede Sitzung endet mit einem Buchkapitel zur Vorbereitung – heute Kapitel 1–2
 
 *CAD as Code* · D. M. Straub, HM · [doi.org/10.60948/OPUS-1358](https://doi.org/10.60948/OPUS-1358)
 
@@ -103,7 +103,7 @@ In CAD-Programmen lebt das im Feature-Baum und in der Bemaßung. Bei uns wird da
 - jede Variante eine eigene Datei
 
 **Mit Code:**
-- **Versionsverwaltung** – jede Änderung nachvollziehbar, Teamarbeit über Branches
+- **Versionsverwaltung** – jede Änderung nachvollziehbar, Varianten über Branches
 - **Automatisierung** – Wiederholaufgaben einmal programmiert, reproduzierbar
 - **Optimierung** – den Rechner die beste Variante finden lassen
 
@@ -166,6 +166,7 @@ CadQuery verbindet beide Stränge: **code-first** wie OpenSCAD, auf dem **exakte
 9. Robustheit
 10. Simulation
 11. Optimierung
+12. Parameterstudie & Klausurvorbereitung
 
 # Pause
 
@@ -193,14 +194,6 @@ cax-env\Scripts\activate        # Windows
 source cax-env/bin/activate     # macOS/Linux
 ```
 
-### Pakete installieren
-
-```bash
-python -m pip install cadquery==2.8.0 ocp-vscode
-```
-
-Die Version pinnen wir (`==2.8.0`), damit bei allen dasselbe Verhalten herauskommt.
-
 ### OCP CAD Viewer in VS Code
 
 - VS Code öffnen, Erweiterungen installieren:
@@ -208,16 +201,14 @@ Die Version pinnen wir (`==2.8.0`), damit bei allen dasselbe Verhalten herauskom
   - [OCP CAD Viewer](https://marketplace.visualstudio.com/items?itemName=bernhard-42.ocp-cad-viewer)
 - Interpreter wählen: `cax-env\Scripts\python.exe` (Windows) bzw. `cax-env/bin/python` (macOS/Linux)
 
-### Test
+### Git und GitLab
 
-```python
-from cadquery import func as cf
-import ocp_vscode
-
-ocp_vscode.show(cf.box(30, 20, 10))
-```
-
-Erscheint ein Quader im Viewer-Panel: Setup erfolgreich.
+<!-- TODO: prüfen, ob Git auf den KCA-Rechnern installiert ist -->
+- Git installieren:
+  - Windows: [Git for Windows](https://git-scm.com/download/win)
+  - macOS: `xcode-select --install`
+  - Debian/Ubuntu: `sudo apt install git`
+- **Einmal bei [gitlab.lrz.de](https://gitlab.lrz.de) einloggen** – erst danach kann ich Ihr Projekt-Repository anlegen
 
 ## Versionsverwaltung mit Git
 
@@ -254,6 +245,15 @@ Es ist die erste der Software-Engineering-Methoden dieses Kurses – der Standar
 
 **Push** = Ihre Commits auf den Server hochladen – erst danach sehe ich sie
 
+### Git konfigurieren
+
+Einmalig – Name und E-Mail stehen in jedem Commit:
+
+```bash
+git config --global user.name "Vorname Nachname"
+git config --global user.email "email@hm.edu"
+```
+
 ### Ihr Repository holen
 
 <!-- TODO: konkreten Zugangsweg zum eigenen Repo ergänzen (Link/Einladung) -->
@@ -263,6 +263,27 @@ cd <repo>
 ```
 
 Einmalig, jetzt gleich – danach arbeiten Sie nur noch lokal in diesem Ordner.
+
+### Pakete installieren
+
+Im Repository-Ordner, bei aktivierter virtueller Umgebung:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+`requirements.txt` legt die Versionen fest (z. B. `cadquery==2.8.0`) – so verhält sich der Code bei allen gleich.
+
+### Test
+
+```python
+from cadquery import func as cf
+import ocp_vscode
+
+ocp_vscode.show(cf.box(30, 20, 10))
+```
+
+Erscheint ein Quader im Viewer-Panel: Setup erfolgreich.
 
 ### Grundbefehle
 
@@ -318,11 +339,7 @@ grundplatte = grundplatte - loch
 
 Ergänzen Sie die Grundplatte um vier Bohrungen (d = 5 mm) in den Ecken, mit Abstand zum Rand – auf ihr steht später der Zellstapel.
 
-```python
-grundplatte.exportStep("w01/grundplatte.step")
-```
-
-Committen und pushen Sie `w01/` – das ist Ihr erster Beitrag zum Semesterprojekt.
+Committen und pushen Sie Ihr Skript in `w01/` – das ist Ihr erster Beitrag zum Semesterprojekt.
 
 ## Abschluss
 
