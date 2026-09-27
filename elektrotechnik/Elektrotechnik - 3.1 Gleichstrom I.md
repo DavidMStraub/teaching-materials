@@ -193,7 +193,7 @@ In einem Knotenpunkt kann weder Ladung gespeichert noch erzeugt werden. Die Summ
 
 $$\sum_{k} I_{k} = 0$$
 
-![bg right:22% 70%](https://upload.wikimedia.org/wikipedia/commons/5/51/Stromknoten.svg)
+![bg right:30% 80%](img/kirchhoff-knoten.svg)
 
 ### Maschenregel (2. Kirchhoff’sches Gesetz)
 
@@ -201,7 +201,7 @@ Die Summe aller in einer Masche auftretenden Spannungen ist Null:
 
 $$\sum_{k} U_{k} = 0$$
 
-![bg right:42% 70%](https://upload.wikimedia.org/wikipedia/commons/4/41/Masche_und_Knoten.svg)
+![bg right:42% 90%](img/kirchhoff-masche.svg)
 
 ### Wie viele unabhängige Gleichungen gibt es?
 
@@ -219,9 +219,10 @@ Beispiel: 2 Knoten, 3 Zweige → 1 Knotengleichung + 2 Maschengleichungen
 
 $$R_\text{ges} = R_1 + R_2 + \dots + R_n = \sum_{i=1}^{n} R_i$$
 
-- Gleicher Strom durch alle Widerstände: $I = I_1 = I_2 = \dots = I_n$
-- Gesamtspannung = Summe der Einzelspannungen
-- Gesamtwiderstand > größter Einzelwiderstand
+- Kein Abzweig dazwischen → **gleicher Strom** durch alle (Knotenregel): $I = I_1 = \dots = I_n$
+- **Maschenregel:** $U = U_1 + \dots + U_n$
+- Mit $U_i = I R_i$: $\;U = I \cdot (R_1 + \dots + R_n)$
+- Folge: $R_\text{ges}$ ist **größer** als der größte Einzelwiderstand
 
 ![bg right:30% 70%](https://upload.wikimedia.org/wikipedia/commons/2/27/Reihenschaltung_Widerst%C3%A4nde.svg)
 
@@ -237,11 +238,10 @@ $$I = \frac{U}{R_\text{ges}} = \frac{U_1}{R_1} = \frac{U_2}{R_2}$$
 
 $$\frac{1}{R_\text{ges}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n} \qquad\Leftrightarrow\qquad G_\text{ges} = \sum_{i=1}^{n} G_i$$
 
-- Gesamtstrom = Summe der Einzelströme (Knotenregel!)
-- Gleiche Spannung an allen Widerständen
-- Gesamtwiderstand < kleinster Einzelwiderstand
-
-Herleitung: $I_\text{ges} = \frac{U}{R_1} + \dots + \frac{U}{R_n} \stackrel{!}{=} \frac{U}{R_\text{ges}}$
+- Dieselben zwei Knoten → **gleiche Spannung** an allen (Maschenregel)
+- **Knotenregel:** $I = I_1 + \dots + I_n$
+- Mit $I_i = U/R_i$: $\;I = U \cdot \left(\frac{1}{R_1} + \dots + \frac{1}{R_n}\right)$
+- Folge: $R_\text{ges}$ ist **kleiner** als der kleinste Einzelwiderstand
 
 ![bg right:25% 90%](https://upload.wikimedia.org/wikipedia/commons/a/ab/Parallelschaltung_Widerst%C3%A4nde.svg)
 
@@ -255,19 +255,54 @@ $$\frac{I}{G_\text{ges}} = \frac{I_1}{G_1} = \frac{I_2}{G_2} = \dots = \frac{I_n
 
 ### Reihe oder parallel? So erkennt man es *wirklich*
 
-- **In Reihe** ⇔ beide führen zwingend **denselben Strom**
-  ⇔ zwischen ihnen liegt **kein Knoten mit Abzweig**
-- **Parallel** ⇔ beide hängen an **denselben zwei Knoten**
-  ⇔ an beiden liegt zwingend **dieselbe Spannung**
+- **In Reihe** ⇔ zwischen ihnen **kein Knoten mit Abzweig** ⇔ zwingend **derselbe Strom**
+- **Parallel** ⇔ beide an **denselben zwei Knoten** ⇔ zwingend **dieselbe Spannung**
 
-⚠️ Wie die Schaltung *gezeichnet* ist, bedeutet **gar nichts**!
+![w:800](img/reihe-parallel.svg)
 
-**Methode:** Knoten markieren (einfärben/nummerieren) → alle Punkte, die nur durch Draht verbunden sind, sind *derselbe* Knoten → dann neu zeichnen.
+⚠️ Wie die Schaltung *gezeichnet* ist, bedeutet **gar nichts** – entscheidend sind die Knoten.
 
-### 🤔 Reihe, parallel – oder keins von beidem?
+### Methode: Knoten markieren
 
-![w:410](img/rp-a.svg) ![w:410](img/rp-b.svg)
-![w:410](img/rp-c.svg) ![w:430](img/rp-d.svg)
+1. Alle Punkte, die nur durch Draht verbunden sind, bilden **einen** Knoten → gleich einfärben
+2. Schaltung mit diesen Knoten **neu zeichnen**
+3. Kriterium von der vorigen Folie anwenden
+
+### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-a.svg)
+
+**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+
+### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-b.svg)
+
+**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+
+### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-c.svg)
+
+**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+
+### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-d.svg)
+
+**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+
+### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-e.svg)
+
+**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+
+### Knoten markieren am Beispiel d)
+
+![w:900](img/rp-loesung.svg)
+
+Nach dem Neuzeichnen ist es eindeutig: $R_2 \parallel R_3$ zwischen B und C, $R_1$ davor in Reihe.
 
 ### 📝 Aufgabe 7: Spannungsteiler
 
