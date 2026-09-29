@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 560" font-family="Inter, 'DejaVu Sans', Helvetica, Arial, sans-serif">
+  <defs>
+    <radialGradient id="huelle">
+      <stop offset="0" stop-color="#3b82f6" stop-opacity="0.55"/>
+      <stop offset="0.7" stop-color="#3b82f6" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+
+  <!-- Atomhülle (Elektronen) -->
+  <circle cx="220" cy="190" r="170" fill="url(#huelle)"/>
+  <text x="220" y="70" fill="#1d4ed8" font-size="28" text-anchor="middle">Hülle: Elektronen</text>
+
+  <!-- Atomkern, stark vergrößert -->
+  <g>
+    <circle cx="212" cy="184" r="9" fill="#ef4444"/>
+    <circle cx="228" cy="184" r="9" fill="#9ca3af"/>
+    <circle cx="220" cy="198" r="9" fill="#9ca3af"/>
+    <circle cx="220" cy="172" r="9" fill="#ef4444"/>
+  </g>
+  <line x1="238" y1="190" x2="300" y2="236" stroke="#374151" stroke-width="1.5"/>
+  <text x="304" y="252" fill="#374151" font-size="26">Kern</text>
+
+  <!-- Maßlinie Atomdurchmesser -->
+  <line x1="50" y1="385" x2="390" y2="385" stroke="#374151" stroke-width="2" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <text x="220" y="425" fill="#374151" font-size="28" text-anchor="middle">Atom: d ≈ 10⁻¹⁰ m</text>
+  <text x="220" y="465" fill="#374151" font-size="28" text-anchor="middle">Kern: d ≈ 10⁻¹⁴ m</text>
+  <text x="220" y="520" fill="#6b7280" font-size="22" font-style="italic" text-anchor="middle">Kern nicht maßstäblich</text>
+  <text x="220" y="550" fill="#6b7280" font-size="22" font-style="italic" text-anchor="middle">(real: 10 000-mal kleiner)</text>
+</svg>

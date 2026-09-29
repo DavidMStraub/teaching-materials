@@ -52,7 +52,7 @@ David Straub
 - Protonen und Neutronen bilden den Atomkern
 - Elektronen bewegen sich in der Atomhülle um den Atomkern
 
-![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Atom-schematic_de.svg/1280px-Atom-schematic_de.svg.png)
+![bg 85% right:33%](img/atom.svg)
 
 ### Elementarladung
 

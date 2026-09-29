@@ -14,9 +14,9 @@ David Straub
 
 ### Organisatorisches
 
-- 🎓 Moodle-Kurs: tbd
+- 🎓 Moodle-Kurs: https://moodle.hm.edu/course/view.php?id=25470
 - 💬 Matrix-Raum: tbd
-- 🕥 Sprechstunde: tbd
+- 🕥 Sprechstunde: nach Vereinbarung per Zoom oder in Präsenz in B 374
 - 📖 Literatur
     - Pregla – [OPAC](https://link.hm.edu/2c6h)
     - Hagmann – [OPAC](https://link.hm.edu/fvqd)
@@ -28,7 +28,7 @@ David Straub
 
 ### So läuft jede Vorlesung ab
 
-- **Montagsaufgabe** (10 min): kleine Aufgabe zur Vorwoche
+- **Montagsaufgabe** (10 min, ab Woche 2): kleine Aufgabe zur Vorwoche
 - Theorie-Blöcke von max. 40 Minuten
 - Nach jedem Theorie-Block: **📝 Sie rechnen selbst** – die Aufgaben sind vom Typ der Prüfungsaufgaben
 - ☕ Pause: immer 11:30–11:45
@@ -122,6 +122,8 @@ Seit 2019 ist jede Basiseinheit über **exakt festgelegte Naturkonstanten** defi
 | $N_\mathrm{A}$ | Avogadro-Konstante                                  | 6,02214076 × 10<sup>23</sup>    | mol⁻¹   |
 | $K_\mathrm{cd}$ | Photometrisches Strahlungsäquivalent               | 683                  | lm/W    |
 
+![bg 85% right:28%](https://upload.wikimedia.org/wikipedia/commons/3/3c/SI_Illustration_Base_Units_and_Constants_Colour_Full.svg)
+
 
 ### Abgeleitete Einheiten
 
@@ -201,11 +203,17 @@ Immer noch weit verbreitet:
 
 ![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/5/57/3-Pointer_Altimeter.svg)
 
-### Mars Climate Orbiter
+### Mars Climate Orbiter (1999)
 
 Was passiert, wenn man Einheiten verwechselt:
 
-https://www.youtube.com/watch?v=MfavzjbZzl8
+- NASA-Sonde, soll am 23. September 1999 in die Mars-Umlaufbahn einschwenken
+- Bodensoftware eines Zulieferers liefert Kraftstöße in **lbf·s**, die Navigation erwartet **N·s** → Faktor 4,45
+- Sonde fliegt in ca. 57 km Höhe statt 140–150 km durch die Atmosphäre → verloren
+
+Video: https://www.youtube.com/watch?v=MfavzjbZzl8
+
+![bg 90% right:35%](https://upload.wikimedia.org/wikipedia/commons/1/19/Mars_Climate_Orbiter_2.jpg)
 
 ### Zusammenfassung: Einführung
 
