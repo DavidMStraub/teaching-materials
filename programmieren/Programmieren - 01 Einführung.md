@@ -153,17 +153,19 @@ Beim Programmieren gilt dasselbe:
 
 ### Gruppeneinteilung Praktikum
 
-14-tägig im Wechsel, Beginn **12.10.**
+14-tägig im Wechsel. **Achtung**: Oktobertermine unregelmäßig aufgrund Dienstbesprechung am 5.10. und Fakultätsklausur am 20.10. Genaue Termine in Moodle.
 
 
 | Studiengruppe | Gruppe | Tag | Uhrzeit | Raum | Start |
 |---------------|--------|-----|---------|------|-------|
-| LRB1A | 1 | TBD | TBD | TBD | TBD |
-| LRB1A | 2 | TBD | TBD | TBD | TBD |
-| LRB1A | 3 | TBD | TBD | TBD | TBD |
-| LRB1B | 1 | TBD | TBD | TBD | TBD |
-| LRB1B | 2 | TBD | TBD | TBD | TBD |
-| LRB1B | 3 | TBD | TBD | TBD | TBD |
+| LRB1A | 1 | Mo | 16:00 | B358 | 19.10. |
+| LRB1A | 2 | Do | 11:45 | B351 | 22.10. |
+| LRB1A | 3 | Mo | 16:00 | B356 | 26.10. |
+| LRB1B | 1 | Di | 11:45 | B355 | 13.10. |
+| LRB1B | 2 | Di | 13:30 | B355 | 13.10. |
+| LRB1B | 3 | Di | 11:45 | B355 | 27.10. ⚠️ |
+
+
 
 ### Matrix-Chat
 
@@ -233,4 +235,4 @@ Nächste Woche: **Erste Programme** – Variablen, Zahlen, Texte
 Fragen?
 
 - Jederzeit: im Matrix-Chat
-- Persönlich: Sprechstunde TBD, Büro B 374
+- Sprechstunde: nach Vereinbarung, online per Zoom oder in Präsenz in B 374
