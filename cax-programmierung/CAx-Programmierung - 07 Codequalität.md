@@ -342,7 +342,7 @@ assert schale.isValid()        # True – und trotzdem falsch!
 **Continuous Integration:** Auf dem GitLab-Server steht ein Rechner bereit, der nach jedem Push Ihr Projekt frisch auscheckt und die Kommandos aus der `.gitlab-ci.yml` in Ihrem Repo abarbeitet:
 
 ```yaml
-image: .../ci-image:1         # Linux mit uv
+image: .../ci-image:1         # Linux, uv, Pakete aus uv.lock vorinstalliert
 
 tests:
   script:
