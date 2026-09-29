@@ -77,12 +77,12 @@ Jeder Commit hat: Zeitstempel, Autor, Nachricht, eindeutigen Hash.
 
 **Ja:**
 - Ihr Code (`.py`)
-- Konfigurationsdateien (`.gitlab-ci.yml`, `requirements.txt`)
+- Konfigurationsdateien (`.gitlab-ci.yml`, `pyproject.toml`, `uv.lock`)
 - Dokumentation (`.md`)
 
 **Nein:**
 - Generierte Dateien – groß, aus Code rekonstruierbar (`.step`, `.stl`)
-- Virtuelle Umgebungen (`cax-env/`, `__pycache__/`)
+- Virtuelle Umgebungen (`.venv/`, `__pycache__/`)
 - IDE-Dateien (`.vscode/`)
 
 → eine `.gitignore` regelt, was Git ignoriert.

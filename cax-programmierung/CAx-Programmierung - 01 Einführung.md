@@ -70,7 +70,8 @@ Am Ende des Semesters: ein eigenes **Batteriemodul**, das Sie über Monate param
 - Sie bauen ein **Batteriemodul aus Pouch-Zellen** – dasselbe Teil wächst das ganze Semester
 - Jede Einheit endet mit einer **Referenzlösung**; die nächste setzt auf diesem sauberen Stand auf
 - **Unbenotet** – gepushter Code heißt: ich schaue drauf und helfe gezielt
-- Ihr **Projekt-Repository** auf GitLab (LRZ) lege ich heute an – nach Ihrem ersten Login
+- Ihr **Projekt-Repository** auf GitLab (LRZ) lege ich in der Pause an
+- **Jetzt gleich:** einmal bei [gitlab.lrz.de](https://gitlab.lrz.de) einloggen – damit legt GitLab Ihr Konto an
 
 ## Das Begleitbuch
 
@@ -175,41 +176,29 @@ CadQuery verbindet beide Stränge: **code-first** wie OpenSCAD, auf dem **exakte
 
 ## Umgebung einrichten
 
-### Python
+### VS Code und Git
 
-- KCA-Rechner: Download von [WinPython 3.13](https://github.com/winpython/winpython/releases), entpacken ins Benutzerverzeichnis
-- Windows: [Python Install Manager](https://www.python.org/downloads/latest/pymanager/) (nicht Installer!)
-- macOS: [Python Installer](https://www.python.org/downloads/macos/)
-- Debian/Ubuntu: `sudo apt install python3 python3-pip python3-venv`
-
-### Virtuelle Umgebung
-
-```bash
-python -m venv cax-env          # Windows
-python3 -m venv cax-env         # macOS/Linux
-```
-
-Aktivieren:
-
-```bash
-cax-env\Scripts\activate        # Windows
-source cax-env/bin/activate     # macOS/Linux
-```
-
-### OCP CAD Viewer in VS Code
-
-- VS Code öffnen, Erweiterungen installieren:
+- [VS Code](https://code.visualstudio.com/) mit zwei Erweiterungen:
   - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-  - [OCP CAD Viewer](https://marketplace.visualstudio.com/items?itemName=bernhard-42.ocp-cad-viewer)
-- Interpreter wählen: `cax-env\Scripts\python.exe` (Windows) bzw. `cax-env/bin/python` (macOS/Linux)
-
-### Git und GitLab
-
-- Git installieren:
+  - [OCP CAD Viewer](https://marketplace.visualstudio.com/items?itemName=bernhard-42.ocp-cad-viewer) – zeigt Ihre Modelle in 3D
+- Git:
   - Windows: [Git for Windows](https://git-scm.com/download/win)
   - macOS: `xcode-select --install`
   - Debian/Ubuntu: `sudo apt install git`
-- **Einmal bei [gitlab.lrz.de](https://gitlab.lrz.de) einloggen** – erst danach kann ich Ihr Projekt-Repository anlegen
+
+### uv: Python und Pakete
+
+Ein Python-Projekt braucht eine passende Python-Version und festgelegte Paketversionen. **uv** erledigt beides mit einem Werkzeug: es installiert Python, legt die Projektumgebung an und installiert die Pakete.
+
+```bash
+# Windows (PowerShell) – auch auf den KCA-Rechnern, ohne Adminrechte
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Danach ein **neues Terminal** öffnen – dann ist der Befehl `uv` bekannt.
 
 ## Versionsverwaltung mit Git
 
@@ -265,21 +254,42 @@ cd <kennung>
 ```
 
 - Anmeldung mit LRZ-Kennung und Passwort
+- Mit Zwei-Faktor-Anmeldung: statt des Passworts ein **Access Token** (GitLab → *Preferences* → *Access Tokens*, Scope `write_repository`)
 - Mit SSH-Schlüssel: Schlüssel im GitLab-Profil hinterlegen, SSH-Adresse verwenden
 
 Einmalig, jetzt gleich – danach arbeiten Sie nur noch lokal in diesem Ordner.
 
-### Pakete installieren
+## Ihr Projekt einrichten
 
-Im Repository-Ordner, bei aktivierter virtueller Umgebung:
+### Was im Repository liegt
 
-```bash
-python -m pip install -r requirements.txt
+```
+<kennung>/
+├── pyproject.toml     # Projektbeschreibung: Python-Version, Pakete
+├── uv.lock            # exakte Version jedes Pakets
+├── .gitlab-ci.yml     # automatische Prüfung (ab Einheit 7)
+└── w01/               # Ihr Code dieser Woche
 ```
 
-`requirements.txt` legt die Versionen fest (z. B. `cadquery==2.8.0`) – so verhält sich der Code bei allen gleich.
+`pyproject.toml` nennt, **was** das Projekt braucht (`cadquery`, `ocp_vscode`, `pytest`, …). `uv.lock` hält fest, **welche Version genau** – auch für jedes Paket, das diese Pakete wiederum brauchen.
+
+### Umgebung anlegen: `uv sync`
+
+Im Repository-Ordner:
+
+```bash
+uv sync
+```
+
+- lädt bei Bedarf **Python 3.13** herunter
+- legt die Projektumgebung **`.venv/`** im Repository-Ordner an
+- installiert exakt die Versionen aus `uv.lock` – bei allen gleich, auch in der CI
+
+VS Code erkennt `.venv/` als Interpreter von selbst. Git ignoriert den Ordner – uv legt dafür eine eigene `.gitignore` hinein.
 
 ### Test
+
+OCP CAD Viewer öffnen (Symbol in der linken Seitenleiste), dann `w01/setup_check.py` anlegen:
 
 ```python
 from cadquery import func as cf
@@ -288,21 +298,13 @@ import ocp_vscode
 ocp_vscode.show(cf.box(30, 20, 10))
 ```
 
-Erscheint ein Quader im Viewer-Panel: Setup erfolgreich.
-
-### Grundbefehle
-
-![w:1000](assets/git_basics.png)
+Ausführen mit ▷ oben rechts in VS Code – oder im Terminal:
 
 ```bash
-git add w01/                    # Änderungen zum nächsten Commit vormerken
-git commit -m "Modul-Grundplatte" # Snapshot mit Nachricht erstellen
-git push                        # Commits hochladen
+uv run python w01/setup_check.py
 ```
 
-- **Ihr Projekt-Repository ist ab jetzt Ihr Arbeitsstand** – jede Sitzung endet mit einem Push
-- Referenzlösungen kommen ebenfalls per Git zu Ihnen (`git pull`)
-- Mehr Tiefe (`.gitignore`, Branches, Merge Requests) im Selbststudium: **X1 Versionsverwaltung**
+Erscheint ein Quader im Viewer-Panel: Setup erfolgreich.
 
 ## Erstes Teil: die Modul-Grundplatte
 
@@ -352,7 +354,21 @@ grundplatte = grundplatte - loch
 
 Ergänzen Sie die Grundplatte um vier Bohrungen (d = 5 mm) in den Ecken, mit Abstand zum Rand – auf ihr steht später der Zellstapel.
 
-Committen und pushen Sie Ihr Skript in `w01/` – das ist Ihr erster Beitrag zum Semesterprojekt.
+Speichern Sie Ihr Skript als `w01/grundplatte.py`.
+
+### Sichern: add, commit, push
+
+![w:1000](assets/git_basics.png)
+
+```bash
+git add w01/                      # Änderungen zum nächsten Commit vormerken
+git commit -m "Modul-Grundplatte" # Snapshot mit Nachricht erstellen
+git push                          # Commits hochladen
+```
+
+- Das ist Ihr **erster Beitrag zum Semesterprojekt** – ab jetzt endet jede Sitzung mit einem Push
+- Referenzlösungen kommen ebenfalls per Git zu Ihnen (`git pull`)
+- Mehr Tiefe (`.gitignore`, Branches, Merge Requests) im Selbststudium: **X1 Versionsverwaltung**
 
 ## Abschluss
 

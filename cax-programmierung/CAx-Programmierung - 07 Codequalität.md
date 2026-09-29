@@ -126,7 +126,7 @@ Die Annotationen wertet ein **zweites Programm** aus. Es liest den Quelltext wie
 | Tool | Wann | Wie |
 |---|---|---|
 | **Pylance** | beim Tippen | Unterwellenlinie im Editor (VS Code) |
-| **mypy** | Kommandozeile / CI | `mypy w07/` |
+| **mypy** | Kommandozeile / CI | `uv run mypy w07/` |
 
 ```python
 kapazitaet = finde_zelle("Pouch-40Ah").kapazitaet
@@ -137,11 +137,10 @@ Damit fällt das vergessene `None` auf, **bevor** der Code jemals läuft.
 
 ### mypy: der Prüfer für die Kommandozeile
 
-**mypy** ist ein eigenes Python-Programm. Man installiert es einmal und ruft es auf einen Ordner auf – es liest die Dateien und gibt eine Liste aus:
+**mypy** ist ein eigenes Python-Programm – es steht seit Woche 1 in Ihrer `pyproject.toml` und ist damit schon installiert. Man ruft es auf einen Ordner auf – es liest die Dateien und gibt eine Liste aus:
 
 ```bash
-pip install mypy
-mypy w07/
+uv run mypy w07/
 ```
 
 ```
@@ -221,8 +220,7 @@ Annotieren Sie Ihre Funktionen aus den letzten Wochen vollständig – Parameter
 2. Führen Sie auf der Kommandozeile aus und **beheben Sie jede gemeldete Zeile**, bis mypy nichts mehr findet:
 
 ```bash
-pip install mypy
-mypy w07/ --ignore-missing-imports
+uv run mypy w07/ --ignore-missing-imports
 ```
 
 3. Wo Boolean ein `Shape` liefert, aber ein `Solid` gebraucht wird: mit `assert isinstance` sauber verengen.
@@ -249,11 +247,10 @@ Ist die Bedingung falsch, wirft `assert` einen `AssertionError` – genau daran 
 
 ### pytest: der Testrunner
 
-**pytest** ist ein Programm, das Ihre Tests **findet und ausführt** – man ruft es ohne Argumente im Projektordner auf:
+**pytest** ist ein Programm, das Ihre Tests **findet und ausführt** – wie mypy liegt es schon in Ihrer Projektumgebung. Man ruft es ohne Argumente im Projektordner auf:
 
 ```bash
-pip install pytest
-pytest -v
+uv run pytest -v
 ```
 
 ```
@@ -345,11 +342,12 @@ assert schale.isValid()        # True – und trotzdem falsch!
 **Continuous Integration:** Auf dem GitLab-Server steht ein Rechner bereit, der nach jedem Push Ihr Projekt frisch auscheckt und die Kommandos aus der `.gitlab-ci.yml` in Ihrem Repo abarbeitet:
 
 ```yaml
-image: .../ci-image:1         # fertige Umgebung (cadquery, pytest, mypy)
+image: .../ci-image:1         # Linux mit uv
 
 tests:
   script:
-    - pytest tests/ -q
+    - uv sync --locked        # exakt die Versionen aus uv.lock
+    - uv run pytest tests/ -q
 ```
 
 Diese Datei liegt seit Woche 1 im Repo – die Pipeline lief still mit. Ab heute ist sie Ihr Werkzeug: grünes ✓ oder rotes ✗ direkt am Commit.
@@ -361,7 +359,8 @@ Type Hints sind eingeführt – jetzt kann `mypy` in der CI mitlaufen:
 ```yaml
 typen:
   script:
-    - mypy w*/ --ignore-missing-imports
+    - uv sync --locked
+    - uv run mypy w*/ --ignore-missing-imports
   allow_failure: true         # Hinweis, kein Blocker
 ```
 
