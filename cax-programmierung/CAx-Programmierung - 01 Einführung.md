@@ -57,9 +57,8 @@ Am Ende des Semesters: ein eigenes **Batteriemodul**, das Sie über Monate param
 
 ### Rahmendaten
 
-<!-- TODO Wochentag ergänzen -->
-- Termin: 13:30–16:45 Uhr, Pause 15:00–15:15 Uhr, Raum B254
-  - SU und Ü nicht streng getrennt – fließender Wechsel je nach Thema
+- Termin: Donnerstag 13:30–16:45 Uhr, Pause 15:00–15:15 Uhr, Raum B254
+  - Ablauf: vor und nach der Pause je ein Block **Theorie → Praktikum** am eigenen Projekt
   - Raum B358 (KCA-Labor) ebenfalls verfügbar
 - Hardware: eigenes Laptop oder Laborrechner
 - Prüfung: schriftlich, 90 Minuten
@@ -71,7 +70,7 @@ Am Ende des Semesters: ein eigenes **Batteriemodul**, das Sie über Monate param
 - Sie bauen ein **Batteriemodul aus Pouch-Zellen** – dasselbe Teil wächst das ganze Semester
 - Jede Einheit endet mit einer **Referenzlösung**; die nächste setzt auf diesem sauberen Stand auf
 - **Unbenotet** – gepushter Code heißt: ich schaue drauf und helfe gezielt
-- Zugang zu Ihrem Projekt-Repository: <!-- TODO: Ablauf hier ergänzen, sobald Infrastruktur final -->
+- Ihr **Projekt-Repository** auf GitLab (LRZ) lege ich heute an – nach Ihrem ersten Login
 
 ## Das Begleitbuch
 
@@ -174,7 +173,6 @@ CadQuery verbindet beide Stränge: **code-first** wie OpenSCAD, auf dem **exakte
 
 ### Python
 
-<!-- TODO: mit Zeitplan/ANLEITUNG abgleichen, falls sich Empfehlung ändert -->
 - KCA-Rechner: Download von [WinPython 3.13](https://github.com/winpython/winpython/releases), entpacken ins Benutzerverzeichnis
 - Windows: [Python Install Manager](https://www.python.org/downloads/latest/pymanager/) (nicht Installer!)
 - macOS: [Python Installer](https://www.python.org/downloads/macos/)
@@ -203,7 +201,6 @@ source cax-env/bin/activate     # macOS/Linux
 
 ### Git und GitLab
 
-<!-- TODO: prüfen, ob Git auf den KCA-Rechnern installiert ist -->
 - Git installieren:
   - Windows: [Git for Windows](https://git-scm.com/download/win)
   - macOS: `xcode-select --install`
@@ -256,11 +253,15 @@ git config --global user.email "email@hm.edu"
 
 ### Ihr Repository holen
 
-<!-- TODO: konkreten Zugangsweg zum eigenen Repo ergänzen (Link/Einladung) -->
+Nach dem Login finden Sie es auf GitLab unter *Projects* – oder direkt:
+
 ```bash
-git clone <ihre-repo-url>
-cd <repo>
+git clone https://gitlab.lrz.de/cax-programmierung/ws26/studierende/<kennung>.git
+cd <kennung>
 ```
+
+- Anmeldung mit LRZ-Kennung und Passwort
+- Mit SSH-Schlüssel: Schlüssel im GitLab-Profil hinterlegen, SSH-Adresse verwenden
 
 Einmalig, jetzt gleich – danach arbeiten Sie nur noch lokal in diesem Ordner.
 
