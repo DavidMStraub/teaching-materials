@@ -83,8 +83,9 @@ Ein zu großer Fillet-Radius sprengt die Platte – hier hilft **Kappen** statt 
 
 ```python
 plate = cf.box(160, 118, 8)
-plate.fillet(5.0, plate.edges(">Z or <Z")).isValid()   # False – r > Dicke/2!
-plate.fillet(3.5, plate.edges(">Z or <Z")).isValid()   # True
+kanten = plate.edges(">Z or <Z").Edges()
+plate.fillet(5.0, kanten).isValid()     # False – r > Dicke/2!
+plate.fillet(3.5, kanten).isValid()     # True
 
 fillet_r = min(fillet_r, p.plattenstaerke * 0.45)      # bleibt immer baubar
 ```
@@ -212,7 +213,7 @@ teil.faces(">Z").edges(RadiusNthSelector(-1))   # die Kreiskante mit dem größt
 
 `RadiusNthSelector(-1)` wählt nach Radius-Rang – findet also die größte Bohrung, egal wie viele kleine dazukommen.
 
-> **Vorsicht:** `edges(...)` gibt bei *einem* Treffer eine einzelne `Edge` zurück, bei mehreren ein `Compound`. Für `fillet` sicher in `list(...)` verpacken.
+> **Vorsicht:** `edges(...)` gibt bei *einem* Treffer eine einzelne `Edge` zurück, bei mehreren ein `Compound`. Für `fillet` mit `.Edges()` abschließen (Einheit 7).
 
 ### `assert` oder `if` / `raise`?
 
@@ -249,7 +250,7 @@ Der `try/except` + die drei Checks machen die Funktion **sweep-fest** – genau 
 2. Fügen Sie ein **zweites Loch** hinzu (Zuganker). Zeigt derselbe Index noch auf den Bohrungsrand?
 3. Ersetzen Sie den Index durch `edges(">Z and %CIRCLE")` – bleibt die Auswahl jetzt stabil, wenn Sie das zweite Loch wieder entfernen?
 
-*Hinweise:* `[e.geomType() for e in teil.Edges()]` zeigt alle Kanten; Auswahl für `fillet` in `list(...)` verpacken
+*Hinweise:* `[e.geomType() for e in teil.Edges()]` zeigt alle Kanten; Auswahl für `fillet` mit `.Edges()` abschließen
 
 ### Aufgabe 4: den gültigen Bereich abtasten
 

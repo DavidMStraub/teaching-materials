@@ -121,7 +121,7 @@ verdopple(5)      # läuft durch, ohne Warnung
 
 ### Statische Codeanalyse: lesen, ohne auszuführen
 
-Die Annotationen wertet ein **zweites Programm** aus. Es liest den Quelltext wie ein Compiler, verfolgt die Typen durch die Funktionen und meldet Widersprüche – ohne eine einzige Zeile auszuführen:
+Die Annotationen wertet ein **Type-Checker** aus, ein zweites Programm. Es liest den Quelltext wie ein Compiler, verfolgt die Typen durch die Funktionen und meldet Widersprüche – ohne eine einzige Zeile auszuführen:
 
 | Tool | Wann | Wie |
 |---|---|---|
@@ -135,7 +135,7 @@ kapazitaet = finde_zelle("Pouch-40Ah").kapazitaet
 
 Damit fällt das vergessene `None` auf, **bevor** der Code jemals läuft.
 
-### mypy: der Prüfer für die Kommandozeile
+### mypy: der Type-Checker für die Kommandozeile
 
 **mypy** ist ein eigenes Python-Programm – es steht seit Woche 1 in Ihrer `pyproject.toml` und ist damit schon installiert. Man ruft es auf einen Ordner auf – es liest die Dateien und gibt eine Liste aus:
 
@@ -149,7 +149,7 @@ w07/stapel.py:17: error: Argument 1 has incompatible type "str"; expected "int"
 Found 2 errors in 2 files (checked 6 source files)
 ```
 
-Dieselbe Prüfung wie im Editor, nur als Kommando – deshalb lässt sie sich in die CI hängen (Theorie B).
+Pylance und mypy sind zwei Programme mit fast denselben Regeln: Pylance meldet beim Tippen, mypy als Kommando – deshalb lässt es sich in die CI hängen (Theorie B). Eingestellt sind beide in der `pyproject.toml`.
 
 ### Syntax: Parameter, Rückgabe, Optional
 
@@ -188,7 +188,7 @@ Einheiten kann kein Typ ausdrücken – **aussagekräftige Namen** sind der Ersa
 
 ### Den Typ verengen: `assert isinstance`
 
-Das Analyse-Tool weiß bei `plate - kanal` nur, dass **irgendeine** `Shape` herauskommt – gebraucht wird aber ein `Solid`. Drei Wege, ein guter:
+Der Type-Checker weiß bei `plate - kanal` nur, dass **irgendeine** `Shape` herauskommt – gebraucht wird aber ein `Solid`. Drei Wege, ein guter:
 
 ```python
 ergebnis = plate - kanal                 # Typ: Shape
@@ -202,6 +202,22 @@ assert isinstance(ergebnis, Solid)       # prüft es wirklich – und verengt de
 `assert bedingung` bricht mit Fehler ab, wenn die Bedingung falsch ist. Nur diese Zeile scheitert **an Ort und Stelle**, falls das Boolean einmal etwas anderes liefert – die anderen zwei schweigen.
 
 > Führt eine KI ein `# type: ignore` ein, das Sie nicht verstehen: nachfragen.
+
+### Kanten für `fillet`: `.Edges()`
+
+Ein Muster seit Woche 3 meldet der Type-Checker plötzlich als Fehler:
+
+```python
+plate.fillet(3, plate.edges(">Z"))
+#               ⚠ Argument 2 has incompatible type "Shape"; expected "Iterable[Edge]"
+
+plate.fillet(3, plate.edges(">Z").Edges())    # list[Edge] – passt
+```
+
+- `edges(...)` liefert ein `Shape`: bei einem Treffer eine `Edge`, bei mehreren ein `Compound`
+- `fillet` verlangt eine Liste von Kanten – `.Edges()` liefert genau das, bei einem Treffer wie bei vielen
+
+Der Type-Checker hat recht: Trifft `">Z and >X"` genau **eine** Kante, bricht die alte Zeile zur Laufzeit ab – mit einer kryptischen OCP-Meldung über `TopoDS_Vertex`.
 
 ## Praktikum A: den Modul-Code annotieren
 
@@ -220,7 +236,7 @@ Annotieren Sie Ihre Funktionen aus den letzten Wochen vollständig – Parameter
 2. Führen Sie auf der Kommandozeile aus und **beheben Sie jede gemeldete Zeile**, bis mypy nichts mehr findet:
 
 ```bash
-uv run mypy w07/ --ignore-missing-imports
+uv run mypy w07/
 ```
 
 3. Wo Boolean ein `Shape` liefert, aber ein `Solid` gebraucht wird: mit `assert isinstance` sauber verengen.
@@ -360,7 +376,7 @@ Type Hints sind eingeführt – jetzt kann `mypy` in der CI mitlaufen:
 typen:
   script:
     - uv sync --locked
-    - uv run mypy w*/ --ignore-missing-imports
+    - uv run mypy .           # alle Python-Dateien im Repo
   allow_failure: true         # Hinweis, kein Blocker
 ```
 
