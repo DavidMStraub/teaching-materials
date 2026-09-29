@@ -108,6 +108,8 @@ In CAD-Programmen lebt das im Feature-Baum und in der Bemaßung. Bei uns wird da
 
 ### Beispiel: alle Varianten auf einmal
 
+![bg right:30% 85%](assets/cax01_endplatten_varianten.png)
+
 ```python
 # Alle Endplatten-Stärken automatisch durchrechnen:
 for plattenstaerke in [4.0, 6.0, 8.0, 10.0]:
@@ -134,6 +136,8 @@ Ein Bauteil als Code zu beschreiben bringt Werkzeuge in die Konstruktion, die di
 - **Großes Ökosystem:** die Bausteine für den ganzen CAx-Weg liegen bereit – Numerik (NumPy/SciPy), Vernetzung & FEM (Gmsh, scikit-fem), Tests (pytest)
 
 ### Was ist CadQuery?
+
+![bg right:33% 85%](assets/cadquery_stack.svg)
 
 - **CadQuery** – eine **quelloffene** Python-Bibliothek für skriptbasiertes, parametrisches CAD
 - Baut auf **OpenCascade** (OCCT) auf: demselben quelloffenen CAD-**Kernel** – dem Geometrie-Rechenkern –, den auch **FreeCAD** verwendet
@@ -304,6 +308,8 @@ git push                        # Commits hochladen
 
 ### Grundkörper: `box`
 
+![bg right:40% 90%](assets/cax01_box_achsen.png)
+
 ```python
 from cadquery import func as cf
 
@@ -314,6 +320,8 @@ grundplatte = cf.box(170, 110, 6)
 - In `x`/`y` um den **Ursprung** zentriert; steht auf der `xy`-Ebene (`z = 0 … 6`)
 
 ### Kanten auswählen und verrunden
+
+![bg right:40% 90%](assets/cax01_kanten_z.png)
 
 ```python
 grundplatte = grundplatte.fillet(6, grundplatte.edges("|Z"))
@@ -326,6 +334,8 @@ grundplatte = grundplatte.fillet(6, grundplatte.edges("|Z"))
 
 ### Grundkörper: `cylinder`, Positionierung
 
+![bg right:35% 90%](assets/cax01_bohrer.png)
+
 ```python
 loch = cf.cylinder(d=5, h=10).moved(cf.Location((75, 45, -2)))
 grundplatte = grundplatte - loch
@@ -337,6 +347,8 @@ grundplatte = grundplatte - loch
 - Der Bohrer (`h = 10`) ragt oben **und** unten über die 6 mm dicke Platte hinaus – ein Schnitt genau auf einer Fläche macht später Ärger
 
 ### Aufgabe: vier Befestigungslöcher
+
+![bg right:40% 90%](assets/cax01_grundplatte_final.png)
 
 Ergänzen Sie die Grundplatte um vier Bohrungen (d = 5 mm) in den Ecken, mit Abstand zum Rand – auf ihr steht später der Zellstapel.
 
