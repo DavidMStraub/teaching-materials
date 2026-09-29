@@ -281,6 +281,18 @@ print(sorted(set(f.geomType() for f in box_f.Faces())))
 
 Das ist dieselbe Verrundung wie seit Einheit 1 – jetzt sehen Sie, *welche* Flächen sie erzeugt.
 
+### Stetigkeit sehen: Zebra-Streifen
+
+Der Reiter *Zebra* im Viewer spiegelt parallele Lichtstreifen auf der Oberfläche – wie die Leuchtröhren im Karosseriebau. An jedem Übergang zeigt der Streifenverlauf die Stetigkeit:
+
+| Klasse | Streifen am Übergang |
+|---|---|
+| $C^0$ | reißen ab, versetzt |
+| $G^1$ | laufen durch, mit Knick |
+| $G^2$ | laufen glatt durch |
+
+Die `fillet`-Kante von eben: Streifen durchgehend, aber geknickt – $G^1$. Der glatte Loft: ohne Knick.
+
 ## Praktikum B: Auslass-Querschnitt und Kurveneigenschaften
 
 ### Aufgabe 3: Der Auslass-Querschnitt
@@ -301,6 +313,7 @@ profil_auslass = cf.spline(*auslass, periodic=True)
 1. `profil.geomType()` für Ihre Splines – und für einen Kreis (`cf.circle`). Was fällt auf?
 2. Versetzen Sie das geschlossene Profil um 3 (`cf.offset2D(cf.wire(profil), 3.0)`) und lesen Sie die `geomType`-Werte der Ergebniskanten. Analytisch oder nicht?
 3. *(Zusatz)* Tasten Sie `curvatureAt(t)` entlang eines Profils ab – wo ist die Krümmung am größten (Nase vs. flanke)?
+4. *(Zusatz)* Zeigen Sie `cf.loft(secs, ruled=True)`, `cf.loft(secs)` und `box_f` im Viewer und öffnen Sie den Reiter *Zebra*: Welche Stetigkeit hat jeder Übergang?
 
 ## Abschluss
 

@@ -139,6 +139,16 @@ cf.cut(platte, kanal, tol=0.0)   # Standard: exakt rechnen
 
 `tol` legt fest, ab wann zwei Flächen als deckungsgleich gelten. `h + ε` ist die robustere Lösung – man umgeht den Grenzfall, statt ihn auszuhandeln.
 
+### Zwischenstände sehen: Visual Debugging
+
+Wo genau geht ein Modell kaputt? Der Viewer zeigt es beim schrittweisen Ausführen:
+
+1. Haltepunkt setzen (Klick links neben die Zeilennummer), Skript mit **F5** im Debugger starten
+2. Mit **F10** Zeile für Zeile weiter – der Viewer zeigt nach jedem Schritt **alle CAD-Objekte** aus den lokalen Variablen, mit ihren Namen
+3. An/aus über die Statusleiste unten: `OCP: <port>·DEBUG`
+
+Dazu der Reiter *Clip*: eine Schnittebene durch den Körper – so sieht man Geisterflächen und leere Hohlräume, die von außen verborgen bleiben.
+
 ## Praktikum A: das Modul härten
 
 ### Aufgabe 1: die Ränder ausprobieren
@@ -151,6 +161,8 @@ Rufen Sie Ihre Funktionen mit Grenzwerten auf und notieren Sie, was passiert:
 | `endplatten(replace(p, plattenstaerke=-4))` | |
 | `stapel_bauen(replace(p, n_zellen=0))` | |
 | Fillet mit `r = plattenstaerke` | |
+
+Gehen Sie mindestens einen Fall im Debugger Schritt für Schritt durch: In welcher Zeile verschwindet der Körper?
 
 ### Aufgabe 2: Eingaben absichern
 

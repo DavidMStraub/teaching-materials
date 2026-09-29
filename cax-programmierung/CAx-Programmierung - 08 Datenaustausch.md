@@ -125,6 +125,18 @@ print([c.name for c in pack(ModulParam()).children])   # ['modul_0', 'modul_1']
 
 Die Lage komponiert **den Baum hinab**: jedes Modul wird einmal platziert, seine Zellen bleiben relativ dazu.
 
+### Die Baugruppe im Viewer
+
+```python
+from ocp_vscode import show
+
+show(pack(ModulParam()))
+```
+
+- Reiter *Tree*: derselbe Baum wie im Code – `pack` → `modul_0` → `zelle_3`, mit Namen und Farben aus `add()`; das Auge blendet einen Ast aus
+- *Explode* (Werkzeugleiste): zieht die Baugruppe auseinander – jedes Teil bleibt ein eigenes Objekt
+- *Distance*: Abstand zwischen zwei Zellen nachmessen – stimmt `zell_t + spacer`?
+
 ## Praktikum A: das Modul als Baugruppe
 
 ### Aufgabe 1: Baugruppe aus den Wochenteilen

@@ -258,6 +258,16 @@ print(len(gruppe.Solids()), "Solids in der Gruppe")
 | Solid | 3D | Shells | – |
 | Compound | beliebig | – | – |
 
+### Topologie im Viewer
+
+Die Zahlen aus Python lassen sich im Viewer gegenprüfen – Element für Element:
+
+- **Filter** in der Werkzeugleiste (oder Tasten `v` / `e` / `f` / `s`): nur Ecken, Kanten, Flächen oder Körper sind anwählbar
+- **Properties**: Doppelklick auf ein Element zeigt seinen Typ – bei Flächen z. B. Ebene oder Zylinder mit Mittelpunkt, Radius, Fläche; bei Kanten Gerade oder Kreis mit Länge
+- `Esc` hebt die Auswahl auf
+
+So sehen Sie, **welche** Fläche hinter einer Zahl steckt: die vier Zylinderflächen der Verrundung, die Nahtkante am Zylinder.
+
 ## Praktikum A: Anatomie der Grundplatte
 
 ### Aufgabe 1: Zählen und vorhersagen
@@ -273,6 +283,7 @@ Gehen Sie Flächen und Kanten Ihrer Grundplatte durch.
 
 1. Welche Geometrietypen kommen bei Flächen vor? Bei Kanten?
 2. Wie viele Kanten sind Kreise? Passt das zur Anzahl der Bohrungen und Verrundungen?
+3. Gegenprobe im Viewer: Wählen Sie mit *Properties* per Doppelklick eine Bohrungsfläche und eine Verrundung – stimmen Typ und Radius?
 
 *Hinweise:* `.Faces()`, `.Edges()`, `.geomType()`, `.Area()`, `.Length()`
 
@@ -336,6 +347,8 @@ zylindrisch = [f for f in grundplatte.Faces() if f.geomType() == "CYLINDER"]
 ### Warum String vor Index? Ein Vorgriff
 
 ⚠️ `teil.Faces()[3]` meint nicht „diese bestimmte Fläche“, sondern „was gerade an Position 3 steht“. Fügt eine spätere Änderung irgendwo im Modell eine neue Fläche ein, kann Index 3 danach auf eine völlig andere Fläche zeigen – ohne Fehlermeldung.
+
+Das *Select*-Werkzeug im Viewer zeigt solche Indizes an. Seine Doku warnt selbst: OCCT hält sie nicht einmal zwischen Kernel-Versionen (7.x → 8.x) stabil.
 
 Das heißt **Topological Naming Problem**; eng verwandt: ob ein Ergebnis überhaupt **gültig** ist (`isValid()`). Beides greifen wir später mit einem konkreten Beispiel vollständig auf.
 

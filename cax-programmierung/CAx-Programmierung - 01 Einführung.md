@@ -293,9 +293,9 @@ OCP CAD Viewer öffnen (Symbol in der linken Seitenleiste), dann `w01/setup_chec
 
 ```python
 from cadquery import func as cf
-import ocp_vscode
+from ocp_vscode import show
 
-ocp_vscode.show(cf.box(30, 20, 10))
+show(cf.box(30, 20, 10))
 ```
 
 Ausführen mit ▷ oben rechts in VS Code – oder im Terminal:
@@ -348,11 +348,28 @@ grundplatte = grundplatte - loch
 - `-` erzeugt eine boolesche Differenz
 - Der Bohrer (`h = 10`) ragt oben **und** unten über die 6 mm dicke Platte hinaus – ein Schnitt genau auf einer Fläche macht später Ärger
 
+### Der Viewer: ansehen und nachmessen
+
+```python
+from ocp_vscode import show
+
+show(grundplatte)
+```
+
+- **Maus:** links drehen, rechts verschieben, Rad zoomen
+- **Baum** (Reiter *Tree* links im Viewer): Teile ein- und ausblenden
+- **Messen** (Werkzeugleiste): *Distance* misst zwischen zwei Elementen, *Properties* zeigt Durchmesser, Fläche, Volumen eines Elements
+- Die Messwerte sind **CAD-exakt**: Python rechnet sie am echten Modell, nicht am Anzeigenetz
+
+Doku: [bernhard-42.github.io/ocp_viewer_docs](https://bernhard-42.github.io/ocp_viewer_docs/)
+
 ### Aufgabe: vier Befestigungslöcher
 
 ![bg right:40% 90%](assets/cax01_grundplatte_final.png)
 
 Ergänzen Sie die Grundplatte um vier Bohrungen (d = 5 mm) in den Ecken, mit Abstand zum Rand – auf ihr steht später der Zellstapel.
+
+Prüfen Sie im Viewer mit dem Messwerkzeug: Durchmesser der Bohrungen, Abstand zum Rand.
 
 Speichern Sie Ihr Skript als `w01/grundplatte.py`.
 
