@@ -12,27 +12,20 @@ headingDivider: 3
 
 David Straub
 
-### Organisatorisches
+### Elektrotechnik an Bord ✈️🛰️
 
-- 🎓 Moodle-Kurs: https://moodle.hm.edu/course/view.php?id=25470
-- 💬 Matrix-Raum: tbd
-- 🕥 Sprechstunde: nach Vereinbarung per Zoom oder in Präsenz in B 374
-- 📖 Literatur
-    - Pregla – [OPAC](https://link.hm.edu/2c6h)
-    - Hagmann – [OPAC](https://link.hm.edu/fvqd)
-    - Hering u.a. – [online](https://link.springer.com/book/10.1007/978-3-662-67538-0)
-    - Fischer – [online](https://link.springer.com/book/10.1007/978-3-658-25644-9)
-- 🗒️ Vorlesungsskript Prof. Palme u.a.: https://palme.userweb.mwn.de/
-    - ⚠️ Kapitelnummerierung weicht von diesem Kurs ab (Reihenfolge ist aber gleich!)
-- ✍️ Prüfung: schriftlich, 60 Minuten, keine Hilfsmittel
+- **Bordnetz** eines Verkehrsflugzeugs: 115 V Drehstrom mit 400 Hz, dazu 28 V Gleichspannung *(Kapitel 3, 6, 7)*
+- **Generatoren, Elektromotoren, Aktoren**: Klappen, Pumpen, Fahrwerk *(Kapitel 4, 5)*
+- **More-Electric Aircraft**: die Boeing 787 ersetzt Zapfluft durch elektrische Systeme
+- **Satelliten**: Solarzellen, Akkus, Gleichstrombus – jedes Watt zählt *(Kapitel 3)*
+- **Schalten** von Spulen und Kondensatoren: Überspannungen, Einschaltströme *(Kapitel 8)*
 
-### So läuft jede Vorlesung ab
+### Was Sie am Ende können
 
-- **Montagsaufgabe** (10 min, ab Woche 2): kleine Aufgabe zur Vorwoche
-- Theorie-Blöcke von max. 40 Minuten
-- Nach jedem Theorie-Block: **📝 Sie rechnen selbst** – die Aufgaben sind vom Typ der Prüfungsaufgaben
-- ☕ Pause: immer 11:30–11:45
-- Mitschreiben: Tafelanschriebe ergänzen die Folien und sind prüfungsrelevant
+- Kräfte, Felder und Spannungen von Ladungen und Strömen berechnen
+- Gleichstromschaltungen analysieren: Ströme, Spannungen, Leistung
+- Wechsel- und Drehstromschaltungen komplex berechnen
+- Induktion und Schaltvorgänge an Spulen und Kondensatoren beschreiben und berechnen
 
 ### Gliederung des Kurses
 
@@ -45,7 +38,62 @@ David Straub
 7. **Drehstrom** (Dreiphasensystem)
 8. **Schaltvorgänge** an Kapazitäten und Induktivitäten
 
+### So läuft jede Einheit ab
+
+- **Montagsaufgabe** (10 min, ab Woche 2): kleine Aufgabe zur Vorwoche
+- Theorie-Blöcke von max. 40 Minuten
+- Nach jedem Theorie-Block: **📝 Sie rechnen selbst** – die Aufgaben sind vom Typ der Prüfungsaufgaben
+- ☕ Pause: immer 11:30–11:45
+- Mitschreiben: Tafelanschriebe ergänzen die Folien und sind prüfungsrelevant
+
+### Was ich von Ihnen erwarte
+
+- **Mitrechnen:** die 📝-Aufgaben im Unterricht selbst lösen – gerade dann, wenn es hakt
+- **Mitreden:** mit der Person neben Ihnen diskutieren, Fragen stellen – jederzeit
+- **Dranbleiben:** jede Woche nacharbeiten – jedes Kapitel baut auf dem vorigen auf
+
+### Prüfung
+
+- Schriftlich, 60 Minuten
+- **Keine Hilfsmittel** – auch keine Formelsammlung
+- Aufgaben vom Typ der 📝-Aufgaben aus dem Unterricht
+- **Probeklausur** zur Semestermitte unter Prüfungsbedingungen
+
+### So bestehen Sie die Prüfung
+
+- **Jetzt schreiben:** im 1. Semester ist der Stoff frisch – jedes Semester danach bringt neue Fächer dazu
+- **Jede Woche** die 📝-Aufgaben nachrechnen, bis sie ohne Vorlage klappen
+- **Herleiten statt auswendig lernen:** wenige Grundgleichungen tragen weit
+- **Probeklausur mitschreiben:** sie zeigt Ihnen, wo Sie stehen – mit Zeit zum Nachsteuern
+
+### Organisatorisches
+
+- 🎓 Moodle-Kurs: https://moodle.hm.edu/course/view.php?id=25470
+- 💬 Matrix-Raum: tbd
+- 🕥 Sprechstunde: nach Vereinbarung per Zoom oder in Präsenz in B 374
+- 📖 Literatur
+    - Pregla – [OPAC](https://link.hm.edu/2c6h)
+    - Hagmann – [OPAC](https://link.hm.edu/fvqd)
+    - Hering u.a. – [online](https://link.springer.com/book/10.1007/978-3-662-67538-0)
+    - Fischer – [online](https://link.springer.com/book/10.1007/978-3-658-25644-9)
+- 🗒️ Skript Prof. Palme u.a.: https://palme.userweb.mwn.de/
+    - ⚠️ Kapitelnummerierung weicht von diesem Kurs ab (Reihenfolge ist aber gleich!)
+
 ## 1. Einführung
+
+### Mars Climate Orbiter (1999)
+
+Was passiert, wenn man Einheiten verwechselt:
+
+- NASA-Sonde, soll am 23. September 1999 in die Mars-Umlaufbahn einschwenken
+- Bodensoftware eines Zulieferers liefert Kraftstöße in **lbf·s**, die Navigation erwartet **N·s** → Faktor 4,45
+- Sonde fliegt in ca. 57 km Höhe statt 140–150 km durch die Atmosphäre → verloren
+
+Video: https://www.youtube.com/watch?v=MfavzjbZzl8
+
+![bg 90% right:35%](https://upload.wikimedia.org/wikipedia/commons/1/19/Mars_Climate_Orbiter_2.jpg)
+
+### Heute
 
 1. Physikalische Größen
 2. Internationales Einheitensystem (SI)
@@ -190,6 +238,16 @@ Beispiele:
 
 → Der schnellste Fehler-Check überhaupt: am Ende jeder Rechnung die Einheiten prüfen.
 
+### 🗳️ Welche Gleichung kann *nicht* stimmen?
+
+A) $E = m \cdot g \cdot h$
+
+B) $P = F \cdot v$
+
+C) $F = \dfrac{m \cdot v^2}{r}$
+
+D) $W = \dfrac{P}{t}$
+
 ### ⚠️ Nicht-SI-Einheiten in der Luftfahrt ✈️
 
 Immer noch weit verbreitet:
@@ -202,18 +260,6 @@ Immer noch weit verbreitet:
     - 1 kt = 1 NM/h = 1,852 km/h
 
 ![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/5/57/3-Pointer_Altimeter.svg)
-
-### Mars Climate Orbiter (1999)
-
-Was passiert, wenn man Einheiten verwechselt:
-
-- NASA-Sonde, soll am 23. September 1999 in die Mars-Umlaufbahn einschwenken
-- Bodensoftware eines Zulieferers liefert Kraftstöße in **lbf·s**, die Navigation erwartet **N·s** → Faktor 4,45
-- Sonde fliegt in ca. 57 km Höhe statt 140–150 km durch die Atmosphäre → verloren
-
-Video: https://www.youtube.com/watch?v=MfavzjbZzl8
-
-![bg 90% right:35%](https://upload.wikimedia.org/wikipedia/commons/1/19/Mars_Climate_Orbiter_2.jpg)
 
 ### Zusammenfassung: Einführung
 
