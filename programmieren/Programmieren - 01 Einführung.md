@@ -194,7 +194,7 @@ print("Hallo LRB!")
 ```
 
 2. Ändern Sie den Text und führen Sie erneut aus
-3. Führen Sie aus: `print(3 * 7)` – und dann `print(3 * 7.0)`
+3. Erst aufschreiben, was Sie erwarten – dann ausführen: `print(3 * 7)` und `print(3 * 7.0)`
 
 ### Was ist da gerade passiert?
 
@@ -227,6 +227,20 @@ Alle Folien zum Mitlesen und als PDF: https://davidstraub.de/teaching-materials/
 - Offizielles Python-Tutorial: https://docs.python.org/3/tutorial/index.html
 - OpenStax-Lehrbuch „Introduction to Python Programming“: https://openstax.org/details/books/introduction-python-programming
 - Tutorial „Research Software Engineering with Python“: https://alan-turing-institute.github.io/rse-course/html/index.html
+
+### 🗳️ Zum Schluss: Was gibt das aus?
+
+```python
+print(10 / 2)
+```
+
+A) `5`
+
+B) `5.0`
+
+C) `10 / 2`
+
+D) Fehlermeldung
 
 ### Bis nächste Woche!
 
