@@ -78,6 +78,20 @@ Im SI-System: $k = \frac{1}{4 \pi \varepsilon_0}$ mit der elektrischen Feldkonst
 
 ![bg 95% right:42%](img/coulomb.svg)
 
+### 🗳️ Vierfache Ladung, doppelter Abstand
+
+Im Feld einer Punktladung $Q_1$ wirkt auf eine Punktladung $Q_2$ die Kraft $F_1$.
+
+$Q_2$ wird ersetzt durch eine Ladung $Q_3 = 4 \cdot Q_2$ im **doppelten Abstand** zu $Q_1$. Welche Kraft $F_2$ wirkt auf $Q_3$?
+
+A) $F_2 = \frac{1}{2} F_1$
+
+B) $F_2 = F_1$
+
+C) $F_2 = 2 \, F_1$
+
+D) $F_2 = 8 \, F_1$
+
 ### Analogie zur Schwerkraft
 
 Newtonsches Gravitationsgesetz: Kraft zwischen zwei Himmelskörpern
@@ -86,9 +100,23 @@ $$|\vec{F}_{12}| = G \cdot \frac{m_1 \cdot m_2}{r^2}$$
 
 $G$: Gravitationskonstante, $G \approx 6{,}6743 \cdot 10^{-11} \, \frac{\text{m}^3}{\text{kg} \cdot \text{s}^2}$
 
+### 🗳️ Schätzen Sie: Coulomb gegen Gravitation
+
+Im Wasserstoffatom ziehen sich Proton und Elektron an – elektrisch und durch die Gravitation.
+
+Wie viel stärker ist die elektrische Anziehung?
+
+A) etwa $10^{2}$-mal
+
+B) etwa $10^{10}$-mal
+
+C) etwa $10^{20}$-mal
+
+D) etwa $10^{39}$-mal
+
 ### Beispiel: Relative Stärke von Coulomb- und Gravitationskraft
 
-Wasserstoffatom: Proton + Elektron. Wie viel stärker ist die elektrische Anziehung als die Gravitation? (→ Tafel)
+Wasserstoffatom: Proton + Elektron. Rechnen Sie nach: wie viel stärker ist die elektrische Anziehung als die Gravitation?
 
 - Proton: $m_p \approx 1{,}67 \cdot 10^{-27} \, \text{kg}$, $Q_p = +e$
 - Elektron: $m_e \approx 9{,}11 \cdot 10^{-31} \, \text{kg}$, $Q_e = -e$
@@ -128,12 +156,10 @@ $$\vec{E}(\vec r) = \frac{Q}{4 \cdot \pi \cdot \varepsilon_0 \cdot r^2} \cdot \f
 
 ### 📝 Aufgabe 2: Coulomb & Feldstärke
 
-a) Im Feld einer Punktladung $Q_1$ wirkt auf eine zweite Punktladung $Q_2$ eine Kraft $F_1 = 2 \cdot 10^{-8} \, \text{N}$. $Q_2$ wird entfernt. Welche Kraft $F_2$ wirkt auf eine neue Punktladung $Q_3$, die die **vierfache Ladung** besitzt und sich im **doppelten Abstand** zu $Q_1$ befindet? (Mit Begründung – ohne Taschenrechner lösbar!)
-
-b) Eine Punktladung $Q = 10 \, \text{nC}$ befindet sich im Vakuum.
+a) Eine Punktladung $Q = 10 \, \text{nC}$ befindet sich im Vakuum.
 Wie groß ist die elektrische Feldstärke $E$ im Abstand $r_1 = 24 \, \text{cm}$?
 
-c) Welche Kraft wirkt dort auf ein Elektron ($Q_e = -e$)? In welche Richtung?
+b) Welche Kraft wirkt dort auf ein Elektron ($Q_e = -e$)? In welche Richtung?
 
 ### Zwischenstand & Ausblick
 
