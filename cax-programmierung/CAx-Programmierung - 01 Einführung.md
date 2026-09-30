@@ -80,7 +80,7 @@ Am Ende des Semesters: ein eigenes **Batteriemodul**, das Sie über Monate param
 - **Nachschlagewerk** für alle Kursthemen – mehr Tiefe, als die Sitzungen leisten
 - Buch auf **Englisch**, Kurs und Klausur auf **Deutsch** – die deutsche Fachterminologie kommt aus den Folien
 - Sauberen Python-Code und Ihr eigenes Projekt vertiefen wir im Kurs
-- **Leseauftrag:** jede Sitzung endet mit einem Buchkapitel zur Vorbereitung – heute Kapitel 1–2
+- **Leseauftrag:** jede Sitzung endet mit einem Buchkapitel zum Nacharbeiten und Vertiefen – heute Kapitel 1–2
 
 *CAD as Code* · D. M. Straub, HM · [doi.org/10.60948/OPUS-1358](https://doi.org/10.60948/OPUS-1358)
 
