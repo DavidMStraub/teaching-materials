@@ -17,7 +17,7 @@ David Straub
 
 ### Wozu dieses Dokument?
 
-Git brauchen Sie ab Woche 1, um Ihr Projekt zu pushen. Die Vorlesung führt nur den nötigen Kern ein (`add` → `commit` → `push`).
+Git brauchen Sie ab Woche 1, um Ihr Projekt zu pushen. Der Unterricht führt nur den nötigen Kern ein (`add` → `commit` → `push`).
 
 Dieses Dokument ist zum **Nachschlagen und selbst Üben** – vom ersten Repository bis zu Branches und Pull Requests. Arbeiten Sie es in Ihrem Tempo durch; bei Problemen vor Woche 2 melden.
 
