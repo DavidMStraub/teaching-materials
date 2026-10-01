@@ -72,6 +72,7 @@ Am Ende des Semesters: ein eigenes **Batteriemodul**, das Sie über Monate param
 - **Unbenotet** – gepushter Code heißt: ich schaue drauf und helfe gezielt
 - Ihr **Projekt-Repository** auf GitLab (LRZ) lege ich in der Pause an
 - **Jetzt gleich:** einmal bei [gitlab.lrz.de](https://gitlab.lrz.de) einloggen – damit legt GitLab Ihr Konto an
+  - Den Benutzernamen können Sie unter [Profil → Account](https://gitlab.lrz.de/-/profile/account) ändern
 
 ## Das Begleitbuch
 
