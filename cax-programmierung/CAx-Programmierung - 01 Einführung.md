@@ -314,7 +314,7 @@ Erscheint ein Quader im Viewer-Panel: Setup erfolgreich.
 ```python
 from cadquery import func as cf
 
-grundplatte = cf.box(170, 110, 6)
+platte = cf.box(170, 110, 6)
 ```
 
 - Erzeugt einen Quader mit den angegebenen Maßen in mm
@@ -325,11 +325,11 @@ grundplatte = cf.box(170, 110, 6)
 ![bg right:40% 90%](assets/cax01_kanten_z.png)
 
 ```python
-grundplatte = grundplatte.fillet(6, grundplatte.edges("|Z"))
+grundplatte = cf.fillet(platte, platte.edges("|Z"), 6)
 ```
 
 - `edges("|Z")` wählt alle Kanten parallel zur Z-Achse (die vier senkrechten)
-- `fillet(radius, kanten)` verrundet genau diese
+- `cf.fillet(form, kanten, radius)` verrundet genau diese
 
 *Warum genau diese Kanten? Dazu mehr in der nächsten Einheit (Topologie).*
 
