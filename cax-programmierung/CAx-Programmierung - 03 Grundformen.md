@@ -135,7 +135,7 @@ Kein spezielles „Pattern“-Objekt nötig – eine Schleife über `Location`-W
 
 ```python
 zelle = cf.extrude(cf.face(cf.rect(148, 98)), (0, 0, 11))
-zelle = zelle.fillet(6, zelle.edges("|Z"))
+zelle = cf.fillet(zelle, zelle.edges("|Z"), 6)
 
 pitch = 11 + 1.5          # Zelldicke + Kompressionspad
 stapel = zelle
@@ -153,7 +153,7 @@ Bauen Sie eine Pouch-Zelle – im Kern ein flacher Block mit gerundeten Ecken:
 
 - **148 × 98 × 11 mm**, Ecken mit **r = 6 mm** gerundet
 
-*Hinweise:* `cf.rect`, `cf.face`, `cf.extrude`, `.fillet(r, ...edges("|Z"))`
+*Hinweise:* `cf.rect`, `cf.face`, `cf.extrude`, `cf.fillet(form, kanten, r)`
 
 *Prüfen:* `zelle.isValid()`; Volumen ungefähr 148 · 98 · 11
 
@@ -179,7 +179,7 @@ loch   = cf.cylinder(d=3.4, h=6).moved(cf.Location((16, 11, 0)))
 
 basis = platte - tasche - loch                 # Loch schon gebohrt
 rand  = basis.faces(">Z").edges("%CIRCLE")     # 2 Treffer: Tasche UND Loch!
-zu_frueh = basis.fillet(1.0, rand.Edges())     # verrundet auch den Lochrand
+zu_frueh = cf.fillet(basis, rand, 1.0)       # verrundet auch den Lochrand
 ```
 
 Vor dem Bohren fände `"%CIRCLE"` nur **einen** Rand (die Tasche). Beide Varianten sind `isValid()` – der Unterschied (2,6 mm³) fällt nur auf, wenn man danach sucht. Deshalb: Finishing zuletzt, oder präziser selektieren (Radius statt „ist ein Kreis“).
@@ -253,7 +253,7 @@ class ModulParam:
 ```python
 def zelle_bauen(p: ModulParam) -> cf.Shape:
     z = cf.extrude(cf.face(cf.rect(p.zell_b, p.zell_h)), (0, 0, p.zell_t))
-    return z.fillet(6, z.edges("|Z"))
+    return cf.fillet(z, z.edges("|Z"), 6)
 
 def stapel_bauen(p: ModulParam) -> cf.Shape:
     pitch = p.zell_t + p.spacer

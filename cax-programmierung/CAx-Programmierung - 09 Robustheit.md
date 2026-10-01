@@ -83,9 +83,9 @@ Ein zu großer Fillet-Radius sprengt die Platte – hier hilft **Kappen** statt 
 
 ```python
 plate = cf.box(160, 118, 8)
-kanten = plate.edges(">Z or <Z").Edges()
-plate.fillet(5.0, kanten).isValid()     # False – r > Dicke/2!
-plate.fillet(3.5, kanten).isValid()     # True
+kanten = plate.edges(">Z or <Z")
+cf.fillet(plate, kanten, 5.0).isValid()     # False – r > Dicke/2!
+cf.fillet(plate, kanten, 3.5).isValid()     # True
 
 fillet_r = min(fillet_r, p.plattenstaerke * 0.45)      # bleibt immer baubar
 ```

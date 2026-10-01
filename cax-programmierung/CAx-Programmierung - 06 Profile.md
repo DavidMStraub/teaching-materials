@@ -172,7 +172,7 @@ Am 90°-Knick durchdringt sich der Querschnitt beim Standard selbst und schnürt
 
 ```python
 cold_plate = plate - kanal          # Kanal aus der Platte schneiden
-cold_plate = cold_plate.fillet(3.0, cold_plate.edges("|Z"))
+cold_plate = cf.fillet(cold_plate, cold_plate.edges("|Z"), 3.0)
 ```
 
 Finishing (Fillet/Chamfer) kommt zuletzt – der Grund aus Einheit 3: Selektoren fragen den aktuellen Stand ab.
@@ -206,7 +206,7 @@ Schneiden Sie den Kanal aus der Cold Plate heraus.
 1. Volumen vor und nach dem Schnitt – ist die Differenz plausibel?
 2. Verrunden Sie die vier äußeren senkrechten Kanten.
 
-*Hinweise:* `cf.box(120, 80, 12)`, `-`, `.fillet(r, ...edges("|Z"))`, `.Volume()`; die Kanalenden müssen über den Plattenrand **hinausragen** – ein Schnitt exakt auf der Randfläche hinterlässt Artefakte
+*Hinweise:* `cf.box(120, 80, 12)`, `-`, `cf.fillet(form, kanten, r)`, `.Volume()`; die Kanalenden müssen über den Plattenrand **hinausragen** – ein Schnitt exakt auf der Randfläche hinterlässt Artefakte
 
 ### Aufgabe 6 *(Zusatz)*: Ein- und Auslass anschließen
 

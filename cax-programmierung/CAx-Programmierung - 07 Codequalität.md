@@ -203,21 +203,22 @@ assert isinstance(ergebnis, Solid)       # prüft es wirklich – und verengt de
 
 > Führt eine KI ein `# type: ignore` ein, das Sie nicht verstehen: nachfragen.
 
-### Kanten für `fillet`: `.Edges()`
+### Derselbe Name, anderer Typ: `Solid` wird `Shape`
 
-Ein Muster seit Woche 3 meldet der Type-Checker plötzlich als Fehler:
+Dieses naheliegende Muster meldet der Type-Checker als Fehler:
 
 ```python
-plate.fillet(3, plate.edges(">Z"))
-#               ⚠ Argument 2 has incompatible type "Shape"; expected "Iterable[Edge]"
+plate = cf.box(160, 118, 8)                   # Typ: Solid
+plate = cf.fillet(plate, plate.edges(">Z"), 3)
+#       ⚠ Incompatible types in assignment (expression has type "Shape", variable has type "Solid")
 
-plate.fillet(3, plate.edges(">Z").Edges())    # list[Edge] – passt
+plate_rund = cf.fillet(plate, plate.edges(">Z"), 3)    # neuer Name – passt
 ```
 
-- `edges(...)` liefert ein `Shape`: bei einem Treffer eine `Edge`, bei mehreren ein `Compound`
-- `fillet` verlangt eine Liste von Kanten – `.Edges()` liefert genau das, bei einem Treffer wie bei vielen
+- `cf.box` liefert ein `Solid`, `cf.fillet` ein `Shape` – ein Name trägt nur einen Typ
+- Das Ergebnis jedes Schritts bekommt einen eigenen, sprechenden Namen
 
-Der Type-Checker hat recht: Trifft `">Z and >X"` genau **eine** Kante, bricht die alte Zeile zur Laufzeit ab – mit einer kryptischen OCP-Meldung über `TopoDS_Vertex`.
+Der Type-Checker hat recht: Spätere Zeilen verlassen sich darauf, dass `plate` ein `Solid` ist – nach dem Fillet kann es jede `Shape` sein.
 
 ## Praktikum A: den Modul-Code annotieren
 

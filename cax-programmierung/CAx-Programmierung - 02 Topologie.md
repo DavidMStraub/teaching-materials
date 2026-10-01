@@ -117,8 +117,8 @@ Aber unterschiedliche **Geometrie**: Würfel – alle Flächen quadratisch, alle
 ```python
 from cadquery import func as cf
 
-grundplatte = cf.box(170, 110, 6)
-grundplatte = grundplatte.fillet(6, grundplatte.edges("|Z"))
+platte = cf.box(170, 110, 6)
+grundplatte = cf.fillet(platte, platte.edges("|Z"), 6)
 ```
 
 Letzte Woche gebaut, aber nicht angeschaut: **was für ein Objekt ist das eigentlich, strukturell?**
