@@ -120,7 +120,7 @@ Weitere nützliche Befehle:
 ```bash
 git log --oneline               # History ansehen
 git diff                        # noch nicht gestagte Änderungen
-git pull                        # Referenzlösung / Serverstand holen
+git pull                        # Serverstand holen
 ```
 
 ### Gute Commit-Nachrichten

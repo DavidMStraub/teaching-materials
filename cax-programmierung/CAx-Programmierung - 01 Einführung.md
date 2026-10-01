@@ -384,7 +384,7 @@ git push                          # Commits hochladen
 ```
 
 - Das ist Ihr **erster Beitrag zum Semesterprojekt** – ab jetzt endet jede Sitzung mit einem Push
-- Referenzlösungen kommen ebenfalls per Git zu Ihnen (`git pull`)
+- Referenzlösungen kommen ebenfalls per Git zu Ihnen (Repo `referenz`, siehe README)
 - Mehr Tiefe (`.gitignore`, Branches, Merge Requests) im Selbststudium: **X1 Versionsverwaltung**
 
 ## Abschluss
