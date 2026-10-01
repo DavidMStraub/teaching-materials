@@ -173,8 +173,6 @@ CadQuery verbindet beide Stränge: **code-first** wie OpenSCAD, auf dem **exakte
 11. Optimierung
 12. Parameterstudie & Klausurvorbereitung
 
-# Pause
-
 ## Umgebung einrichten
 
 ### VS Code und Git
