@@ -12,13 +12,11 @@ headingDivider: 3
 
 David Straub
 
-### Elektrotechnik an Bord ✈️🛰️
+### EduVote
 
-- **Bordnetz** eines Verkehrsflugzeugs: 115 V Drehstrom mit 400 Hz, dazu 28 V Gleichspannung *(Kapitel 3, 6, 7)*
-- **Generatoren, Elektromotoren, Aktoren**: Klappen, Pumpen, Fahrwerk *(Kapitel 4, 5)*
-- **More-Electric Aircraft**: die Boeing 787 ersetzt Zapfluft durch elektrische Systeme
-- **Satelliten**: Solarzellen, Akkus, Gleichstrombus – jedes Watt zählt *(Kapitel 3)*
-- **Schalten** von Spulen und Kondensatoren: Überspannungen, Einschaltströme *(Kapitel 8)*
+https://www.vote.ac/ oder EduVote-App
+
+ID: david.straub@hm.edu
 
 ### Was Sie am Ende können
 
