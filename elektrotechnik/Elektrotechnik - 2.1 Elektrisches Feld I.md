@@ -146,6 +146,21 @@ $[\vec{E}] = \frac{\text{N}}{\text{C}}$
 
 ![bg 95% right:40%](img/feldstaerke-probeladung.svg)
 
+### 🗳️ Doppelte Probeladung
+
+Eine Probeladung $q$ befindet sich im Punkt P im Feld einer Punktladung $Q$.
+Dort herrscht die Feldstärke $E_1$.
+
+Die Probeladung wird ersetzt durch $2q$. Wie groß ist jetzt die Feldstärke $E_2$ in P?
+
+A) $E_2 = \frac{1}{2} E_1$
+
+B) $E_2 = E_1$
+
+C) $E_2 = 2 \, E_1$
+
+D) $E_2 = 4 \, E_1$
+
 ### Elektrisches Feld einer Punktladung
 
 Die elektrische Feldstärke $\vec{E}$ im Abstand $r=|\vec{r}|$ einer Punktladung $Q$ ist:
