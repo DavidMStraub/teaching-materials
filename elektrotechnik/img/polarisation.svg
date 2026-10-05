@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 470" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="aK" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="aB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="vK" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="vB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <g id="dipol">
+      <ellipse cx="0" cy="0" rx="30" ry="14" fill="#fff" stroke="#9ca3af" stroke-width="2"/>
+      <text x="-14" y="7" fill="#3b82f6" font-size="22" font-weight="bold" text-anchor="middle">&#8722;</text>
+      <text x="14" y="7" fill="#ef4444" font-size="22" font-weight="bold" text-anchor="middle">+</text>
+    </g>
+  </defs>
+
+  <!-- Platten: links +, rechts − -->
+  <rect x="30" y="40" width="16" height="320" fill="#ef4444"/>
+  <rect x="354" y="40" width="16" height="320" fill="#3b82f6"/>
+  <g fill="#ef4444" font-size="24" font-weight="bold" text-anchor="middle">
+    <text x="16" y="88">+</text><text x="16" y="168">+</text><text x="16" y="248">+</text><text x="16" y="328">+</text>
+  </g>
+  <g fill="#3b82f6" font-size="26" font-weight="bold" text-anchor="middle">
+    <text x="386" y="88">&#8722;</text><text x="386" y="168">&#8722;</text><text x="386" y="248">&#8722;</text><text x="386" y="328">&#8722;</text>
+  </g>
+
+  <!-- Dielektrikum -->
+  <rect x="70" y="60" width="260" height="280" fill="#f3f4f6" stroke="#9ca3af" stroke-width="2"/>
+  <text x="200" y="30" fill="#111827" font-size="20" text-anchor="middle">Dielektrikum</text>
+
+  <!-- ausgerichtete Dipole: − zur +Platte, + zur −Platte -->
+  <use href="#dipol" x="120" y="105"/><use href="#dipol" x="200" y="105"/><use href="#dipol" x="280" y="105"/>
+  <use href="#dipol" x="120" y="170"/><use href="#dipol" x="200" y="170"/><use href="#dipol" x="280" y="170"/>
+  <use href="#dipol" x="120" y="235"/><use href="#dipol" x="200" y="235"/><use href="#dipol" x="280" y="235"/>
+  <use href="#dipol" x="120" y="300"/><use href="#dipol" x="200" y="300"/><use href="#dipol" x="280" y="300"/>
+
+  <!-- äußeres Feld (von + nach −) -->
+  <line x1="70" y1="400" x2="330" y2="400" stroke="#111827" stroke-width="4" marker-end="url(#aK)"/>
+  <text x="345" y="408" fill="#111827" font-size="24" font-style="italic">E<tspan font-size="17" dy="6">0</tspan></text>
+  <line x1="345" y1="381" x2="363" y2="381" stroke="#111827" stroke-width="2.5" marker-end="url(#vK)"/>
+
+  <!-- Gegenfeld der Polarisation -->
+  <line x1="290" y1="445" x2="110" y2="445" stroke="#2563eb" stroke-width="4" marker-end="url(#aB)"/>
+  <text x="300" y="453" fill="#2563eb" font-size="24" font-style="italic">E<tspan font-size="17" dy="6">P</tspan></text>
+  <line x1="300" y1="426" x2="318" y2="426" stroke="#2563eb" stroke-width="2.5" marker-end="url(#vB)"/>
+</svg>

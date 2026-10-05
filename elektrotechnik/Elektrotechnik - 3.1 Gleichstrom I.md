@@ -24,12 +24,24 @@ David Straub
 8. Arbeit und Leistung
 9. Reale Messungen im Gleichstromkreis
 
+### 🗳️ Basiseinheiten des Farad
+
+Welche Basiseinheiten hat die Kapazität $[C] = \text{F}$?
+
+A) $\dfrac{\text{A}^2 \cdot \text{s}^4}{\text{kg} \cdot \text{m}^2}$
+
+B) $\dfrac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^3}$
+
+C) $\dfrac{\text{A} \cdot \text{s}^2}{\text{kg} \cdot \text{m}^2}$
+
+D) $\dfrac{\text{A}^2 \cdot \text{s}^3}{\text{kg} \cdot \text{m}}$
+
 ### Elektrischer Strom (*electric current*)
 
 Strom ist der gerichtete Fluss von elektrischer Ladung
 
 - Stromdichte $\vec{J} = \rho_Q \cdot \vec{v}$
-    - $\rho_Q$: Ladungsdichte in $\frac{\text{C}}{\text{m}^3}$, $\vec{v}$: Geschwindigkeit *positiver* Ladungsträger
+    - $\rho_Q$: Ladungsdichte in $\frac{\text{C}}{\text{m}^3}$, $\vec{v}$: Geschwindigkeit der Ladungsträger
 - Stromstärke $I = \int_A \vec{J} \cdot d\vec{A} = \dfrac{dQ}{dt}$
 - $[I] = \text{A} = \dfrac{\text{C}}{\text{s}}$
 - $[\vec{J}] = \dfrac{\text{A}}{\text{m}^2}$
@@ -57,6 +69,20 @@ Klassisches Bild: erfährt das Elektronengas ein elektrisches Feld, werden die E
 
 ![bg right:35% 80%](https://physikbuch.schule/media/drude-model.svg)
 
+### 🗳️ Wie schnell sind die Elektronen?
+
+Durch einen Kupferdraht mit $1 \, \text{mm}^2$ Querschnitt fließt ein Strom von $1 \, \text{A}$.
+
+Wie schnell bewegen sich die Elektronen im Mittel entlang des Drahts?
+
+A) fast mit Lichtgeschwindigkeit
+
+B) einige km/s
+
+C) einige m/s
+
+D) einige mm pro Minute
+
 ### Zahlenbeispiel: Driftgeschwindigkeit im Kupferdraht
 
 Kupfer, $A=1 \, \text{mm}^2$, $I=1 \, \text{A}$:
@@ -76,6 +102,8 @@ Warum geht das Licht trotzdem sofort an? → Das *Feld* breitet sich (fast) mit 
 $$\vec{J} = \sigma \cdot \vec{E}$$
 
 Achtung: die proportionale Beziehung gilt nur für *lineare Leiter* (z.B. Metalle bei konstanter Temperatur)
+
+![bg 90% right:38%](img/ohm-kennlinie.svg)
 
 ### Ohm’sches Gesetz im linearen Leiter
 
@@ -117,6 +145,20 @@ $$G = \frac{1}{R} = \frac{I}{U}, \qquad [G] = \frac{\text{A}}{\text{V}} = \text{
 
 ![bg right:20% 100%](https://physikbuch.schule/media/resistivity-geometry.svg)
 
+### 🗳️ Länger und dünner
+
+Ein Draht hat den Widerstand $R$. Ein zweiter Draht aus demselben Material ist **doppelt so lang** und hat den **halben Durchmesser**.
+
+Welchen Widerstand hat der zweite Draht?
+
+A) $R$
+
+B) $2R$
+
+C) $4R$
+
+D) $8R$
+
 ### Übersicht der Größen im linearen Leiter
 
 Größe | Definition | Einheit | Name
@@ -135,8 +177,11 @@ Hinweis: In manchen Büchern heißt die Stromdichte $S$ statt $J$ – gemeint is
 In einer Glühlampe (12 V, Kfz-Blinker) fließt ein Strom $I = 0{,}5 \, \text{A}$.
 
 a) Wie groß ist die Stromdichte $J_1$ im Glühfaden ($d_1 = 100 \, \mu\text{m}$)?
+
 b) Wie groß ist die Stromdichte $J_2$ in der Zuleitung ($d_2 = 1{,}5 \, \text{mm}$)?
+
 c) Ein Kupferdraht hat die Länge $l = 5 \, \text{m}$ und den Querschnitt $A = 3 \, \text{mm}^2$ ($\rho_\text{Cu} = 1{,}79 \cdot 10^{-8} \, \Omega\text{m}$). Wie groß ist sein Widerstand $R$?
+
 d) Welchen Widerstand hat ein Draht gleicher Abmessungen aus Aluminium ($\rho_\text{Al} = 2{,}6 \cdot 10^{-8} \, \Omega\text{m}$)?
 
 ### Temperaturabhängigkeit des Widerstands
@@ -149,6 +194,8 @@ $$R(T) = R(T_0) \cdot [1 + \alpha \cdot (T - T_0)]$$
 
 - $\alpha$: Temperaturkoeffizient, $[\alpha] = \frac{1}{\text{K}}$
 - $T_0$: Bezugstemperatur (üblicherweise 20 °C oder 0 °C)
+
+![bg 90% right:38%](img/widerstand-temperatur.svg)
 
 ### Leitfähigkeit verschiedener Materialien
 
@@ -193,6 +240,8 @@ In einem Knotenpunkt kann weder Ladung gespeichert noch erzeugt werden. Die Summ
 
 $$\sum_{k} I_{k} = 0$$
 
+Zufließende Ströme zählen positiv, abfließende negativ.
+
 ![bg right:30% 80%](img/kirchhoff-knoten.svg)
 
 ### Maschenregel (2. Kirchhoff’sches Gesetz)
@@ -203,9 +252,28 @@ $$\sum_{k} U_{k} = 0$$
 
 ![bg right:42% 90%](img/kirchhoff-masche.svg)
 
+### 🗳️ Vorzeichen in der Masche
+
+In der Masche gilt $U_1 = 2 \, \text{V}$, $U_2 = 5 \, \text{V}$, $U_3 = 4 \, \text{V}$.
+
+Wie groß ist $U_4$?
+
+A) $11 \, \text{V}$
+
+B) $-11 \, \text{V}$
+
+C) $7 \, \text{V}$
+
+D) $-1 \, \text{V}$
+
+![bg right:35% 90%](img/kirchhoff-masche.svg)
+
 ### Wie viele unabhängige Gleichungen gibt es?
 
 Netzwerk mit $k$ Knoten und $z$ Zweigen:
+
+- **Knoten:** alle Punkte, die nur durch Draht verbunden sind
+- **Zweig:** ein Bauteil (Widerstand, Quelle) zwischen zwei Knoten
 
 - **Unabhängige Knotengleichungen:** $k - 1$
   (die letzte Knotengleichung folgt aus den anderen)
@@ -232,6 +300,8 @@ Bei einer Reihenschaltung teilt sich die Gesamtspannung im Verhältnis der Wider
 
 $$I = \frac{U}{R_\text{ges}} = \frac{U_1}{R_1} = \frac{U_2}{R_2}$$
 
+$$\Rightarrow \quad \frac{U_1}{U_2} = \frac{R_1}{R_2}, \qquad U_2 = U \cdot \frac{R_2}{R_1 + R_2}$$
+
 ![bg right:30% 70%](https://upload.wikimedia.org/wikipedia/commons/9/91/Spannungsteiler.svg)
 
 ### Parallelschaltung von Widerständen
@@ -251,6 +321,8 @@ Bei einer Parallelschaltung teilt sich der Gesamtstrom im umgekehrten Verhältni
 
 $$\frac{I}{G_\text{ges}} = \frac{I_1}{G_1} = \frac{I_2}{G_2} = \dots = \frac{I_n}{G_n}$$
 
+Zwei Widerstände: $\quad I_1 = I \cdot \dfrac{R_2}{R_1 + R_2}$
+
 ![bg right:30% 50%](https://upload.wikimedia.org/wikipedia/commons/e/e5/Stromteiler-allgemein.svg)
 
 ### Reihe oder parallel? So erkennt man es *wirklich*
@@ -268,35 +340,35 @@ $$\frac{I}{G_\text{ges}} = \frac{I_1}{G_1} = \frac{I_2}{G_2} = \dots = \frac{I_n
 2. Schaltung mit diesen Knoten **neu zeichnen**
 3. Kriterium von der vorigen Folie anwenden
 
-### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
 
 ![w:500](img/rp-a.svg)
 
-**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
 
-### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
 
 ![w:500](img/rp-b.svg)
 
-**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
 
-### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
 
 ![w:500](img/rp-c.svg)
 
-**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
 
-### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
 
 ![w:500](img/rp-d.svg)
 
-**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
 
-### 🤔 Wie liegen $R_1$ und $R_2$ zueinander?
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
 
 ![w:500](img/rp-e.svg)
 
-**1** in Reihe &nbsp;&nbsp;&nbsp; **2** parallel &nbsp;&nbsp;&nbsp; **3** keins von beidem
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
 
 ### Knoten markieren am Beispiel d)
 
@@ -310,7 +382,7 @@ Ein Spannungsteiler besteht aus $R_1 = R_2 = 1 \, \text{k}\Omega$ an einer Quell
 
 a) Wie groß ist $U_a$ im Leerlauf (kein Verbraucher angeschlossen)?
 
-b) Nun wird ein Verbraucher $R_L = 1 \, \text{k}\Omega$ an den Abgriff angeschlossen (parallel zu $R_2$). Wie groß ist $U_a$ jetzt?
+b) Nun wird ein Verbraucher $R_L = 1 \, \text{k}\Omega$ an den Abgriff angeschlossen (parallel zu $R_2$). Schätzen Sie zuerst: steigt oder sinkt $U_a$? Wie groß ist $U_a$ jetzt?
 
 c) Wie viele Knoten, Zweige und unabhängige Gleichungen hat die Schaltung aus b)?
 

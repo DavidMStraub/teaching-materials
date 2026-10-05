@@ -89,6 +89,8 @@ Anschaulich: Feldlinien beginnen und enden nur auf Ladungen – was an Fluss „
 
 Besonders nützlich bei **hoher Symmetrie** (Kugel, Zylinder, Ebene).
 
+![bg 90% right:40%](img/gauss-huelle.svg)
+
 ### Beispiel: Punktladung mit dem Satz von Gauß
 
 Kugeloberfläche mit Radius $r$ um eine Punktladung $Q$ – aus Symmetriegründen ist $D$ überall auf der Kugel gleich groß und radial:
@@ -104,6 +106,8 @@ Das Coulomb-Feld aus Woche 1 – jetzt ohne Coulomb’sches Gesetz hergeleitet!
 - In nicht oder schwach leitenden Materialien führen elektrische Felder zu **Polarisation**: die positiven und negativen Ladungen im Material verschieben sich gegeneinander
 - Das erzeugt ein internes Gegenfeld, das das äußere Feld abschwächt
 - Solche polarisierbaren Materialien nennt man **Dielektrika**
+
+![bg 85% right:35%](img/polarisation.svg)
 
 ### Abschwächung des Feldes in Dielektrika
 
@@ -286,6 +290,8 @@ Beim Aufladen nimmt die Spannung mit der Ladung zu: $U(q) = \frac{q}{C}$
 $$W = \int_0^Q U(q) \, dq = \int_0^Q \frac{q}{C} \, dq = \frac{Q^2}{2C} = \frac{1}{2} Q U = \frac{1}{2} C U^2$$
 
 $$[W] = \text{V} \cdot \text{C} = \text{W} \cdot \text{s} = \text{J}$$
+
+![bg 90% right:35%](img/kondensator-energie.svg)
 
 ### 🗳️ Platten auseinanderziehen
 

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 0 460 390" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="aB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="aG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- geschlossene Hüllfläche -->
+  <ellipse cx="200" cy="190" rx="150" ry="115" fill="#2563eb" fill-opacity="0.06" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <text x="168" y="52" fill="#2563eb" font-size="20">Hüllfläche <tspan font-style="italic">A</tspan></text>
+
+  <!-- Feldlinien der inneren Ladung: alle verlassen die Hülle -->
+  <g stroke="#2563eb" stroke-width="2.5" marker-end="url(#aB)">
+    <line x1="172" y1="177" x2="315" y2="95"/>
+    <line x1="150" y1="164" x2="150" y2="62"/>
+    <line x1="128" y1="177" x2="47" y2="131"/>
+    <line x1="128" y1="203" x2="47" y2="249"/>
+    <line x1="150" y1="216" x2="150" y2="318"/>
+    <line x1="172" y1="203" x2="315" y2="285"/>
+  </g>
+  <circle cx="150" cy="190" r="24" fill="#ef4444"/>
+  <text x="150" y="200" fill="#fff" font-size="30" text-anchor="middle" font-weight="bold">+</text>
+  <text x="168" y="248" fill="#111827" font-size="22" font-style="italic">Q<tspan font-size="15" dy="6">innen</tspan></text>
+
+  <!-- Ladung außerhalb: Linie tritt ein und wieder aus -->
+  <path d="M 432,272 Q 230,190 430,112" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#aG)"/>
+  <circle cx="440" cy="290" r="20" fill="#f87171"/>
+  <text x="440" y="299" fill="#fff" font-size="26" text-anchor="middle" font-weight="bold">+</text>
+  <text x="398" y="345" fill="#6b7280" font-size="22" font-style="italic">Q<tspan font-size="15" dy="6">außen</tspan></text>
+  <text x="470" y="382" fill="#6b7280" font-size="18" text-anchor="end">hinein = hinaus → Nettofluss 0</text>
+</svg>
