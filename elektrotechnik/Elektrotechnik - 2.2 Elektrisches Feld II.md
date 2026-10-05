@@ -48,7 +48,7 @@ Das elektrische Feld mehrerer Ladungen ist die **Vektorsumme** der Felder der ei
 
 $$\vec{E}(\vec{r}) = \sum_{i} \vec{E}_i(\vec{r})$$
 
-- Felder stören sich nicht gegenseitig – sie addieren sich einfach
+- Jede Ladung erzeugt ihr Feld unabhängig von den anderen – die Felder addieren sich
 - Für kontinuierliche Ladungsverteilungen wird aus der Summe ein Integral (hier nicht vertieft)
 
 ![bg 92% right:38%](img/superposition.svg)
@@ -71,7 +71,7 @@ Der elektrische Fluss durch eine **geschlossene** Oberfläche ist gleich der ein
 
 $$\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen}}$$
 
-Anschaulich: Feldlinien beginnen und enden nur auf Ladungen – was an Fluss „herauskommt", muss von Ladung im Inneren stammen.
+Anschaulich: Feldlinien beginnen und enden nur auf Ladungen – was an Fluss „herauskommt“, muss von Ladung im Inneren stammen.
 
 Besonders nützlich bei **hoher Symmetrie** (Kugel, Zylinder, Ebene).
 
@@ -128,7 +128,7 @@ Bewegung einer positiven Probeladung $Q_P$ im Feld einer positiven Punktladung $
 - $P_1 \rightarrow P_2$ (nach außen): $W > 0$ – Arbeit wird freigesetzt
 - $P_2 \rightarrow P_1$ (nach innen): $W < 0$ – Arbeit muss aufgebracht werden
 
-Vgl. Mechanik: $W = \vec{F} \cdot \vec{s}$ — aber hier ist $\vec{F}$ abhängig von $r$!
+Vgl. Mechanik: $W = \vec{F} \cdot \vec{s}$ – aber hier ist $\vec{F}$ abhängig von $r$!
 
 $$W_{12} = \sum_{i} F_i \cdot \Delta r \quad \xrightarrow{\Delta r \to 0} \quad W_{12} = \int_{r_1}^{r_2} F(r) \, dr$$
 
@@ -163,8 +163,6 @@ $$E_\text{pot} = m \cdot g \cdot h = m \cdot \varphi_g(h)$$
 
 ![bg 90% right:36%](https://upload.wikimedia.org/wikipedia/commons/d/d1/Courbe_niveau.svg)
 
-Elektrostatische Felder sind **Potentialfelder**: Feldlinien beginnen/enden auf Ladungen („Quellen/Senken") und sind nie in sich geschlossen.
-
 ### Spannung & Arbeit
 
 **Elektrische Spannung** (*voltage*) = Potentialdifferenz:
@@ -176,6 +174,8 @@ $$U_{12} = \varphi_1 - \varphi_2, \qquad [U] = \text{V}$$
 $$W_{12} = Q \cdot (\varphi_1 - \varphi_2) = Q \cdot U_{12}, \qquad [W] = \text{J}$$
 
 Die elektrische Arbeit ist **unabhängig vom Weg**!
+
+Elektrostatische Felder sind **Potentialfelder**: Feldlinien beginnen/enden auf Ladungen („Quellen/Senken“) und sind nie in sich geschlossen.
 
 ### Feld und Spannung
 
@@ -219,7 +219,9 @@ Nicht zu verwechseln mit der Kapazität (*capacitance*) eines Kondensators in Fa
 
 ### Plattenkondensator
 
-$$E = \frac{Q}{\varepsilon_0 \varepsilon_r A}, \qquad U = E \cdot d = \frac{Q \cdot d}{\varepsilon_0 \varepsilon_r A}$$
+Satz von Gauß (Hüllfläche um eine Platte): $D = \frac{Q}{A}$
+
+$$E = \frac{D}{\varepsilon_0 \varepsilon_r} = \frac{Q}{\varepsilon_0 \varepsilon_r A}, \qquad U = E \cdot d = \frac{Q \cdot d}{\varepsilon_0 \varepsilon_r A}$$
 
 $$C = \frac{Q}{U} = \frac{\varepsilon_0 \varepsilon_r A}{d} = \frac{\varepsilon A}{d}$$
 
