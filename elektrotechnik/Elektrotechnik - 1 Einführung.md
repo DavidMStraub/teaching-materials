@@ -21,7 +21,8 @@ ID: david.straub@hm.edu
 ### Organisatorisches
 
 - 🎓 Moodle-Kurs: https://moodle.hm.edu/course/view.php?id=25470
-- 💬 Matrix-Raum: tbd
+- Lehrmaterialien: https://davidstraub.de/teaching-materials/elektrotechnik/
+- 💬 Matrix-Raum: https://matrix.hm.edu/#/room/%23fk03-lrb1b-elektrotechnik-ws26%3Ahm.edu
 - 🕥 Sprechstunde: nach Vereinbarung per Zoom oder in Präsenz in B 374
 - 📖 Literatur
     - Pregla – [OPAC](https://link.hm.edu/2c6h)
@@ -56,21 +57,19 @@ ID: david.straub@hm.edu
 - Aufgaben vom Typ der 📝-Aufgaben aus dem Unterricht
 - **Probeklausur** zur Semestermitte unter Prüfungsbedingungen
 - Altklausuren: https://palme.userweb.mwn.de/
-    - Achtung: erst seit 2017 ohne Hilfsmittel
 
 ### So läuft jede Einheit ab
 
 - **Montagsaufgabe** (10 min, ab Woche 2): kleine Aufgabe zur Vorwoche
 - Theorie-Blöcke von max. 40 Minuten
-- Nach jedem Theorie-Block: **📝 Sie rechnen selbst** – die Aufgaben sind vom Typ der Prüfungsaufgaben
+- Nach jedem Theorie-Block: **📝 Sie rechnen selbst**
 - ☕ Pause: immer 11:30–11:45
-- Mitschreiben: Tafelanschriebe ergänzen die Folien und sind prüfungsrelevant
 
 ### Was ich von Ihnen erwarte
 
 - **Mitrechnen:** die 📝-Aufgaben im Unterricht selbst lösen – gerade dann, wenn es hakt
 - **Mitreden:** mit der Person neben Ihnen diskutieren, Fragen stellen – jederzeit
-- **Dranbleiben:** jede Woche nacharbeiten – jedes Kapitel baut auf dem vorigen auf
+- **Mitschreiben:** Tafelanschriebe ergänzen die Folien und sind prüfungsrelevant
 
 ### So bestehen Sie die Prüfung
 
