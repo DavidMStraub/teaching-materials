@@ -259,17 +259,6 @@ Kapazität steigt mit Fläche $A$, Permittivität $\varepsilon_r$ und kleinerem 
 
 ![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/2/20/Plate_CapacitorII.svg)
 
-### Kugel- und Zylinderkondensator
-
-| | Kugel | Zylinder |
-|---|---|---|
-| | $C = 4\pi \varepsilon \dfrac{R_1 R_2}{R_2 - R_1}$ | $C = 2 \pi \varepsilon \dfrac{l}{\ln(R_2/R_1)}$ |
-
-Herleitung: Satz von Gauß + $U = \int E \, dr$ (→ Skript; gleiche Methode wie beim Punktladungs-Beispiel)
-
-![bg 90% right:33% vertical](https://upload.wikimedia.org/wikipedia/commons/3/3f/Spherical_Capacitor.svg)
-![bg 90%](https://upload.wikimedia.org/wikipedia/commons/b/b8/Cylindrical_CapacitorII.svg)
-
 ### Parallelschaltung von Kondensatoren
 
 $$C_{\text{ges}} = C_1 + C_2 + \dots + C_n = \sum_{i=1}^n C_i$$
@@ -350,18 +339,6 @@ c) Wie groß sind die Teilspannungen $U_1$ und $U_2$?
 
 d) Wie viel Energie ist insgesamt gespeichert?
 
-### Übersicht: Größen im elektrischen Feld
-
-Größe | Definition | Einheit
---- | --- | ---
-Elektrische Ladung (*electric charge*) | $Q$ | $[Q] = \text{C}$
-Spannung (*voltage*) | $U = \Delta \varphi$ | $[U] = \text{V}$
-Kapazität (*capacitance*) | $C = \frac{Q}{U}$ | $[C] = \text{F} = \frac{\text{C}}{\text{V}}$
-Elektrische Feldstärke (*electric field [strength]*) | $\vec{E} = \frac{\vec{F}}{Q}$ | $[\vec{E}] = \frac{\text{V}}{\text{m}}=\frac{\text{N}}{\text{C}}$
-Elektrische Flussdichte (*electric flux density*) | $\vec{D} = \varepsilon_0 \varepsilon_r \vec{E}$ | $[\vec{D}] = \frac{\text{C}}{\text{m}^2}$
-Elektrische Feldkonstante (*electric constant*) | $\varepsilon_0$ | $[\varepsilon_0] = \frac{\text{C}^2}{\text{N} \cdot \text{m}^2}$
-Relative Permittivität (*relative permittivity*) | $\varepsilon_r = \frac{\varepsilon}{\varepsilon_0}$ | dimensionslos
-
 ### Unsere Basiseinheiten-Tabelle wächst
 
 | Elektrische Größe | Formelzeichen | Einheit | Basiseinheiten |
@@ -370,15 +347,7 @@ Relative Permittivität (*relative permittivity*) | $\varepsilon_r = \frac{\vare
 | Spannung | $U$ | V | ❓ |
 | **Kapazität** | $C$ | F | ❓ |
 
-Leiten Sie die Basiseinheiten her – Ansatz: $[U] = \frac{[W]}{[Q]}$, $[C] = \frac{[Q]}{[U]}$
-
-### Unsere Basiseinheiten-Tabelle wächst
-
-| Elektrische Größe | Formelzeichen | Einheit | Basiseinheiten |
-|---|---|---|---|
-| Ladung | $Q$ | C | $\text{A} \cdot \text{s}$ |
-| Spannung | $U$ | V | $\dfrac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^3}$ |
-| **Kapazität** | $C$ | F | $\dfrac{\text{A}^2 \cdot \text{s}^4}{\text{kg} \cdot \text{m}^2}$ |
+**Bis nächste Woche:** Leiten Sie die Basiseinheiten her – Ansatz: $[U] = \frac{[W]}{[Q]}$, $[C] = \frac{[Q]}{[U]}$
 
 ### Zusammenfassung: Das elektrische Feld
 
@@ -391,3 +360,30 @@ Leiten Sie die Basiseinheiten her – Ansatz: $[U] = \frac{[W]}{[Q]}$, $[C] = \f
 - Energie: $W = \frac{1}{2} C U^2$
 
 **Nächstes Kapitel:** Gleichstrom – jetzt bewegen sich die Ladungen! 🔌
+
+### Übersicht: Größen im elektrischen Feld
+
+Größe | Definition | Einheit
+--- | --- | ---
+Elektrische Ladung (*electric charge*) | $Q$ | $[Q] = \text{C}$
+Spannung (*voltage*) | $U = \Delta \varphi$ | $[U] = \text{V}$
+Kapazität (*capacitance*) | $C = \frac{Q}{U}$ | $[C] = \text{F} = \frac{\text{C}}{\text{V}}$
+Elektrische Feldstärke (*electric field [strength]*) | $\vec{E} = \frac{\vec{F}}{Q}$ | $[\vec{E}] = \frac{\text{V}}{\text{m}}=\frac{\text{N}}{\text{C}}$
+Elektrische Flussdichte (*electric flux density*) | $\vec{D} = \varepsilon_0 \varepsilon_r \vec{E}$ | $[\vec{D}] = \frac{\text{C}}{\text{m}^2}$
+Elektrische Feldkonstante (*electric constant*) | $\varepsilon_0$ | $[\varepsilon_0] = \frac{\text{C}^2}{\text{N} \cdot \text{m}^2}$
+Relative Permittivität (*relative permittivity*) | $\varepsilon_r = \frac{\varepsilon}{\varepsilon_0}$ | dimensionslos
+
+## Vertiefung
+
+Für alle, die es genauer wissen wollen
+
+### Vertiefung: Kugel- und Zylinderkondensator
+
+| | Kugel | Zylinder |
+|---|---|---|
+| | $C = 4\pi \varepsilon \dfrac{R_1 R_2}{R_2 - R_1}$ | $C = 2 \pi \varepsilon \dfrac{l}{\ln(R_2/R_1)}$ |
+
+Herleitung: Satz von Gauß + $U = \int E \, dr$ (→ Skript; gleiche Methode wie beim Punktladungs-Beispiel)
+
+![bg 90% right:33% vertical](https://upload.wikimedia.org/wikipedia/commons/3/3f/Spherical_Capacitor.svg)
+![bg 90%](https://upload.wikimedia.org/wikipedia/commons/b/b8/Cylindrical_CapacitorII.svg)
