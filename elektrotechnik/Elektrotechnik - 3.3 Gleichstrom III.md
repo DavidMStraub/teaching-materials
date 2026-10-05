@@ -110,7 +110,7 @@ Jedes reale Voltmeter hat einen **endlichen Innenwiderstand** und belastet die S
 
 - Digitalmultimeter (DMM): typisch $R_i \approx 10 \, \text{M}\Omega$
 - Das Voltmeter liegt **parallel** zum Messobjekt → wirkt wie ein Lastwiderstand → **Lastfehler**, wenn $R_i$ nicht $\gg$ Quellwiderstand
-- In Klausuraufgaben: „ideales Voltmeter" = $R_i \to \infty$, zieht keinen Strom
+- In Klausuraufgaben: „ideales Voltmeter“ = $R_i \to \infty$, zieht keinen Strom
 
 Faustregel: Spannungsmessung ist unkritisch, solange $R_\text{Quelle} \ll R_{i,\text{Voltmeter}}$
 
@@ -137,7 +137,7 @@ Problem: Bei kleinen Widerständen (z.B. Pt100 mit $100 \, \Omega$) verfälscht 
 - Zwei Leitungen führen den (bekannten) Messstrom $I$
 - Zwei separate Leitungen messen die Spannung **direkt am Sensor** – durch sie fließt (ideales Voltmeter!) kein Strom → kein Spannungsabfall → Leitungswiderstand fällt heraus
 
-Alltagstechnik: jedes Labornetzteil mit „Sense"-Klemmen arbeitet so.
+Alltagstechnik: jedes Labornetzteil mit „Sense“-Klemmen arbeitet so.
 
 ![bg 95% right:45%](img/vierleiter.svg)
 
@@ -167,7 +167,7 @@ Herleitung an der Tafel: $[R] = \frac{[U]}{[I]}$, $[P] = [U] \cdot [I]$
 
 - $I = dQ/dt$; Ohm: $U = R \cdot I$; $R = \rho \, l / A$; $R(T)$ linear mit $\alpha$
 - Kirchhoff: Knoten- und Maschenregel; $k-1$ unabhängige Knotengleichungen
-- Reihe: R addieren, Spannungsteiler; parallel: G addieren, Stromteiler — **Topologie zählt, nicht die Zeichnung!**
+- Reihe: R addieren, Spannungsteiler; parallel: G addieren, Stromteiler – **Topologie zählt, nicht die Zeichnung!**
 - **Zweipoltheorie:** jedes lineare Netzwerk = $U_0$ + $R_i$; Quellen deaktivieren für $R_i$
 - Leistungsanpassung: $P_\text{max} = U_0^2/4R_i$ bei $R = R_i$, dann $\eta = 0{,}5$
 - Arbeitspunkt = Schnittpunkt von Quellen- und Lastkennlinie

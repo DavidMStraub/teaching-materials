@@ -343,15 +343,15 @@ b) Lesen Sie aus der Hysteresekurve (vorige Folie) ab: Welche Größe muss ein M
 
 c) Ein Eisenkern wurde aufmagnetisiert und der Spulenstrom danach abgeschaltet. Warum ist $B$ im Kern nicht null?
 
-### Zwischenstand – und nächste Woche: Übungsklausur!
+### Zwischenstand – und nächste Woche: Probeklausur!
 
 Heute: Magnetfeld ($B$, $H$, $\Phi$, $\Theta$), Kräfte ($F = Q v B$, $F = I \ell B$), Durchflutungsgesetz, Materie (dia/para/ferro, Hysterese)
 
-**Nächste Woche: Übungsklausur unter Klausurbedingungen**
+**Nächste Woche: Probeklausur unter Klausurbedingungen**
 
 - Stoff: Kapitel 1–3 (Einheiten, E-Feld, Gleichstrom)
 - 60 Minuten, keine Hilfsmittel – wie in der echten Prüfung
-- Mit „Ersatzwerten" wie im Original: wenn Sie eine Teilaufgabe nicht lösen, rechnen Sie mit dem Ersatzwert weiter!
+- Mit „Ersatzwerten“ wie im Original: wenn Sie eine Teilaufgabe nicht lösen, rechnen Sie mit dem Ersatzwert weiter!
 - Danach: ausführliche Besprechung
 
 **In zwei Wochen:** der magnetische Kreis – Magnetfelder berechnen wie Stromkreise.

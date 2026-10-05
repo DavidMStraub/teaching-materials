@@ -31,13 +31,13 @@ Fast die gesamte elektrische Energieversorgung arbeitet mit **drei** um 120° ve
 
 ### Das Drehfeld
 
-Drei räumlich um $120°$ versetzte Spulen, gespeist mit den drei zeitversetzten Strömen: jede erzeugt ein Feld **entlang ihrer eigenen Achse**. Die Summe hat **konstanten Betrag** und dreht sich mit $\omega$ — ein Rotor folgt ihr: **Motor ohne Schleifringe oder Kommutator**.
+Drei räumlich um $120°$ versetzte Spulen, gespeist mit den drei zeitversetzten Strömen: jede erzeugt ein Feld **entlang ihrer eigenen Achse**. Die Summe hat **konstanten Betrag** und dreht sich mit $\omega$ – ein Rotor folgt ihr: **Motor ohne Schleifringe oder Kommutator**.
 
 ![w:800](img/drehfeld.svg)
 
 ### Das symmetrische Dreiphasensystem
 
-Drei Spannungsquellen mit gleicher Amplitude und Frequenz, jeweils um $120°$ ($\frac{2\pi}{3}$) verschoben — als Effektivwertzeiger (Länge $U_Y$, die **Sternspannung**):
+Drei Spannungsquellen mit gleicher Amplitude und Frequenz, jeweils um $120°$ ($\frac{2\pi}{3}$) verschoben – als Effektivwertzeiger (Länge $U_Y$, die **Sternspannung**):
 
 $$\underline{U}_1 = U_Y \cdot e^{j0°}, \qquad \underline{U}_2 = U_Y \cdot e^{-j120°}, \qquad \underline{U}_3 = U_Y \cdot e^{+j120°}$$
 
@@ -75,7 +75,7 @@ $$\boxed{U_\Delta = \sqrt{3} \cdot U_Y}$$
 
 **Unser Niederspannungsnetz:** $U_Y = 230\,\text{V}$, $U_\Delta = \sqrt{3} \cdot 230\,\text{V} = 400\,\text{V}$
 
-→ Schreibweise auf Typenschildern und in Aufgaben: **„Drehstromnetz 400/230 V"**
+→ Schreibweise auf Typenschildern und in Aufgaben: **„Drehstromnetz 400/230 V“**
 
 ### Verbraucher in Sternschaltung (Y)
 
@@ -87,7 +87,7 @@ $$U_\text{Str} = U_Y = \frac{U_\Delta}{\sqrt{3}}$$
 **Strangstrom = Außenleiterstrom:**
 $$I_\text{Str} = I = \frac{U_Y}{Z}$$
 
-**Neutralleiterstrom:** $\underline{I}_N = \underline{I}_1 + \underline{I}_2 + \underline{I}_3 = 0$ — bei symmetrischer Last fließt im Neutralleiter **kein Strom**!
+**Neutralleiterstrom:** $\underline{I}_N = \underline{I}_1 + \underline{I}_2 + \underline{I}_3 = 0$ – bei symmetrischer Last fließt im Neutralleiter **kein Strom**!
 
 ![bg right:38% 90%](img/drehstrom-stern.svg)
 
@@ -163,10 +163,10 @@ $$C_\Delta = \frac{Q_C}{3 \cdot U_\Delta^2 \cdot \omega} = \frac{C_Y}{3}$$
 ### Zusammenfassung: Drehstrom
 
 - **Symmetrisches Dreiphasensystem:** drei Spannungen, je 120° versetzt, Summe = 0
-- **Zwei Spannungen:** $U_\Delta = \sqrt{3} \cdot U_Y$ — Netz „400/230 V"
+- **Zwei Spannungen:** $U_\Delta = \sqrt{3} \cdot U_Y$ – Netz „400/230 V“
 - **Sternschaltung:** $U_\text{Str} = U_Y$, $I_\text{Str} = I$, symmetrisch → $I_N = 0$
 - **Dreieckschaltung:** $U_\text{Str} = U_\Delta$, $I_\text{Str} = I/\sqrt{3}$
 - **Leistung** (beide Schaltungen): $S = \sqrt{3} \cdot U_\Delta \cdot I$; dieselbe Last in Δ nimmt 3× so viel Leistung auf wie in Y
 - **Kompensation:** $C_\Delta = C_Y / 3$
 
-**Nächstes Kapitel:** Schaltvorgänge — was passiert im Moment des Einschaltens? ⚡
+**Nächstes Kapitel:** Schaltvorgänge – was passiert im Moment des Einschaltens? ⚡

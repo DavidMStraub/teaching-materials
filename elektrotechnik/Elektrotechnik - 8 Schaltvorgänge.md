@@ -21,12 +21,12 @@ David Straub
 
 ### Motivation: Zwischen den Welten
 
-Bisher haben wir zwei „eingeschwungene" Zustände betrachtet:
+Bisher haben wir zwei „eingeschwungene“ Zustände betrachtet:
 
 - **Gleichstrom** (Kapitel 3–5): alles konstant
 - **Wechselstrom** (Kapitel 6–7): alles sinusförmig
 
-**Was passiert dazwischen — im Moment des Schaltens?**
+**Was passiert dazwischen – im Moment des Schaltens?**
 
 - Kamerablitz: Kondensator lädt sekundenlang, entlädt in Millisekunden
 - Zündspule im Auto: Abschalten einer Spule erzeugt den Zündfunken
@@ -34,14 +34,14 @@ Bisher haben wir zwei „eingeschwungene" Zustände betrachtet:
 
 ### Grundidee: Energiespeicher können nicht springen
 
-C und L speichern Energie — und Energie kann sich nicht sprunghaft ändern:
+C und L speichern Energie – und Energie kann sich nicht sprunghaft ändern:
 
 | Element | Energie | Stetige Größe | Folge |
 |---|---|---|---|
 | Kondensator | $W = \frac{1}{2} C u_C^2$ | **Spannung $u_C$** | $i_C$ darf springen |
 | Spule | $W = \frac{1}{2} L i_L^2$ | **Strom $i_L$** | $u_L$ darf springen |
 
-**Merksatz:** Kondensatorspannung und Spulenstrom sind **stetig** — sie behalten im Schaltmoment ihren Wert.
+**Merksatz:** Kondensatorspannung und Spulenstrom sind **stetig** – sie behalten im Schaltmoment ihren Wert.
 
 Der Übergang zum neuen Zustand erfolgt **exponentiell** mit der Zeitkonstante $\tau$.
 
@@ -66,7 +66,7 @@ $$\tau = R \cdot C \qquad \left([\tau] = \Omega \cdot \text{F} = \text{s}\right)
 
 - Anfangstangente trifft den Endwert genau bei $t = \tau$
 - Nach $t = \tau$: 63 % des Endwerts erreicht
-- Nach $t = 3\tau$: 95 % — nach $t = 5\tau$: über 99 % → **praktisch abgeschlossen**
+- Nach $t = 3\tau$: 95 % – nach $t = 5\tau$: über 99 % → **praktisch abgeschlossen**
 
 Ablesen/Skizzieren in der Klausur: Anfangswert, Endwert, Tangente durch $\tau$!
 
@@ -80,13 +80,11 @@ $$0 = u_R + u_C \qquad\Rightarrow\qquad \boxed{u_C(t) = U_0 \cdot e^{-t/\tau}, \
 
 - $u_C$ startet stetig bei $U_0$, klingt auf $0$ ab
 - Strom fließt **rückwärts** (negativ): der Kondensator gibt seine Energie ab
-- Gleiche Zeitkonstante $\tau = RC$ — aber Achtung: beim Auf- und Entladen über **verschiedene Widerstände** ergeben sich verschiedene $\tau$!
+- Gleiche Zeitkonstante $\tau = RC$ – aber Achtung: beim Auf- und Entladen über **verschiedene Widerstände** ergeben sich verschiedene $\tau$!
 
-### 📝 Jetzt sind Sie dran: Kondensator (zu zweit)
+### 📝 Aufgabe 23: Kondensator
 
-**Aufgabe 24**
-
-a) Ein Kondensator $C = 0{,}1\,\mu\text{F}$ wird über $R = 5\,\Omega$ entladen. Nach welcher Zeit $t_x$ ist die Spannung auf 10 % des Anfangswerts gesunken? *(Tipp: nach $t_x$ auflösen — Logarithmus!)*
+a) Ein Kondensator $C = 0{,}1\,\mu\text{F}$ wird über $R = 5\,\Omega$ entladen. Nach welcher Zeit $t_x$ ist die Spannung auf 10 % des Anfangswerts gesunken? *(Tipp: nach $t_x$ auflösen – Logarithmus!)*
 
 b) Der Datenspeicher eines Taschenrechners (ersatzweise: Lastwiderstand $R = 2{,}2\,\text{M}\Omega$) soll beim Batteriewechsel aus einem Kondensator gespeist werden. Batteriespannung $U_B = 3\,\text{V}$; die Spannung darf in $t_W = 30\,\text{s}$ nicht unter $U_\text{min} = 0{,}8\,\text{V}$ sinken. Dimensionieren Sie $C$.
 
@@ -98,7 +96,7 @@ $$U_0 = u_R + u_L = R \cdot i_L + L \cdot \frac{di_L}{dt}$$
 
 $$\boxed{i_L(t) = \frac{U_0}{R} \cdot \left(1 - e^{-t/\tau}\right), \qquad u_L(t) = U_0 \cdot e^{-t/\tau}, \qquad \tau = \frac{L}{R}}$$
 
-- $i_L$ startet stetig bei $0$ und strebt gegen $\frac{U_0}{R}$ (Spule wirkt am Ende wie ein Kurzschluss — vgl. $\omega \to 0$ in Kapitel 6!)
+- $i_L$ startet stetig bei $0$ und strebt gegen $\frac{U_0}{R}$ (Spule wirkt am Ende wie ein Kurzschluss – vgl. $\omega \to 0$ in Kapitel 6!)
 - $u_L$ springt auf $U_0$ und klingt auf $0$ ab
 
 **Spiegelbild zum Kondensator:** Rollen von $u$ und $i$ vertauscht.
@@ -109,7 +107,7 @@ Stromdurchflossene Spule ($i_L = \frac{U_0}{R_S}$) wird bei $t = 0$ auf einen Wi
 
 $$i_L(t) = i_L(0) \cdot e^{-t/\tau}, \qquad u_L(t) = -R \cdot i_L(0) \cdot e^{-t/\tau}, \qquad \tau = \frac{L}{R}$$
 
-**⚡ Die entscheidende Konsequenz:** Der Spulenstrom *muss* stetig weiterfließen — die Spule erzwingt ihn mit jeder nötigen Spannung:
+**⚡ Die entscheidende Konsequenz:** Der Spulenstrom *muss* stetig weiterfließen – die Spule erzwingt ihn mit jeder nötigen Spannung:
 
 $$|u_L(0)| = R \cdot i_L(0)$$
 
@@ -127,13 +125,11 @@ $$\boxed{x(t) = x_\infty + \left(x_0 - x_\infty\right) \cdot e^{-t/\tau}}$$
 |---|---|
 | Anfangswert $x_0$ | Stetigkeit: $u_C$ bzw. $i_L$ aus dem Zustand **vor** dem Schalten |
 | Endwert $x_\infty$ | Gleichstrombild: C = Unterbrechung, L = Kurzschluss |
-| Zeitkonstante $\tau$ | $\tau = R_\text{ers} C$ bzw. $\tau = L / R_\text{ers}$ — $R_\text{ers}$ von den Klemmen des Speichers aus gesehen (Quellen deaktiviert) |
+| Zeitkonstante $\tau$ | $\tau = R_\text{ers} C$ bzw. $\tau = L / R_\text{ers}$ – $R_\text{ers}$ von den Klemmen des Speichers aus gesehen (Quellen deaktiviert) |
 
 Damit lassen sich alle Verläufe **ohne Differentialgleichung** hinschreiben und skizzieren.
 
-### 📝 Jetzt sind Sie dran: Spule abschalten (zu zweit)
-
-**Aufgabe 25**
+### 📝 Aufgabe 24: Spule abschalten
 
 Eine Spule $L = 250\,\text{mH}$ mit Wicklungswiderstand $R_S = 5\,\Omega$ liegt an einer idealen Spannungsquelle $U_0 = 100\,\text{V}$. Zum Zeitpunkt $t = 0$ wird sie von der Quelle getrennt und auf einen Entladewiderstand $R = 50\,\Omega$ geschaltet.
 
@@ -156,4 +152,4 @@ d) Skizzieren Sie Strom- und Spannungsverlauf an der Spule (Anfangswert, Endwert
 | Verhalten $t \to \infty$ | Unterbrechung | Kurzschluss |
 | Gefahr | Einschaltstromstoß | Abschalt-Überspannung |
 
-Universalformel: $x(t) = x_\infty + (x_0 - x_\infty) \cdot e^{-t/\tau}$ — nach $5\tau$ ist alles vorbei.
+Universalformel: $x(t) = x_\infty + (x_0 - x_\infty) \cdot e^{-t/\tau}$ – nach $5\tau$ ist alles vorbei.

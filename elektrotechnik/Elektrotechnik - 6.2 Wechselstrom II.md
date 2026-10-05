@@ -104,7 +104,7 @@ Einsetzen der Sinusverläufe liefert:
 
 **An der Induktivität eilt die Spannung dem Strom um $\frac{\pi}{2}$ voraus.**
 
-Merkspruch: „Bei Induktivitäten die Ströme sich verspäten; im Kondensator eilt der Strom vor."
+Merkspruch: „Bei Induktivitäten die Ströme sich verspäten; im Kondensator eilt der Strom vor.“
 
 ![bg right:45% 90%](https://physikbuch.schule/media/ac-inductor-phasor-diagram.svg)
 
@@ -127,7 +127,7 @@ $$\underline{Z} = \frac{\underline{U}}{\underline{I}} = \frac{U}{I} \cdot e^{j(\
 **Admittanz** (komplexer Leitwert):
 $$\underline{Y} = \frac{1}{\underline{Z}}$$
 
-**Ohm’sches Gesetz, Kirchhoff, Reihen-/Parallelschaltung, Teiler, Zweipoltheorie — alles gilt weiter, nur mit komplexen Größen!**
+**Ohm’sches Gesetz, Kirchhoff, Reihen-/Parallelschaltung, Teiler, Zweipoltheorie – alles gilt weiter, nur mit komplexen Größen!**
 
 ![bg right:40% fit](https://upload.wikimedia.org/wikipedia/commons/c/c2/Widerstand_Zeiger.svg)
 

@@ -68,7 +68,7 @@ Einheit: $[L] = \frac{\text{Wb}}{\text{A}} = \text{H}$ (Henry)
 
 $$U = L \cdot \frac{dI}{dt}$$
 
-Merkregel: $L$ verbindet den magnetischen Kreis ($R_m$) mit der Schaltung — **eine** Zahl fasst Geometrie, Material und Windungszahl zusammen.
+Merkregel: $L$ verbindet den magnetischen Kreis ($R_m$) mit der Schaltung – **eine** Zahl fasst Geometrie, Material und Windungszahl zusammen.
 
 ### Induktivität bei ferromagnetischen Materialien
 
@@ -138,7 +138,7 @@ $$W_m = \frac{1}{2} H B \cdot V = \frac{1}{2} \frac{B^2}{\mu_0 \mu_r} \cdot V$$
 
 $$w_m = \frac{1}{2} H B$$
 
-Beim Kondensator kennen wir $W = \frac{1}{2} C U^2$; völlig analog gilt dort für die Energiedichte $w_e = \frac{1}{2} E D$ — die Struktur ist identisch.
+Beim Kondensator kennen wir $W = \frac{1}{2} C U^2$; völlig analog gilt dort für die Energiedichte $w_e = \frac{1}{2} E D$ – die Struktur ist identisch.
 
 ### Kräfte an Grenzflächen: Herleitung
 
@@ -166,7 +166,7 @@ $$\sigma = \frac{F}{A} = \frac{B^2}{2 \mu_0}$$
 - Elektromagnetische Relais und Schütze
 - Magnetische Verriegelungen
 
-Zahlengefühl: bei $B = 1 \, \text{T}$ ist $\sigma \approx 40 \, \frac{\text{N}}{\text{cm}^2}$ — 1 cm² trägt 4 kg!
+Zahlengefühl: bei $B = 1 \, \text{T}$ ist $\sigma \approx 40 \, \frac{\text{N}}{\text{cm}^2}$ – 1 cm² trägt 4 kg!
 
 ### 📝 Aufgabe 16: Induktivität & Schalten
 
@@ -190,11 +190,11 @@ d) An der Spule wird ein rechteckförmiger Spannungsverlauf angelegt ($+U_1$ fü
 | Magn. Flussdichte | $B$ | T | $\frac{\text{kg}}{\text{A} \cdot \text{s}^2}$ |
 | **Induktivität** | $L$ | H | $\frac{\text{kg} \cdot \text{m}^2}{\text{A}^2 \cdot \text{s}^2}$ |
 
-Herleitung an der Tafel: $[L] = \frac{[U] \cdot [t]}{[I]}$ — **damit ist die Tabelle komplett.**
+Herleitung an der Tafel: $[L] = \frac{[U] \cdot [t]}{[I]}$ – **damit ist die Tabelle komplett.**
 
 ### Zusammenfassung: Elektromagnetische Induktion
 
-- Induktionsgesetz: $U = -N \frac{d\Phi}{dt}$ — Bewegungs- und Ruheinduktion
+- Induktionsgesetz: $U = -N \frac{d\Phi}{dt}$ – Bewegungs- und Ruheinduktion
 - Lenz: induzierter Strom wirkt seiner Ursache entgegen (Energieerhaltung)
 - $u(t)$-Skizzen: $u$ ist die (negative) **Steigung** von $\Phi(t)$
 - Selbstinduktion: $L = \frac{N^2}{R_m}$; $U = L \frac{dI}{dt}$; Reihe/parallel wie Widerstände

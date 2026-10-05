@@ -45,7 +45,7 @@ David Straub
 - Einfache Berechnungen wie bei Widerstandsnetzwerken
 - Gute Näherung für viele praktische Fälle
 
-**Voraussetzung:** magnetischer Fluss „fließt" hauptsächlich durch ferromagnetisches Material
+**Voraussetzung:** magnetischer Fluss „fließt“ hauptsächlich durch ferromagnetisches Material
 
 ![bg right:35% 100%](https://upload.wikimedia.org/wikipedia/commons/d/d0/Electromagnet_with_gap.svg)
 
@@ -57,7 +57,7 @@ David Straub
 
 $$\Theta = R_m \cdot \Phi$$
 
-**Wichtig:** Diese Analogie ist *mathematisch*, nicht physikalisch – es „fließt" nichts. Aber sie macht Magnetkreise so einfach berechenbar wie Widerstandsnetzwerke.
+**Wichtig:** Diese Analogie ist *mathematisch*, nicht physikalisch – es „fließt“ nichts. Aber sie macht Magnetkreise so einfach berechenbar wie Widerstandsnetzwerke.
 
 ### Herleitung des magnetischen Widerstands
 
@@ -69,9 +69,9 @@ Mit $\Phi = B \cdot A$ und $B = \mu_0 \mu_r H$ folgt $H = \frac{\Phi}{\mu_0 \mu_
 
 $$\Theta = \frac{\ell}{\mu_0 \mu_r A} \cdot \Phi \qquad\Rightarrow\qquad \boxed{\Theta = R_m \cdot \Phi, \quad R_m = \frac{\ell}{\mu_0 \mu_r A}}$$
 
-Das ist das **„Ohmsche Gesetz" des magnetischen Kreises**!
+Das ist das **„Ohmsche Gesetz“ des magnetischen Kreises**!
 
-$[R_m] = \frac{\text{A}}{\text{Wb}} = \frac{1}{\text{H}}$ — analog zu $R = \frac{\ell}{\sigma A}$
+$[R_m] = \frac{\text{A}}{\text{Wb}} = \frac{1}{\text{H}}$ – analog zu $R = \frac{\ell}{\sigma A}$
 
 ### Magnetischer Leitwert (Permeanz)
 
@@ -95,7 +95,7 @@ Große Permeabilität $\mu_r$ → großer Leitwert → viel Fluss.
 
 ### Reihen- und Parallelschaltung magnetischer Widerstände
 
-**Reihenschaltung** (verschiedene Abschnitte im selben Flusspfad — Eisen, Luftspalt, …):
+**Reihenschaltung** (verschiedene Abschnitte im selben Flusspfad – Eisen, Luftspalt, …):
 
 $$R_{m,\text{ges}} = R_{m,1} + R_{m,2} + \ldots$$
 
@@ -105,7 +105,7 @@ Der gleiche Fluss $\Phi$ durchfließt alle Abschnitte (wie der Strom in der Reih
 
 $$\frac{1}{R_{m,\text{ges}}} = \frac{1}{R_{m,1}} + \frac{1}{R_{m,2}} + \ldots$$
 
-Am Verzweigungspunkt gilt die „Knotenregel": $\sum_k \Phi_k = 0$.
+Am Verzweigungspunkt gilt die „Knotenregel“: $\sum_k \Phi_k = 0$.
 
 ### Vom Magnetkreis zum Ersatzschaltbild
 
@@ -134,7 +134,7 @@ $$\frac{R_{m,L}}{R_{m,E}} = \frac{\delta \cdot \mu_r}{\ell_E} = \frac{0{,}001 \c
 
 **Der Luftspalt ist 7× wichtiger, obwohl er 300× kürzer ist!**
 
-**Praktische Näherung** für $\mu_r \gg 1$ und $\delta \mu_r \gg \ell_E$: Eisenwiderstand vernachlässigen, $R_{m,\text{ges}} \approx R_{m,L}$. In Aufgabenstellungen steht dafür oft kurz „$\mu_r \to \infty$".
+**Praktische Näherung** für $\mu_r \gg 1$ und $\delta \mu_r \gg \ell_E$: Eisenwiderstand vernachlässigen, $R_{m,\text{ges}} \approx R_{m,L}$. In Aufgabenstellungen steht dafür oft kurz „$\mu_r \to \infty$“.
 
 ### Kraft am Luftspalt
 
@@ -176,7 +176,7 @@ Herleitung an der Tafel: $[B] = \frac{[F]}{[I] \cdot [\ell]}$, $[\Phi] = [B] \cd
 - Kräfte: $\vec{F} = Q(\vec{v} \times \vec{B})$ bzw. $F = I \ell B$; Rechte-Hand-Regel
 - Durchflutungsgesetz: $\Theta = NI = \oint \vec{H} \cdot d\vec{s}$; lange Spule: $H = NI/\ell$
 - Materie: dia- ($\mu_r < 1$), para- ($\mu_r \gtrsim 1$), ferromagnetisch ($\mu_r \gg 1$, Hysterese!)
-- **Magnetischer Kreis:** $\Theta = R_m \Phi$ mit $R_m = \frac{\ell}{\mu_0 \mu_r A}$ — rechnen wie im Stromkreis
+- **Magnetischer Kreis:** $\Theta = R_m \Phi$ mit $R_m = \frac{\ell}{\mu_0 \mu_r A}$ – rechnen wie im Stromkreis
 - Der Luftspalt dominiert; Kraft am Luftspalt: $F = \frac{B^2 A}{2\mu_0}$
 
 **Nächstes Kapitel:** Elektromagnetische Induktion – wie aus Bewegung Spannung wird ⚡

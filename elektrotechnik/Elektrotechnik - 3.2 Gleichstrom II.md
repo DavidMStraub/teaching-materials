@@ -113,7 +113,7 @@ Von außen sind beide nicht unterscheidbar – wählen Sie die Darstellung, die 
 Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersatzspannungsquelle** ($U_0$, $R_i$) oder **Ersatzstromquelle** ($I_0$, $R_i$) darstellen. Rezept:
 
 1. **Leerlaufspannung** $U_0$: Spannung an den offenen Klemmen berechnen
-2. **Innenwiderstand** $R_i$: alle Quellen „deaktivieren" –
+2. **Innenwiderstand** $R_i$: alle Quellen „deaktivieren“ –
    Spannungsquellen → **Kurzschluss**, Stromquellen → **Unterbrechung** –
    dann Widerstand von den Klemmen aus berechnen
 3. Kontrolle oder Alternative zu 2.: **Kurzschlussstrom** $I_k$ berechnen, dann $R_i = U_0 / I_k$

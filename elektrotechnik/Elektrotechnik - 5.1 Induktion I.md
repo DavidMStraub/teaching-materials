@@ -24,7 +24,7 @@ David Straub
 - Bisher: elektrisches Feld ruhender Ladungen (Elektrostatik) und magnetisches Feld konstanter Ströme (Magnetostatik)
 - Sobald zeitliche Änderungen auftreten → Wechselwirkung zwischen elektrischen und magnetischen Feldern
 
-**Induktion: eine zeitliche Änderung des magnetischen Flusses erzeugt („induziert") eine Spannung**
+**Induktion: eine zeitliche Änderung des magnetischen Flusses erzeugt („induziert“) eine Spannung**
 
 Der Fluss kann sich auf zwei Arten ändern – weil sich das Feld ändert oder weil sich der Leiter bewegt. Beides sehen wir gleich.
 

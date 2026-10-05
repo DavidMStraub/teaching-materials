@@ -40,13 +40,13 @@ Strom ist der gerichtete Fluss von elektrischer Ladung
 
 - $\vec{J} = \rho_Q \cdot \vec{v}$ zeigt in die Richtung, in die sich *positive* Ladung bewegt – egal ob die tatsächlichen Ladungsträger positiv oder negativ sind!
 - In Metallen ist $\rho_Q < 0$: die Elektronen bewegen sich *entgegen* $\vec{J}$
-- Das ist auch die *Zählrichtung* der Stromstärke $I$ („technische Stromrichtung")
+- Das ist auch die *Zählrichtung* der Stromstärke $I$ („technische Stromrichtung“)
 
 ![bg 92% right:42%](img/stromrichtung.svg)
 
 ### Stromleitung in Metallen
 
-- In Metallen gibt jedes Atom Elektronen ab, die sich frei im Gitter der positiv geladenen Atomrümpfe bewegen können („Elektronengas")
+- In Metallen gibt jedes Atom Elektronen ab, die sich frei im Gitter der positiv geladenen Atomrümpfe bewegen können („Elektronengas“)
 - Die Ladungsdichte der Elektronen ist jederzeit konstant, da eine Ansammlung ein elektrisches Feld erzeugen würde, das durch Abstoßung der Elektronen wieder ausgeglichen wird → der Leiter ist überall elektrisch neutral
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/4/41/Nuvola_di_elettroni.svg)
