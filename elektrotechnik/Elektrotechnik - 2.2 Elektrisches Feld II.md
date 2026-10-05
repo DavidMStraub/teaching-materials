@@ -22,6 +22,20 @@ David Straub
 6. Potential, Spannung, Arbeit
 7. Homogenes Feld und Kondensatoren
 
+### 🗳️ Elektron und Proton im selben Feld
+
+Ein Elektron und ein Proton befinden sich nacheinander am selben Ort in einem elektrischen Feld $\vec{E}$.
+
+Was gilt für die Kräfte auf die beiden Teilchen?
+
+A) Gleicher Betrag, gleiche Richtung
+
+B) Gleicher Betrag, entgegengesetzte Richtung
+
+C) Auf das Elektron wirkt die größere Kraft, weil es leichter ist
+
+D) Auf das Proton wirkt die größere Kraft, weil es schwerer ist
+
 ### Feldlinien
 
 - Feldlinien stellen Richtung und Stärke des elektrischen Feldes bildlich dar
@@ -163,6 +177,20 @@ $$E_\text{pot} = m \cdot g \cdot h = m \cdot \varphi_g(h)$$
 
 ![bg 90% right:36%](https://upload.wikimedia.org/wikipedia/commons/d/d1/Courbe_niveau.svg)
 
+### 🗳️ Feldstärke null – Potential null?
+
+Zwei gleiche positive Punktladungen $+Q$ sind im Abstand $2a$ angeordnet. Genau in der Mitte zwischen ihnen ist $E = 0$.
+
+Was gilt für das Potential $\varphi$ in der Mitte?
+
+A) $\varphi = 0$
+
+B) $\varphi > 0$
+
+C) $\varphi < 0$
+
+D) $\varphi$ ist dort nicht definiert
+
 ### Spannung & Arbeit
 
 **Elektrische Spannung** (*voltage*) = Potentialdifferenz:
@@ -187,7 +215,9 @@ $$U_{12} = \int_{P_1}^{P_2} \vec{E} \cdot d\vec{s} = \varphi_1 - \varphi_2$$
 
 Noch einmal die Punktladung $Q = 10 \, \text{nC}$ (im Vakuum):
 
-Welche Spannung $U$ besteht zwischen zwei Punkten, die $r_1 = 24 \, \text{cm}$ bzw. $r_2 = 50 \, \text{cm}$ von der Punktladung entfernt sind?
+a) Welche Spannung $U$ besteht zwischen zwei Punkten, die $r_1 = 24 \, \text{cm}$ bzw. $r_2 = 50 \, \text{cm}$ von der Punktladung entfernt sind?
+
+b) Ein Elektron wird von $r_1$ nach $r_2$ gebracht. Wie groß ist die Arbeit $W_{12}$? Wird Arbeit freigesetzt oder muss sie aufgebracht werden?
 
 ### Homogenes elektrisches Feld
 
@@ -268,6 +298,32 @@ $$W = \int_0^Q U(q) \, dq = \int_0^Q \frac{q}{C} \, dq = \frac{Q^2}{2C} = \frac{
 
 $$[W] = \text{V} \cdot \text{C} = \text{W} \cdot \text{s} = \text{J}$$
 
+### 🗳️ Platten auseinanderziehen
+
+Ein Plattenkondensator wird an einer Spannungsquelle aufgeladen und dann von ihr **getrennt**.
+
+Anschließend werden die Platten auf den **doppelten Abstand** auseinandergezogen. Was passiert mit der Spannung $U$?
+
+A) $U$ halbiert sich
+
+B) $U$ bleibt gleich
+
+C) $U$ verdoppelt sich
+
+D) $U$ vervierfacht sich
+
+### Kondensatoren mit geschichteten Dielektrika
+
+Der Raum zwischen den Platten ist mit zwei verschiedenen Dielektrika gefüllt:
+
+a) **nebeneinander** (Flächen $A_1$, $A_2$)
+
+b) **hintereinander** (Dicken $d_1$, $d_2$)
+
+Welcher Kondensatorschaltung entspricht jeweils die Anordnung?
+
+![bg 90% right:30%](img/dielektrika-geschichtet.svg)
+
 ### Kondensatoren mit geschichteten Dielektrika
 
 **Nebeneinander** (= Parallelschaltung):
@@ -286,11 +342,13 @@ Anwendung: kapazitiver Ölstandsensor
 
 Zwei Kondensatoren $C_1 = 1 \, \mu\text{F}$ und $C_2 = 4 \, \mu\text{F}$ werden **in Reihe** geschaltet und an eine Spannung $U = 5000 \, \text{V}$ gelegt.
 
-a) Wie groß ist die Gesamtkapazität $C_g$?
+a) Schätzen Sie zuerst ohne Rechnung: An welchem Kondensator liegt die größere Spannung?
 
-b) Wie groß sind die Teilspannungen $U_1$ und $U_2$?
+b) Wie groß ist die Gesamtkapazität $C_g$?
 
-c) Wie viel Energie ist insgesamt gespeichert?
+c) Wie groß sind die Teilspannungen $U_1$ und $U_2$?
+
+d) Wie viel Energie ist insgesamt gespeichert?
 
 ### Übersicht: Größen im elektrischen Feld
 
@@ -309,10 +367,18 @@ Relative Permittivität (*relative permittivity*) | $\varepsilon_r = \frac{\vare
 | Elektrische Größe | Formelzeichen | Einheit | Basiseinheiten |
 |---|---|---|---|
 | Ladung | $Q$ | C | $\text{A} \cdot \text{s}$ |
+| Spannung | $U$ | V | ❓ |
+| **Kapazität** | $C$ | F | ❓ |
+
+Leiten Sie die Basiseinheiten her – Ansatz: $[U] = \frac{[W]}{[Q]}$, $[C] = \frac{[Q]}{[U]}$
+
+### Unsere Basiseinheiten-Tabelle wächst
+
+| Elektrische Größe | Formelzeichen | Einheit | Basiseinheiten |
+|---|---|---|---|
+| Ladung | $Q$ | C | $\text{A} \cdot \text{s}$ |
 | Spannung | $U$ | V | $\dfrac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^3}$ |
 | **Kapazität** | $C$ | F | $\dfrac{\text{A}^2 \cdot \text{s}^4}{\text{kg} \cdot \text{m}^2}$ |
-
-Herleitung an der Tafel: $[U] = \frac{[W]}{[Q]}$, $[C] = \frac{[Q]}{[U]}$
 
 ### Zusammenfassung: Das elektrische Feld
 

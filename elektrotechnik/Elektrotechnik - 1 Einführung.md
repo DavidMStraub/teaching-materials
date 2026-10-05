@@ -60,7 +60,6 @@ ID: david.straub@hm.edu
 
 ### So läuft jede Einheit ab
 
-- **Montagsaufgabe** (10 min, ab Woche 2): kleine Aufgabe zur Vorwoche
 - Theorie-Blöcke von max. 40 Minuten
 - Nach jedem Theorie-Block: **📝 Sie rechnen selbst**
 - ☕ Pause: immer 11:30–11:45
