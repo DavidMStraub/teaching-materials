@@ -18,6 +18,19 @@ https://www.vote.ac/ oder EduVote-App
 
 ID: david.straub@hm.edu
 
+### Organisatorisches
+
+- 🎓 Moodle-Kurs: https://moodle.hm.edu/course/view.php?id=25470
+- 💬 Matrix-Raum: tbd
+- 🕥 Sprechstunde: nach Vereinbarung per Zoom oder in Präsenz in B 374
+- 📖 Literatur
+    - Pregla – [OPAC](https://link.hm.edu/2c6h)
+    - Hagmann – [OPAC](https://link.hm.edu/fvqd)
+    - Hering u.a. – [online](https://link.springer.com/book/10.1007/978-3-662-67538-0)
+    - Fischer – [online](https://link.springer.com/book/10.1007/978-3-658-25644-9)
+- 🗒️ Skript Prof. Palme u.a.: https://palme.userweb.mwn.de/
+    - ⚠️ Kapitelnummerierung weicht von diesem Kurs ab (Reihenfolge ist aber gleich!)
+
 ### Was Sie am Ende können
 
 - Kräfte, Felder und Spannungen von Ladungen und Strömen berechnen
@@ -36,6 +49,15 @@ ID: david.straub@hm.edu
 7. **Drehstrom** (Dreiphasensystem)
 8. **Schaltvorgänge** an Kapazitäten und Induktivitäten
 
+### Prüfung
+
+- Schriftlich, 60 Minuten
+- **Keine Hilfsmittel** – auch keine Formelsammlung
+- Aufgaben vom Typ der 📝-Aufgaben aus dem Unterricht
+- **Probeklausur** zur Semestermitte unter Prüfungsbedingungen
+- Altklausuren: https://palme.userweb.mwn.de/
+    - Achtung: erst seit 2017 ohne Hilfsmittel
+
 ### So läuft jede Einheit ab
 
 - **Montagsaufgabe** (10 min, ab Woche 2): kleine Aufgabe zur Vorwoche
@@ -50,32 +72,12 @@ ID: david.straub@hm.edu
 - **Mitreden:** mit der Person neben Ihnen diskutieren, Fragen stellen – jederzeit
 - **Dranbleiben:** jede Woche nacharbeiten – jedes Kapitel baut auf dem vorigen auf
 
-### Prüfung
-
-- Schriftlich, 60 Minuten
-- **Keine Hilfsmittel** – auch keine Formelsammlung
-- Aufgaben vom Typ der 📝-Aufgaben aus dem Unterricht
-- **Probeklausur** zur Semestermitte unter Prüfungsbedingungen
-
 ### So bestehen Sie die Prüfung
 
 - **Jetzt schreiben:** im 1. Semester ist der Stoff frisch – jedes Semester danach bringt neue Fächer dazu
 - **Jede Woche** die 📝-Aufgaben nachrechnen, bis sie ohne Vorlage klappen
 - **Herleiten statt auswendig lernen:** wenige Grundgleichungen tragen weit
 - **Probeklausur mitschreiben:** sie zeigt Ihnen, wo Sie stehen – mit Zeit zum Nachsteuern
-
-### Organisatorisches
-
-- 🎓 Moodle-Kurs: https://moodle.hm.edu/course/view.php?id=25470
-- 💬 Matrix-Raum: tbd
-- 🕥 Sprechstunde: nach Vereinbarung per Zoom oder in Präsenz in B 374
-- 📖 Literatur
-    - Pregla – [OPAC](https://link.hm.edu/2c6h)
-    - Hagmann – [OPAC](https://link.hm.edu/fvqd)
-    - Hering u.a. – [online](https://link.springer.com/book/10.1007/978-3-662-67538-0)
-    - Fischer – [online](https://link.springer.com/book/10.1007/978-3-658-25644-9)
-- 🗒️ Skript Prof. Palme u.a.: https://palme.userweb.mwn.de/
-    - ⚠️ Kapitelnummerierung weicht von diesem Kurs ab (Reihenfolge ist aber gleich!)
 
 ## 1. Einführung
 
