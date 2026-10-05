@@ -187,6 +187,7 @@ Kein Installieren nötig – im Browser, auch am Handy:
 
 - https://davidstraub.de/teaching-materials/lite/lab/
 - dort: File → New → Notebook
+- Ausführen: Shift + Enter oder ▶
 - Ihre Dateien bleiben nur in **diesem Browser auf diesem Gerät** gespeichert – Wichtiges am Ende herunterladen!
 
 **Mini-Aufgabe (3 min):**
