@@ -28,10 +28,12 @@ David Straub
 
 ### Ziel dieser Veranstaltung
 
-Sie in die Lage zu versetzen, Software zu produzieren,
+Sie lernen, Programme zu schreiben, die
 
-- die Sie in Ihrem Studium und Beruf produktiver macht
-- mit der Sie sich bei Ihren zukünftigen Teammitgliedern (und Ihrem zukünftigen Ich) nicht unbeliebt machen
+- Ihnen im Studium und Beruf Arbeit abnehmen
+- andere (und Ihr zukünftiges Ich) verstehen und weiterverwenden können
+
+Außerdem lernen Sie, Code zu prüfen, den Sie nicht selbst geschrieben haben.
 
 ### Warum programmieren lernen?
 
@@ -48,7 +50,7 @@ Sie in die Lage zu versetzen, Software zu produzieren,
 
 ### Demo: Was Sie am Ende des Semesters können
 
-Messwerte auswerten und darstellen – in 12 Zeilen:
+Messwerte auswerten und darstellen – in 10 Zeilen:
 
 ```python
 import matplotlib.pyplot as plt
@@ -85,7 +87,7 @@ public class HelloWorld {
 
 ### Warum Python?
 
-Die einfachste der weitverbreiteten Programmiersprachen – und der Standard für genau das, was Ingenieur:innen brauchen:
+Die einfachste der weitverbreiteten Programmiersprachen – und der Standard für genau das, was im Ingenieuralltag gebraucht wird:
 
 - Simulation und wissenschaftliches Rechnen
 - Datenanalyse und Visualisierung
@@ -126,6 +128,8 @@ Beim Programmieren gilt dasselbe:
 - **Prüfen:** erkennen, ob das Ergebnis stimmt
 - **Verantworten:** am Ende unterschreibt der Mensch
 
+![bg right:35%](https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/First_Biofuel_Flight_in_Spain.jpg/960px-First_Biofuel_Flight_in_Spain.jpg)
+
 
 ### Formelles
 
@@ -153,7 +157,7 @@ Beim Programmieren gilt dasselbe:
 
 ### Gruppeneinteilung Praktikum
 
-14-tägig im Wechsel. **Achtung**: Oktobertermine unregelmäßig aufgrund Dienstbesprechung am 5.10. und Fakultätsklausur am 20.10. Genaue Termine in Moodle.
+14-tägig im Wechsel. **Achtung**: Oktobertermine unregelmäßig aufgrund Dienstbesprechung am 5.10. und Fakultätsklausur am 20.10. Genaue Termine in Moodle (https://moodle.hm.edu/course/view.php?id=25469).
 
 
 | Studiengruppe | Gruppe | Tag | Uhrzeit | Raum | Start |
@@ -171,7 +175,7 @@ Beim Programmieren gilt dasselbe:
 
 https://matrix.hm.edu, Element-App (Desktop/Mobil)
 
-Ein gemeinsamer Raum für alle: TBD
+Ein gemeinsamer Raum für alle: https://matrix.hm.edu/#/room/%23fk03-lrb-programmiere-ws26%3Ahm.edu
 
 Bitte mit Foto im Profil 📷
 
@@ -201,7 +205,7 @@ print("Hallo LRB!")
 - Sie haben dem Computer eine **Anweisung** gegeben – er hat sie ausgeführt
 - `print(...)` ist eine **Funktion**: Sie geben etwas hinein, sie tut etwas
 - `3 * 7` und `3 * 7.0` – warum sieht das Ergebnis unterschiedlich aus?
-- Merken Sie sich schon heute: **gleiche Rechnung, andere Darstellung der Zahl** – derselbe Unterschied steckt hinter der hängenden Batterie-Schleife von vorhin *(die volle Erklärung bekommen Sie in Woche 11!)*
+- Merken Sie sich schon heute: **Ganzzahlen und Kommazahlen sind für den Computer zwei verschiedene Dinge** – und Kommazahlen sind nicht immer exakt. Das steckt hinter der hängenden Batterie-Schleife von vorhin *(die volle Erklärung bekommen Sie in Woche 11!)*
 
 ### So arbeiten wir in diesem Kurs
 
