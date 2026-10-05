@@ -136,13 +136,9 @@ Beim Programmieren gilt dasselbe:
 - Modul Ingenieurinformatik (L1170)
     - **1\. Semester: Programmierung (L1171) <--**
     - 2\. Semester: Numerik für Ingenieure (L1172)
+- 2 SWS Seminaristischer Unterricht + 1 SWS Praktikum (90 Min. alle 2 Wochen)
 - Prüfung: 60 Minuten schriftlich, Teil 1 zählt 60%
     - eigene Unterlagen erlaubt, keine elektronischen Geräte
-
-### Termine
-
-- 2 SWS Seminaristischer Unterricht
-- 1 SWS (90 Min. alle 2 Wochen) Praktikum
 
 ### Semesterfahrplan
 
@@ -227,7 +223,6 @@ Alle Folien zum Mitlesen und als PDF: https://davidstraub.de/teaching-materials/
 
 ### Online-Ressourcen
 
-- KI-Quizze zu den Kursinhalten (OneTutor): https://hm.onetutor.ai/
 - Kursunterlagen „Ingenieurinformatik“ von Dr. Christina Mayr: https://ingenieurinformatik-buch-fcbc5c.pages.gitlab.lrz.de
 - Offizielles Python-Tutorial: https://docs.python.org/3/tutorial/index.html
 - OpenStax-Lehrbuch „Introduction to Python Programming“: https://openstax.org/details/books/introduction-python-programming
