@@ -219,7 +219,7 @@ In der Elektrotechnik alltäglich: µF, nF, pF (Kondensatoren), mH (Spulen), kΩ
 
 a) Rechnen Sie um: $v = 108 \, \text{km/h}$ in m/s.
 
-b) Die kinetische Energie ist $E = \frac{1}{2} m v^2$. Drücken Sie die Einheit von $E$ in Basiseinheiten aus und zeigen Sie: das ist genau 1 J.
+b) Der Impuls ist $p = m \cdot v$. Drücken Sie die Einheit von $p$ in Basiseinheiten aus und zeigen Sie: das ist dasselbe wie N·s (die Einheit aus dem Mars Climate Orbiter).
 
 c) Ein Triebwerk leistet $P = 30 \, \text{MW}$ für $t = 2$ Minuten. Wie viel Energie in Joule?
 
