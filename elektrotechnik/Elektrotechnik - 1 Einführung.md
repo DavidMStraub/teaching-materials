@@ -153,8 +153,6 @@ Beispiele:
 | Stoffmenge                    | $n$               | $\text{N}$               | Mol       | mol              |
 | Lichtstärke                   | $I_v$             | $\text{J}$               | Candela   | cd               |
 
-Für die Elektrotechnik zentral: das **Ampere** – alle elektrischen Einheiten bauen darauf auf.
-
 ### Was *ist* eigentlich eine Basiseinheit?
 
 Seit 2019 ist jede Basiseinheit über **exakt festgelegte Naturkonstanten** definiert – kein Urmeter, kein Urkilogramm mehr:
@@ -215,9 +213,22 @@ Diese Tabelle füllt sich im Laufe des Semesters – am Ende jedes Kapitels erg�
 
 In der Elektrotechnik alltäglich: µF, nF, pF (Kondensatoren), mH (Spulen), kΩ, MΩ (Widerstände), mA, kV, MW ...
 
+### ⚠️ Nicht-SI-Einheiten in der Luftfahrt ✈️
+
+Immer noch weit verbreitet:
+
+- Flughöhe in **Fuß** 🦶
+    - 1 ft = 0,3048 m
+- Entfernung in **Seemeilen** 🚢
+    - 1 NM = 1852 m
+- Geschwindigkeit in **Knoten** 🪢
+    - 1 kt = 1 NM/h = 1,852 km/h
+
+![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/5/57/3-Pointer_Altimeter.svg)
+
 ### 📝 Aufgabe 1: Einheiten
 
-a) Rechnen Sie um: $v = 108 \, \text{km/h}$ in m/s.
+a) Unterhalb von 10 000 ft gilt meist ein Tempolimit von 250 kt. Wie viel ist das in m/s?
 
 b) Der Impuls ist $p = m \cdot v$. Drücken Sie die Einheit von $p$ in Basiseinheiten aus und zeigen Sie: das ist dasselbe wie N·s (die Einheit aus dem Mars Climate Orbiter).
 
@@ -247,26 +258,13 @@ C) $F = \dfrac{m \cdot v^2}{r}$
 
 D) $W = \dfrac{P}{t}$
 
-### ⚠️ Nicht-SI-Einheiten in der Luftfahrt ✈️
-
-Immer noch weit verbreitet:
-
-- Flughöhe in **Fuß** 🦶
-    - 1 ft = 0,3048 m
-- Entfernung in **Seemeilen** 🚢
-    - 1 NM = 1852 m
-- Geschwindigkeit in **Knoten** 🪢
-    - 1 kt = 1 NM/h = 1,852 km/h
-
-![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/5/57/3-Pointer_Altimeter.svg)
-
 ### Zusammenfassung: Einführung
 
 - Physikalische Größe = Zahlenwert × Einheit; Vektoren zusätzlich mit Richtung
-- 7 SI-Basiseinheiten – für uns zentral: das **Ampere**
+- 7 SI-Basiseinheiten, seit 2019 über Naturkonstanten definiert
 - Abgeleitete Einheiten aus Formeln herleiten können ($\text{N}, \text{J}, \text{W}, \dots$)
-- Dimensionsanalyse: beide Seiten einer Gleichung müssen dieselbe Dimension haben → Fehler-Check
 - SI-Präfixe von p bis T sicher beherrschen
 - Luftfahrt: ft, NM, kt – Umrechnung in SI
+- Dimensionsanalyse: beide Seiten einer Gleichung müssen dieselbe Dimension haben → Fehler-Check
 
 **Nächstes Kapitel:** Das elektrische Feld – Ladungen, Kräfte und warum der Blitz einschlägt ⚡
