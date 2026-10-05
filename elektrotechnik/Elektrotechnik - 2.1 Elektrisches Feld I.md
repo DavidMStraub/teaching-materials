@@ -100,20 +100,6 @@ $$|\vec{F}_{12}| = G \cdot \frac{m_1 \cdot m_2}{r^2}$$
 
 $G$: Gravitationskonstante, $G \approx 6{,}6743 \cdot 10^{-11} \, \frac{\text{m}^3}{\text{kg} \cdot \text{s}^2}$
 
-### 🗳️ Schätzen Sie: Coulomb gegen Gravitation
-
-Im Wasserstoffatom ziehen sich Proton und Elektron an – elektrisch und durch die Gravitation.
-
-Wie viel stärker ist die elektrische Anziehung?
-
-A) etwa $10^{2}$-mal
-
-B) etwa $10^{10}$-mal
-
-C) etwa $10^{20}$-mal
-
-D) etwa $10^{39}$-mal
-
 ### Beispiel: Relative Stärke von Coulomb- und Gravitationskraft
 
 Wasserstoffatom: Proton + Elektron. Rechnen Sie nach: wie viel stärker ist die elektrische Anziehung als die Gravitation?
@@ -123,14 +109,23 @@ Wasserstoffatom: Proton + Elektron. Rechnen Sie nach: wie viel stärker ist die 
 - $\varepsilon_0 \approx 8{,}854 \cdot 10^{-12} \, \frac{\text{As}}{\text{Vm}}$
 - $G \approx 6{,}6743 \cdot 10^{-11} \, \frac{\text{m}^3}{\text{kg} \cdot \text{s}^2}$
 
+### 🗳️ Warum spüren wir die Gravitation?
+
+Die elektrische Kraft ist um viele Größenordnungen stärker als die Gravitation.
+
+Warum spüren wir im Alltag trotzdem vor allem die Gravitation?
+
+A) Die elektrische Kraft hat eine kürzere Reichweite
+
+B) Die elektrische Kraft wirkt nur auf bewegte Ladungen
+
+C) Die Gravitation nimmt mit dem Abstand langsamer ab
+
+D) Positive und negative Ladungen heben sich auf, Massen nicht
+
 ### Elektromagnetismus im Alltag
 
 Fast alle alltäglichen physikalischen Phänomene werden von der elektromagnetischen Wechselwirkung bestimmt!
-
-Die Gravitation spielt nur eine Rolle, da
-
-- es keine negativen Massen gibt → immer anziehend
-- sich die elektrischen Ladungen von Elektronen und Protonen exakt aufheben
 
 ### Elektrische Feldstärke (*electric field [strength]*)
 
@@ -153,13 +148,13 @@ Dort herrscht die Feldstärke $E_1$.
 
 Die Probeladung wird ersetzt durch $2q$. Wie groß ist jetzt die Feldstärke $E_2$ in P?
 
-A) $E_2 = \frac{1}{2} E_1$
+A) $E_2 = \frac{1}{4} E_1$
 
-B) $E_2 = E_1$
+B) $E_2 = \frac{1}{2} E_1$
 
-C) $E_2 = 2 \, E_1$
+C) $E_2 = E_1$
 
-D) $E_2 = 4 \, E_1$
+D) $E_2 = 2 \, E_1$
 
 ### Elektrisches Feld einer Punktladung
 
