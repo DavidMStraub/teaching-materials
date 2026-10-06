@@ -218,7 +218,7 @@ Alle Folien zum Mitlesen und als PDF: https://davidstraub.de/teaching-materials/
 
 - Im **Praktikum**: ohne KI-Unterstützung programmieren – Fehler selbst zu finden ist der Kern der Sache
 - **Außerhalb**: KI-Tools ausdrücklich erwünscht – zum Erklären, Üben, Vertiefen
-    - z. B. KI-Quizze zu den Kursinhalten auf OneTutor: https://hm.onetutor.ai/
+    - z. B. KI-Quizze zu den Kursinhalten auf OneTutor: https://link.hm.edu/vkej
 - Suchen Sie sich Programmierprojekte: Open Source, Smart Home, KI-Automatisierung, …
 
 ### Online-Ressourcen
