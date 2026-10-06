@@ -214,6 +214,17 @@ Jede Woche:
 
 Alle Folien zum Mitlesen und als PDF: https://davidstraub.de/teaching-materials/
 
+### KI beim Lernen: Es kommt darauf an, wie
+
+Studie (Anthropic, 2026): Erfahrene Python-Programmierende lernen eine neue Bibliothek, die Hälfte mit KI-Assistent
+
+- Mit KI: etwas schneller fertig, im Verständnistest danach 50 % statt 67 %
+- Wer sich von der KI **erklären** ließ, schnitt gut ab – wer sich nur Code liefern ließ, schlecht
+
+**Ihre Wahl:** KI als Tutor, der erklärt
+
+Quelle: https://www.anthropic.com/research/AI-assistance-coding-skills
+
 ### Spielregeln
 
 - Im **Praktikum**: ohne KI-Unterstützung programmieren – Fehler selbst zu finden ist der Kern der Sache
