@@ -130,6 +130,23 @@ Beim Programmieren gilt dasselbe:
 
 ![bg right:35%](https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/First_Biofuel_Flight_in_Spain.jpg/960px-First_Biofuel_Flight_in_Spain.jpg)
 
+### KI beim Lernen: Es kommt darauf an, wie
+
+Studie (Anthropic, 2026): Erfahrene Python-Programmierende lernen eine neue Bibliothek, die Hälfte mit KI-Assistent
+
+- Mit KI: etwas schneller fertig, im Verständnistest danach 50 % statt 67 %
+- Wer sich von der KI **erklären** ließ, schnitt gut ab – wer sich nur Code liefern ließ, schlecht
+
+**Ihre Wahl:** KI als Tutor, der erklärt
+
+Quelle: https://www.anthropic.com/research/AI-assistance-coding-skills
+
+### Spielregeln
+
+- Im **Praktikum**: ohne KI-Unterstützung programmieren – Fehler selbst zu finden ist der Kern der Sache
+- **Außerhalb**: KI-Tools ausdrücklich erwünscht – zum Erklären, Üben, Vertiefen
+    - z. B. KI-Quizze zu den Kursinhalten auf OneTutor: https://link.hm.edu/vkej
+- Suchen Sie sich Programmierprojekte: Open Source, Smart Home, KI-Automatisierung, …
 
 ### Formelles
 
@@ -213,24 +230,6 @@ Jede Woche:
 - Kein Laptop dabei? Kein Problem: zu zweit arbeiten, Vorhersagen und Fehlersuche gehen auf Papier
 
 Alle Folien zum Mitlesen und als PDF: https://davidstraub.de/teaching-materials/
-
-### KI beim Lernen: Es kommt darauf an, wie
-
-Studie (Anthropic, 2026): Erfahrene Python-Programmierende lernen eine neue Bibliothek, die Hälfte mit KI-Assistent
-
-- Mit KI: etwas schneller fertig, im Verständnistest danach 50 % statt 67 %
-- Wer sich von der KI **erklären** ließ, schnitt gut ab – wer sich nur Code liefern ließ, schlecht
-
-**Ihre Wahl:** KI als Tutor, der erklärt
-
-Quelle: https://www.anthropic.com/research/AI-assistance-coding-skills
-
-### Spielregeln
-
-- Im **Praktikum**: ohne KI-Unterstützung programmieren – Fehler selbst zu finden ist der Kern der Sache
-- **Außerhalb**: KI-Tools ausdrücklich erwünscht – zum Erklären, Üben, Vertiefen
-    - z. B. KI-Quizze zu den Kursinhalten auf OneTutor: https://link.hm.edu/vkej
-- Suchen Sie sich Programmierprojekte: Open Source, Smart Home, KI-Automatisierung, …
 
 ### Online-Ressourcen
 
