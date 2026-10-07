@@ -31,9 +31,9 @@ David Straub
 Aufschreiben, bevor wir es ausführen:
 
 ```python
-print(3 * 7)
-print(3 * 7.0)
-print("3 * 7")
+print(4 * 5)
+print(4 * 5.0)
+print("4 * 5")
 ```
 
 ### Heute lernen Sie
@@ -132,7 +132,7 @@ Welchen Typ ein Wert hat, verrät `type(...)`:
 print(type(spannung))
 ```
 
-Übrigens: `print(...)` und `type(...)` sind **Funktionen** – Sie rufen sie mit runden Klammern auf. Davon kommen noch viele.
+Wie `print(...)` ist auch `type(...)` eine **Funktion** – Sie rufen sie mit runden Klammern auf. Davon kommen noch viele.
 
 ### Rechnen mit Zahlen
 
@@ -156,8 +156,8 @@ a = 10
 b = 4
 print(a / b)
 print(type(a / b))
-print(10 / 2)
-print(type(10 / 2))
+print(12 / 4)
+print(type(12 / 4))
 ```
 
 ### Warum kommt da immer ein float heraus?
@@ -165,12 +165,12 @@ print(type(10 / 2))
 `/` liefert in Python **immer** eine Kommazahl – auch wenn es aufgeht:
 
 ```python
-print(10 / 2)
+print(12 / 4)
 ```
 
 - Python kann vorher nicht wissen, ob die Division aufgeht
 - Darum ist das Ergebnis von `/` **immer** `float`
-- Genau die Frage aus dem Warm-up: `3 * 7` bleibt `int`, `3 * 7.0` wird `float` – sobald ein `float` mitrechnet, ist das Ergebnis `float`
+- Genau die Frage aus dem Warm-up: `4 * 5` bleibt `int`, `4 * 5.0` wird `float` – sobald ein `float` mitrechnet, ist das Ergebnis `float`
 
 ### Der Rest-Operator `%`
 
@@ -216,7 +216,7 @@ print(vorname + " " + nachname)
 
 ### Debug-Aufgabe (3 min)
 
-Dieses Programm soll `77` ausgeben – tut es aber nicht. Finden Sie beide Fehler:
+Dieses Programm soll das Doppelte von 7 ausgeben. Finden Sie beide Fehler:
 
 ```python
 zahl = "7"
@@ -234,7 +234,7 @@ print(3 * "7")
 
 - Gleiches `+`, zwei Bedeutungen: **rechnen** bei Zahlen, **verketten** bei Text
 - `"7"` ist Text, keine Zahl – Anführungszeichen entscheiden
-- Und `*` mit Text? **Wiederholen** – aufschreiben, dann ausführen!
+- Und `*` mit Text? Erst aufschreiben, dann ausführen!
 - Mischen mit `+` geht schief: `7 + "7"` gibt einen `TypeError`
 
 ## Transfer
@@ -251,6 +251,8 @@ Schreiben Sie ein Programm, das ausgibt (`print`):
 
 Notieren Sie zuerst: Welche Variablen brauchen Sie? Welche Rechnung?
 
+Text und Zahl in einer Zeile ausgeben – mit Komma trennen: `print("Laufzeit:", laufzeit, "h")`
+
 Zusatz für Schnelle: Geben Sie die Laufzeit auch in Minuten aus (`print`).
 
 ### Gemeinsam live
@@ -261,7 +263,7 @@ Wir entwickeln die Lösung jetzt zusammen.
 
 Ohne Computer – was kommt heraus?
 
-1. `print(type(10 / 2))`
+1. `print(type(8 / 8))`
 2. `x = 5` und dann `x = x + 2` – was gibt `print(x)` aus?
 3. `print(17 % 5)`
 4. `print("3" + "4")`
@@ -270,5 +272,5 @@ Ohne Computer – was kommt heraus?
 
 Nächste Woche: **Verzweigungen** – Programme, die Entscheidungen treffen
 
-- Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
+- Üben: KI-Quizze auf OneTutor: https://link.hm.edu/vkej
 - Fragen: jederzeit im Matrix-Chat
