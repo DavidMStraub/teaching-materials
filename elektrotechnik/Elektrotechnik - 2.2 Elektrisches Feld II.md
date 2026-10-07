@@ -389,7 +389,7 @@ Für alle, die es genauer wissen wollen
 |---|---|---|
 | | $C = 4\pi \varepsilon \dfrac{R_1 R_2}{R_2 - R_1}$ | $C = 2 \pi \varepsilon \dfrac{l}{\ln(R_2/R_1)}$ |
 
-Herleitung: Satz von Gauß + $U = \int E \, dr$ (→ Skript; gleiche Methode wie beim Punktladungs-Beispiel)
+Herleitung: Satz von Gauß + $U = \int E \, dr$ (gleiche Methode wie beim Punktladungs-Beispiel)
 
 ![bg 90% right:33% vertical](https://upload.wikimedia.org/wikipedia/commons/3/3f/Spherical_Capacitor.svg)
 ![bg 90%](https://upload.wikimedia.org/wikipedia/commons/b/b8/Cylindrical_CapacitorII.svg)

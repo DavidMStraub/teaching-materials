@@ -266,4 +266,4 @@ D) $W = \dfrac{P}{t}$
 - Luftfahrt: ft, NM, kt – Umrechnung in SI
 - Dimensionsanalyse: beide Seiten einer Gleichung müssen dieselbe Dimension haben → Fehler-Check
 
-**Nächstes Kapitel:** Das elektrische Feld – Ladungen, Kräfte und warum der Blitz einschlägt ⚡
+**Nächstes Kapitel:** Das elektrische Feld – Ladungen, Kräfte und Felder ⚡
