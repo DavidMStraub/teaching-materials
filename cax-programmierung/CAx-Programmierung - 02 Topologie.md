@@ -44,7 +44,9 @@ Dreidimensionale Geometrie kann in CAD-Systemen auf verschiedene Arten dargestel
 
 - **CSG (Constructive Solid Geometry):** Volumen durch boolesche Operationen einfacher Körper
 - **B-Rep (Boundary Representation):** Oberfläche definiert Volumen, Kanten definieren Flächen
-- **Mesh (Netz):** Oberfläche aus Polygonen, z. B. Dreiecken
+- **Mesh (Netz):** Form aus vielen kleinen Facetten angenähert – Dreiecke auf der Oberfläche oder Tetraeder im Volumen
+
+![w:1100](assets/cax02_darstellung.png)
 
 ### CSG (Constructive Solid Geometry)
 
@@ -55,7 +57,7 @@ Dreidimensionale Geometrie kann in CAD-Systemen auf verschiedene Arten dargestel
 - **Kompakt und intuitiv** – die Darstellung hinter **OpenSCAD** (2010), das code-basiertes CAD populär machte
 - **Grenze:** Freiformflächen, Verrundungen, gezielte Flächenauswahl brauchen mehr
 
-![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/8/8b/Csg_tree.png)
+![bg right:40% 85%](assets/cax02_csg.png)
 
 ### B-Rep (Boundary Representation)
 
@@ -66,7 +68,7 @@ Dreidimensionale Geometrie kann in CAD-Systemen auf verschiedene Arten dargestel
 - Standard in professionellen CAD-Systemen – **das verwenden wir**
 - Boolesche Operationen (`+`, `-`) nutzen wir weiter – ihr Ergebnis ist ein B-Rep mit auswählbaren Flächen und Kanten
 
-![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/6/63/Tetraeder_f%C3%BCr_BRep.png)
+![bg right:40% 90%](assets/cax02_brep.png)
 
 ### Mesh (Netz)
 
@@ -77,7 +79,9 @@ Die Geometrie wird durch viele kleine Facetten **angenähert** – in zwei Arten
 
 Beide sind approximativ – die exakte Krümmung geht verloren.
 
-![bg right:45% 90%](https://upload.wikimedia.org/wikipedia/commons/b/b8/Approx-3tori.svg)
+Ein STL-Netz muss nur dicht sein und gut aussehen. Beim FEM-Netz bestimmen Größe und Form der Elemente die Genauigkeit der Rechnung – dazu mehr in Einheit 10.
+
+![bg right:40% 85%](assets/cax02_mesh.png)
 
 ## Theorie A: Geometrie vs. Topologie, Grundelemente
 
@@ -147,6 +151,17 @@ Drei Flächen (Mantel, Boden, Deckel) sind klar. Aber **2 Ecken** und **3 Kanten
 
 ### Die Nahtkante
 
+Die Mantelfläche ist ein aufgerolltes Rechteck. Wo seine Enden zusammenstoßen, liegt eine **Nahtkante**, die dieselbe Fläche zweimal begrenzt.
+
+- Ihre beiden Endpunkte sind die **2 Ecken**
+- Zwei Kreisränder plus die Naht ergeben die **3 Kanten**
+
+Topologie zählt nach der tatsächlichen Verbindung der Elemente.
+
+![bg right:38% 80%](assets/cax02_nahtkante.png)
+
+### Die Nahtkante im Code
+
 ```python
 def show_topology(shape, indent=""):
     print(indent + shape.ShapeType())
@@ -156,7 +171,7 @@ def show_topology(shape, indent=""):
 show_topology(zyl)
 ```
 
-Die Mantelfläche ist ein aufgerolltes Rechteck; wo seine Enden zusammenstoßen, liegt eine **Nahtkante**, die dieselbe Fläche zweimal begrenzt. Ihre beiden Endpunkte sind die 2 Ecken; die beiden Kreisränder plus die Naht ergeben die 3 Kanten. Topologie zählt nach der tatsächlichen Verbindung der Elemente.
+In der Ausgabe enthält der Wire der Mantelfläche **vier** Edges: Kreis, Naht, Kreis, Naht. Die Nahtkante taucht zweimal auf – einmal für jede Seite des abgerollten Rechtecks.
 
 ### Vertex – der Punkt
 
@@ -207,7 +222,47 @@ for f in quader.Faces():
     print(f.geomType(), round(f.Area(), 1))     # beim Quader: alle PLANE
 ```
 
+Die Namen aus `geomType()` kehren als Selektoren wieder: `%PLANE`, `%CYLINDER`, `%CIRCLE`.
+
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/5/51/Vertex_edge_face_%28face%29.svg)
+
+### Topologie im Viewer
+
+Die Zahlen aus Python lassen sich im Viewer gegenprüfen – Element für Element:
+
+- **Filter** in der Werkzeugleiste (oder Tasten `v` / `e` / `f` / `s`): nur Ecken, Kanten, Flächen oder Körper sind anwählbar
+- **Properties**: Doppelklick auf ein Element zeigt seinen Typ – bei Flächen z. B. Ebene oder Zylinder mit Mittelpunkt, Radius, Fläche; bei Kanten Gerade oder Kreis mit Länge
+- `Esc` hebt die Auswahl auf
+
+So sehen Sie, **welche** Fläche hinter einer Zahl steckt: die vier Zylinderflächen der Verrundung, die Nahtkante am Zylinder.
+
+## Praktikum A: Anatomie der Grundplatte
+
+### Aufgabe 1: Zählen und vorhersagen
+
+Nutzen Sie Ihre Grundplatte aus Einheit 1 (`grundplatte`, mit vier Bohrungen).
+
+1. Sagen Sie zuerst voraus: Wie viele Faces, Edges, Vertices hat die Platte mit Bohrungen? Dann zählen – stimmt Ihre Vorhersage?
+2. Was trägt jede Bohrung zur Topologie bei? Was jede Verrundung?
+
+### Aufgabe 2: Geometrietypen
+
+Gehen Sie Flächen und Kanten Ihrer Grundplatte durch.
+
+1. Welche Geometrietypen kommen bei Flächen vor? Bei Kanten?
+2. Wie viele Kanten sind Kreise? Passt das zur Anzahl der Bohrungen und Verrundungen?
+3. Gegenprobe im Viewer: Wählen Sie mit *Properties* per Doppelklick eine Bohrungsfläche und eine Verrundung – stimmen Typ und Radius?
+
+*Hinweise:* `.Faces()`, `.Edges()`, `.geomType()`, `.Area()`, `.Length()`
+
+### Aufgabe 3: Wie verändern Features die Topologie?
+
+Sagen Sie **vor** dem Ausführen voraus, dann prüfen:
+
+1. Wie ändern sich Faces/Edges/Vertices durch eine zusätzliche Bohrung (`- cf.cylinder(...)`)?
+2. Wie viele Wires hat die Oberseite der Platte? Prüfen Sie mit `show_topology(grundplatte)`: Welcher Wire ist die Außenkontur, welche sind Bohrungen?
+
+## Theorie B: Hierarchie, Orientierung, Selektoren
 
 ### Shell – die Hülle
 
@@ -244,7 +299,7 @@ gruppe = cf.compound([quader, cf.cylinder(d=10, h=10)])
 print(len(gruppe.Solids()), "Solids in der Gruppe")
 ```
 
-`geomType()` (mit `Area()`/`Length()`) zeigt die **Geometrie** – `PLANE`, `CYLINDER`, `CIRCLE`, … Diese Namen kehren gleich als Selektoren wieder (`%PLANE`, `%CYLINDER`, `%CIRCLE`).
+Selektoren liefern bei mehreren Treffern ein Compound; umgekehrt bündelt `cf.compound(liste)` eine Python-Liste von Kanten wieder zu einem Argument für `cf.fillet` oder `cf.chamfer`.
 
 ### Übersicht: Topologie-Hierarchie
 
@@ -258,44 +313,6 @@ print(len(gruppe.Solids()), "Solids in der Gruppe")
 | Solid | 3D | Shells | – |
 | Compound | beliebig | – | – |
 
-### Topologie im Viewer
-
-Die Zahlen aus Python lassen sich im Viewer gegenprüfen – Element für Element:
-
-- **Filter** in der Werkzeugleiste (oder Tasten `v` / `e` / `f` / `s`): nur Ecken, Kanten, Flächen oder Körper sind anwählbar
-- **Properties**: Doppelklick auf ein Element zeigt seinen Typ – bei Flächen z. B. Ebene oder Zylinder mit Mittelpunkt, Radius, Fläche; bei Kanten Gerade oder Kreis mit Länge
-- `Esc` hebt die Auswahl auf
-
-So sehen Sie, **welche** Fläche hinter einer Zahl steckt: die vier Zylinderflächen der Verrundung, die Nahtkante am Zylinder.
-
-## Praktikum A: Anatomie der Grundplatte
-
-### Aufgabe 1: Zählen und vorhersagen
-
-Nutzen Sie Ihre Grundplatte aus Einheit 1 (`grundplatte`, mit vier Bohrungen).
-
-1. Zählen Sie Faces, Edges, Vertices – stimmen die Zahlen mit Ihrer Vorhersage überein?
-2. Was trägt jede Bohrung zur Topologie bei? Was jede Verrundung?
-
-### Aufgabe 2: Geometrietypen
-
-Gehen Sie Flächen und Kanten Ihrer Grundplatte durch.
-
-1. Welche Geometrietypen kommen bei Flächen vor? Bei Kanten?
-2. Wie viele Kanten sind Kreise? Passt das zur Anzahl der Bohrungen und Verrundungen?
-3. Gegenprobe im Viewer: Wählen Sie mit *Properties* per Doppelklick eine Bohrungsfläche und eine Verrundung – stimmen Typ und Radius?
-
-*Hinweise:* `.Faces()`, `.Edges()`, `.geomType()`, `.Area()`, `.Length()`
-
-### Aufgabe 3: Wie verändern Features die Topologie?
-
-Sagen Sie **vor** dem Ausführen voraus, wie sich Faces/Edges/Vertices ändern – dann prüfen:
-
-1. eine zusätzliche Bohrung in die Platte (`- cf.cylinder(...)`)
-2. `show_topology(grundplatte)` aufrufen und die Hierarchie ablesen: Wie viele Faces hat die Shell, wie viele Kanten begrenzen eine Fläche?
-
-## Theorie B: Hierarchie, Orientierung, Selektoren
-
 ### Konnektivität durch gemeinsame Teilelemente
 
 Zwei Flächen sind verbunden, wenn sie eine gemeinsame **Kante** haben; zwei Kanten, wenn sie einen gemeinsamen **Vertex** haben. Teilelemente werden **geteilt**, nicht kopiert.
@@ -303,9 +320,10 @@ Zwei Flächen sind verbunden, wenn sie eine gemeinsame **Kante** haben; zwei Kan
 ```python
 appearances = sum(len(f.Edges()) for f in grundplatte.Faces())
 print(appearances, "vs.", len(grundplatte.Edges()), "eindeutige Kanten")
+# 68 vs. 36
 ```
 
-Jede „normale“ Kante wird von zwei Flächen genutzt – die Differenz verrät, wie viele Kanten sich selbst teilen (Nahtkanten).
+Jede gewöhnliche Kante gehört zu zwei Flächen, eine Nahtkante nur zu einer: 2 · 36 − 68 = **4 Nahtkanten** – eine je Bohrung.
 
 ### Orientierung: warum reicht Topologie allein nicht?
 
@@ -324,7 +342,8 @@ for f in grundplatte.Faces()[:3]:
 
 | Software | Kernel |
 |---|---|
-| CATIA, SolidWorks, NX | CGM / Parasolid |
+| CATIA | CGM |
+| SolidWorks, NX | Parasolid |
 | FreeCAD, CadQuery | OCCT |
 
 Vertex, Edge, Face, Shell, Solid – überall dieselben Konzepte. **STEP** (ISO 10303) transportiert diese Struktur zwischen Systemen, verlustfrei in der Topologie. *Vertiefung: Leseauftrag.*
@@ -337,12 +356,26 @@ Vertex, Edge, Face, Shell, Solid – überall dieselben Konzepte. **STEP** (ISO 
 | `\|Z` | parallel zur Z-Achse |
 | `%CIRCLE` / `%PLANE` / `%CYLINDER` | Geometrietyp |
 
-Kombinierbar: `grundplatte.edges("<Z and %CIRCLE")`. Was nicht als String geht: direkt in Python filtern.
+Kombinierbar: `grundplatte.edges("<Z and %CIRCLE")`
+
+**Rückgabe:** ein einzelner Treffer ist eine `Face`/`Edge`, mehrere Treffer ein **Compound**. Zum Zählen und Durchlaufen deshalb `.Faces()` bzw. `.Edges()` anhängen:
+
+```python
+unten = grundplatte.edges("<Z and %CIRCLE").Edges()
+print(len(unten))
+```
+
+### Filtern in Python
+
+Was kein String-Selektor trifft, filtern Sie direkt in Python – mit allem, was die Elemente über ihre Geometrie wissen:
 
 ```python
 groesste = max(grundplatte.Faces(), key=lambda f: f.Area())
 zylindrisch = [f for f in grundplatte.Faces() if f.geomType() == "CYLINDER"]
+klein = [e for e in unten if e.radius() < 3]     # Kreiskanten nach Radius
 ```
+
+Das Ergebnis ist eine Python-Liste; `cf.compound(klein)` macht daraus wieder ein Argument für `cf.fillet`/`cf.chamfer`.
 
 ### Warum String vor Index? Ein Vorgriff
 
@@ -357,8 +390,10 @@ Das heißt **Topological Naming Problem**; eng verwandt: ob ein Ergebnis überha
 ### Aufgabe 4: Gezielte Selektion
 
 1. Selektieren Sie die **Oberseite** der Platte – Typ und Flächeninhalt?
-2. Selektieren Sie alle **zylindrischen Flächen** (Bohrungswände) – wie viele?
-3. Fasen Sie gezielt die **unteren** Kreiskanten – über ein Selektor-Kriterium statt über den Index.
+2. Selektieren Sie alle **zylindrischen Flächen** – wie viele? Woher kommen sie alle?
+3. Fasen Sie die **unteren Kanten der Bohrungen** (0,5 mm) über ein Kriterium statt über den Index. Prüfen Sie zuerst, was `"<Z and %CIRCLE"` alles trifft, und grenzen Sie die Auswahl bei Bedarf in Python ein.
+
+*Hinweise:* `.Faces()`/`.Edges()` zum Zählen, `e.radius()`, `cf.compound(liste)`, `cf.chamfer(teil, kanten, 0.5)`
 
 ### Aufgabe 5: Zentrierzapfen auf der Oberseite *(Vorgriff)*
 
@@ -370,10 +405,10 @@ Bauen Sie einen Zentrierzapfen (⌀ 16 mm, Höhe 8 mm) mittig auf die Oberseite 
 
 Bauen Sie eine Platte **170 × 110 × 6 mm** (Ecken r = 6) mit einem **4 × 3-Raster** von Lüftungslöchern (⌀ 8 mm), Rastermaß 36 mm (x) und 32 mm (y).
 
-1. Wie viele Flächen hat die Platte, wie viele davon zylindrisch?
-2. Verrunden Sie alle **oberen** Kreiskanten.
+1. Wie viele Flächen hat die Platte, wie viele davon zylindrisch? Passt die Zahl zu 12 Löchern?
+2. Verrunden Sie die **oberen Kanten der Lüftungslöcher** (r = 1 mm).
 
-*Hinweise:* zwei verschachtelte `for`-Schleifen, `cf.cylinder`, `.moved(cf.Location(...))`, Selektor `">Z and %CIRCLE"`
+*Hinweise:* zwei verschachtelte `for`-Schleifen, `cf.cylinder`, `.moved(cf.Location(...))`, Selektor `">Z and %CIRCLE"`, Filter über `e.radius()`
 
 ### Zusatzaufgabe: Topologie eines fremden Modells
 
@@ -381,6 +416,8 @@ Bauen Sie eine Platte **170 × 110 × 6 mm** (Ecken r = 6) mit einem **4 × 3-Ra
 import cadquery
 teil = cadquery.importers.importStep("mein_teil.step").val()
 ```
+
+Als Quelle eignet sich jede STEP-Datei, z. B. ein Normteil aus einem Herstellerkatalog oder ein Export aus einem anderen CAD-System.
 
 `importStep` ist die einzige Stelle im Kurs, an der kurz die `Workplane`-API auftaucht – `.val()` holt sofort die normale `Shape` heraus. Wie viele Faces/Edges/Vertices hat das fremde Teil? Welche Geometrietypen kommen vor?
 
