@@ -185,13 +185,22 @@ print(not druck > 90)
 - `or`: **mindestens eine** muss wahr sein
 - `not`: kehrt den Wahrheitswert um
 
-### Warum ist hier `or` richtig – und nicht `and`?
+### `and` oder `or`?
 
 Ein Messwert ist gültig zwischen 1 und 100. Wann ist er **ungültig**?
 
 ```python
 wert = 0
 
+if wert < 1 ??? wert > 100:
+    print("Ungültiger Messwert!")
+```
+
+Was gehört an die Stelle von `???` – und warum?
+
+### Warum ist hier `or` richtig – und nicht `and`?
+
+```python
 if wert < 1 or wert > 100:
     print("Ungültiger Messwert!")
 ```
@@ -259,6 +268,27 @@ Ohne Computer – was kommt heraus?
 2. Was ist falsch an `if x = 10:` – und wie heißt es richtig?
 3. `alter = 70` – was liefert `alter < 18 or alter >= 65`?
 4. `print(3 > 5 and 7 > 5)`
+
+### 🗳️ Zum Schluss: Was gibt das aus?
+
+```python
+spannung = 4.5
+
+if spannung > 3.0:
+    print("ok")
+elif spannung > 4.2:
+    print("zu hoch")
+else:
+    print("zu niedrig")
+```
+
+A) `ok`
+
+B) `zu hoch`
+
+C) `ok` und `zu hoch`
+
+D) `zu niedrig`
 
 ### Bis nächste Woche!
 
