@@ -64,6 +64,8 @@ print(temperatur)
 
 Der Name zeigt immer auf den **zuletzt gespeicherten** Wert.
 
+![bg right:35% 90%](assets/variable-name-wert.svg)
+
 ### `=` ist eine Zuweisung – keine Gleichung
 
 In der Mathematik unsinnig, in Python Alltag:
@@ -109,6 +111,10 @@ print(flache)
 ```
 
 ```
+Cell In[1], line 2
+      1 flaeche = seite * seite
+----> 2 print(flache)
+
 NameError: name 'flache' is not defined
 ```
 
