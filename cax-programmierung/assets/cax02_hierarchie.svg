@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- B-Rep-Topologie-Hierarchie, vertikal (CAx 02). Grundelemente nach
+     cad-as-code-book figures/static/ch05-brep-primitives.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="580" height="1150" viewBox="0 0 580 1150">
+  <style type="text/css">
+    <![CDATA[
+      .face{stroke:#2c5a8a;stroke-width:2.6px;stroke-linejoin:round}
+      .line{fill:none;stroke:#2c5a8a;stroke-width:2.6px;stroke-linejoin:round;stroke-linecap:round}
+      .dot{fill:#a2cbf0;stroke:#2c5a8a;stroke-width:2.6px}
+      .container{fill:none;stroke:#2c5a8a;stroke-width:2.6px;stroke-dasharray:3 7;stroke-linecap:round}
+      .name{fill:#1e1e2e;font-family:Inter,'DejaVu Sans',sans-serif;font-size:36px;font-weight:700}
+      .de{fill:#555;font-family:Inter,'DejaVu Sans',sans-serif;font-size:28px}
+      .arrow{fill:none;stroke:#e8590c;stroke-width:4px}
+      .arrowtext{fill:#e8590c;font-family:Inter,'DejaVu Sans',sans-serif;font-size:28px;font-weight:700}
+      .sep{stroke:#bbb;stroke-width:2px;stroke-dasharray:8 8}
+    ]]>
+  </style>
+  <defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#e8590c"/>
+    </marker>
+  </defs>
+
+  <!-- Compound -->
+  <g transform="translate(160,1060)">
+    <rect class="container" x="-65" y="-58" width="130" height="116" rx="6"/>
+    <circle class="dot" cx="-38" cy="-33" r="7"/>
+    <path class="line" d="M -50,34 Q -40,2 -14,-6"/>
+    <circle class="dot" cx="-50" cy="34" r="6"/>
+    <circle class="dot" cx="-14" cy="-6" r="6"/>
+    <g transform="translate(27,15)">
+      <polygon class="face" points="0,-34 29.44,-17 0,0 -29.44,-17" fill="#cbe4f9"/>
+      <polygon class="face" points="29.44,-17 0,0 0,34 29.44,17" fill="#a2cbf0"/>
+      <polygon class="face" points="-29.44,-17 0,0 0,34 -29.44,17" fill="#7db2e3"/>
+    </g>
+  </g>
+  <text class="name" x="260" y="1052">Compound</text>
+  <text class="de" x="260" y="1088">beliebige Sammlung</text>
+
+  <line class="sep" x1="20" y1="965" x2="560" y2="965"/>
+
+  <!-- Solid -->
+  <g transform="translate(160,870)">
+    <polygon class="face" points="0,-60 51.96,-30 0,0 -51.96,-30" fill="#cbe4f9"/>
+    <polygon class="face" points="51.96,-30 0,0 0,60 51.96,30" fill="#a2cbf0"/>
+    <polygon class="face" points="-51.96,-30 0,0 0,60 -51.96,30" fill="#7db2e3"/>
+  </g>
+  <text class="name" x="260" y="862">Solid</text>
+  <text class="de" x="260" y="898">Körper · 3D</text>
+
+  <!-- Shell -->
+  <g transform="translate(160,710)">
+    <g transform="translate(0,-16)">
+      <polygon class="face" points="0,0 -55.43,32 -55.43,0 0,-32" fill="#a2cbf0"/>
+      <polygon class="face" points="0,0 55.43,32 55.43,0 0,-32" fill="#7db2e3"/>
+      <polygon class="face" points="0,0 55.43,32 0,64 -55.43,32" fill="#cbe4f9"/>
+      <polygon class="face" points="55.43,32 0,64 0,32 55.43,0" fill="#a2cbf0"/>
+      <polygon class="face" points="-55.43,32 0,64 0,32 -55.43,0" fill="#7db2e3"/>
+    </g>
+  </g>
+  <text class="name" x="260" y="702">Shell</text>
+  <text class="de" x="260" y="738">Hülle</text>
+
+  <!-- Face -->
+  <g transform="translate(160,550)">
+    <path class="face" fill="#a2cbf0" d="M -52,-34 L 45,-47 Q 84,-9 55,34 L -43,45 Z"/>
+  </g>
+  <text class="name" x="260" y="542">Face</text>
+  <text class="de" x="260" y="578">Fläche · 2D</text>
+
+  <!-- Wire -->
+  <g transform="translate(160,390)">
+    <path class="line" d="M -52,-34 L 45,-47 Q 84,-9 55,34 L -43,45 Z"/>
+    <circle class="dot" cx="-52" cy="-34" r="8"/>
+    <circle class="dot" cx="45" cy="-47" r="8"/>
+    <circle class="dot" cx="55" cy="34" r="8"/>
+    <circle class="dot" cx="-43" cy="45" r="8"/>
+  </g>
+  <text class="name" x="260" y="382">Wire</text>
+  <text class="de" x="260" y="418">Kantenzug</text>
+
+  <!-- Edge -->
+  <g transform="translate(160,230)">
+    <path class="line" d="M -55,37 Q 0,-25 55,-37"/>
+    <circle class="dot" cx="-55" cy="37" r="8"/>
+    <circle class="dot" cx="55" cy="-37" r="8"/>
+  </g>
+  <text class="name" x="260" y="222">Edge</text>
+  <text class="de" x="260" y="258">Kante · 1D</text>
+
+  <!-- Vertex -->
+  <g transform="translate(160,70)">
+    <circle class="dot" cx="0" cy="0" r="9"/>
+  </g>
+  <text class="name" x="260" y="62">Vertex</text>
+  <text class="de" x="260" y="98">Ecke · 0D</text>
+
+  <!-- "besteht aus" -->
+  <line class="arrow" x1="40" y1="30" x2="40" y2="910" marker-end="url(#pfeil)"/>
+  <text class="arrowtext" transform="translate(30,470) rotate(-90)" text-anchor="middle">bildet</text>
+</svg>

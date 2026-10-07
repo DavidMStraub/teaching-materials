@@ -313,6 +313,8 @@ Selektoren liefern bei mehreren Treffern ein Compound; umgekehrt bündelt `cf.co
 | Solid | 3D | Shells | – |
 | Compound | beliebig | – | – |
 
+![bg right:32% 80%](assets/cax02_hierarchie.svg)
+
 ### Konnektivität durch gemeinsame Teilelemente
 
 Zwei Flächen sind verbunden, wenn sie eine gemeinsame **Kante** haben; zwei Kanten, wenn sie einen gemeinsamen **Vertex** haben. Teilelemente werden **geteilt**, nicht kopiert.
@@ -337,6 +339,8 @@ for f in grundplatte.Faces()[:3]:
 ```
 
 → Wichtig für Boolesche Operationen, Wasserdichtheit, Export (falsche Orientierung → ungültige STL/STEP).
+
+![bg right:32% 80%](assets/cax02_orientierung.png)
 
 ### B-Rep ist Industriestandard
 
