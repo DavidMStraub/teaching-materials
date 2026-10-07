@@ -86,6 +86,7 @@ print("Messung beendet.")
 - Nach `if` steht eine **Bedingung**, dann ein Doppelpunkt
 - Der **eingerückte** Block läuft nur, wenn die Bedingung `True` ist
 - Die letzte Zeile ist nicht eingerückt – sie läuft **immer**
+- Einrückung: 4 Leerzeichen (Tab-Taste) – fehlt sie, meldet Python einen `IndentationError`
 
 ### Zwei Wege: `if` / `else`
 
@@ -97,8 +98,6 @@ if messwert > 100:
 else:
     print("Alles im Bereich")
 ```
-
-Genau einer der beiden Blöcke läuft – nie beide, nie keiner.
 
 ### Mini-Aufgabe (3 min)
 
@@ -125,45 +124,49 @@ if alter = 18:
 ```
 
 ```
-SyntaxError: invalid syntax. Maybe you meant '==' instead of '='?
+  Cell In[1], line 3
+    if alter = 18:
+       ^
+SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
 ```
 
 - In einer Bedingung wird **verglichen**, nie gespeichert
-- Python 3 sagt es Ihnen sogar – Fehlermeldungen lesen lohnt sich
+- Python sagt es Ihnen sogar – Fehlermeldungen lesen lohnt sich
+- Den Vorschlag `:=` brauchen Sie in diesem Kurs nicht
 
 ### Mehr als zwei Wege: `elif`
 
 ```python
-alter = 12
+ladezustand = 25    # in Prozent
 
-if alter < 6:
-    print("Eintritt frei")
-elif alter < 18:
-    print("Ermäßigt: 5 Euro")
+if ladezustand < 10:
+    print("Kritisch: sofort laden")
+elif ladezustand < 30:
+    print("Niedrig")
 else:
-    print("Voller Preis: 12 Euro")
+    print("OK")
 ```
 
 - Bedingungen werden **von oben nach unten** geprüft
 - Nur der **erste wahre** Zweig läuft – danach ist Schluss
-- Darum reicht `alter < 18` im zweiten Zweig: wer dort ankommt, ist schon mindestens 6
+- Darum reicht `ladezustand < 30` im zweiten Zweig: wer dort ankommt, hat schon mindestens 10
 
 ### Vorhersage-Aufgabe (2 min)
 
 Was gibt der Code aus – bei diesen Werten? Aufschreiben!
 
 ```python
-alter = 5
+ladezustand = 5
 
-if alter < 6:
-    print("Eintritt frei")
-elif alter < 18:
-    print("Ermäßigt")
+if ladezustand < 10:
+    print("Kritisch: sofort laden")
+elif ladezustand < 30:
+    print("Niedrig")
 else:
-    print("Voller Preis")
+    print("OK")
 ```
 
-Und was passiert bei `alter = 6`? Bei `alter = 18`? Bei `alter = 100`?
+Und was passiert bei `ladezustand = 10`? Bei `ladezustand = 30`? Bei `ladezustand = 100`?
 
 ## Bedingungen kombinieren
 
@@ -261,5 +264,5 @@ Ohne Computer – was kommt heraus?
 
 Nächste Woche: **Eingabe und Ausgabe** – Programme, die mit Ihnen reden
 
-- Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
+- Üben: KI-Quizze auf OneTutor: https://link.hm.edu/vkej
 - Fragen: jederzeit im Matrix-Chat
