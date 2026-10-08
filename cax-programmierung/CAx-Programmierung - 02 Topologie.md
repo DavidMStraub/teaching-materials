@@ -357,6 +357,7 @@ Vertex, Edge, Face, Shell, Solid – überall dieselben Konzepte. **STEP** (ISO 
 | Selektor | Bedeutung |
 |---|---|
 | `>Z` / `<Z` | größter / kleinster Z-Wert |
+| `>Z[-2]` | zweithöchste Lage in Z |
 | `\|Z` | parallel zur Z-Achse |
 | `%CIRCLE` / `%PLANE` / `%CYLINDER` | Geometrietyp |
 
