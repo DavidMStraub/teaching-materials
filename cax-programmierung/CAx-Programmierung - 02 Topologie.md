@@ -320,12 +320,12 @@ Selektoren liefern bei mehreren Treffern ein Compound; umgekehrt bündelt `cf.co
 Zwei Flächen sind verbunden, wenn sie eine gemeinsame **Kante** haben; zwei Kanten, wenn sie einen gemeinsamen **Vertex** haben. Teilelemente werden **geteilt**, nicht kopiert.
 
 ```python
-appearances = sum(len(f.Edges()) for f in grundplatte.Faces())
-print(appearances, "vs.", len(grundplatte.Edges()), "eindeutige Kanten")
-# 68 vs. 36
+wuerfel = cf.box(10, 10, 10)
+auftritte = sum(len(f.Edges()) for f in wuerfel.Faces())
+print(auftritte, "vs.", len(wuerfel.Edges()))   # 24 vs. 12
 ```
 
-Jede gewöhnliche Kante gehört zu zwei Flächen, eine Nahtkante nur zu einer: 2 · 36 − 68 = **4 Nahtkanten** – eine je Bohrung.
+6 Flächen mit je 4 Kanten ergeben 24 – der Würfel hat aber nur 12 Kanten: **Jede Kante gehört zu zwei Flächen.**
 
 ### Orientierung: warum reicht Topologie allein nicht?
 
