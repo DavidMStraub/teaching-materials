@@ -67,6 +67,11 @@ $$\vec{E}(\vec{r}) = \sum_{i} \vec{E}_i(\vec{r})$$
 
 ![bg 92% right:38%](img/superposition.svg)
 
+### 📝 Aufgabe 3a: Feldlinien
+
+**Zuerst auf Papier:** Skizzieren Sie das Feldlinienbild zweier gleichnamiger Punktladungen, von denen eine die **doppelte** Ladung trägt. Wo ist das Feld null – genau in der Mitte, näher an der großen oder näher an der kleinen Ladung?
+**Erst danach** mit dem [E-Feld-Editor](https://davidstraub.de/teaching-apps/efield-editor/) überprüfen.
+
 ### Elektrische Flussdichte (*electric flux density*)
 
 $$\vec{D} = \varepsilon_0 \cdot \vec{E}$$
@@ -132,12 +137,9 @@ Vorteil: der Satz von Gauß gilt unverändert, wenn man nur die freien Ladungen 
 
 $$\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen, frei}}$$
 
-### 📝 Aufgabe 3: Feldlinien & Dielektrika
+### 📝 Aufgabe 3b: Dielektrikum
 
-a) **Zuerst auf Papier:** Skizzieren Sie das Feldlinienbild zweier gleichnamiger Punktladungen, von denen eine die **doppelte** Ladung trägt. Wo ist das Feld null – genau in der Mitte, näher an der großen oder näher an der kleinen Ladung?
-**Erst danach** mit dem [E-Feld-Editor](https://davidstraub.de/teaching-apps/efield-editor/) überprüfen.
-
-b) Die Punktladung aus letzter Woche ($Q = 10 \, \text{nC}$, $r = 24 \, \text{cm}$) wird von Vakuum in destilliertes Wasser ($\varepsilon_r = 81$) getaucht. Wie groß sind dort $E$ und $D$? Was ändert sich, was bleibt gleich?
+Die Punktladung $Q = 10 \, \text{nC}$ aus Aufgabe 2 befindet sich jetzt in destilliertem Wasser ($\varepsilon_r = 81$) statt im Vakuum. Wie groß sind $E$ und $D$ im Abstand $r_1 = 24 \, \text{cm}$? Was ändert sich gegenüber dem Vakuum, was bleibt gleich?
 
 ### Elektrische Arbeit im Feld
 
