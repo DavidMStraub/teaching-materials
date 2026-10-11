@@ -78,11 +78,21 @@ $$\vec{D} = \varepsilon_0 \cdot \vec{E}$$
 
 $$[\vec{D}] = [\varepsilon_0] \cdot [\vec{E}] = \frac{\text{C}^2}{\text{N} \cdot \text{m}^2} \cdot \frac{\text{N}}{\text{C}} = \frac{\text{C}}{\text{m}^2}$$
 
-Fluss durch eine Fläche $A$:
+Anschaulich: $D$ misst, wie dicht die Feldlinien liegen.
 
-$$\Psi = \int_{A} \vec{D} \cdot d\vec{A}$$
+### Elektrischer Fluss (*electric flux*)
 
-![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Electric-flux.jpg/1280px-Electric-flux.jpg)
+Wie viel Feld tritt durch eine Fläche $A$?
+
+- $\vec{D}$ homogen und senkrecht zur Fläche: $\Psi = D \cdot A$
+- $\vec{D}$ unter dem Winkel $\alpha$ zur Normale – nur der senkrechte Anteil zählt: $\Psi = D \cdot A \cdot \cos\alpha$
+- $\vec{D}$ nicht homogen: Fläche in kleine Stücke $\Delta A_i$ zerlegen und aufsummieren
+
+$$\Psi = \sum_i D_i \, \Delta A_i \cos\alpha_i \quad \xrightarrow{\Delta A \to 0} \quad \Psi = \int_A \vec{D} \cdot d\vec{A}$$
+
+$d\vec{A}$: Flächenstück als Vektor in Richtung der Normale – das Skalarprodukt liefert den Faktor $\cos\alpha$.
+
+![bg 85% right:30%](img/fluss-winkel.svg)
 
 ### Satz von Gauß (*Gauss’s law*)
 
@@ -92,13 +102,15 @@ $$\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen}}$$
 
 Anschaulich: Feldlinien beginnen und enden nur auf Ladungen – was an Fluss „herauskommt“, muss von Ladung im Inneren stammen.
 
-Besonders nützlich bei **hoher Symmetrie** (Kugel, Zylinder, Ebene).
+Der Kreis am Integral heißt: über die **ganze** Hülle summieren.
 
 ![bg 90% right:40%](img/gauss-huelle.svg)
 
 ### Beispiel: Punktladung mit dem Satz von Gauß
 
-Kugeloberfläche mit Radius $r$ um eine Punktladung $Q$ – aus Symmetriegründen ist $D$ überall auf der Kugel gleich groß und radial:
+Bei **hoher Symmetrie** (Kugel, Zylinder, Ebene) ist $D$ auf der Hülle überall gleich groß und senkrecht – dann wird das Integral zum Produkt $D \cdot A_\text{Hülle}$.
+
+Kugeloberfläche mit Radius $r$ um eine Punktladung $Q$ – $D$ ist überall auf der Kugel gleich groß und radial:
 
 $$\oint_{A} \vec{D} \cdot d\vec{A} = D(r) \cdot 4\pi r^2 = Q$$
 

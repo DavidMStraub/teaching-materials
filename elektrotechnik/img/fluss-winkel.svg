@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 20 260 330" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="aB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="aK" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <!-- homogenes Feld D unter dem Winkel α zur Normale -->
+  <g stroke="#2563eb" stroke-width="3" marker-end="url(#aB)">
+    <line x1="110" y1="173" x2="300" y2="40"/>
+    <line x1="110" y1="253" x2="300" y2="120"/>
+    <line x1="110" y1="333" x2="300" y2="200"/>
+  </g>
+  <text x="306" y="58" fill="#2563eb" font-size="24" font-style="italic">D</text>
+
+  <!-- Fläche A von der Kante gesehen -->
+  <line x1="200" y1="70" x2="200" y2="310" stroke="#6b7280" stroke-width="8" stroke-linecap="round"/>
+  <text x="192" y="62" fill="#6b7280" font-size="22" text-anchor="end">Fläche <tspan font-style="italic">A</tspan></text>
+
+  <!-- Flächennormale -->
+  <line x1="200" y1="190" x2="320" y2="190" stroke="#111827" stroke-width="3" marker-end="url(#aK)"/>
+  <text x="336" y="180" fill="#111827" font-size="20" text-anchor="end">Normale</text>
+
+  <!-- Winkel α -->
+  <path d="M 255,190 A 55 55 0 0 0 245,158.5" fill="none" stroke="#111827" stroke-width="2"/>
+  <text x="224" y="184" fill="#111827" font-size="22" font-style="italic">α</text>
+</svg>
