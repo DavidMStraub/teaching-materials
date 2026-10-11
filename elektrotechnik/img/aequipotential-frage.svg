@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 0 470 380" font-family="Helvetica, Arial, sans-serif">
+  <!-- Äquipotentiallinien: dichtester Abstand bei mittlerem Potential (50–40 V),
+       weitester bei niedrigstem Potential (20–10 V) -->
+  <g fill="none" stroke="#2563eb" stroke-width="3">
+    <path d="M 40,50 Q 70,200 40,350"/>
+    <path d="M 130,50 Q 160,200 130,350"/>
+    <path d="M 165,50 Q 195,200 165,350"/>
+    <path d="M 245,50 Q 275,200 245,350"/>
+    <path d="M 325,50 Q 355,200 325,350"/>
+    <path d="M 435,50 Q 465,200 435,350"/>
+  </g>
+  <g fill="#2563eb" font-size="20" text-anchor="middle">
+    <text x="40" y="36">60 V</text>
+    <text x="133" y="36" text-anchor="end">50 V</text>
+    <text x="162" y="36" text-anchor="start">40 V</text>
+    <text x="245" y="36">30 V</text>
+    <text x="325" y="36">20 V</text>
+    <text x="435" y="36">10 V</text>
+  </g>
+
+  <!-- A: zwischen 60 und 50 V; B: zwischen 50 und 40 V; C: auf 30 V; D: zwischen 20 und 10 V -->
+  <g fill="#111827">
+    <circle cx="98" cy="250" r="7"/>
+    <circle cx="162" cy="170" r="7"/>
+    <circle cx="253" cy="300" r="7"/>
+    <circle cx="390" cy="110" r="7"/>
+  </g>
+  <g fill="#111827" font-size="24" font-weight="bold" stroke="#fff" stroke-width="5" paint-order="stroke">
+    <text x="108" y="242">A</text>
+    <text x="162" y="152" text-anchor="middle">B</text>
+    <text x="263" y="292">C</text>
+    <text x="400" y="102">D</text>
+  </g>
+</svg>

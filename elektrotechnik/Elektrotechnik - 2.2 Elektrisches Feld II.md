@@ -183,19 +183,13 @@ $$E_\text{pot} = m \cdot g \cdot h = m \cdot \varphi_g(h)$$
 
 ![bg 90% right:36%](https://upload.wikimedia.org/wikipedia/commons/d/d1/Courbe_niveau.svg)
 
-### 🗳️ Feldstärke null – Potential null?
+### 🗳️ Wo ist das Feld am stärksten?
 
-Zwei gleiche positive Punktladungen $+Q$ sind im Abstand $2a$ angeordnet. Genau in der Mitte zwischen ihnen ist $E = 0$.
+Die blauen Linien sind Äquipotentiallinien.
 
-Was gilt für das Potential $\varphi$ in der Mitte?
+An welchem der Punkte A, B, C, D ist der Betrag der elektrischen Feldstärke am größten?
 
-A) $\varphi = 0$
-
-B) $\varphi > 0$
-
-C) $\varphi < 0$
-
-D) $\varphi$ ist dort nicht definiert
+![bg 90% right:45%](img/aequipotential-frage.svg)
 
 ### Spannung & Arbeit
 
