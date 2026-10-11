@@ -90,7 +90,7 @@ Kupfer, $A=1 \, \text{mm}^2$, $I=1 \, \text{A}$:
 - Dichte freier Elektronen: $n \approx 8{,}5 \cdot 10^{28} \, \frac{1}{\text{m}^3}$
 - Ladungsdichte: $\rho_Q = -n \cdot e \approx -1{,}36 \cdot 10^{10} \, \frac{\text{C}}{\text{m}^3}$
 - Stromdichte: $|\vec{J}| = \frac{I}{A} = 1 \cdot 10^{6} \, \frac{\text{A}}{\text{m}^2}$
-- Driftgeschwindigkeit: $|\vec{v_d}| = \frac{|\vec{J}|}{|\rho_Q|} \approx 7{,}35 \cdot 10^{-5} \, \frac{\text{m}}{\text{s}} \approx 0{,}26 \, \frac{\text{m}}{\text{h}}$ 🐌
+- Driftgeschwindigkeit: $|\vec{v}_d| = \frac{|\vec{J}|}{|\rho_Q|} \approx 7{,}35 \cdot 10^{-5} \, \frac{\text{m}}{\text{s}} \approx 0{,}26 \, \frac{\text{m}}{\text{h}}$ 🐌
 
 Warum geht das Licht trotzdem sofort an? → Das *Feld* breitet sich (fast) mit Lichtgeschwindigkeit aus, nicht die Elektronen.
 
@@ -210,6 +210,20 @@ Typische Werte bei 20 °C:
 | Aluminium      | 0,027         | 38              | 4,3 · 10⁻³     |
 | Messing        | 0,062         | 16              | 2,0 · 10⁻³     |
 
+### 🗳️ Warme Leitung
+
+Eine Kupferleitung hat bei 20 °C den Widerstand $R$. Im Betrieb erwärmt sie sich auf 70 °C.
+
+Um wie viel steigt ihr Widerstand?
+
+A) etwa 0,2 %
+
+B) etwa 2 %
+
+C) etwa 20 %
+
+D) etwa 200 %
+
 ### Metalle als Temperatursensoren
 
 Die Temperaturabhängigkeit macht Metalle zu präzisen Temperatursensoren.
@@ -283,6 +297,20 @@ Zusammen: $z$ Gleichungen für $z$ unbekannte Zweigströme ✓
 
 Beispiel: 2 Knoten, 3 Zweige → 1 Knotengleichung + 2 Maschengleichungen
 
+![bg 90% right:33%](img/knoten-zweige.svg)
+
+### 📝 Aufgabe 7a: Kirchhoff
+
+Gegeben: $U = 12 \, \text{V}$, $I = 3 \, \text{mA}$, $I_2 = 1 \, \text{mA}$, $U_1 = 6 \, \text{V}$
+
+a) Markieren Sie die Knoten. Wie viele Knoten, Zweige und unabhängige Gleichungen hat die Schaltung?
+
+b) Bestimmen Sie $I_3$, $U_2$ und $U_3$ mit den Kirchhoff’schen Gesetzen.
+
+c) Wie groß sind $R_1$, $R_2$ und $R_3$?
+
+![bg 90% right:42%](img/kirchhoff-aufgabe.svg)
+
 ### Reihenschaltung von Widerständen
 
 $$R_\text{ges} = R_1 + R_2 + \dots + R_n = \sum_{i=1}^{n} R_i$$
@@ -323,7 +351,7 @@ $$\frac{I}{G_\text{ges}} = \frac{I_1}{G_1} = \frac{I_2}{G_2} = \dots = \frac{I_n
 
 Zwei Widerstände: $\quad I_1 = I \cdot \dfrac{R_2}{R_1 + R_2}$
 
-![bg right:30% 50%](https://upload.wikimedia.org/wikipedia/commons/e/e5/Stromteiler-allgemein.svg)
+![bg 85% right:32%](img/stromteiler.svg)
 
 ### Reihe oder parallel? So erkennt man es *wirklich*
 
@@ -376,15 +404,13 @@ A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beide
 
 Nach dem Neuzeichnen ist es eindeutig: $R_2 \parallel R_3$ zwischen B und C, $R_1$ davor in Reihe.
 
-### 📝 Aufgabe 7: Spannungsteiler
+### 📝 Aufgabe 7b: Belasteter Spannungsteiler
 
 Ein Spannungsteiler besteht aus $R_1 = R_2 = 1 \, \text{k}\Omega$ an einer Quelle $U = 12 \, \text{V}$. Am Abgriff (über $R_2$) wird die Spannung $U_a$ abgenommen. **Zeichnen Sie die Schaltung selbst!**
 
 a) Wie groß ist $U_a$ im Leerlauf (kein Verbraucher angeschlossen)?
 
 b) Nun wird ein Verbraucher $R_L = 1 \, \text{k}\Omega$ an den Abgriff angeschlossen (parallel zu $R_2$). Schätzen Sie zuerst: steigt oder sinkt $U_a$? Wie groß ist $U_a$ jetzt?
-
-c) Wie viele Knoten, Zweige und unabhängige Gleichungen hat die Schaltung aus b)?
 
 ### Zwischenstand & Ausblick
 

@@ -30,7 +30,7 @@
   <g stroke="#111827" stroke-width="2.5" fill="none">
     <line x1="380" y1="150" x2="464" y2="150"/>
     <circle cx="490" cy="150" r="26"/>
-    <line x1="490" y1="124" x2="490" y2="176"/>
+    <line x1="464" y1="150" x2="516" y2="150"/>
     <line x1="516" y1="150" x2="600" y2="150"/>
   </g>
   <!-- I oben rechts, U unten links: entgegengesetzt -->
