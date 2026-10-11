@@ -151,7 +151,7 @@ $$\oint_{A} \vec{D} \cdot d\vec{A} = Q_{\text{innen, frei}}$$
 
 ### 📝 Aufgabe 3b: Dielektrikum
 
-Die Punktladung $Q = 10 \, \text{nC}$ aus Aufgabe 2 befindet sich jetzt in destilliertem Wasser ($\varepsilon_r = 81$) statt im Vakuum. Wie groß sind $E$ und $D$ im Abstand $r_1 = 24 \, \text{cm}$? Was ändert sich gegenüber dem Vakuum, was bleibt gleich?
+Die Punktladung $Q = 10 \, \text{nC}$ aus Aufgabe 2 befindet sich jetzt in destilliertem Wasser ($\varepsilon_r = 81$) statt im Vakuum. Wie groß sind $E$ und $D$ im Abstand $r_1 = 24 \, \text{cm}$? Was ändert sich gegenüber dem Vakuum, was bleibt gleich? Begründen Sie mit dem Satz von Gauß.
 
 ### Elektrische Arbeit im Feld
 
