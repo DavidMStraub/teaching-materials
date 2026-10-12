@@ -36,6 +36,16 @@ David Straub
 
 *Durchgängiges Beispiel:* die Pouch-Zelle, der Zellstapel und die Endplatten
 
+### Ihr Zentrierzapfen aus Einheit 2
+
+```python
+zapfen = cf.cylinder(d=16, h=8).moved(cf.Location((0, 0, 6)))
+```
+
+Wird die Grundplatte 10 mm dick, steckt der Zapfen in der Platte.
+
+**Ihre Idee:** Woher kann der Code die Höhe nehmen, statt `6` einzutippen? Eine Zeile Code oder Pseudocode genügt.
+
 ## Feature-basiertes Modellieren
 
 ### Modell als Abfolge von Features
@@ -48,15 +58,27 @@ David Straub
 3. **Subtraktive Features** – Bohrungen, Nuten, Taschen
 4. **Finishing** – Verrundungen und Fasen zuletzt
 
-### Warum „Finishing zuletzt“? Selektoren fragen den aktuellen Stand
+### Wie viele Kanten werden verrundet?
 
-Ein Selektor wie `"%CIRCLE"` beantwortet seine Frage **an dem Modell, wie es in der Zeile steht**, nicht am fertigen Teil:
+Die Absicht: den oberen Rand der Tasche verrunden.
 
 ```python
 platte = cf.box(40, 30, 6)
 tasche = cf.cylinder(d=18.6, h=3).moved(cf.Location((0, 0, 3)))
 loch   = cf.cylinder(d=3.4, h=6).moved(cf.Location((16, 11, 0)))
 
+basis = platte - tasche - loch
+rand  = basis.edges(">Z and %CIRCLE")
+zu_frueh = cf.fillet(basis, rand, 1.0)
+```
+
+**Wie viele Kanten enthält `rand`?** &nbsp; A) 1 &nbsp;&nbsp; B) 2 &nbsp;&nbsp; C) 3 &nbsp;&nbsp; D) 4
+
+### Warum „Finishing zuletzt“? Selektoren fragen den aktuellen Stand
+
+Ein Selektor wie `"%CIRCLE"` beantwortet seine Frage **an dem Modell, wie es in der Zeile steht**, nicht am fertigen Teil:
+
+```python
 basis = platte - tasche - loch                 # Loch schon gebohrt
 rand  = basis.edges(">Z and %CIRCLE")          # 2 Treffer: Tasche UND Loch!
 zu_frueh = cf.fillet(basis, rand, 1.0)         # verrundet auch den Lochrand
@@ -104,6 +126,8 @@ halbprofil = cf.face(cf.polyline((0, 0, 0), (15, 0, 0), (15, 0, 8), (0, 0, 8), (
 scheibe = cf.revolve(halbprofil, (0, 0, 0), (0, 0, 1), 360)   # volle Umdrehung um Z
 ```
 
+**Sagen Sie voraus:** Was entsteht, wenn das Halbprofil bei x = 5 beginnt statt bei x = 0?
+
 *Das Batteriemodul hat kein Rotationsteil – Revolve zeigen wir diese Woche einmal; die Technik bleibt für später im Werkzeugkasten.*
 
 ## Muster: Wiederholung durch Schleifen
@@ -121,11 +145,13 @@ for ix in range(3):
 
 Kein spezielles „Pattern“-Objekt nötig – eine Schleife über `Location`-Werte reicht und bleibt lesbar. Ein linearer Stapel entlang einer Achse ist dasselbe Muster mit nur einer Schleife.
 
+**Ändern Sie die Schleife:** ein **4 × 3**-Raster, weiterhin mittig auf der Platte.
+
 ## Konstruktionsebenen
 
 ### Konstruktionsebenen aus Flächen ableiten
 
-Eine `Plane` ist ein **lokales Koordinatensystem** – Ursprung plus Ausrichtung. Aus einer Fläche abgeleitet sitzt sie genau auf dieser Fläche – die Antwort auf die Denkfrage zum Zentrierzapfen:
+Eine `Plane` ist ein **lokales Koordinatensystem** – Ursprung plus Ausrichtung. Aus einer Fläche abgeleitet sitzt sie genau auf dieser Fläche – eine Antwort auf die Frage zum Zentrierzapfen:
 
 ```python
 from cadquery import Plane, Location
@@ -151,6 +177,9 @@ b = cf.cylinder(d=16, h=8).moved(Location(ebene, (40, 0, 0)))
 ```
 
 **Sagen Sie zuerst voraus:** Beide Zeilen laufen fehlerfrei durch. Wo sitzen `a` und `b`?
+
+A) beide auf der Platte &nbsp;&nbsp; B) `a` auf, `b` in der Platte
+C) `a` in, `b` auf der Platte &nbsp;&nbsp; D) beide in der Platte
 
 ### Locations verketten mit `*`
 
@@ -198,6 +227,25 @@ loecher = loch + loch.mirror("YZ", basePointVector=(0, 0, 0))
 
 `mirror` spiegelt an einer Ebene (hier „YZ“ durch den Ursprung) und gibt die gespiegelte Kopie zurück – Original und Kopie zusammen ergeben beide Löcher aus einer einzigen Platzierung. Gleich bei den Endplatten angewendet.
 
+### Spiegeln: Wie viele Löcher?
+
+```python
+loch = cf.cylinder(d=4, h=10).moved(cf.Location((30, 0, 0)))
+loecher = loch + loch.mirror("XZ", basePointVector=(0, 0, 0))
+```
+
+**Wie viele Löcher beschreibt `loecher`?** &nbsp; A) keins &nbsp;&nbsp; B) eins &nbsp;&nbsp; C) zwei &nbsp;&nbsp; D) Fehlermeldung
+
+### Wohin dreht sich der Quader?
+
+```python
+q = cf.box(20, 5, 5).moved(x=30).moved(rz=90)
+```
+
+**Sagen Sie voraus:** Wo liegt danach der Mittelpunkt von `q` in der xy-Ebene?
+
+A) (30, 0) &nbsp;&nbsp; B) (0, 30) &nbsp;&nbsp; C) (30, 30) &nbsp;&nbsp; D) (0, 0)
+
 ### Rotation: Drehen mit `moved`
 
 ```python
@@ -209,6 +257,14 @@ gedreht = cf.box(20, 5, 5).moved(rz=45)
 Was daraus für die Reihenfolge von Drehen und Verschieben folgt, zeigt nächste Woche der Zell-Flip im Stapel.
 
 ## Parameter als Dataclass
+
+### Welche Zahlen stecken in Ihrem Code?
+
+Öffnen Sie Ihren Code aus Praktikum A und sammeln Sie **alle Zahlen** darin.
+
+1. Welche sind **Grundmaße**, die Sie frei wählen?
+2. Welche **ergeben sich** aus anderen – und aus welchen?
+3. Welche Zahl müssten Sie ändern, wenn die Zellen 14 mm dick werden? An wie vielen Stellen?
 
 ### Warum die Maße bündeln?
 
@@ -267,7 +323,9 @@ p_standard = ModulParam()
 p_gross    = replace(p_standard, n_zellen=16, zell_t=14.0)
 ```
 
-Ein Parametersatz, viele Varianten – der Rest der Werte bleibt unverändert.
+Ein Parametersatz, viele Varianten.
+
+**Sagen Sie voraus:** Welchen Wert hat danach `p_standard.n_zellen`? Und `p_gross.spacer`?
 
 ## Praktikum B: Endplatten und Zusammenführung
 
