@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 30 500 290" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <g id="aus">
+      <circle r="11" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+      <circle r="3.5" fill="#111827"/>
+    </g>
+    <g id="ein">
+      <circle r="11" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+      <line x1="-7" y1="-7" x2="7" y2="7" stroke="#111827" stroke-width="2.5"/>
+      <line x1="-7" y1="7" x2="7" y2="-7" stroke="#111827" stroke-width="2.5"/>
+    </g>
+  </defs>
+
+  <!-- Feldlinien innen: homogen -->
+  <g stroke="#2563eb" stroke-width="3">
+    <line x1="30" y1="120" x2="440" y2="120"/>
+    <line x1="30" y1="150" x2="440" y2="150"/>
+    <line x1="30" y1="180" x2="440" y2="180"/>
+  </g>
+  <g fill="#2563eb">
+    <polygon points="456,120 438,112 438,128"/>
+    <polygon points="456,150 438,142 438,158"/>
+    <polygon points="456,180 438,172 438,188"/>
+    <polygon points="250,120 236,113 236,127"/>
+    <polygon points="250,150 236,143 236,157"/>
+    <polygon points="250,180 236,173 236,187"/>
+  </g>
+  <text x="464" y="160" fill="#2563eb" font-size="30" font-style="italic">B</text>
+
+  <!-- Windungen: oben aus der Tafel, unten hinein -->
+  <g>
+    <use href="#aus" x="75" y="85"/><use href="#aus" x="105" y="85"/><use href="#aus" x="135" y="85"/><use href="#aus" x="165" y="85"/><use href="#aus" x="195" y="85"/><use href="#aus" x="225" y="85"/><use href="#aus" x="255" y="85"/><use href="#aus" x="285" y="85"/><use href="#aus" x="315" y="85"/><use href="#aus" x="345" y="85"/><use href="#aus" x="375" y="85"/><use href="#aus" x="405" y="85"/>
+    <use href="#ein" x="75" y="215"/><use href="#ein" x="105" y="215"/><use href="#ein" x="135" y="215"/><use href="#ein" x="165" y="215"/><use href="#ein" x="195" y="215"/><use href="#ein" x="225" y="215"/><use href="#ein" x="255" y="215"/><use href="#ein" x="285" y="215"/><use href="#ein" x="315" y="215"/><use href="#ein" x="345" y="215"/><use href="#ein" x="375" y="215"/><use href="#ein" x="405" y="215"/>
+  </g>
+
+  <!-- Umlaufweg: oben innen, unten außen -->
+  <rect x="55" y="165" width="370" height="105" fill="none" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <line x1="55" y1="290" x2="425" y2="290" stroke="#6b7280" stroke-width="2"/>
+  <line x1="55" y1="282" x2="55" y2="298" stroke="#6b7280" stroke-width="2"/>
+  <line x1="425" y1="282" x2="425" y2="298" stroke="#6b7280" stroke-width="2"/>
+  <text x="240" y="316" fill="#6b7280" font-size="28" font-style="italic" text-anchor="middle">ℓ</text>
+  <text x="240" y="56" fill="#6b7280" font-size="24" text-anchor="middle"><tspan font-style="italic">N</tspan> Windungen, Strom <tspan font-style="italic">I</tspan></text>
+</svg>

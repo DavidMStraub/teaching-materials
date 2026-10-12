@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 20 460 290" font-family="Helvetica, Arial, sans-serif">
+  <!-- geschlossener Weg -->
+  <ellipse cx="190" cy="170" rx="160" ry="115" fill="#f3f4f6" stroke="#2563eb" stroke-width="4"/>
+
+  <!-- I1 = 3 A aus der Tafel heraus -->
+  <circle cx="125" cy="150" r="20" fill="#fff" stroke="#111827" stroke-width="3"/>
+  <circle cx="125" cy="150" r="6" fill="#111827"/>
+  <text x="125" y="208" fill="#111827" font-size="30" text-anchor="middle">3 A</text>
+
+  <!-- I2 = 5 A in die Tafel hinein -->
+  <circle cx="255" cy="150" r="20" fill="#fff" stroke="#111827" stroke-width="3"/>
+  <line x1="241" y1="136" x2="269" y2="164" stroke="#111827" stroke-width="3"/>
+  <line x1="241" y1="164" x2="269" y2="136" stroke="#111827" stroke-width="3"/>
+  <text x="255" y="208" fill="#111827" font-size="30" text-anchor="middle">5 A</text>
+
+  <!-- I3 = 6 A außerhalb, heraus -->
+  <circle cx="410" cy="70" r="20" fill="#fff" stroke="#111827" stroke-width="3"/>
+  <circle cx="410" cy="70" r="6" fill="#111827"/>
+  <text x="410" y="128" fill="#111827" font-size="30" text-anchor="middle">6 A</text>
+</svg>

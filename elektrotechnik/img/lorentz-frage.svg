@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 10 440 320" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <g id="x">
+      <circle r="10" fill="none" stroke="#9ca3af" stroke-width="2"/>
+      <line x1="-7" y1="-7" x2="7" y2="7" stroke="#9ca3af" stroke-width="2"/>
+      <line x1="-7" y1="7" x2="7" y2="-7" stroke="#9ca3af" stroke-width="2"/>
+    </g>
+  </defs>
+  <!-- B in die Tafel hinein -->
+  <g>
+    <use href="#x" x="40" y="40"/><use href="#x" x="100" y="40"/><use href="#x" x="160" y="40"/><use href="#x" x="220" y="40"/><use href="#x" x="280" y="40"/><use href="#x" x="340" y="40"/><use href="#x" x="400" y="40"/>
+    <use href="#x" x="40" y="95"/><use href="#x" x="100" y="95"/><use href="#x" x="160" y="95"/><use href="#x" x="220" y="95"/><use href="#x" x="280" y="95"/><use href="#x" x="340" y="95"/><use href="#x" x="400" y="95"/>
+    <use href="#x" x="40" y="150"/><use href="#x" x="100" y="150"/><use href="#x" x="160" y="150"/><use href="#x" x="220" y="150"/><use href="#x" x="280" y="150"/><use href="#x" x="340" y="150"/><use href="#x" x="400" y="150"/>
+    <use href="#x" x="40" y="205"/><use href="#x" x="100" y="205"/><use href="#x" x="160" y="205"/><use href="#x" x="220" y="205"/><use href="#x" x="280" y="205"/><use href="#x" x="340" y="205"/><use href="#x" x="400" y="205"/>
+    <use href="#x" x="40" y="260"/><use href="#x" x="100" y="260"/><use href="#x" x="160" y="260"/><use href="#x" x="220" y="260"/><use href="#x" x="280" y="260"/><use href="#x" x="340" y="260"/><use href="#x" x="400" y="260"/>
+  </g>
+
+  <!-- Elektron mit Geschwindigkeit nach rechts -->
+  <line x1="148" y1="178" x2="296" y2="178" stroke="#111827" stroke-width="4"/>
+  <polygon points="312,178 294,169 294,187" fill="#111827"/>
+  <text x="246" y="170" fill="#111827" font-size="30" font-style="italic" font-weight="bold" stroke="#fff" stroke-width="6" paint-order="stroke">v</text>
+  <circle cx="130" cy="178" r="18" fill="#2563eb"/>
+  <line x1="121" y1="178" x2="139" y2="178" stroke="#fff" stroke-width="4"/>
+
+  <text x="220" y="316" fill="#6b7280" font-size="24" text-anchor="middle">⊗ <tspan font-style="italic">B</tspan> zeigt in die Tafel hinein</text>
+</svg>

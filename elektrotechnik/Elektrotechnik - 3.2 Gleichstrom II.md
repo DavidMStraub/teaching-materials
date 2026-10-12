@@ -24,6 +24,180 @@ David Straub
 8. Arbeit und Leistung
 9. Reale Messungen im Gleichstromkreis
 
+### Zählpfeile: Vorzeichen festlegen
+
+Vor dem Rechnen bekommt **jede** Spannung und **jeder** Strom eine Zählrichtung – frei wählbar, ab dann verbindlich. Ein negatives Ergebnis heißt einfach: es fließt andersherum.
+
+- **Verbraucherzählpfeilsystem:** $U$ und $I$ am Bauteil gleichsinnig (Widerstände)
+- **Erzeugerzählpfeilsystem:** $U$ und $I$ gegensinnig (Quellen)
+- **Beim Maschenumlauf:** Pfeil in Umlaufrichtung → positiv zählen, sonst negativ
+
+![w:680](img/zaehlpfeile.svg)
+
+### Knotenpunktregel (1. Kirchhoff’sches Gesetz)
+
+In einem Knotenpunkt kann weder Ladung gespeichert noch erzeugt werden. Die Summe aller zufließenden Ströme ist gleich der Summe aller abfließenden Ströme:
+
+$$\sum_{k} I_{k} = 0$$
+
+Zufließende Ströme zählen positiv, abfließende negativ.
+
+![bg right:30% 80%](img/kirchhoff-knoten.svg)
+
+### Maschenregel (2. Kirchhoff’sches Gesetz)
+
+Die Summe aller in einer Masche auftretenden Spannungen ist Null:
+
+$$\sum_{k} U_{k} = 0$$
+
+![bg right:42% 90%](img/kirchhoff-masche.svg)
+
+### 🗳️ Vorzeichen in der Masche
+
+In der Masche gilt $U_1 = 2 \, \text{V}$, $U_2 = 5 \, \text{V}$, $U_3 = 4 \, \text{V}$.
+
+Wie groß ist $U_4$?
+
+A) $11 \, \text{V}$
+
+B) $-11 \, \text{V}$
+
+C) $7 \, \text{V}$
+
+D) $-1 \, \text{V}$
+
+![bg right:35% 90%](img/kirchhoff-masche.svg)
+
+### Wie viele unabhängige Gleichungen gibt es?
+
+Netzwerk mit $k$ Knoten und $z$ Zweigen:
+
+- **Knoten:** alle Punkte, die nur durch Draht verbunden sind
+- **Zweig:** ein Bauteil (Widerstand, Quelle) zwischen zwei Knoten
+
+- **Unabhängige Knotengleichungen:** $k - 1$
+  (die letzte Knotengleichung folgt aus den anderen)
+- **Unabhängige Maschengleichungen:** $z - (k - 1)$
+
+Zusammen: $z$ Gleichungen für $z$ unbekannte Zweigströme ✓
+
+Beispiel: 2 Knoten, 3 Zweige → 1 Knotengleichung + 2 Maschengleichungen
+
+![bg 90% right:33%](img/knoten-zweige.svg)
+
+### 📝 Aufgabe 7a: Kirchhoff
+
+Gegeben: $U = 12 \, \text{V}$, $I = 3 \, \text{mA}$, $I_2 = 1 \, \text{mA}$, $U_1 = 6 \, \text{V}$
+
+a) Markieren Sie die Knoten. Wie viele Knoten, Zweige und unabhängige Gleichungen hat die Schaltung?
+
+b) Bestimmen Sie $I_3$, $U_2$ und $U_3$ mit den Kirchhoff’schen Gesetzen.
+
+c) Wie groß sind $R_1$, $R_2$ und $R_3$?
+
+![bg 90% right:42%](img/kirchhoff-aufgabe.svg)
+
+### Reihenschaltung von Widerständen
+
+$$R_\text{ges} = R_1 + R_2 + \dots + R_n = \sum_{i=1}^{n} R_i$$
+
+- Kein Abzweig dazwischen → **gleicher Strom** durch alle (Knotenregel): $I = I_1 = \dots = I_n$
+- **Maschenregel:** $U = U_1 + \dots + U_n$
+- Mit $U_i = I R_i$: $\;U = I \cdot (R_1 + \dots + R_n)$
+- Folge: $R_\text{ges}$ ist **größer** als der größte Einzelwiderstand
+
+![bg right:30% 70%](https://upload.wikimedia.org/wikipedia/commons/2/27/Reihenschaltung_Widerst%C3%A4nde.svg)
+
+### Spannungsteiler
+
+Bei einer Reihenschaltung teilt sich die Gesamtspannung im Verhältnis der Widerstände auf:
+
+$$I = \frac{U}{R_\text{ges}} = \frac{U_1}{R_1} = \frac{U_2}{R_2}$$
+
+$$\Rightarrow \quad \frac{U_1}{U_2} = \frac{R_1}{R_2}, \qquad U_2 = U \cdot \frac{R_2}{R_1 + R_2}$$
+
+![bg right:30% 70%](https://upload.wikimedia.org/wikipedia/commons/9/91/Spannungsteiler.svg)
+
+### Parallelschaltung von Widerständen
+
+$$\frac{1}{R_\text{ges}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n} \qquad\Leftrightarrow\qquad G_\text{ges} = \sum_{i=1}^{n} G_i$$
+
+- Dieselben zwei Knoten → **gleiche Spannung** an allen (Maschenregel)
+- **Knotenregel:** $I = I_1 + \dots + I_n$
+- Mit $I_i = U/R_i$: $\;I = U \cdot \left(\frac{1}{R_1} + \dots + \frac{1}{R_n}\right)$
+- Folge: $R_\text{ges}$ ist **kleiner** als der kleinste Einzelwiderstand
+
+![bg right:25% 90%](https://upload.wikimedia.org/wikipedia/commons/a/ab/Parallelschaltung_Widerst%C3%A4nde.svg)
+
+### Stromteilerregel
+
+Bei einer Parallelschaltung teilt sich der Gesamtstrom im umgekehrten Verhältnis der Widerstände bzw. im direkten Verhältnis der Leitwerte auf:
+
+$$\frac{I}{G_\text{ges}} = \frac{I_1}{G_1} = \frac{I_2}{G_2} = \dots = \frac{I_n}{G_n}$$
+
+Zwei Widerstände: $\quad I_1 = I \cdot \dfrac{R_2}{R_1 + R_2}$
+
+![bg 85% right:32%](img/stromteiler.svg)
+
+### Reihe oder parallel? So erkennt man es *wirklich*
+
+- **In Reihe** ⇔ zwischen ihnen **kein Knoten mit Abzweig** ⇔ zwingend **derselbe Strom**
+- **Parallel** ⇔ beide an **denselben zwei Knoten** ⇔ zwingend **dieselbe Spannung**
+
+![w:800](img/reihe-parallel.svg)
+
+⚠️ Wie die Schaltung *gezeichnet* ist, bedeutet **gar nichts** – entscheidend sind die Knoten.
+
+### Methode: Knoten markieren
+
+1. Alle Punkte, die nur durch Draht verbunden sind, bilden **einen** Knoten → gleich einfärben
+2. Schaltung mit diesen Knoten **neu zeichnen**
+3. Kriterium von der vorigen Folie anwenden
+
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-a.svg)
+
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
+
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-b.svg)
+
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
+
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-c.svg)
+
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
+
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-d.svg)
+
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
+
+### 🗳️ Wie liegen $R_1$ und $R_2$ zueinander?
+
+![w:500](img/rp-e.svg)
+
+A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
+
+### Knoten markieren am Beispiel d)
+
+![w:900](img/rp-loesung.svg)
+
+Nach dem Neuzeichnen ist es eindeutig: $R_2 \parallel R_3$ zwischen B und C, $R_1$ davor in Reihe.
+
+### 📝 Aufgabe 7b: Belasteter Spannungsteiler
+
+Ein Spannungsteiler besteht aus $R_1 = R_2 = 1 \, \text{k}\Omega$ an einer Quelle $U = 12 \, \text{V}$. Am Abgriff (über $R_2$) wird die Spannung $U_a$ abgenommen. **Zeichnen Sie die Schaltung selbst!**
+
+a) Wie groß ist $U_a$ im Leerlauf (kein Verbraucher angeschlossen)?
+
+b) Nun wird ein Verbraucher $R_L = 1 \, \text{k}\Omega$ an den Abgriff angeschlossen (parallel zu $R_2$). Schätzen Sie zuerst: steigt oder sinkt $U_a$? Wie groß ist $U_a$ jetzt?
+
 ### Zweipoltheorie
 
 Ein Zweipol (*two-pole*) oder Eintor (*one-port*) ist ein elektrisches Bauteil mit zwei zugänglichen Anschlüssen.
@@ -61,6 +235,20 @@ Eine ideale Stromquelle liefert einen konstanten Strom $I_0$, unabhängig von de
 
 ![bg right:25% 55%](img/stromquelle.svg)
 
+### 🗳️ Warum sinkt die Batteriespannung?
+
+Beim Starten eines Autos sinkt die Spannung der Batterie – direkt an ihren Polen gemessen – von $12{,}6 \, \text{V}$ auf etwa $10 \, \text{V}$.
+
+Woran liegt das?
+
+A) Die Batterie ist in diesem Moment fast leer.
+
+B) Ein Teil der Spannung fällt in der Batterie selbst ab.
+
+C) Der Anlasser erzeugt eine Gegenspannung.
+
+D) Die Kabel zum Anlasser haben einen Widerstand.
+
 ### Reale Spannungsquelle
 
 Eine reale Spannungsquelle = ideale Spannungsquelle $U_0$ **in Reihe** mit einem Innenwiderstand $R_i$:
@@ -93,6 +281,20 @@ Die Kennlinien im Vergleich – die reale Quelle ist eine fallende Gerade zwisch
 
 ![bg 95% right:42%](img/kennlinie.svg)
 
+### 🗳️ Kurzschlussstrom aus zwei Messungen
+
+An einer Quelle misst man im Leerlauf $9 \, \text{V}$. Bei einem Laststrom von $1 \, \text{A}$ sind es noch $8 \, \text{V}$.
+
+Welcher Strom fließt im Kurzschluss?
+
+A) $1 \, \text{A}$
+
+B) $8 \, \text{A}$
+
+C) $9 \, \text{A}$
+
+D) unbegrenzt viel
+
 ### Äquivalenz von realer Spannungs- und Stromquelle
 
 Reale Spannungsquelle und reale Stromquelle sind **äquivalent** (gleiche Kennlinie!), wenn:
@@ -108,76 +310,12 @@ Von außen sind beide nicht unterscheidbar – wählen Sie die Darstellung, die 
 ![bg right:30% vertical 90%](https://upload.wikimedia.org/wikipedia/commons/1/11/Quelle_U-Ersatz.svg)
 ![bg right:30% vertical 90%](https://upload.wikimedia.org/wikipedia/commons/c/cd/Quelle_I-Ersatz.svg)
 
-### Ersatzquelle eines beliebigen Netzwerks bestimmen 🔑
+### Zwischenstand & Ausblick
 
-Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersatzspannungsquelle** ($U_0$, $R_i$) oder **Ersatzstromquelle** ($I_0$, $R_i$) darstellen. Rezept:
-
-1. **Leerlaufspannung** $U_0$: Spannung an den offenen Klemmen berechnen
-2. **Innenwiderstand** $R_i$: alle Quellen „deaktivieren“ –
-   Spannungsquellen → **Kurzschluss**, Stromquellen → **Unterbrechung** –
-   dann Widerstand von den Klemmen aus berechnen
-3. Kontrolle oder Alternative zu 2.: **Kurzschlussstrom** $I_k$ berechnen, dann $R_i = U_0 / I_k$
-
-**Das ist die zentrale Technik für Netzwerkaufgaben.**
-
-![bg 92% right:30%](img/blackbox-esb.svg)
-
-### Beispiel: Ersatzquelle des belasteten Spannungsteilers
-
-Unser Spannungsteiler aus letzter Woche ($U = 12 \, \text{V}$, $R_1 = R_2 = 1 \, \text{k}\Omega$) als Ersatzquelle an den Abgriffklemmen:
-
-→ Tafel:
-
-1. $U_0 = U \cdot \frac{R_2}{R_1 + R_2} = 6 \, \text{V}$
-2. Quelle deaktivieren (kurzschließen): $R_i = R_1 \parallel R_2 = 500 \, \Omega$
-3. Last $R_L = 1 \, \text{k}\Omega$ anschließen: $U_a = U_0 \cdot \frac{R_L}{R_i + R_L} = 6 \cdot \frac{1000}{1500} = 4 \, \text{V}$ ✓
-
-Gleiche Antwort wie letzte Woche – aber jetzt in 2 Zeilen statt Netzwerk-Umformung!
-
-### Reihenschaltung von aktiven, linearen Zweipolen
-
-Bei der Reihenschaltung von realen Spannungsquellen addieren sich Leerlaufspannungen und Innenwiderstände:
-
-$$U_{0,\text{ges}} = \sum_j U_{0,j}, \qquad R_{i,\text{ges}} = \sum_j R_{i,j}$$
-
-**Anwendung:** Batteriepacks (Taschenlampe, E-Auto)
-**Vorteil:** höhere Gesamtspannung • **Nachteil:** höherer Innenwiderstand
-
-### Parallelschaltung von aktiven, linearen Zweipolen
-
-Bei der Parallelschaltung von realen Spannungsquellen mit gleicher Leerlaufspannung $U_0$ addieren sich die Leitwerte der Innenwiderstände:
-
-$$\frac{1}{R_{i,\text{ges}}} = \sum_j \frac{1}{R_{i,j}}$$
-
-**Anwendung:** höhere Ströme, Redundanz
-**Nachteil:** nur bei gleichen Spannungen sinnvoll (sonst Ausgleichsströme!)
-
-### 📝 Aufgabe 8: Ersatzquelle
-
-Eine Spannungsquelle $U_e$ speist einen Spannungsteiler aus $R_1$ und $R_2$; an den Klemmen über $R_2$ wird $U_a$ abgenommen. **Schaltung zeichnen!**
-
-a) Bestimmen Sie **allgemein** die Leerlaufspannung $U_0$, den Innenwiderstand $R_i$ und den Kurzschlussstrom $I_k$ der Ersatzquelle.
-
-b) Gegeben: $U_e = 150 \, \text{V}$, im Leerlauf $U_a = 50 \, \text{V}$, bei $I = 0{,}5 \, \text{A}$ ist $U_a = 45 \, \text{V}$. Wie groß müssen $R_1$ und $R_2$ sein?
-
-c) Wie groß muss ein Lastwiderstand $R_a$ sein, damit er die größtmögliche Leistung aufnimmt, und wie groß ist diese? *(Vorgriff auf nächste Woche – Vermutung reicht!)*
-
-### 📝 Klausuraufgabe: Gleichstromnetzwerk
-
-Die Schaltung liefert an den Klemmen 1–2 die Spannung $U_a$:
-
-a) Wie viele *unabhängige* Knotenpunktgleichungen gibt es? Stellen Sie sie auf.
-b) **Leerlauf** ($R_a \to \infty$): Geben Sie $I_1$ und $I_2$ in Abhängigkeit der Stromquellen an.
-c) Bestimmen Sie das **Spannungsquellen-Ersatzschaltbild** links der Klemmen 1–2 ($U_0$, $R_i$ allgemein).
-d) Die Schaltung soll $U_0 = 10 \, \text{V}$ und $P_\text{max} = 5 \, \text{W}$ liefern. Wie groß muss $R_i$ sein?
-
-![bg 95% right:42%](img/klausur-gleichstromnetz.svg)
-
-### Zwischenstand & Ausblick (Woche 4)
-
+- Zählpfeile zuerst festlegen; ein negatives Ergebnis heißt: es fließt andersherum
+- Kirchhoff: $\sum I_k = 0$ (Knoten), $\sum U_k = 0$ (Masche); $k-1$ unabhängige Knotengleichungen
+- Teilerregeln: Spannung ∝ R (Reihe), Strom ∝ G (parallel) – entscheidend sind die Knoten, nicht die Zeichnung
+- Ein belasteter Spannungsteiler bricht ein!
 - Reale Quelle = zwei Kenngrößen: $U_0$ und $R_i$ (oder äquivalent $I_0 = U_0/R_i$)
-- Kennlinie = fallende Gerade zwischen Leerlauf ($U_0$) und Kurzschluss ($I_k$)
-- **Rezept Ersatzquelle:** $U_0$ im Leerlauf; $R_i$ mit deaktivierten Quellen; Kontrolle über $I_k$
-- Quellen deaktivieren: U-Quelle → Kurzschluss, I-Quelle → Unterbrechung
 
-**Nächste Woche:** Wie viel Leistung bekommt man aus einer Quelle heraus – und wie misst man in realen Schaltungen?
+**Nächste Woche:** Ersatzquellen für beliebige Netzwerke, Leistung und Messen im Gleichstromkreis.

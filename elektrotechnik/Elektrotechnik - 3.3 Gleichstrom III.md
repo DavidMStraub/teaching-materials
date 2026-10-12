@@ -24,6 +24,77 @@ David Straub
 8. Arbeit und Leistung
 9. Reale Messungen im Gleichstromkreis
 
+### Ersatzquelle eines beliebigen Netzwerks bestimmen 🔑
+
+Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersatzspannungsquelle** ($U_0$, $R_i$) oder **Ersatzstromquelle** ($I_0$, $R_i$) darstellen. Rezept:
+
+1. **Leerlaufspannung** $U_0$: Spannung an den offenen Klemmen berechnen
+2. **Innenwiderstand** $R_i$: alle Quellen „deaktivieren“ –
+   Spannungsquellen → **Kurzschluss**, Stromquellen → **Unterbrechung** –
+   dann Widerstand von den Klemmen aus berechnen
+3. Kontrolle oder Alternative zu 2.: **Kurzschlussstrom** $I_k$ berechnen, dann $R_i = U_0 / I_k$
+
+**Das ist die zentrale Technik für Netzwerkaufgaben.**
+
+![bg 92% right:30%](img/blackbox-esb.svg)
+
+### 🗳️ Innenwiderstand mit Stromquelle
+
+Wie groß ist der Innenwiderstand $R_i$ der Schaltung an den Klemmen a–b?
+
+A) $R_2$
+
+B) $R_1 + R_2$
+
+C) $R_1 \parallel R_2$
+
+D) $R_1$
+
+![bg 90% right:45%](img/ri-frage.svg)
+
+### Beispiel: Ersatzquelle des belasteten Spannungsteilers
+
+Unser Spannungsteiler aus Aufgabe 7b ($U = 12 \, \text{V}$, $R_1 = R_2 = 1 \, \text{k}\Omega$) als Ersatzquelle an den Abgriffklemmen:
+
+- Wie groß sind $U_0$ und $R_i$?
+- Welche Spannung $U_a$ stellt sich mit der Last $R_L = 1 \, \text{k}\Omega$ ein?
+
+### Lösung: belasteter Spannungsteiler
+
+1. $U_0 = U \cdot \frac{R_2}{R_1 + R_2} = 6 \, \text{V}$
+2. Quelle deaktivieren (kurzschließen): $R_i = R_1 \parallel R_2 = 500 \, \Omega$
+3. Last $R_L = 1 \, \text{k}\Omega$ anschließen: $U_a = U_0 \cdot \frac{R_L}{R_i + R_L} = 6 \cdot \frac{1000}{1500} = 4 \, \text{V}$ ✓
+
+Gleiche Antwort wie in Aufgabe 7b – jetzt in 2 Zeilen statt Netzwerk-Umformung!
+
+### 📝 Aufgabe 8: Ersatzquelle
+
+Eine Spannungsquelle $U_e$ speist einen Spannungsteiler aus $R_1$ und $R_2$; an den Klemmen über $R_2$ wird $U_a$ abgenommen. **Schaltung zeichnen!**
+
+a) Bestimmen Sie **allgemein** die Leerlaufspannung $U_0$, den Innenwiderstand $R_i$ und den Kurzschlussstrom $I_k$ der Ersatzquelle.
+
+b) Gegeben: $U_e = 150 \, \text{V}$, im Leerlauf $U_a = 50 \, \text{V}$, bei $I = 0{,}5 \, \text{A}$ ist $U_a = 45 \, \text{V}$. Wie groß müssen $R_1$ und $R_2$ sein?
+
+c) Wie groß muss ein Lastwiderstand $R_a$ sein, damit er die größtmögliche Leistung aufnimmt, und wie groß ist diese? *(Vorgriff auf später heute – Vermutung reicht!)*
+
+### Reihenschaltung von aktiven, linearen Zweipolen
+
+Bei der Reihenschaltung von realen Spannungsquellen addieren sich Leerlaufspannungen und Innenwiderstände:
+
+$$U_{0,\text{ges}} = \sum_j U_{0,j}, \qquad R_{i,\text{ges}} = \sum_j R_{i,j}$$
+
+**Anwendung:** Batteriepacks (Taschenlampe, E-Auto)
+**Vorteil:** höhere Gesamtspannung • **Nachteil:** höherer Innenwiderstand
+
+### Parallelschaltung von aktiven, linearen Zweipolen
+
+Bei der Parallelschaltung von realen Spannungsquellen mit gleicher Leerlaufspannung $U_0$ addieren sich die Leitwerte der Innenwiderstände:
+
+$$\frac{1}{R_{i,\text{ges}}} = \sum_j \frac{1}{R_{i,j}}$$
+
+**Anwendung:** höhere Ströme, Redundanz
+**Nachteil:** nur bei gleichen Spannungen sinnvoll (sonst Ausgleichsströme!)
+
 ### Elektrische Arbeit (Energie)
 
 Die elektrische Arbeit ist das Produkt aus Spannung, Strom und Zeit:
@@ -41,6 +112,20 @@ $$P = \frac{dW}{dt} = U \cdot I = I^2 \cdot R = \frac{U^2}{R}$$
 Einheit: $[P] = \text{W}$ (Watt)
 
 Die drei Schreibweisen sind über das Ohm’sche Gesetz äquivalent – nehmen Sie die, deren Größen Sie kennen.
+
+### 🗳️ Zwei Glühlampen in Reihe
+
+Eine 60-W- und eine 100-W-Glühlampe (beide für 230 V) werden **in Reihe** an 230 V angeschlossen.
+
+Welche leuchtet heller?
+
+A) die 100-W-Lampe
+
+B) die 60-W-Lampe
+
+C) beide gleich hell
+
+D) keine – die Spannung reicht für beide nicht
 
 ### Leistungsanpassung
 
@@ -104,6 +189,17 @@ a) Bestimmen Sie die Leerlaufspannung $U_0$ und den Innenwiderstand $R_i$.
 
 b) Die Batterie wird mit $R = 0{,}2 \, \Omega$ belastet. Wie hoch ist der Wirkungsgrad $\eta$?
 
+### 📝 Klausuraufgabe: Gleichstromnetzwerk
+
+Die Schaltung liefert an den Klemmen 1–2 die Spannung $U_a$:
+
+a) Wie viele *unabhängige* Knotenpunktgleichungen gibt es? Stellen Sie sie auf.
+b) **Leerlauf** ($R_a \to \infty$): Geben Sie $I_1$ und $I_2$ in Abhängigkeit der Stromquellen an.
+c) Bestimmen Sie das **Spannungsquellen-Ersatzschaltbild** links der Klemmen 1–2 ($U_0$, $R_i$ allgemein).
+d) Die Schaltung soll $U_0 = 10 \, \text{V}$ und $P_\text{max} = 5 \, \text{W}$ liefern. Wie groß muss $R_i$ sein?
+
+![bg 95% right:42%](img/klausur-gleichstromnetz.svg)
+
 ### Reale Messungen: Spannung
 
 Jedes reale Voltmeter hat einen **endlichen Innenwiderstand** und belastet die Schaltung:
@@ -115,6 +211,20 @@ Jedes reale Voltmeter hat einen **endlichen Innenwiderstand** und belastet die S
 Faustregel: Spannungsmessung ist unkritisch, solange $R_\text{Quelle} \ll R_{i,\text{Voltmeter}}$
 
 ![bg 95% right:42%](img/voltmeter-lastfehler.svg)
+
+### 🗳️ Was zeigt das Multimeter?
+
+Ein Spannungsteiler aus zwei Widerständen von je $1 \, \text{M}\Omega$ liegt an $10 \, \text{V}$. Ein Multimeter ($R_i = 10 \, \text{M}\Omega$) misst die Spannung über dem unteren Widerstand.
+
+Was zeigt es an?
+
+A) $5{,}0 \, \text{V}$
+
+B) $4{,}8 \, \text{V}$
+
+C) $4{,}5 \, \text{V}$
+
+D) $3{,}3 \, \text{V}$
 
 ### Reale Messungen: Strom mit dem Shunt
 
@@ -158,10 +268,10 @@ c) Welche Leistung $P_\vartheta$ nimmt der Sensor auf? Warum sollte sie klein bl
 | Ladung | $Q$ | C | $\text{A} \cdot \text{s}$ |
 | Spannung | $U$ | V | $\frac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^3}$ |
 | Kapazität | $C$ | F | $\frac{\text{A}^2 \cdot \text{s}^4}{\text{kg} \cdot \text{m}^2}$ |
-| **Widerstand** | $R$ | Ω | $\frac{\text{kg} \cdot \text{m}^2}{\text{A}^2 \cdot \text{s}^3}$ |
-| **Leistung** | $P$ | W | $\frac{\text{kg} \cdot \text{m}^2}{\text{s}^3}$ |
+| **Widerstand** | $R$ | Ω | ❓ |
+| **Leistung** | $P$ | W | ❓ |
 
-Herleitung an der Tafel: $[R] = \frac{[U]}{[I]}$, $[P] = [U] \cdot [I]$
+Leiten Sie die Basiseinheiten von Widerstand und Leistung her.
 
 ### Zusammenfassung: Gleichstrom
 

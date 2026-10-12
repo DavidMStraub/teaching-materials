@@ -40,11 +40,25 @@ Grenzfälle:
 
 ![bg right:40% 70%](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Geomagnetic_field_and_magnet_analogy.png/960px-Geomagnetic_field_and_magnet_analogy.png)
 
+### 🗳️ Zwei parallele Leiter
+
+Zwei lange, parallele Drähte führen Ströme in **dieselbe** Richtung.
+
+Was passiert?
+
+A) Sie ziehen sich an.
+
+B) Sie stoßen sich ab.
+
+C) Nichts – die Drähte sind elektrisch neutral.
+
+D) Sie verdrehen sich gegeneinander.
+
 ### Kräfte zwischen elektrischen Leitern
 
 Zwei parallele, stromdurchflossene Leiter üben eine Kraft aufeinander aus:
 
-$$\frac{|\vec{F_{12}}|}{l} = 2k_A \cdot \frac{I_1 I_2}{d}$$
+$$\frac{|\vec{F}_{12}|}{l} = 2k_A \cdot \frac{I_1 I_2}{d}$$
 
 Magnetfelder entstehen durch bewegte elektrische Ladungen (Ströme).
 
@@ -89,11 +103,21 @@ Einheit: das **Tesla**
 
 $$[\vec{B}] = [\mu_0] \cdot \frac{[I]}{[r]} = \frac{\text{N}}{\text{A}^2} \cdot \frac{\text{A}}{\text{m}} = \frac{\text{N}}{\text{A}\cdot\text{m}} = \text{T}$$
 
-Zahlenbeispiel (→ Tafel): Wie viel Strom braucht man für 1 T in 1 m Abstand?
+### 🗳️ 1 Tesla im Abstand 1 m
+
+Welcher Strom in einem langen, geraden Draht erzeugt im Abstand $r = 1 \, \text{m}$ die Flussdichte $B = 1 \, \text{T}$?
+
+A) $5 \, \text{A}$
+
+B) $5 \, \text{kA}$
+
+C) $5 \, \text{MA}$
+
+D) $5 \, \text{GA}$
 
 ### Größenordnung der magnetischen Flussdichte
 
-| Magnet                | Magnetische Flussdichte *B* |
+| Quelle                | Magnetische Flussdichte *B* |
 |-----------------------------------|------------------------------------------|
 | Erdmagnetfeld                     | 30 µT – 60 µT                            |
 | Kühlschrankmagnet                 | 1 mT – 10 mT                             |
@@ -102,6 +126,16 @@ Zahlenbeispiel (→ Tafel): Wie viel Strom braucht man für 1 T in 1 m Abstand?
 | MRT-Gerät            | 1 T – 3 T                             |
 | Large Hadron Collider (LHC)  | 8 T                                      |
 | Fusionskraftwerk  | 5–15 T |
+
+### 📝 Aufgabe 11a: Doppelleitung
+
+Bei einer langen Doppelleitung (Hin- und Rückleiter) beträgt der Achsabstand $a = 25 \, \text{cm}$; der Strom ist $I = 100 \, \text{A}$.
+
+a) Addieren oder subtrahieren sich die Beiträge beider Leiter auf der Verbindungslinie zwischen ihnen? Begründen Sie mit der Rechte-Faust-Regel.
+
+b) Berechnen Sie allgemein den Betrag der Flussdichte $B$ auf der Verbindungslinie und werten Sie ihn in der Mitte aus.
+
+c) Vergleichen Sie mit dem Erdmagnetfeld!
 
 ### Kräfte im magnetischen Feld
 
@@ -117,6 +151,22 @@ $$\vec{F} = I \cdot (\vec{\ell} \times \vec{B})$$
 - **Rechte-Hand-Regel:** Daumen = Stromrichtung, Zeigefinger = Feldrichtung, Mittelfinger = Kraftrichtung
 
 ![bg right:30% 90%](https://upload.wikimedia.org/wikipedia/commons/2/23/UVW-regel-strom-und-positive-ladung.svg)
+
+### 🗳️ Kraft auf ein Elektron
+
+Ein Elektron fliegt mit der Geschwindigkeit $\vec{v}$ durch ein Magnetfeld, das in die Tafel hinein zeigt.
+
+In welche Richtung wirkt die Lorentzkraft?
+
+A) nach oben
+
+B) nach unten
+
+C) in die Tafel hinein
+
+D) es wirkt keine Kraft
+
+![bg 90% right:45%](img/lorentz-frage.svg)
 
 ### Bewegte Ladung im Magnetfeld
 
@@ -134,11 +184,11 @@ $$\vec{F} = I \cdot (\vec{\ell} \times \vec{B})$$
 
 | Eigenschaft | Elektrisches Feld | Magnetisches Feld |
 |-------------|-------------------|-------------------|
-| **Feldlinien** | Beginnen/enden auf Ladungen | Enden nie |
+| **Feldlinien** | Beginnen/enden auf Ladungen | Geschlossen |
 | **Quellen** | Ladungen | Keine (keine Monopole) |
 | **Wirbel** | Keine (wirbelfrei) | Ströme erzeugen Wirbel |
-| **Potential** | Darstellbar als Gradient | Nicht darstellbar |
-| **Arbeit** | Wegunabhängig | Keine (Magnetostatik) |
+| **Potential** | $\vec{E} = -\operatorname{grad} \varphi$ | Im Allgemeinen kein skalares Potential |
+| **Arbeit an Ladung** | Wegunabhängig | Null, da $\vec{F} \perp \vec{v}$ |
 
 **Elektrostatisches Feld** = Quellenfeld, wirbelfrei
 **Magnetostatisches Feld** = quellenfrei, Wirbelfeld
@@ -183,6 +233,22 @@ $$\oint \vec{E}(s) \cdot d\vec{s} = 0$$
 
 ![bg 88% right:34%](img/durchflutung.svg)
 
+### 🗳️ Durchflutung
+
+Wie groß ist der Betrag von $\oint \vec{H} \cdot d\vec{s}$ entlang der blauen Kurve?
+
+(⊙ aus der Tafel heraus, ⊗ in die Tafel hinein)
+
+A) $2 \, \text{A}$
+
+B) $4 \, \text{A}$
+
+C) $8 \, \text{A}$
+
+D) $14 \, \text{A}$
+
+![bg 90% right:45%](img/durchflutung-frage.svg)
+
 ### Vergleich: Gaußsches Gesetz und Ampèresches Gesetz
 
 | Elektrostatik | Magnetostatik |
@@ -210,119 +276,68 @@ $$H = \frac{N \cdot I}{\ell}, \qquad B = \mu_0 H$$
 
 Mit einem Eisenkern wird $B$ um ein Vielfaches größer – dazu gleich beim Magnetfeld in Materie.
 
-![bg right:40% 80%](https://upload.wikimedia.org/wikipedia/commons/0/05/Cylindrical_long_tightly-wound_coil2.svg)
+![bg 95% right:45%](img/spule.svg)
 
-### 📝 Aufgabe 11: Magnetfelder berechnen
+### 📝 Aufgabe 11b: Lange Spule
 
-a) Eine lange Spule hat $N = 500$ Windungen auf $\ell = 25 \, \text{cm}$ und führt $I = 1 \, \text{A}$. Wie groß sind $H$ und $B$ im Inneren (Luft)? Vergleichen Sie mit dem Erdmagnetfeld!
+Eine lange Spule hat $N = 500$ Windungen auf $\ell = 25 \, \text{cm}$ und führt $I = 1 \, \text{A}$.
 
-b) Bei einer langen Doppelleitung (Hin- und Rückleiter) beträgt der Achsabstand $a = 25 \, \text{cm}$; der Strom ist $I = 100 \, \text{A}$. Berechnen Sie allgemein den Betrag der magnetischen Feldstärke auf der Verbindungslinie zwischen den Leitern und werten Sie ihn in der Mitte aus. *(Tipp: Superposition – beide Beiträge addieren sich dort!)*
+a) Wie groß sind $H$ und $B$ im Inneren (Luft)? Vergleichen Sie mit dem Erdmagnetfeld!
 
-### Magnetisches Verhalten von Materie
+b) Wie viele Windungen bräuchte die Spule bei gleichem Strom und gleicher Länge für $B = 1 \, \text{T}$?
 
-Ähnlich wie bei Dielektrika im elektrischen Feld reagiert Materie im Magnetfeld durch **Magnetisierung**.
+### Materie im Magnetfeld
 
-**Magnetische Dipole in Atomen:**
+Bei gleicher Feldstärke $H$ hängt die Flussdichte vom Material ab:
 
-- Elektronen haben einen intrinsischen **Spin** (magnetischer Dipol)
-- Bahnbewegung der Elektronen erzeugt **Bahnmagnetismus**
-- Jedes Elektron ist ein winziger Permanentmagnet – makroskopische Magnete entstehen durch **Ausrichtung** vieler Spins
+$$\vec{B} = \mu_0 \mu_r \vec{H}$$
 
-![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/c/c8/Elementary-magnets.png)
+| Klasse | $\mu_r$ | Beispiele |
+|---|---|---|
+| diamagnetisch | knapp unter 1 (z.B. $1 - 10^{-5}$) | Kupfer, Wasser, Silber |
+| paramagnetisch | knapp über 1 (z.B. $1 + 2 \cdot 10^{-5}$) | Aluminium, Luft, Platin |
+| ferromagnetisch | $10^2$ bis $10^5$, **nicht konstant** | Eisen, Nickel, Kobalt und ihre Legierungen |
 
-### Magnetische Suszeptibilität und Permeabilität
+Für die Technik verhalten sich Dia- und Paramagnete wie Luft. Ferromagnete bündeln den Fluss – daraus baut man Kerne.
 
-Die Magnetisierung $\vec{M}$ ist proportional zur magnetischen Feldstärke $\vec{H}$:
+### Ferromagnete: Hysterese
 
-$$\vec{M} = \chi_m \vec{H}, \qquad \mu_r = 1 + \chi_m$$
+Die Flussdichte hängt von der *Vorgeschichte* ab:
 
-**Reaktion auf äußeres Feld:**
+- **Sättigung** (1): mehr Strom bringt kaum noch mehr $B$
+- **Remanenz** (2): Flussdichte, die ohne äußeres Feld bleibt
+- **Koerzitivfeldstärke** (3): Feldstärke, die die Magnetisierung beseitigt
 
-- **Diamagnetismus:** gegen das äußere Feld ($\mu_r < 1$, $\chi_m < 0$)
-- **Paramagnetismus:** mit dem äußeren Feld ($\mu_r > 1$, $\chi_m > 0$)
-- **Ferromagnetismus:** starke Ausrichtung ($\mu_r \gg 1$)
-
-### Magnetische Eigenschaften der Elemente
-
-![width:23cm](img/magnetic_elements_magnetica.png)
-
-(S. Zurek, Encyclopedia Magnetica, CC-BY-SA 4.0)
-
-### Diamagnetismus
-
-- Tritt in **allen** Materialien auf; $\chi_m < 0$ (sehr klein), $\mu_r$ knapp unter 1
-- Mechanismus: externes Feld induziert Änderung der Elektronenbahnen → magnetisches Moment **entgegen** dem äußeren Feld
-- Effekt verschwindet mit dem Feld
-
-**Beispiele:** Kupfer, Silber, Gold, Wasser, organische Materialien
-
-Kuriosum: Diamagnete können in starken Feldern schweben →
-
-![bg right:33% 90%](https://upload.wikimedia.org/wikipedia/commons/7/7b/Frog_diamagnetic_levitation.jpg)
-
-### Paramagnetismus
-
-- Atome besitzen **permanente magnetische Dipole**; $\chi_m > 0$ (klein), $\mu_r$ knapp über 1
-- Ohne Feld: zufällige Ausrichtung (thermische Bewegung); mit Feld: partielle Ausrichtung **parallel**
-- Paramagnete werden schwach von Magneten angezogen; stärker bei tiefen Temperaturen
-
-**Beispiele:** **Aluminium**, Platin, Sauerstoff
-
-⚠️ Merken für die Praxis: Aluminium ist *nicht* ferromagnetisch – ein Elektromagnet hebt keine Alu-Platten!
-
-### Ferromagnetismus
-
-- Sehr starke Magnetisierung: $\mu_r \gg 1$ (bis zu $10^5$!)
-- **Spontane Magnetisierung** auch ohne externes Feld möglich
-- Mechanismus: starke Wechselwirkung benachbarter Atome (**Austauschwechselwirkung**) → Bildung von **Weiss’schen Bezirken** (Domänen), die ein externes Feld ausrichtet
-
-**Beispiele:** Eisen, Kobalt, Nickel
-
-### Weiss’sche Bezirke
-
-- Bereiche mit **gleich orientierten magnetischen Dipolen**
-- Spontane Magnetisierung innerhalb der Bezirke
-
-**Ohne äußeres Feld:** Bezirke zufällig orientiert → keine Gesamtmagnetisierung
-**Mit äußerem Feld:** Bezirke richten sich aus; bei Sättigung einheitlich
-
-![bg right:50% 100%](https://upload.wikimedia.org/wikipedia/commons/0/0a/Growing-magnetic-domains.svg)
-
-### Ferromagnetismus: Hysterese
-
-**Kenngrößen:**
-
-- **Sättigungsmagnetisierung** (1): maximale Magnetisierung
-- **Remanenz** (2): verbleibende Flussdichte bei verschwindendem äußeren Feld
-- **Koerzitivfeldstärke** (3): Feldstärke zum Entmagnetisieren
-
-Die Magnetisierung hängt von der *Vorgeschichte* ab – $B(H)$ ist keine eindeutige Funktion!
+**Weichmagnetisch** (schmale Schleife): Trafo- und Motorkerne, Elektromagnete
+**Hartmagnetisch** (breite Schleife): Permanentmagnete
 
 ![bg right:40% 85%](https://upload.wikimedia.org/wikipedia/commons/e/ee/Hysteresis-from-unmagnetised-state.svg)
 
-### Harte/weiche Magnete
+### Weiches Eisen: Magnetisierungskurve
 
-- **Weichmagnetische Materialien:**
-    - Schmale Hysteresekurve: leicht magnetisier- und entmagnetisierbar
-    - Anwendung: Transformatoren, Elektromagnete
+Bei weichmagnetischen Werkstoffen ist die Schleife so schmal, dass man mit **einer** Kurve $B(H)$ rechnet.
 
-- **Hartmagnetische Materialien:**
-    - Breite Hysteresekurve: behalten ihre Magnetisierung
-    - Anwendung: Permanentmagnete, Motoren, Lautsprecher
+- Steiler Anstieg: $\mu_r$ sehr groß
+- Ab etwa 1,4 T Sättigung: $\mu_r$ sinkt stark
+- $\mu_r = \dfrac{B}{\mu_0 H}$ gilt nur im jeweiligen Arbeitspunkt
 
-![bg right:55% 100%](https://upload.wikimedia.org/wikipedia/commons/4/4b/Hysteresis-comparison.svg)
+![bg 90% right:45%](img/magnetisierungskurve.svg)
 
-### Magnetisches Feld und Magnetisierung
+### 🗳️ Doppelter Strom im Eisenkern
 
-**Magnetisierung** $\vec{M}$: magnetisches Dipolmoment pro Volumeneinheit
+Eine Spule mit Eisenkern arbeitet bei $H = 800 \, \text{A/m}$, also $B \approx 1{,}4 \, \text{T}$. Der Spulenstrom wird **verdoppelt**.
 
-$$\vec{B} = \mu_0(\vec{H} + \vec{M}) = \mu_0 \mu_r \vec{H}$$
+Was passiert mit $B$?
 
-**Konvention:** $\vec{H}$ beschreibt das durch **freie Ströme** erzeugte Feld – ohne Beiträge der Magnetisierung (vgl. $\vec{D}$ und freie Ladungen in der Elektrostatik!).
+A) $B$ verdoppelt sich
 
-**Vorteil:** Das Durchflutungsgesetz gilt unverändert:
+B) $B$ steigt, aber deutlich weniger als doppelt
 
-$$\oint \vec{H} \cdot d\vec{s} = I_{\text{frei}}$$
+C) $B$ bleibt exakt gleich
+
+D) $B$ steigt auf mehr als das Doppelte
+
+![bg 90% right:45%](img/magnetisierungskurve.svg)
 
 ### Übersicht: Größen in der Magnetostatik
 
@@ -339,9 +354,15 @@ Relative Permeabilität | $\mu_r = \frac{\mu}{\mu_0}$ | dimensionslos
 
 a) Ein Elektromagnet soll in einer Recyclinganlage Metallteile sortieren. Kann er Aluminiumplatten anheben? Stahlplatten? (Mit Begründung!)
 
-b) Lesen Sie aus der Hysteresekurve (vorige Folie) ab: Welche Größe muss ein Material für einen guten *Permanentmagneten* besitzen – und welche für einen guten *Transformatorkern*? (Mit Begründung!)
+b) Lesen Sie aus den Hysteresekurven rechts ab: Welche Größe muss ein Material für einen guten *Permanentmagneten* besitzen – und welche für einen guten *Transformatorkern*?
 
-c) Ein Eisenkern wurde aufmagnetisiert und der Spulenstrom danach abgeschaltet. Warum ist $B$ im Kern nicht null?
+c) Ein Ringkern aus Elektroblech ($\ell = 20 \, \text{cm}$) trägt $N = 200$ Windungen. Bestimmen Sie $H$, $B$ und $\mu_r$ für $I = 0{,}8 \, \text{A}$ und $I = 1{,}6 \, \text{A}$.
+
+| $H$ in A/m | 400 | 800 | 1600 |
+|---|---|---|---|
+| $B$ in T | 1,25 | 1,40 | 1,45 |
+
+![bg right:35% 100%](https://upload.wikimedia.org/wikipedia/commons/4/4b/Hysteresis-comparison.svg)
 
 ### Zwischenstand – und nächste Woche: Probeklausur!
 
@@ -359,6 +380,86 @@ Heute: Magnetfeld ($B$, $H$, $\Phi$, $\Theta$), Kräfte ($F = Q v B$, $F = I \el
 ## Vertiefung
 
 Für alle, die es genauer wissen wollen
+
+### Vertiefung: Magnetisches Verhalten von Materie
+
+Ähnlich wie bei Dielektrika im elektrischen Feld reagiert Materie im Magnetfeld durch **Magnetisierung**.
+
+**Magnetische Dipole in Atomen:**
+
+- Elektronen haben einen intrinsischen **Spin** (magnetischer Dipol)
+- Bahnbewegung der Elektronen erzeugt **Bahnmagnetismus**
+- Jedes Elektron ist ein winziger Permanentmagnet – makroskopische Magnete entstehen durch **Ausrichtung** vieler Spins
+
+![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/c/c8/Elementary-magnets.png)
+
+### Vertiefung: Magnetische Suszeptibilität und Permeabilität
+
+Die Magnetisierung $\vec{M}$ ist proportional zur magnetischen Feldstärke $\vec{H}$:
+
+$$\vec{M} = \chi_m \vec{H}, \qquad \mu_r = 1 + \chi_m$$
+
+**Reaktion auf äußeres Feld:**
+
+- **Diamagnetismus:** gegen das äußere Feld ($\mu_r < 1$, $\chi_m < 0$)
+- **Paramagnetismus:** mit dem äußeren Feld ($\mu_r > 1$, $\chi_m > 0$)
+- **Ferromagnetismus:** starke Ausrichtung ($\mu_r \gg 1$)
+
+### Vertiefung: Magnetische Eigenschaften der Elemente
+
+![width:23cm](img/magnetic_elements_magnetica.png)
+
+(S. Zurek, Encyclopedia Magnetica, CC-BY-SA 4.0)
+
+### Vertiefung: Diamagnetismus
+
+- Tritt in **allen** Materialien auf; $\chi_m < 0$ (sehr klein), $\mu_r$ knapp unter 1
+- Mechanismus: externes Feld induziert Änderung der Elektronenbahnen → magnetisches Moment **entgegen** dem äußeren Feld
+- Effekt verschwindet mit dem Feld
+
+**Beispiele:** Kupfer, Silber, Gold, Wasser, organische Materialien
+
+Kuriosum: Diamagnete können in starken Feldern schweben →
+
+![bg right:33% 90%](https://upload.wikimedia.org/wikipedia/commons/7/7b/Frog_diamagnetic_levitation.jpg)
+
+### Vertiefung: Paramagnetismus
+
+- Atome besitzen **permanente magnetische Dipole**; $\chi_m > 0$ (klein), $\mu_r$ knapp über 1
+- Ohne Feld: zufällige Ausrichtung (thermische Bewegung); mit Feld: partielle Ausrichtung **parallel**
+- Paramagnete werden schwach von Magneten angezogen; stärker bei tiefen Temperaturen
+
+**Beispiele:** **Aluminium**, Platin, Sauerstoff
+
+### Vertiefung: Ferromagnetismus
+
+- Sehr starke Magnetisierung: $\mu_r \gg 1$ (bis zu $10^5$!)
+- **Spontane Magnetisierung** auch ohne externes Feld möglich
+- Mechanismus: starke Wechselwirkung benachbarter Atome (**Austauschwechselwirkung**) → Bildung von **Weiss’schen Bezirken** (Domänen), die ein externes Feld ausrichtet
+
+**Beispiele:** Eisen, Kobalt, Nickel
+
+### Vertiefung: Weiss’sche Bezirke
+
+- Bereiche mit **gleich orientierten magnetischen Dipolen**
+- Spontane Magnetisierung innerhalb der Bezirke
+
+**Ohne äußeres Feld:** Bezirke zufällig orientiert → keine Gesamtmagnetisierung
+**Mit äußerem Feld:** Bezirke richten sich aus; bei Sättigung einheitlich
+
+![bg right:50% 100%](https://upload.wikimedia.org/wikipedia/commons/0/0a/Growing-magnetic-domains.svg)
+
+### Vertiefung: Magnetisches Feld und Magnetisierung
+
+**Magnetisierung** $\vec{M}$: magnetisches Dipolmoment pro Volumeneinheit
+
+$$\vec{B} = \mu_0(\vec{H} + \vec{M}) = \mu_0 \mu_r \vec{H}$$
+
+**Konvention:** $\vec{H}$ beschreibt das durch **freie Ströme** erzeugte Feld – ohne Beiträge der Magnetisierung (vgl. $\vec{D}$ und freie Ladungen in der Elektrostatik!).
+
+**Vorteil:** Das Durchflutungsgesetz gilt unverändert:
+
+$$\oint \vec{H} \cdot d\vec{s} = I_{\text{frei}}$$
 
 ### Vertiefung: Magnetfeld in einem Tokamak
 

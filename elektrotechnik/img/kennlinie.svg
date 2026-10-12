@@ -13,7 +13,7 @@
 
   <!-- ideale Spannungsquelle -->
   <line x1="70" y1="110" x2="420" y2="110" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 6"/>
-  <text x="290" y="98" fill="#2563eb" font-size="19">ideale U-Quelle</text>
+  <text x="170" y="98" fill="#2563eb" font-size="19">ideale U-Quelle</text>
 
   <!-- ideale Stromquelle -->
   <line x1="380" y1="400" x2="380" y2="80" stroke="#15803d" stroke-width="3" stroke-dasharray="8 6"/>
