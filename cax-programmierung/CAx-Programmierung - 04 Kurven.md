@@ -56,8 +56,8 @@ Letzte Woche gebaut: Zellstapel (Muster-Schleife), Endplatten (Mirror), alles ü
 Dabei im Einsatz:
 
 - `Location` und `moved(...)` – Objekte im Raum platzieren
-- `Plane(origin=...)` – Konstruktionsebene aus einer Fläche
-- `moved(rz=90)` – Drehung, deren **Reihenfolge** Sie am Ende vorhergesagt haben
+- `cf.Plane(origin=..., normal=...)` – Konstruktionsebene aus einer Fläche
+- `moved(rz=90)` – Objekte um eine Achse drehen
 
 **Heute:** die Mathematik dahinter – und was eine „Kante“ geometrisch ist.
 
@@ -71,9 +71,9 @@ Das räumliche Handwerkszeug in `cadquery`:
 
 | Objekt | Bedeutung |
 |---|---|
-| `Vector(x, y, z)` | Punkt oder Richtung; `.Length`, `.dot()`, `.cross()` |
-| `Plane(origin=...)` | Ebene = lokales Koordinatensystem |
-| `Location` | Lage eines Objekts: Verschiebung **und** Drehung |
+| `cf.Vector(x, y, z)` | Punkt oder Richtung; `.Length`, `.dot()`, `.cross()` |
+| `cf.Plane(origin, normal=...)` | Ebene = lokales Koordinatensystem |
+| `cf.Location` | Lage eines Objekts: Verschiebung **und** Drehung |
 
 ### Location: das Koordinatensystem eines Objekts
 
@@ -84,7 +84,6 @@ Jedes Objekt trägt eine **Location** – seine Lage relativ zur Welt. Sie kodie
 
 ```python
 from cadquery import func as cf
-from cadquery import Location
 
 teil = cf.box(60, 10, 6).moved(x=40)        # nur Verschiebung
 teil = cf.box(60, 10, 6).moved(x=40, rz=30) # Verschiebung + Drehung
@@ -124,9 +123,9 @@ b = cf.box(60, 10, 6).moved(x=40).moved(rz=90)  # erst schieben, dann drehen
 
 ### Die Ebene als lokales Koordinatensystem
 
-Letzte Woche haben Sie `Plane(origin=top.Center())` benutzt, um den Stapel auf die Grundplatte zu setzen. Der Mechanismus dahinter:
+Letzte Woche haben Sie `cf.Plane(origin=oben.Center(), normal=oben.normalAt())` benutzt, um den Stapel auf die Grundplatte zu setzen. Der Mechanismus dahinter:
 
-Eine `Plane` **ist** ein lokales Koordinatensystem (Ursprung + Ausrichtung). `Location(plane) * Location((dx, dy, 0))` heißt: „gehe ins Koordinatensystem der Fläche, dann dort lokal weiter“.
+Eine `Plane` **ist** ein lokales Koordinatensystem (Ursprung + Ausrichtung). `cf.Location(ebene) * cf.Location((dx, dy, 0))` heißt: „gehe ins Koordinatensystem der Fläche, dann dort lokal weiter“.
 
 > Aus der Fläche abgeleitet bleibt die Platzierung korrekt, auch wenn sich Maße ändern. Dieselbe Robustheit wie bei der Stapel-Platzierung.
 
@@ -139,7 +138,7 @@ Ergänzen Sie Ihre Zelle aus Einheit 3 um einen Terminal-Tab – **aus der Mitte
 - Tab: Quader **24 × 12 × 6 mm**
 - an der langen Seite, **40 mm** aus der Mitte versetzt
 
-*Hinweise:* `cf.box`, `.moved(Location(...))`, `+`
+*Hinweise:* `cf.box`, `.moved(cf.Location(...))`, `+`
 
 ### Aufgabe 2: Alternierend flippen und stapeln
 
@@ -151,7 +150,7 @@ Stapeln Sie **12 Zellen** im Abstand **12,5 mm**. Für die Reihenschaltung wird 
 2. Warum kommt es hier auf dasselbe heraus?
 3. `stapel.isValid()`; kontrollieren Sie, dass die Tab-Seite von Zelle zu Zelle wechselt.
 
-*Hinweise:* `.moved(rz=...)`, `.moved(Location((0, 0, ...)))`, `i % 2`
+*Hinweise:* `.moved(rz=...)`, `.moved(cf.Location((0, 0, ...)))`, `i % 2`
 
 ### Aufgabe 3 *(Zusatz)*: wenn die Reihenfolge doch zählt
 
