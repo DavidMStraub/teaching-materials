@@ -52,7 +52,7 @@ Wird die Platte 10 mm dick, bleibt der Zapfen bei z = 6 stehen und steckt 4 mm t
 
 ## Feature-basiertes Modellieren
 
-### Erst runden oder erst bohren?
+### Zwei Varianten derselben Platte
 
 Ein Modell ist eine Abfolge von **Features** (`extrude`, `+`, `-`, `fillet`, …). Hier: Der Rand einer Tasche für eine Rundzelle bekommt eine Einführrundung; daneben sitzt ein Befestigungsloch.
 
@@ -63,21 +63,21 @@ loch   = cf.cylinder(d=3.4, h=6).moved(cf.Location((16, 11, 0)))
 
 basis = platte - tasche
 rand  = basis.edges(">Z and %CIRCLE")
-erst_runden = cf.fillet(basis, rand, 1.0) - loch
+a = cf.fillet(basis, rand, 1.0) - loch
 
 basis = platte - tasche - loch
 rand  = basis.edges(">Z and %CIRCLE")
-erst_bohren = cf.fillet(basis, rand, 1.0)
+b = cf.fillet(basis, rand, 1.0)
 ```
 
-**Beide laufen fehlerfrei. Worin unterscheiden sich `erst_runden` und `erst_bohren` – und warum?**
+**Beide laufen fehlerfrei. Worin unterscheiden sich `a` und `b` – und warum?**
 
 ### Selektoren fragen den aktuellen Stand
 
 Ein Selektor beantwortet seine Frage **an dem Modell, wie es in seiner Zeile steht**:
 
-- `erst_runden`: Nur die Tasche existiert – `"%CIRCLE"` findet **einen** Rand.
-- `erst_bohren`: Das Loch existiert schon – `"%CIRCLE"` findet **zwei** Ränder. Der Lochrand, auf dem der Schraubenkopf plan aufliegen soll, wird mit verrundet.
+- `a` – erst runden, dann bohren: Nur die Tasche existiert – `"%CIRCLE"` findet **einen** Rand.
+- `b` – erst bohren, dann runden: Das Loch existiert schon – `"%CIRCLE"` findet **zwei** Ränder. Der Lochrand, auf dem der Schraubenkopf plan aufliegen soll, wird mit verrundet.
 
 Beide Ergebnisse sind `isValid()`; nur die Volumendifferenz von 2,6 mm³ verrät den Fehler.
 
@@ -85,13 +85,17 @@ Beide Ergebnisse sind `isValid()`; nur die Volumendifferenz von 2,6 mm³ verrät
 
 ## Vom Profil zum Körper
 
-### Von der Kurve über die Fläche zum Körper
+### Von der Kurve zur Fläche
 
-![w:16cm](assets/kurve_flaeche_koerper.svg)
+`extrude()` und `revolve()` erwarten eine **Fläche** als Eingang:
 
-`extrude()` und `revolve()` erwarten eine **Fläche**. Der Wire dafür muss **geschlossen und eben** sein – sonst bricht `cf.face()` ab oder liefert eine ungültige Fläche.
+![w:24cm](assets/kurve_flaeche_koerper.svg)
 
-![w:16cm](assets/grundformen_extrude_revolve.svg)
+Der Wire muss **geschlossen und eben** sein – sonst bricht `cf.face()` ab oder liefert eine ungültige Fläche.
+
+### Zwei Wege vom Profil zum Körper
+
+![w:26cm](assets/grundformen_extrude_revolve.svg)
 
 ### extrude() – Profil zu Körper
 
@@ -197,7 +201,7 @@ Bauen Sie eine Pouch-Zelle – im Kern ein flacher Block mit gerundeten Ecken:
 2. Leiten Sie aus Ihrer Grundplatte – **mit** Zentrierzapfen – eine Ebene auf der **Plattenoberseite** ab. **Sagen Sie zuerst voraus:** Welche Fläche liefert `grundplatte.faces(">Z")`? Prüfen Sie mit `.Center()`.
 3. Setzen Sie den Stapel **8 mm** über diese Ebene – dazwischen liegt in Teil B die untere Endplatte.
 
-*Hinweise:* `.moved(cf.Location(...))`, `cf.Plane(origin=...)`, `cf.Location(ebene) * cf.Location(...)`, `">Z[-2]"` = zweithöchste Fläche in Z
+*Hinweise:* `.moved(cf.Location(...))`, `cf.Plane(origin=...)`, `cf.Location(ebene) * cf.Location(...)`, Selektortabelle aus Einheit 2
 
 *Prüfen:* Unterseite des Stapels bei z = 14 (`stapel.BoundingBox().zmin`)
 
@@ -303,8 +307,6 @@ from dataclasses import replace
 p_standard = ModulParam()
 p_dick     = replace(p_standard, zell_t=14.0)
 ```
-
-`replace` erzeugt eine **Kopie** mit geänderten Werten.
 
 **Sagen Sie voraus:** Welchen Wert hat danach `p_standard.zell_t`? Und `p_dick.zell_b`?
 
