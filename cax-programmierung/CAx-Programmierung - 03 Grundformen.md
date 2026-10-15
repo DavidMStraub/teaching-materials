@@ -39,66 +39,59 @@ David Straub
 ### Ihr Zentrierzapfen aus Einheit 2
 
 ```python
-zapfen = cf.cylinder(d=16, h=8).moved(cf.Location((0, 0, 6)))
+from cadquery import func as cf
+
+platte = cf.box(170, 110, 6)
+zapfen = cf.cylinder(d=16, h=8).moved(cf.Location((0, 0, 6)))   # sitzt auf z = 6
+teil = platte + zapfen
 ```
 
-Wird die Grundplatte 10 mm dick, steckt der Zapfen in der Platte.
+Wird die Platte 10 mm dick, bleibt der Zapfen bei z = 6 stehen und steckt 4 mm tief in der Platte.
 
 **Ihre Idee:** Woher kann der Code die Höhe nehmen, statt `6` einzutippen? Eine Zeile Code oder Pseudocode genügt.
 
 ## Feature-basiertes Modellieren
 
-### Modell als Abfolge von Features
+### Erst runden oder erst bohren?
 
-**Feature** = eine atomare Modellierungsoperation (Extrude, `+`, `-`, `fillet`, …)
-
-**Konstruktionsstrategie:**
-1. **Grundform** – einfachster Körper als Ausgangsbasis
-2. **Additive Features** – Bosse, Rippen, Zapfen
-3. **Subtraktive Features** – Bohrungen, Nuten, Taschen
-4. **Finishing** – Verrundungen und Fasen zuletzt
-
-### Wie viele Kanten werden verrundet?
-
-Die Absicht: den oberen Rand der Tasche verrunden.
+Ein Modell ist eine Abfolge von **Features** (`extrude`, `+`, `-`, `fillet`, …). Hier: Der Rand einer Tasche für eine Rundzelle bekommt eine Einführrundung; daneben sitzt ein Befestigungsloch.
 
 ```python
 platte = cf.box(40, 30, 6)
 tasche = cf.cylinder(d=18.6, h=3).moved(cf.Location((0, 0, 3)))
 loch   = cf.cylinder(d=3.4, h=6).moved(cf.Location((16, 11, 0)))
 
+basis = platte - tasche
+rand  = basis.edges(">Z and %CIRCLE")
+erst_runden = cf.fillet(basis, rand, 1.0) - loch
+
 basis = platte - tasche - loch
 rand  = basis.edges(">Z and %CIRCLE")
-zu_frueh = cf.fillet(basis, rand, 1.0)
+erst_bohren = cf.fillet(basis, rand, 1.0)
 ```
 
-**Wie viele Kanten enthält `rand`?** &nbsp; A) 1 &nbsp;&nbsp; B) 2 &nbsp;&nbsp; C) 3 &nbsp;&nbsp; D) 4
+**Beide laufen fehlerfrei. Worin unterscheiden sich `erst_runden` und `erst_bohren` – und warum?**
 
-### Warum „Finishing zuletzt“? Selektoren fragen den aktuellen Stand
+### Selektoren fragen den aktuellen Stand
 
-Ein Selektor wie `"%CIRCLE"` beantwortet seine Frage **an dem Modell, wie es in der Zeile steht**, nicht am fertigen Teil:
+Ein Selektor beantwortet seine Frage **an dem Modell, wie es in seiner Zeile steht**:
 
-```python
-basis = platte - tasche - loch                 # Loch schon gebohrt
-rand  = basis.edges(">Z and %CIRCLE")          # 2 Treffer: Tasche UND Loch!
-zu_frueh = cf.fillet(basis, rand, 1.0)         # verrundet auch den Lochrand
-```
+- `erst_runden`: Nur die Tasche existiert – `"%CIRCLE"` findet **einen** Rand.
+- `erst_bohren`: Das Loch existiert schon – `"%CIRCLE"` findet **zwei** Ränder. Der Lochrand, auf dem der Schraubenkopf plan aufliegen soll, wird mit verrundet.
 
-Vor dem Bohren fände `"%CIRCLE"` nur **einen** Rand (die Tasche). Beide Varianten sind `isValid()` – der Unterschied (2,6 mm³) fällt nur auf, wenn man danach sucht. Deshalb: Finishing zuletzt, oder präziser selektieren (Radius statt „ist ein Kreis“).
+Beide Ergebnisse sind `isValid()`; nur die Volumendifferenz von 2,6 mm³ verrät den Fehler.
+
+**Bewährte Reihenfolge:** Grundform → hinzufügen (Zapfen, Rippen) → abziehen (Bohrungen, Taschen) → Finishing (Verrundungen, Fasen). Entscheidend ist aber, wovon jede Operation abhängt. Hier gibt es zwei saubere Lösungen: runden, solange der Taschenrand der einzige Kreis ist – oder präziser fragen und den Rand über seinen Radius wählen.
 
 ## Vom Profil zum Körper
 
-### Von der Kurve zur Fläche
+### Von der Kurve über die Fläche zum Körper
 
-`extrude()` und `revolve()` erwarten eine **Fläche** als Eingang:
+![w:16cm](assets/kurve_flaeche_koerper.svg)
 
-![w:24cm](assets/kurve_flaeche_koerper.svg)
+`extrude()` und `revolve()` erwarten eine **Fläche**. Der Wire dafür muss **geschlossen und eben** sein – sonst bricht `cf.face()` ab oder liefert eine ungültige Fläche.
 
-Der Wire muss **geschlossen und eben** sein – sonst bricht `cf.face()` ab oder liefert eine ungültige Fläche.
-
-### Zwei Wege vom Profil zum Körper
-
-![w:26cm](assets/grundformen_extrude_revolve.svg)
+![w:16cm](assets/grundformen_extrude_revolve.svg)
 
 ### extrude() – Profil zu Körper
 
@@ -126,8 +119,6 @@ halbprofil = cf.face(cf.polyline((0, 0, 0), (15, 0, 0), (15, 0, 8), (0, 0, 8), (
 scheibe = cf.revolve(halbprofil, (0, 0, 0), (0, 0, 1), 360)   # volle Umdrehung um Z
 ```
 
-**Sagen Sie voraus:** Was entsteht, wenn das Halbprofil bei x = 5 beginnt statt bei x = 0?
-
 *Das Batteriemodul hat kein Rotationsteil – Revolve zeigen wir diese Woche einmal; die Technik bleibt für später im Werkzeugkasten.*
 
 ## Muster: Wiederholung durch Schleifen
@@ -145,8 +136,6 @@ for ix in range(3):
 
 Kein spezielles „Pattern“-Objekt nötig – eine Schleife über `Location`-Werte reicht und bleibt lesbar. Ein linearer Stapel entlang einer Achse ist dasselbe Muster mit nur einer Schleife.
 
-**Ändern Sie die Schleife:** ein **4 × 3**-Raster, weiterhin mittig auf der Platte.
-
 ## Konstruktionsebenen
 
 ### Konstruktionsebenen aus Flächen ableiten
@@ -154,12 +143,10 @@ Kein spezielles „Pattern“-Objekt nötig – eine Schleife über `Location`-W
 Eine `Plane` ist ein **lokales Koordinatensystem** – Ursprung plus Ausrichtung. Aus einer Fläche abgeleitet sitzt sie genau auf dieser Fläche – eine Antwort auf die Frage zum Zentrierzapfen:
 
 ```python
-from cadquery import Plane, Location
-
 platte = cf.box(170, 110, 6)
 oben   = platte.faces(">Z")
-ebene  = Plane(origin=oben.Center())
-zapfen = cf.cylinder(d=16, h=8).moved(Location(ebene))
+ebene  = cf.Plane(origin=oben.Center())
+zapfen = cf.cylinder(d=16, h=8).moved(cf.Location(ebene))
 ```
 
 > **Wird die Platte dicker, wandert der Zapfen mit** – ein fest eingetipptes `z = 6` bliebe stehen.
@@ -170,10 +157,10 @@ zapfen = cf.cylinder(d=16, h=8).moved(Location(ebene))
 ```python
 platte = cf.box(170, 110, 6)
 oben   = platte.faces(">Z")
-ebene  = Plane(origin=oben.Center())
+ebene  = cf.Plane(origin=oben.Center())
 
-a = cf.cylinder(d=16, h=8).moved(Location(ebene) * Location((40, 0, 0)))
-b = cf.cylinder(d=16, h=8).moved(Location(ebene, (40, 0, 0)))
+a = cf.cylinder(d=16, h=8).moved(cf.Location(ebene) * cf.Location((40, 0, 0)))
+b = cf.cylinder(d=16, h=8).moved(cf.Location(ebene, (40, 0, 0)))
 ```
 
 **Sagen Sie zuerst voraus:** Beide Zeilen laufen fehlerfrei durch. Wo sitzen `a` und `b`?
@@ -188,9 +175,9 @@ C) `a` in, `b` auf der Platte &nbsp;&nbsp; D) beide in der Platte
 - `a`: Mittelpunkt (40, 0, 10) – sitzt **auf** der Platte
 - `b`: Mittelpunkt (40, 0, 4) – steckt **in** der Platte
 
-`Location(ebene)` ist die Lage der Ebene; die **Multiplikation** hängt einen lokal in dieser Ebene gemessenen Versatz an.
+`cf.Location(ebene)` ist die Lage der Ebene; die **Multiplikation** hängt einen lokal in dieser Ebene gemessenen Versatz an.
 
-`Location(ebene, (40, 0, 0))` ersetzt dagegen den Ursprung der Ebene durch den angegebenen Punkt – in globalen Koordinaten. Das Ergebnis liegt um die volle Plattendicke daneben.
+`cf.Location(ebene, (40, 0, 0))` ersetzt dagegen den Ursprung der Ebene durch den angegebenen Punkt – in globalen Koordinaten. Das Ergebnis liegt um die volle Plattendicke daneben.
 
 ## Praktikum A: Zelle und Zellstapel
 
@@ -206,11 +193,11 @@ Bauen Sie eine Pouch-Zelle – im Kern ein flacher Block mit gerundeten Ecken:
 
 ### Aufgabe 2: Stapeln und auf der Grundplatte platzieren
 
-1. Stapeln Sie **12 Zellen** mit einer Schleife, Abstand **12,5 mm** (Zelldicke + 1,5 mm Kompressionspad).
+1. Stapeln Sie **12 Zellen** mit einer Schleife, Abstand **12,5 mm** (Zelldicke + 1,5 mm Kompressionspad). Beginnen Sie mit `stapel = zelle` und addieren Sie in der Schleife verschobene Kopien.
 2. Leiten Sie aus Ihrer Grundplatte – **mit** Zentrierzapfen – eine Ebene auf der **Plattenoberseite** ab. **Sagen Sie zuerst voraus:** Welche Fläche liefert `grundplatte.faces(">Z")`? Prüfen Sie mit `.Center()`.
 3. Setzen Sie den Stapel **8 mm** über diese Ebene – dazwischen liegt in Teil B die untere Endplatte.
 
-*Hinweise:* `.moved(cf.Location(...))`, `Plane(origin=...)`, `Location(ebene) * Location(...)`, `">Z[-2]"` = zweithöchste Fläche in Z
+*Hinweise:* `.moved(cf.Location(...))`, `cf.Plane(origin=...)`, `cf.Location(ebene) * cf.Location(...)`, `">Z[-2]"` = zweithöchste Fläche in Z
 
 *Prüfen:* Unterseite des Stapels bei z = 14 (`stapel.BoundingBox().zmin`)
 
@@ -236,16 +223,6 @@ loecher = loch + loch.mirror("XZ", basePointVector=(0, 0, 0))
 
 **Wie viele Löcher beschreibt `loecher`?** &nbsp; A) keins &nbsp;&nbsp; B) eins &nbsp;&nbsp; C) zwei &nbsp;&nbsp; D) Fehlermeldung
 
-### Wohin dreht sich der Quader?
-
-```python
-q = cf.box(20, 5, 5).moved(x=30).moved(rz=90)
-```
-
-**Sagen Sie voraus:** Wo liegt danach der Mittelpunkt von `q` in der xy-Ebene?
-
-A) (30, 0) &nbsp;&nbsp; B) (0, 30) &nbsp;&nbsp; C) (30, 30) &nbsp;&nbsp; D) (0, 0)
-
 ### Rotation: Drehen mit `moved`
 
 ```python
@@ -268,13 +245,17 @@ Was daraus für die Reihenfolge von Drehen und Verschieben folgt, zeigt nächste
 
 ### Warum die Maße bündeln?
 
-Dieselben Maße tauchen in jeder Funktion wieder auf – die Zelle brauchte `zell_b`, `zell_h`, `zell_t`, der Stapel `n_zellen`, `spacer`, die Endplatten gleich `plattenstaerke` … Reicht man sie einzeln durch, gerät leicht ein Wert in Vergessenheit oder zwei passen nicht zusammen:
+Mit Namen statt Zahlen wird der Code lesbar – aber die Werte liegen lose herum:
 
 ```python
-pitch  = zell_t + spacer            # im Stapel
-aussen = cf.box(zell_b + 12, ...)   # in der Endplatte
-# zell_t, n_zellen, plattenstaerke … überall lose herumgereicht
+zell_b, zell_h, zell_t = 148.0, 98.0, 11.0
+n_zellen, spacer, plattenstaerke = 12, 1.5, 8.0
+
+pitch  = zell_t + spacer                                    # im Stapel
+aussen = cf.box(zell_b + 12, zell_h + 12, plattenstaerke)   # in der Endplatte
 ```
+
+Gleich bauen Sie Zelle, Stapel und Endplatten als **Funktionen**. Reicht man jeder davon ihre Werte einzeln durch, gerät leicht einer in Vergessenheit oder zwei passen nicht zusammen.
 
 Besser: alle Maße des Moduls in **einem** Objekt.
 
@@ -285,34 +266,34 @@ from dataclasses import dataclass
 
 @dataclass
 class ModulParam:
-    zell_b: float = 148.0         # mm, Zellbreite
-    zell_h: float = 98.0          # mm, Zellhöhe
-    zell_t: float = 11.0          # mm, Zelldicke
-    n_zellen: int = 12
-    spacer: float = 1.5           # mm, Kompressionspad
-    plattenstaerke: float = 8.0   # mm, Endplatte
+    zell_b: float = 148.0   # mm, Zellbreite
+    zell_h: float = 98.0    # mm, Zellhöhe
+    zell_t: float = 11.0    # mm, Zelldicke
 ```
 
-- Das `@dataclass` davor ist ein **Dekorator** – er erzeugt Konstruktor und Attribute automatisch, ohne Boilerplate.
-- Die `: float` sind **Typ-Hinweise** (dokumentieren die erwartete Art des Werts) – für eine Dataclass nötig.
+- `@dataclass` ist ein **Dekorator** – er macht aus den Feldern automatisch eine Klasse, von der Sie mit `ModulParam()` einen Parametersatz erzeugen.
+- `: float` ist ein **Typ-Hinweis** (für eine Dataclass nötig): `float` für Maße, `int` für Anzahlen.
+- `= 148.0` ist der **Standardwert**.
 
-### ModulParam: der Stapel, jetzt parametrisch
+### Ihr `ModulParam`
+
+Ergänzen Sie die Klasse um die **übrigen Maße** aus Ihrer Zahlenliste von vorhin.
+
+1. Welche Felder kommen dazu? Welcher Typ, welcher Standardwert?
+2. Welche Zahlen gehören **nicht** hinein, weil sie sich aus anderen ergeben? Wo werden sie stattdessen berechnet?
+
+### Den Parametersatz benutzen
 
 ```python
-def zelle_bauen(p: ModulParam) -> cf.Shape:
-    z = cf.extrude(cf.face(cf.rect(p.zell_b, p.zell_h)), (0, 0, p.zell_t))
-    return cf.fillet(z, z.edges("|Z"), 6)
+p = ModulParam()                # alle Standardwerte
+duenn = ModulParam(zell_t=8.0)  # einen Wert überschreiben
+print(p.zell_t, duenn.zell_t)   # 11.0 8.0
 
-def stapel_bauen(p: ModulParam) -> cf.Shape:
-    pitch = p.zell_t + p.spacer
-    zelle = zelle_bauen(p)
-    stapel = zelle
-    for i in range(1, p.n_zellen):
-        stapel = stapel + zelle.moved(cf.Location((0, 0, i * pitch)))
-    return stapel
+def zell_volumen(p: ModulParam) -> float:   # -> float: gibt eine Zahl zurück
+    return p.zell_b * p.zell_h * p.zell_t
 ```
 
-Derselbe Stapel wie in Praktikum A – aber die Maße kommen jetzt aus `p`.
+Eine Funktion bekommt den **ganzen** Parametersatz `p` und holt sich mit `p.name`, was sie braucht.
 
 ### Varianten mit `replace()`
 
@@ -320,20 +301,22 @@ Derselbe Stapel wie in Praktikum A – aber die Maße kommen jetzt aus `p`.
 from dataclasses import replace
 
 p_standard = ModulParam()
-p_gross    = replace(p_standard, n_zellen=16, zell_t=14.0)
+p_dick     = replace(p_standard, zell_t=14.0)
 ```
 
-Ein Parametersatz, viele Varianten.
+`replace` erzeugt eine **Kopie** mit geänderten Werten.
 
-**Sagen Sie voraus:** Welchen Wert hat danach `p_standard.n_zellen`? Und `p_gross.spacer`?
+**Sagen Sie voraus:** Welchen Wert hat danach `p_standard.zell_t`? Und `p_dick.zell_b`?
 
 ## Praktikum B: Endplatten und Zusammenführung
 
 ### Aufgabe 3: Zelle und Stapel parametrisch
 
-Überführen Sie Ihren Code aus Praktikum A in die Funktionen `zelle_bauen(p: ModulParam)` und `stapel_bauen(p: ModulParam)`.
+Überführen Sie Ihren Code aus Praktikum A in die Funktionen `zelle_bauen(p: ModulParam)` und `stapel_bauen(p: ModulParam)`. Beide geben eine Shape zurück.
 
-*Prüfen:* `stapel_bauen(ModulParam())` liefert denselben Stapel wie in Aufgabe 2 – gleiches Volumen. Und eine Variante mit `replace(..., n_zellen=8)` baut ohne weitere Änderung.
+*Hinweise:* Ihr erweitertes `ModulParam` von vorhin; abgeleitete Werte wie den Zellabstand berechnen Sie in der Funktion aus `p`. `stapel_bauen` darf `zelle_bauen` aufrufen.
+
+*Prüfen:* `stapel_bauen(ModulParam())` liefert denselben Stapel wie in Aufgabe 2 – gleiches Volumen. Und eine Variante mit 8 Zellen (`replace`) baut ohne weitere Änderung.
 
 ### Aufgabe 4: Endplatten mit Mirror
 
