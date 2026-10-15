@@ -149,39 +149,41 @@ Eine `Plane` ist ein **lokales Koordinatensystem** – Ursprung plus Ausrichtung
 ```python
 platte = cf.box(170, 110, 6)
 oben   = platte.faces(">Z")
-ebene  = cf.Plane(origin=oben.Center())
+ebene  = cf.Plane(origin=oben.Center(), normal=oben.normalAt())
 zapfen = cf.cylinder(d=16, h=8).moved(cf.Location(ebene))
 ```
 
-> **Wird die Platte dicker, wandert der Zapfen mit** – ein fest eingetipptes `z = 6` bliebe stehen.
-> Die Ebene ist so treffsicher wie der Selektor, der die Fläche findet – mehr dazu in Aufgabe 2.
-
-### Auf der Ebene platzieren: Wo landet der Zapfen?
-
-```python
-platte = cf.box(170, 110, 6)
-oben   = platte.faces(">Z")
-ebene  = cf.Plane(origin=oben.Center())
-
-a = cf.cylinder(d=16, h=8).moved(cf.Location(ebene) * cf.Location((40, 0, 0)))
-b = cf.cylinder(d=16, h=8).moved(cf.Location(ebene, (40, 0, 0)))
-```
-
-**Sagen Sie zuerst voraus:** Beide Zeilen laufen fehlerfrei durch. Wo sitzen `a` und `b`?
-
-A) beide auf der Platte &nbsp;&nbsp; B) `a` auf, `b` in der Platte
-C) `a` in, `b` auf der Platte &nbsp;&nbsp; D) beide in der Platte
+- `normal` richtet die Ebene an der Fläche aus. Fehlt es, zeigt die Ebene immer nach +Z – egal, welche Fläche.
+- **Wird die Platte dicker, wandert der Zapfen mit** – ein fest eingetipptes `z = 6` bliebe stehen.
+- Die Ebene ist so treffsicher wie der Selektor, der die Fläche findet – mehr dazu in Aufgabe 2.
 
 ### Locations verketten mit `*`
 
-![bg right:40% 85%](assets/cax03_location.png)
+![bg right:35% 90%](assets/cax03_location.png)
 
-- `a`: Mittelpunkt (40, 0, 10) – sitzt **auf** der Platte
-- `b`: Mittelpunkt (40, 0, 4) – steckt **in** der Platte
+`cf.Location(ebene)` ist die Lage der Ebene: Ursprung **und** Ausrichtung. Die **Multiplikation** hängt einen Versatz an, gemessen in den Achsen der Ebene:
 
-`cf.Location(ebene)` ist die Lage der Ebene; die **Multiplikation** hängt einen lokal in dieser Ebene gemessenen Versatz an.
+```python
+versatz = cf.Location((40, 0, 0))
+zapfen  = cf.cylinder(d=16, h=8).moved(
+    cf.Location(ebene) * versatz)
+```
 
-`cf.Location(ebene, (40, 0, 0))` ersetzt dagegen den Ursprung der Ebene durch den angegebenen Punkt – in globalen Koordinaten. Das Ergebnis liegt um die volle Plattendicke daneben.
+- Erst zur Ebene, dann 40 mm entlang **ihrer** x-Achse
+- Die z-Achse der Ebene ist die Normale der Fläche
+- Mittelpunkt des Zapfens: (40, 0, 10)
+
+### Auf der Seitenfläche: Wo landet der Zapfen?
+
+```python
+seite  = platte.faces(">X")
+ebene  = cf.Plane(origin=seite.Center(), normal=seite.normalAt())
+zapfen = cf.cylinder(d=16, h=8).moved(cf.Location(ebene) * cf.Location((0, 0, 8)))
+```
+
+**Sagen Sie zuerst voraus:** Wo sitzt der Zapfen, und in welche Richtung zeigt er?
+
+Prüfen Sie danach mit `zapfen.BoundingBox()`.
 
 ## Praktikum A: Zelle und Zellstapel
 
