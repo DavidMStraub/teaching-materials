@@ -68,7 +68,7 @@ print(spannung == 12)  # vergleicht: True
 print(spannung == 13)  # vergleicht: False
 ```
 
-Ein Zeichen Unterschied, zwei völlig verschiedene Bedeutungen – die häufigste Verwechslung in diesem Semester.
+Ein Zeichen Unterschied, zwei völlig verschiedene Bedeutungen.
 
 ## Verzweigungen
 
@@ -150,6 +150,40 @@ else:
 - Bedingungen werden **von oben nach unten** geprüft
 - Nur der **erste wahre** Zweig läuft – danach ist Schluss
 - Darum reicht `ladezustand < 30` im zweiten Zweig: wer dort ankommt, hat schon mindestens 10
+- `elif`-Zweige dürfen beliebig viele folgen – für fünf Stufen einfach vier `elif`
+
+### Wie oft darf was vorkommen?
+
+| | Wie oft? | Wo? | Bedingung? |
+|---|---|---|---|
+| `if` | **genau 1×** | immer am Anfang | ja |
+| `elif` | **beliebig oft** (auch 0×) | zwischen `if` und `else` | ja |
+| `else` | **0× oder 1×** | immer am Schluss | **nein** |
+
+- `if` allein ist vollständig – `elif` und `else` sind optional
+- `else` fängt **alles auf, was übrig bleibt** – darum braucht es keine Bedingung
+- Jedes neue `if` startet eine **neue**, unabhängige Verzweigung
+
+### Achtung typischer Fehler
+
+```python
+if ladezustand < 10:
+    print("Kritisch: sofort laden")
+elif ladezustand < 30:
+    print("Niedrig")
+else ladezustand >= 30:
+    print("OK")
+```
+
+```
+  Cell In[1], line 5
+    else ladezustand >= 30:
+         ^
+SyntaxError: expected ':'
+```
+
+- Hinter `else` kommt **direkt** der Doppelpunkt
+- Sie wollen eine Bedingung hinschreiben? Dann ist es ein `elif`
 
 ### Vorhersage-Aufgabe (2 min)
 
