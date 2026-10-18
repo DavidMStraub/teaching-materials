@@ -91,13 +91,11 @@ $$\vec{J} = \sigma \cdot \vec{E}$$
 
 Achtung: die proportionale Beziehung gilt nur für *lineare Leiter* (z.B. Metalle bei konstanter Temperatur)
 
-![bg 90% right:38%](img/ohm-kennlinie.svg)
-
 ### Ohm’sches Gesetz im linearen Leiter
 
 $$\vec{J} = \sigma \cdot \vec{E}$$
 
-Leiter der Länge $l$, Querschnitt $A$, homogenes Feld:
+Leiter der Länge $l$, Querschnitt $A$, homogenes Feld wie im Kondensator ($U = E \cdot l$):
 
 $$I = J \cdot A = \sigma \cdot E \cdot A = \sigma \cdot \frac{U}{l} \cdot A = \frac{U}{R}$$
 
@@ -111,13 +109,15 @@ mit dem **spezifischen Widerstand** $\rho = 1/\sigma$ (ab hier ist $\rho$ *immer
 
 ### Widerstand und Leitwert
 
-Der elektrische Widerstand $R$ ist definiert durch das Ohm’sche Gesetz:
+Für jedes Bauteil ist der elektrische Widerstand $R$ das Verhältnis von Spannung zu Strom:
 
 $$R = \frac{U}{I}, \qquad [R] = \frac{\text{V}}{\text{A}} = \Omega \ \text{(Ohm)}$$
 
 Der elektrische Leitwert $G$ ist der Kehrwert des Widerstands:
 
 $$G = \frac{1}{R} = \frac{I}{U}, \qquad [G] = \frac{\text{A}}{\text{V}} = \text{S} \ \text{(Siemens)}$$
+
+![bg 90% right:38%](img/ohm-kennlinie.svg)
 
 ### Materialeigenschaften vs. Bauteilgrößen
 
@@ -130,6 +130,8 @@ $$G = \frac{1}{R} = \frac{I}{U}, \qquad [G] = \frac{\text{A}}{\text{V}} = \text{
 - **Leitwert** $G = \frac{1}{R} = \sigma \frac{A}{l}$
 
 **Beispiel:** Kupfer hat immer die gleiche Leitfähigkeit $\sigma_{\text{Cu}} = 58 \, \text{MS/m}$, aber ein dickeres Kabel hat einen kleineren Widerstand $R$.
+
+Wie beim Kondensator $C = \varepsilon A/d$: Material mal Geometrie.
 
 ![bg right:20% 100%](https://physikbuch.schule/media/resistivity-geometry.svg)
 

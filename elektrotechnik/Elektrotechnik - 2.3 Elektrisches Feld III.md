@@ -26,15 +26,20 @@ David Straub
 
 - Konstante Feldstärke $E$ in Betrag und Richtung, parallele Feldlinien
 - Äquipotentialflächen senkrecht zu den Feldlinien
-- Spannung: $U = E \cdot d$ ($d$: Abstand in Feldrichtung)
+
+Die Kraft $F = Q \cdot E$ ist überall gleich. Arbeit auf der Strecke $d$ in Feldrichtung:
+
+$$W = F \cdot d = Q \cdot E \cdot d \qquad\text{und}\qquad W = Q \cdot U \qquad\Rightarrow\qquad U = E \cdot d$$
 
 ![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Field_lines_equipotentials_parallel_plates.svg/1920px-Field_lines_equipotentials_parallel_plates.svg.png)
 
 ### Kondensatoren (*capacitors*)
 
-Kondensatoren sind Bauelemente, die elektrische Ladung speichern.
+Ein Kondensator besteht aus zwei Leitern (z.B. Platten), die die Ladungen $+Q$ und $-Q$ tragen. $U$ ist die Spannung zwischen ihnen.
 
-**Kapazität** (*capacitance*):
+Doppelte Ladung → doppeltes Feld → doppelte Spannung: $U \sim Q$. Das Verhältnis $Q/U$ hängt also nur vom Bauteil ab.
+
+**Kapazität** (*capacitance*) = Ladung pro Volt:
 
 $$C := \frac{Q}{U}$$
 
@@ -50,21 +55,33 @@ z.B.: $\text{mAh} = 10^{-3} \, \text{A} \cdot 3600 \, \text{s} = 3{,}6 \, \text{
 
 Nicht zu verwechseln mit der Kapazität (*capacitance*) eines Kondensators in Farad!
 
+### Feld einer geladenen Platte
+
+Eine große Platte trägt die Ladung $+Q$ auf der Fläche $A$. Aus Symmetrie steht $D$ senkrecht auf der Platte und ist auf beiden Seiten gleich groß. Hüllfläche: ein Kasten um die ganze Platte.
+
+Der Fluss tritt durch **beide** Deckflächen aus:
+
+$$D \cdot A + D \cdot A = Q \qquad\Rightarrow\qquad D = \frac{Q}{2A}$$
+
+Das Feld zeigt nach beiden Seiten von der Platte weg. Solange der Abstand klein gegen die Plattengröße ist, hängt es nicht vom Abstand ab.
+
+![bg 90% right:40%](img/platte-gauss.svg)
+
 ### 📝 Aufgabe 5a: Plattenkondensator
 
-Zwei Platten der Fläche $A$ im Abstand $d$ tragen die Ladungen $+Q$ und $-Q$. Dazwischen liegt ein Dielektrikum mit $\varepsilon_r$.
+Eine zweite Platte mit $-Q$ wird im Abstand $d$ parallel dazugestellt. Dazwischen liegt ein Dielektrikum mit $\varepsilon_r$.
 
-a) Wie groß ist $D$ zwischen den Platten? (Satz von Gauß mit einer Hüllfläche um eine Platte)
+a) Zeigen Sie per Superposition: Zwischen den Platten gilt $D = Q/A$, außerhalb $D = 0$.
 
-b) Wie groß sind $E$ und $U$?
+b) Leiten Sie daraus $E$, $U$ und $C = \dfrac{\varepsilon_0 \varepsilon_r A}{d}$ her.
 
-c) Leiten Sie daraus $C$ her. Wovon hängt die Kapazität ab, wovon nicht?
+c) Wovon hängt die Kapazität ab, wovon nicht?
 
-![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/2/20/Plate_CapacitorII.svg)
+![bg 85% right:33%](img/platten-leer.svg)
 
 ### Plattenkondensator
 
-Satz von Gauß (Hüllfläche um eine Platte): $D = \frac{Q}{A}$
+Superposition: Innen addieren sich die Felder beider Platten, außen heben sie sich auf: $D = \frac{Q}{A}$
 
 $$E = \frac{D}{\varepsilon_0 \varepsilon_r} = \frac{Q}{\varepsilon_0 \varepsilon_r A}, \qquad U = E \cdot d = \frac{Q \cdot d}{\varepsilon_0 \varepsilon_r A}$$
 
@@ -72,51 +89,7 @@ $$C = \frac{Q}{U} = \frac{\varepsilon_0 \varepsilon_r A}{d} = \frac{\varepsilon 
 
 Kapazität steigt mit Fläche $A$, Permittivität $\varepsilon_r$ und kleinerem Abstand $d$.
 
-![bg 80% right:33%](https://upload.wikimedia.org/wikipedia/commons/2/20/Plate_CapacitorII.svg)
-
-### 🗳️ Kondensatoren in Reihe
-
-Zwei ungeladene Kondensatoren $C_1$ und $C_2 = 4 \, C_1$ werden **in Reihe** an eine Spannungsquelle angeschlossen.
-
-Was ist nach dem Aufladen für beide gleich?
-
-A) die Ladung $Q$
-
-B) die Spannung $U$
-
-C) beides
-
-D) nichts davon
-
-### Parallelschaltung von Kondensatoren
-
-$$C_{\text{ges}} = C_1 + C_2 + \dots + C_n = \sum_{i=1}^n C_i$$
-
-- Gleiche Spannung an allen Kondensatoren
-- Gesamtladung = Summe der Einzelladungen
-
-![bg 100% right:45%](https://upload.wikimedia.org/wikipedia/commons/e/ee/Kondensator_C1_plus_C2.svg)
-
-### Reihenschaltung von Kondensatoren
-
-$$\frac{1}{C_{\text{ges}}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n} = \sum_{i=1}^n \frac{1}{C_i}$$
-
-- Gleiche Ladung auf allen Kondensatoren: $Q_1 = Q_2 = \dots = Q_\text{ges}$
-- Gesamtspannung = Summe der Einzelspannungen
-
-Herleitung: $C_{\text{ges}} = \frac{Q}{U_1 + U_2 + \dots} = \frac{Q}{Q \cdot \left(\frac{1}{C_1} + \frac{1}{C_2} + \dots\right)}$
-
-![bg 100% right:45%](https://upload.wikimedia.org/wikipedia/commons/0/01/Kondensator_C1_C2_Reihe.svg)
-
-### Energie im Kondensator
-
-Beim Aufladen nimmt die Spannung mit der Ladung zu: $U(q) = \frac{q}{C}$
-
-$$W = \int_0^Q U(q) \, dq = \int_0^Q \frac{q}{C} \, dq = \frac{Q^2}{2C} = \frac{1}{2} Q U = \frac{1}{2} C U^2$$
-
-$$[W] = \text{V} \cdot \text{C} = \text{W} \cdot \text{s} = \text{J}$$
-
-![bg 90% right:35%](img/kondensator-energie.svg)
+![bg 90% right:40%](img/platten-superposition.svg)
 
 ### 🗳️ Platten auseinanderziehen
 
@@ -131,6 +104,67 @@ B) $U$ bleibt gleich
 C) $U$ verdoppelt sich
 
 D) $U$ vervierfacht sich
+
+### Kondensatoren zusammenschalten
+
+Eine **Spannungsquelle** (z.B. eine Batterie) hält zwischen ihren beiden Anschlüssen die Spannung $U$ fest.
+
+- **Parallel:** Beide Kondensatoren hängen an denselben zwei Leitungen
+- **In Reihe:** Die Kondensatoren liegen hintereinander, ohne Abzweig dazwischen
+
+Schaltzeichen: zwei Striche = Kondensator (zwei Platten), Kreis = Spannungsquelle
+
+![w:700](img/kondensator-schaltungen.svg)
+
+### Parallelschaltung von Kondensatoren
+
+$$C_{\text{ges}} = C_1 + C_2 + \dots + C_n = \sum_{i=1}^n C_i$$
+
+- Gleiche Spannung an allen Kondensatoren
+- Gesamtladung = Summe der Einzelladungen
+
+Herleitung (gleiches $U$):
+
+$$Q = C_1 U + C_2 U = (C_1 + C_2) \cdot U$$
+
+![bg 100% right:45%](https://upload.wikimedia.org/wikipedia/commons/e/ee/Kondensator_C1_plus_C2.svg)
+
+### 🗳️ Der Mittelteil
+
+Zwei ungeladene Kondensatoren werden **in Reihe** an eine Spannungsquelle angeschlossen und aufgeladen.
+
+Welche Gesamtladung trägt danach der blau umrahmte Mittelteil?
+
+A) $+Q$
+
+B) $-Q$
+
+C) null
+
+D) hängt von $C_1$ und $C_2$ ab
+
+![bg 90% right:45%](img/reihe-mitte.svg)
+
+### Reihenschaltung von Kondensatoren
+
+$$\frac{1}{C_{\text{ges}}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots + \frac{1}{C_n} = \sum_{i=1}^n \frac{1}{C_i}$$
+
+- Gleiche Ladung auf allen Kondensatoren: $Q_1 = Q_2 = \dots = Q_\text{ges}$
+- Gesamtspannung = Summe der Einzelspannungen
+
+Herleitung: $C_{\text{ges}} = \frac{Q}{U_1 + U_2 + \dots} = \frac{Q}{Q \cdot \left(\frac{1}{C_1} + \frac{1}{C_2} + \dots\right)}$
+
+![bg 100% right:45%](https://upload.wikimedia.org/wikipedia/commons/0/01/Kondensator_C1_C2_Reihe.svg)
+
+### Energie im Kondensator
+
+Jede weitere Ladung muss gegen die schon anliegende Spannung auf den Kondensator gebracht werden ($W = Q \cdot U$). Beim Aufladen steigt die Spannung aber von 0 auf $U$, im Mittel liegt also $U/2$ an – das ist die Fläche des Dreiecks:
+
+$$W = \frac{1}{2} Q U = \frac{1}{2} C U^2 = \frac{Q^2}{2C}$$
+
+$$[W] = \text{V} \cdot \text{C} = \text{W} \cdot \text{s} = \text{J}$$
+
+![bg 90% right:35%](img/kondensator-energie.svg)
 
 ### 📝 Aufgabe 5b: Kondensatoren
 
@@ -192,8 +226,6 @@ Relative Permittivität (*relative permittivity*) | $\varepsilon_r = \frac{\vare
 
 ## Vertiefung
 
-Für alle, die es genauer wissen wollen
-
 ### Vertiefung: Kondensatoren mit geschichteten Dielektrika
 
 Der Raum zwischen den Platten ist mit zwei verschiedenen Dielektrika gefüllt:
@@ -228,5 +260,5 @@ Anwendung: kapazitiver Ölstandsensor
 
 Herleitung: Satz von Gauß + $U = \int E \, dr$ (gleiche Methode wie beim Punktladungs-Beispiel)
 
-![bg 90% right:33% vertical](https://upload.wikimedia.org/wikipedia/commons/3/3f/Spherical_Capacitor.svg)
-![bg 90%](https://upload.wikimedia.org/wikipedia/commons/b/b8/Cylindrical_CapacitorII.svg)
+![bg right:30% vertical 60%](https://upload.wikimedia.org/wikipedia/commons/3/3f/Spherical_Capacitor.svg)
+![bg 75%](https://upload.wikimedia.org/wikipedia/commons/b/b8/Cylindrical_CapacitorII.svg)
