@@ -26,34 +26,54 @@ David Straub
 
 ### Elektrischer Strom (*electric current*)
 
-Strom ist der gerichtete Fluss von elektrischer Ladung
+Strom ist der gerichtete Fluss von elektrischer Ladung.
 
-- Stromdichte $\vec{J} = \rho_Q \cdot \vec{v}$
-    - $\rho_Q$: Ladungsdichte in $\frac{\text{C}}{\text{m}^3}$, $\vec{v}$: Geschwindigkeit der Ladungsträger
-- Stromstärke $I = \int_A \vec{J} \cdot d\vec{A} = \dfrac{dQ}{dt}$
-- $[I] = \text{A} = \dfrac{\text{C}}{\text{s}}$
-- $[\vec{J}] = \dfrac{\text{A}}{\text{m}^2}$
+**Stromstärke $I$:** Wie viel Ladung passiert einen Drahtquerschnitt pro Zeit?
+
+$$I = \frac{\Delta Q}{\Delta t} \quad \text{(bei konstantem Strom)}, \qquad [I] = \text{A} = \frac{\text{C}}{\text{s}}$$
+
+**Beispiel:** Passieren in $2 \, \text{s}$ insgesamt $6 \, \text{C}$ den Querschnitt, fließt ein Strom von $3 \, \text{A}$.
+
+Allgemein, auch bei zeitlich veränderlichem Strom: $I = dQ/dt$.
+
+### Stromdichte (*current density*)
+
+**Stromdichte $J$:** Strom pro Querschnittsfläche
+
+$$J = \frac{I}{A}, \qquad [J] = \frac{\text{A}}{\text{m}^2}$$
+
+Bei gleichmäßiger Verteilung und senkrechtem Durchtritt.
+
+Allgemein: Beiträge über die Fläche summieren
+
+$$I = \int_A \vec{J} \cdot d\vec{A}$$
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/f/f0/Stromdichte.svg)
 
 ### Stromrichtung & Ladungsträger
 
-- $\vec{J} = \rho_Q \cdot \vec{v}$ zeigt in die Richtung, in die sich *positive* Ladung bewegt – egal ob die tatsächlichen Ladungsträger positiv oder negativ sind!
-- In Metallen ist $\rho_Q < 0$: die Elektronen bewegen sich *entgegen* $\vec{J}$
-- Das ist auch die *Zählrichtung* der Stromstärke $I$ („technische Stromrichtung“)
+- **Technische Stromrichtung:** Bewegungsrichtung positiver Ladung.
+- **Elektronen** bewegen sich entgegengesetzt.
+- **Zählpfeil:** frei wählbar; $I < 0$ bedeutet Strom entgegen dem Pfeil.
 
 ![bg 92% right:42%](img/stromrichtung.svg)
 
 ### Stromleitung in Metallen
 
-- In Metallen gibt jedes Atom Elektronen ab, die sich frei im Gitter der positiv geladenen Atomrümpfe bewegen können („Elektronengas“)
-- Die Ladungsdichte der Elektronen ist jederzeit konstant, da eine Ansammlung ein elektrisches Feld erzeugen würde, das durch Abstoßung der Elektronen wieder ausgeglichen wird → der Leiter ist überall elektrisch neutral
+- Bewegliche **Leitungselektronen** im Gitter positiver Atomrümpfe („Elektronengas“).
+- **Im Inneren näherungsweise neutral:** Positive und negative Ladungen gleichen sich aus.
+- Die **Elektronen** transportieren die Ladung.
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/4/41/Nuvola_di_elettroni.svg)
 
 ### Metalle im elektrischen Feld
 
-Klassisches Bild: erfährt das Elektronengas ein elektrisches Feld, werden die Elektronen beschleunigt, nach kurzer Zeit aber durch Stöße mit dem Metallgitter wieder abgebremst. Im Mittel ergibt sich eine konstante **Driftgeschwindigkeit** $\vec{v}_d$, *entgegen* der Feldrichtung: $\vec{v}_d = \vec{J}/\rho_Q$ mit $\rho_Q = -ne$.
+- Elektrisches Feld → Beschleunigung; Stöße am Gitter begrenzen die Drift.
+- Mittlere **Driftgeschwindigkeit** $\vec{v}_d$ entgegen der Feldrichtung.
+
+$$\vec{J} = \rho_\mathrm{e} \cdot \vec{v}_d, \qquad \rho_\mathrm{e} = -ne$$
+
+$\rho_\mathrm{e}$: Elektronenladungsdichte; $n$: Elektronen pro Volumen; $e$: Elementarladung.
 
 ![bg right:35% 80%](https://physikbuch.schule/media/drude-model.svg)
 
@@ -76,11 +96,24 @@ D) einige mm pro Minute
 Kupfer, $A=1 \, \text{mm}^2$, $I=1 \, \text{A}$:
 
 - Dichte freier Elektronen: $n \approx 8{,}5 \cdot 10^{28} \, \frac{1}{\text{m}^3}$
-- Ladungsdichte: $\rho_Q = -n \cdot e \approx -1{,}36 \cdot 10^{10} \, \frac{\text{C}}{\text{m}^3}$
+- Ladungsdichte der Elektronen: $\rho_\mathrm{e} = -n \cdot e \approx -1{,}36 \cdot 10^{10} \, \frac{\text{C}}{\text{m}^3}$
 - Stromdichte: $|\vec{J}| = \frac{I}{A} = 1 \cdot 10^{6} \, \frac{\text{A}}{\text{m}^2}$
-- Driftgeschwindigkeit: $|\vec{v}_d| = \frac{|\vec{J}|}{|\rho_Q|} \approx 7{,}35 \cdot 10^{-5} \, \frac{\text{m}}{\text{s}} \approx 0{,}26 \, \frac{\text{m}}{\text{h}}$ 🐌
+- Driftgeschwindigkeit: $|\vec{v}_d| = \frac{|\vec{J}|}{|\rho_\mathrm{e}|} \approx 7{,}35 \cdot 10^{-5} \, \frac{\text{m}}{\text{s}} \approx 4{,}4 \, \frac{\text{mm}}{\text{min}}$ 🐌
 
-Warum geht das Licht trotzdem sofort an? → Das *Feld* breitet sich (fast) mit Lichtgeschwindigkeit aus, nicht die Elektronen.
+**Licht sofort an?** Die Feldänderung breitet sich schnell aus – die Elektronen müssen nicht erst vom Schalter zur Lampe wandern.
+
+### Ohm’scher Leiter und Widerstand
+
+**Ohm’scher Leiter bei konstanter Temperatur:** Doppelte Spannung → doppelter Strom.
+
+$$R = \frac{U}{I}, \qquad [R] = \frac{\text{V}}{\text{A}} = \Omega \ \text{(Ohm)}$$
+
+$R$: **elektrischer Widerstand** (*electric resistance*)
+
+- **Ohm’sch:** $R$ bleibt bei veränderter Spannung konstant.
+- **Nichtlinear:** $U/I$ hängt vom Betriebspunkt ab.
+
+![bg 90% right:38%](img/ohm-kennlinie.svg)
 
 ### Ohm’sches Gesetz (*Ohm’s law*)
 
@@ -89,9 +122,9 @@ Warum geht das Licht trotzdem sofort an? → Das *Feld* breitet sich (fast) mit 
 
 $$\vec{J} = \sigma \cdot \vec{E}$$
 
-Achtung: die proportionale Beziehung gilt nur für *lineare Leiter* (z.B. Metalle bei konstanter Temperatur)
+Achtung: die proportionale Beziehung gilt nur für *Ohm’sche Leiter* (z.B. Metalle bei konstanter Temperatur)
 
-### Ohm’sches Gesetz im linearen Leiter
+### Ohm’sches Gesetz im Ohm’schen Leiter
 
 $$\vec{J} = \sigma \cdot \vec{E}$$
 
@@ -99,25 +132,23 @@ Leiter der Länge $l$, Querschnitt $A$, homogenes Feld wie im Kondensator ($U = 
 
 $$I = J \cdot A = \sigma \cdot E \cdot A = \sigma \cdot \frac{U}{l} \cdot A = \frac{U}{R}$$
 
-**Elektrischer Widerstand** (*electric resistance*):
+Damit hängt der **Widerstand** von Material und Geometrie ab:
 
 $$R = \frac{l}{\sigma \cdot A} = \rho \cdot \frac{l}{A}$$
 
-mit dem **spezifischen Widerstand** $\rho = 1/\sigma$ (ab hier ist $\rho$ *immer* der spezifische Widerstand, nicht mehr die Ladungsdichte!)
+mit dem **spezifischen Widerstand** $\rho = 1/\sigma$ (Materialgröße; nicht mit der Ladungsdichte $\rho_\mathrm{e}$ verwechseln).
 
 ![bg right:30% 90%](https://physikbuch.schule/media/resistivity-geometry.svg)
 
-### Widerstand und Leitwert
-
-Für jedes Bauteil ist der elektrische Widerstand $R$ das Verhältnis von Spannung zu Strom:
-
-$$R = \frac{U}{I}, \qquad [R] = \frac{\text{V}}{\text{A}} = \Omega \ \text{(Ohm)}$$
+### Leitwert (*conductance*)
 
 Der elektrische Leitwert $G$ ist der Kehrwert des Widerstands:
 
 $$G = \frac{1}{R} = \frac{I}{U}, \qquad [G] = \frac{\text{A}}{\text{V}} = \text{S} \ \text{(Siemens)}$$
 
-![bg 90% right:38%](img/ohm-kennlinie.svg)
+Je größer $G$, desto mehr Strom fließt bei gleicher Spannung: $I = G \cdot U$.
+
+In der $I$-$U$-Kennlinie eines Ohm’schen Leiters ist $G = 1/R$ die Steigung.
 
 ### Materialeigenschaften vs. Bauteilgrößen
 
@@ -129,7 +160,9 @@ $$G = \frac{1}{R} = \frac{I}{U}, \qquad [G] = \frac{\text{A}}{\text{V}} = \text{
 - **Widerstand** $R = \rho \frac{l}{A}$
 - **Leitwert** $G = \frac{1}{R} = \sigma \frac{A}{l}$
 
-**Beispiel:** Kupfer hat immer die gleiche Leitfähigkeit $\sigma_{\text{Cu}} = 58 \, \text{MS/m}$, aber ein dickeres Kabel hat einen kleineren Widerstand $R$.
+**Kupfer bei 20 °C:** $\sigma \approx 58 \, \text{MS/m}$, unabhängig von der Drahtform.
+
+Gleiches Material, gleiche Temperatur und Länge: **dickerer Draht → kleineres $R$**.
 
 Wie beim Kondensator $C = \varepsilon A/d$: Material mal Geometrie.
 
@@ -149,7 +182,7 @@ C) $4R$
 
 D) $8R$
 
-### Übersicht der Größen im linearen Leiter
+### Übersicht der Größen im Ohm’schen Leiter
 
 Größe | Definition | Einheit | Name
 --- | --- | --- | ---
@@ -166,6 +199,8 @@ Hinweis: In manchen Büchern heißt die Stromdichte $S$ statt $J$ – gemeint is
 
 In einer Glühlampe (12 V, Kfz-Blinker) fließt ein Strom $I = 0{,}5 \, \text{A}$.
 
+**Vorab:** Gleicher Strom durch Zuleitung und Glühfaden – wo ist $J$ größer? Ohne Rechnung begründen.
+
 a) Wie groß ist die Stromdichte $J_1$ im Glühfaden ($d_1 = 100 \, \mu\text{m}$)?
 
 b) Wie groß ist die Stromdichte $J_2$ in der Zuleitung ($d_2 = 1{,}5 \, \text{mm}$)?
@@ -176,9 +211,9 @@ d) Welchen Widerstand hat ein Draht gleicher Abmessungen aus Aluminium ($\rho_\t
 
 ### Temperaturabhängigkeit des Widerstands
 
-Bei den meisten Materialien ändert sich der Widerstand mit der Temperatur.
+**Bisher:** konstante Temperatur. **Glühlampe:** Erwärmung → $R$ steigt → Kennlinie flacht ab.
 
-Lineare Näherung:
+Lineare Näherung in einem begrenzten Temperaturbereich:
 
 $$R(T) = R(T_0) \cdot [1 + \alpha \cdot (T - T_0)]$$
 
@@ -189,7 +224,7 @@ $$R(T) = R(T_0) \cdot [1 + \alpha \cdot (T - T_0)]$$
 
 ### Leitfähigkeit verschiedener Materialien
 
-Bei Leitern nimmt der Widerstand mit steigender Temperatur zu ($\alpha > 0$).
+Bei den hier betrachteten Metallen nimmt der Widerstand mit steigender Temperatur zu ($\alpha > 0$).
 
 Typische Werte bei 20 °C:
 
@@ -216,23 +251,24 @@ D) etwa 200 %
 
 ### Metalle als Temperatursensoren
 
-Die Temperaturabhängigkeit macht Metalle zu präzisen Temperatursensoren.
+**Temperatur aus Widerstand bestimmen**
 
 **Platin-Widerstandsthermometer (Pt100):**
 - $R(0 \, °\text{C}) = 100 \, \Omega$
 - $\alpha_{\text{Pt}} = 3{,}85 \cdot 10^{-3} \, \text{K}^{-1}$
 
-**Vorteile:** hohe Langzeitstabilität, Messbereich −200 °C bis +850 °C, gute Linearität
+- Langzeitstabil; Messbereich −200 °C bis +850 °C.
+- Lineare Näherung nur in einem begrenzten Temperaturbereich.
 
-Anwendung: aus gemessenem $R$ (oder $U$ bei bekanntem Strom) die Temperatur bestimmen (→ Woche 5).
+Bei bekanntem Messstrom: $R = U/I$ → Temperatur.
 
 ![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Pt100_Resistors.jpg/1280px-Pt100_Resistors.jpg)
 
 ### Zwischenstand & Ausblick
 
-- Strom = Ladungstransport; $I = dQ/dt$, Stromdichte $J = I/A$
-- Die Elektronen kriechen, das Feld breitet sich fast mit Lichtgeschwindigkeit aus
-- Ohm: $R = U/I = \rho \, l/A$ – Material ($\rho$) × Geometrie ($l/A$)
-- $R(T)$: linear mit Temperaturkoeffizient $\alpha$ → Pt100-Sensor
+- **Strom:** $I = dQ/dt$; gleichmäßig im senkrechten Querschnitt: $J = I/A$
+- **Langsame Elektronendrift**, schnelle Ausbreitung der Feldänderung
+- **Ohm’scher Leiter:** konstantes $R = U/I$; Material und Geometrie: $R = \rho \, l/A$
+- **Temperatur:** $R(T)$ näherungsweise linear → Pt100-Sensor
 
 **Nächste Woche:** Kirchhoff’sche Gesetze, Netzwerke und reale Quellen.
