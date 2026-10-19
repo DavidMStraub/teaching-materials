@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 350" font-family="Helvetica, Arial, sans-serif">
+<circle cx="200" cy="170" r="105" fill="#eff6ff" stroke="#2563eb" stroke-width="3" stroke-dasharray="10 6"/>
+<line x1="224.0" y1="179.9" x2="323.8" y2="221.3" stroke="#ef4444" stroke-width="3.5"/><polygon points="338.6,227.4 321.1,227.7 326.5,214.8" fill="#ef4444"/>
+<line x1="209.9" y1="194.0" x2="251.3" y2="293.8" stroke="#ef4444" stroke-width="3.5"/><polygon points="257.4,308.6 244.8,296.5 257.7,291.1" fill="#ef4444"/>
+<line x1="190.1" y1="194.0" x2="148.7" y2="293.8" stroke="#ef4444" stroke-width="3.5"/><polygon points="142.6,308.6 142.3,291.1 155.2,296.5" fill="#ef4444"/>
+<line x1="176.0" y1="179.9" x2="76.2" y2="221.3" stroke="#ef4444" stroke-width="3.5"/><polygon points="61.4,227.4 73.5,214.8 78.9,227.7" fill="#ef4444"/>
+<line x1="176.0" y1="160.1" x2="76.2" y2="118.7" stroke="#ef4444" stroke-width="3.5"/><polygon points="61.4,112.6 78.9,112.3 73.5,125.2" fill="#ef4444"/>
+<line x1="190.1" y1="146.0" x2="148.7" y2="46.2" stroke="#ef4444" stroke-width="3.5"/><polygon points="142.6,31.4 155.2,43.5 142.3,48.9" fill="#ef4444"/>
+<line x1="209.9" y1="146.0" x2="251.3" y2="46.2" stroke="#ef4444" stroke-width="3.5"/><polygon points="257.4,31.4 257.7,48.9 244.8,43.5" fill="#ef4444"/>
+<line x1="224.0" y1="160.1" x2="323.8" y2="118.7" stroke="#ef4444" stroke-width="3.5"/><polygon points="338.6,112.6 326.5,125.2 321.1,112.3" fill="#ef4444"/>
+<circle cx="200" cy="170" r="20" fill="#ef4444"/><text x="200" y="179" fill="#fff" font-size="28" font-weight="bold" text-anchor="middle">+</text>
+<line x1="200" y1="170" x2="200" y2="65" stroke="#111827" stroke-width="2"/><text x="208" y="122.5" fill="#111827" font-size="26" font-style="italic">r</text>
+<text x="200" y="340" fill="#6b7280" font-size="22" text-anchor="middle">Kugel: <tspan font-style="italic">D</tspan> ⊥ Hülle, |<tspan font-style="italic">D</tspan>| überall gleich</text>
+</svg>

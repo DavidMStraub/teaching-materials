@@ -55,6 +55,21 @@ z.B.: $\text{mAh} = 10^{-3} \, \text{A} \cdot 3600 \, \text{s} = 3{,}6 \, \text{
 
 Nicht zu verwechseln mit der Kapazität (*capacitance*) eines Kondensators in Farad!
 
+### Satz von Gauß: die Hülle geschickt wählen
+
+$$\oint \vec{D} \cdot d\vec{A} = Q_\text{innen}$$
+
+Die Hülle so wählen, dass jedes Stück davon
+
+- **senkrecht zu den Feldlinien** liegt und $|D|$ dort konstant ist → Beitrag $D \cdot A$
+- oder **parallel zu den Feldlinien** liegt → Beitrag 0
+
+Dann wird das Integral zum Produkt: $D \cdot A_\perp = Q_\text{innen}$
+
+**Bekannt aus 2.2:** Punktladung → Kugel um die Ladung: $D \cdot 4\pi r^2 = Q$
+
+![bg 90% right:38%](img/gauss-kugel.svg)
+
 ### Feld einer geladenen Platte
 
 Eine große Platte trägt die Ladung $+Q$ auf der Fläche $A$. Aus Symmetrie steht $D$ senkrecht auf der Platte und ist auf beiden Seiten gleich groß. Hüllfläche: ein Kasten um die ganze Platte.
