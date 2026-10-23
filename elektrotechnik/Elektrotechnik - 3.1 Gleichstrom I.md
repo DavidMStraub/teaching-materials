@@ -54,7 +54,6 @@ $$I = \int_A \vec{J} \cdot d\vec{A}$$
 
 - **Technische Stromrichtung:** Bewegungsrichtung positiver Ladung.
 - **Elektronen** bewegen sich entgegengesetzt.
-- **Zählpfeil:** frei wählbar; $I < 0$ bedeutet Strom entgegen dem Pfeil.
 
 ![bg 92% right:42%](img/stromrichtung.svg)
 

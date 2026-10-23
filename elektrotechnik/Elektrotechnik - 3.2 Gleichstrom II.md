@@ -46,7 +46,7 @@ Zufließende Ströme zählen positiv, abfließende negativ.
 
 ### Maschenregel (2. Kirchhoff’sches Gesetz)
 
-Die Summe aller in einer Masche auftretenden Spannungen ist Null:
+Spannung ist eine Potentialdifferenz (2.2). Wer einmal die Masche entlang läuft, kommt beim selben Potential wieder an. Die Summe aller Spannungen in einer Masche ist deshalb Null:
 
 $$\sum_{k} U_{k} = 0$$
 
@@ -106,7 +106,7 @@ $$R_\text{ges} = R_1 + R_2 + \dots + R_n = \sum_{i=1}^{n} R_i$$
 - Mit $U_i = I R_i$: $\;U = I \cdot (R_1 + \dots + R_n)$
 - Folge: $R_\text{ges}$ ist **größer** als der größte Einzelwiderstand
 
-![bg right:30% 70%](https://upload.wikimedia.org/wikipedia/commons/2/27/Reihenschaltung_Widerst%C3%A4nde.svg)
+![bg 90% right:36%](img/reihe-schaltung.svg)
 
 ### Spannungsteiler
 
@@ -127,7 +127,7 @@ $$\frac{1}{R_\text{ges}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}
 - Mit $I_i = U/R_i$: $\;I = U \cdot \left(\frac{1}{R_1} + \dots + \frac{1}{R_n}\right)$
 - Folge: $R_\text{ges}$ ist **kleiner** als der kleinste Einzelwiderstand
 
-![bg right:25% 90%](https://upload.wikimedia.org/wikipedia/commons/a/ab/Parallelschaltung_Widerst%C3%A4nde.svg)
+![bg 90% right:34%](img/parallel-schaltung.svg)
 
 ### Stromteilerregel
 
@@ -184,12 +184,6 @@ A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beide
 
 A) in Reihe &nbsp;&nbsp;&nbsp; B) parallel &nbsp;&nbsp;&nbsp; C) keins von beidem
 
-### Knoten markieren am Beispiel d)
-
-![w:900](img/rp-loesung.svg)
-
-Nach dem Neuzeichnen ist es eindeutig: $R_2 \parallel R_3$ zwischen B und C, $R_1$ davor in Reihe.
-
 ### 📝 Aufgabe 7b: Belasteter Spannungsteiler
 
 Ein Spannungsteiler besteht aus $R_1 = R_2 = 1 \, \text{k}\Omega$ an einer Quelle $U = 12 \, \text{V}$. Am Abgriff (über $R_2$) wird die Spannung $U_a$ abgenommen. **Zeichnen Sie die Schaltung selbst!**
@@ -209,9 +203,9 @@ Ein Zweipol (*two-pole*) oder Eintor (*one-port*) ist ein elektrisches Bauteil m
 ### Passive lineare Zweipole
 
 - Passiv: Zweipol gibt keine Energie ab
-- Linear: Strom-Spannungs-Kennlinie ist eine Gerade
+- Linear (Ohm’sch): Strom-Spannungs-Kennlinie ist eine Gerade
 
-Passive lineare Zweipole können zu einem Ersatzwiderstand zusammengefasst werden:
+Passive lineare Zweipole können zu einem Ersatzwiderstand zusammengefasst werden – wie gerade bei Reihe und Parallel:
 
 $$U = R \cdot I$$
 
@@ -258,7 +252,7 @@ $$U = U_0 - R_i \cdot I$$
 - Leerlauf ($I = 0$): $U = U_0$ (maximale Spannung)
 - Kurzschluss ($U = 0$): $I_k = \frac{U_0}{R_i}$ (maximaler Strom)
 
-![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/1/11/Quelle_U-Ersatz.svg)
+![bg 90% right:40%](img/quelle-u-real.svg)
 
 ### Reale Stromquelle
 
@@ -269,7 +263,7 @@ $$I = I_0 - \frac{U}{R_i}$$
 - Leerlauf: $U = I_0 \cdot R_i$
 - Kurzschluss: $I = I_0$
 
-![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/c/cd/Quelle_I-Ersatz.svg)
+![bg 90% right:40%](img/quelle-i-real.svg)
 
 ### Die U-I-Kennlinie
 
@@ -305,10 +299,24 @@ $$U_0 = I_0 \cdot R_i \qquad\Leftrightarrow\qquad I_0 = \frac{U_0}{R_i}$$
 - Spannungsquelle → Stromquelle: $I_0 = \frac{U_0}{R_i}$
 - Stromquelle → Spannungsquelle: $U_0 = I_0 \cdot R_i$
 
+$I_0$ ist also gerade der Kurzschlussstrom $I_k$ aus der Kennlinie.
+
 Von außen sind beide nicht unterscheidbar – wählen Sie die Darstellung, die die Rechnung einfacher macht!
 
-![bg right:30% vertical 90%](https://upload.wikimedia.org/wikipedia/commons/1/11/Quelle_U-Ersatz.svg)
-![bg right:30% vertical 90%](https://upload.wikimedia.org/wikipedia/commons/c/cd/Quelle_I-Ersatz.svg)
+![bg right:30% vertical 90%](img/quelle-u-real.svg)
+![bg 90%](img/quelle-i-real.svg)
+
+### 📝 Aufgabe 7c: Reale Quelle
+
+Eine Flugzeugbatterie hat die Leerlaufspannung $U_0 = 24 \, \text{V}$ und den Innenwiderstand $R_i = 0{,}2 \, \Omega$.
+
+a) Ein Verbraucher mit $R = 2{,}2 \, \Omega$ wird angeschlossen. Wie groß sind Strom $I$ und Klemmenspannung $U$?
+
+b) Geben Sie die äquivalente Ersatzstromquelle an ($I_0$, $R_i$).
+
+c) Skizzieren Sie die $U$-$I$-Kennlinie und tragen Sie Leerlauf, Kurzschluss und den Betriebspunkt aus a) ein.
+
+![bg 90% right:36%](img/quelle-u-real.svg)
 
 ### Zwischenstand & Ausblick
 
