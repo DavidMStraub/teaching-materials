@@ -314,7 +314,7 @@ a) Ein Verbraucher mit $R = 2{,}2 \, \Omega$ wird angeschlossen. Wie groß sind 
 
 b) Geben Sie die äquivalente Ersatzstromquelle an ($I_0$, $R_i$).
 
-c) Skizzieren Sie die $U$-$I$-Kennlinie und tragen Sie Leerlauf, Kurzschluss und den Betriebspunkt aus a) ein.
+c) Skizzieren Sie die $U$-$I$-Kennlinie und tragen Sie Leerlauf, Kurzschluss und den Arbeitspunkt aus a) ein.
 
 ![bg 90% right:36%](img/quelle-u-real.svg)
 

@@ -26,12 +26,10 @@ David Straub
 
 ### Ersatzquelle eines beliebigen Netzwerks bestimmen 🔑
 
-Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersatzspannungsquelle** ($U_0$, $R_i$) oder **Ersatzstromquelle** ($I_0$, $R_i$) darstellen. Rezept:
+Jetzt lösen wir das Versprechen aus der letzten Woche ein: Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersatzspannungsquelle** ($U_0$, $R_i$) oder **Ersatzstromquelle** ($I_0$, $R_i$) darstellen. Rezept:
 
 1. **Leerlaufspannung** $U_0$: Spannung an den offenen Klemmen berechnen
-2. **Innenwiderstand** $R_i$: alle Quellen „deaktivieren“ –
-   Spannungsquellen → **Kurzschluss**, Stromquellen → **Unterbrechung** –
-   dann Widerstand von den Klemmen aus berechnen
+2. **Innenwiderstand** $R_i$: Quellen deaktivieren (U-Quelle → **Kurzschluss**, I-Quelle → **Unterbrechung**), dann Widerstand von den Klemmen aus berechnen
 3. Kontrolle oder Alternative zu 2.: **Kurzschlussstrom** $I_k$ berechnen, dann $R_i = U_0 / I_k$
 
 **Das ist die zentrale Technik für Netzwerkaufgaben.**
@@ -54,26 +52,21 @@ D) $R_1$
 
 ### Beispiel: Ersatzquelle des belasteten Spannungsteilers
 
-Unser Spannungsteiler aus Aufgabe 7b ($U = 12 \, \text{V}$, $R_1 = R_2 = 1 \, \text{k}\Omega$) als Ersatzquelle an den Abgriffklemmen:
+Unser Spannungsteiler aus Aufgabe 7b ($U = 12 \, \text{V}$, $R_1 = R_2 = 1 \, \text{k}\Omega$), Klemmen über $R_2$:
 
-- Wie groß sind $U_0$ und $R_i$?
-- Welche Spannung $U_a$ stellt sich mit der Last $R_L = 1 \, \text{k}\Omega$ ein?
+1. Leerlauf: $U_0 = U \cdot \dfrac{R_2}{R_1 + R_2} = 6 \, \text{V}$
+2. Quelle kurzschließen: $R_i = R_1 \parallel R_2 = \dfrac{R_1 R_2}{R_1 + R_2} = 500 \, \Omega$
+3. Last $R_L = 1 \, \text{k}\Omega$ anschließen: $U_a = U_0 \cdot \dfrac{R_L}{R_i + R_L} = 4 \, \text{V}$
 
-### Lösung: belasteter Spannungsteiler
-
-1. $U_0 = U \cdot \frac{R_2}{R_1 + R_2} = 6 \, \text{V}$
-2. Quelle deaktivieren (kurzschließen): $R_i = R_1 \parallel R_2 = 500 \, \Omega$
-3. Last $R_L = 1 \, \text{k}\Omega$ anschließen: $U_a = U_0 \cdot \frac{R_L}{R_i + R_L} = 6 \cdot \frac{1000}{1500} = 4 \, \text{V}$ ✓
-
-Gleiche Antwort wie in Aufgabe 7b – jetzt in 2 Zeilen statt Netzwerk-Umformung!
+Gleiche Antwort wie in Aufgabe 7b – jetzt in zwei Zeilen statt Netzwerk-Umformung.
 
 ### 📝 Aufgabe 8: Ersatzquelle
 
-Eine Spannungsquelle $U_e$ speist einen Spannungsteiler aus $R_1$ und $R_2$; an den Klemmen über $R_2$ wird $U_a$ abgenommen. **Schaltung zeichnen!**
+Eine Spannungsquelle $U_e = 150 \, \text{V}$ speist einen Spannungsteiler aus $R_1$ und $R_2$; an den Klemmen über $R_2$ wird $U_a$ abgenommen. Im Leerlauf ist $U_a = 50 \, \text{V}$, bei $I = 0{,}5 \, \text{A}$ ist $U_a = 45 \, \text{V}$. **Schaltung zeichnen!**
 
-a) Bestimmen Sie **allgemein** die Leerlaufspannung $U_0$, den Innenwiderstand $R_i$ und den Kurzschlussstrom $I_k$ der Ersatzquelle.
+a) Bestimmen Sie $U_0$, $R_i$ und den Kurzschlussstrom $I_k$ der Ersatzquelle.
 
-b) Gegeben: $U_e = 150 \, \text{V}$, im Leerlauf $U_a = 50 \, \text{V}$, bei $I = 0{,}5 \, \text{A}$ ist $U_a = 45 \, \text{V}$. Wie groß müssen $R_1$ und $R_2$ sein?
+b) Wie groß müssen $R_1$ und $R_2$ sein?
 
 c) Wie groß muss ein Lastwiderstand $R_a$ sein, damit er die größtmögliche Leistung aufnimmt, und wie groß ist diese? *(Vorgriff auf später heute – Vermutung reicht!)*
 
@@ -83,8 +76,12 @@ Bei der Reihenschaltung von realen Spannungsquellen addieren sich Leerlaufspannu
 
 $$U_{0,\text{ges}} = \sum_j U_{0,j}, \qquad R_{i,\text{ges}} = \sum_j R_{i,j}$$
 
+Begründung: Maschenregel – durch alle fließt derselbe Strom, die Spannungen addieren sich.
+
 **Anwendung:** Batteriepacks (Taschenlampe, E-Auto)
 **Vorteil:** höhere Gesamtspannung • **Nachteil:** höherer Innenwiderstand
+
+![bg 90% right:38%](img/quellen-reihe.svg)
 
 ### Parallelschaltung von aktiven, linearen Zweipolen
 
@@ -92,12 +89,16 @@ Bei der Parallelschaltung von realen Spannungsquellen mit gleicher Leerlaufspann
 
 $$\frac{1}{R_{i,\text{ges}}} = \sum_j \frac{1}{R_{i,j}}$$
 
+Begründung: Beide in Stromquellen $I_{0,j} = U_0 / R_{i,j}$ umwandeln. Parallel addieren sich die Ströme und die Leitwerte.
+
 **Anwendung:** höhere Ströme, Redundanz
 **Nachteil:** nur bei gleichen Spannungen sinnvoll (sonst Ausgleichsströme!)
 
+![bg 85% right:32%](img/quellen-parallel.svg)
+
 ### Elektrische Arbeit (Energie)
 
-Die elektrische Arbeit ist das Produkt aus Spannung, Strom und Zeit:
+Aus $W = Q \cdot U$ (2.2) und $Q = I \cdot t$ (bei konstantem Strom) folgt:
 
 $$W = U \cdot I \cdot t = I^2 \cdot R \cdot t = \frac{U^2}{R} \cdot t$$
 
@@ -144,7 +145,7 @@ $$P_\text{max} = \frac{U_0^2}{4 R_i}$$
 
 Anpassungsverhältnis: $\alpha = \frac{R}{R_i}$
 
-Wirkungsgrad = Verbraucherleistung / Gesamtleistung der Quelle:
+Wirkungsgrad = Verbraucherleistung / Gesamtleistung der Quelle, mit $P_0 = U_0 \cdot I$ (Leistung der idealen Quelle $U_0$):
 
 $$\eta = \frac{P}{P_0} = \frac{R}{R_i + R} = \frac{\alpha}{1 + \alpha}$$
 
@@ -173,7 +174,7 @@ Quelle und Verbraucher in einem Diagramm:
 - **Verbraucher:** steigende Gerade $U = R \cdot I$
 - Schnittpunkt = **Arbeitspunkt**: dort stellen sich $U$ und $I$ tatsächlich ein
 
-Grafische Lösung: beide Kennlinien zeichnen, Schnittpunkt ablesen.
+Grafische Lösung: beide Kennlinien zeichnen, Schnittpunkt ablesen. Aus Aufgabe 7c kennen Sie den Arbeitspunkt schon.
 
 ![bg 95% right:42%](img/arbeitspunkt.svg)
 
@@ -198,23 +199,23 @@ b) **Leerlauf** ($R_a \to \infty$): Geben Sie $I_1$ und $I_2$ in Abhängigkeit d
 c) Bestimmen Sie das **Spannungsquellen-Ersatzschaltbild** links der Klemmen 1–2 ($U_0$, $R_i$ allgemein).
 d) Die Schaltung soll $U_0 = 10 \, \text{V}$ und $P_\text{max} = 5 \, \text{W}$ liefern. Wie groß muss $R_i$ sein?
 
-![bg 95% right:42%](img/klausur-gleichstromnetz.svg)
+![bg 98% right:50%](img/klausur-gleichstromnetz.svg)
 
 ### Reale Messungen: Spannung
 
 Jedes reale Voltmeter hat einen **endlichen Innenwiderstand** und belastet die Schaltung:
 
-- Digitalmultimeter (DMM): typisch $R_i \approx 10 \, \text{M}\Omega$
-- Das Voltmeter liegt **parallel** zum Messobjekt → wirkt wie ein Lastwiderstand → **Lastfehler**, wenn $R_i$ nicht $\gg$ Quellwiderstand
-- In Klausuraufgaben: „ideales Voltmeter“ = $R_i \to \infty$, zieht keinen Strom
+- Digitalmultimeter (DMM): typisch $R_V \approx 10 \, \text{M}\Omega$
+- Das Voltmeter liegt **parallel** zum Messobjekt → wirkt wie ein Lastwiderstand → **Lastfehler**, wenn $R_V$ nicht $\gg$ Quellwiderstand
+- In Klausuraufgaben: „ideales Voltmeter“ = $R_V \to \infty$, zieht keinen Strom
 
-Faustregel: Spannungsmessung ist unkritisch, solange $R_\text{Quelle} \ll R_{i,\text{Voltmeter}}$
+Faustregel: Spannungsmessung ist unkritisch, solange $R_\text{Quelle} \ll R_V$
 
 ![bg 95% right:42%](img/voltmeter-lastfehler.svg)
 
 ### 🗳️ Was zeigt das Multimeter?
 
-Ein Spannungsteiler aus zwei Widerständen von je $1 \, \text{M}\Omega$ liegt an $10 \, \text{V}$. Ein Multimeter ($R_i = 10 \, \text{M}\Omega$) misst die Spannung über dem unteren Widerstand.
+Ein Spannungsteiler aus zwei Widerständen von je $1 \, \text{M}\Omega$ liegt an $10 \, \text{V}$. Ein Multimeter ($R_V = 10 \, \text{M}\Omega$) misst die Spannung über dem unteren Widerstand.
 
 Was zeigt es an?
 

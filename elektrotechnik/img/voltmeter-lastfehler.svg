@@ -27,7 +27,7 @@
   <text x="76" y="178" fill="#111827" font-size="23" font-style="italic" text-anchor="end">U<tspan font-size="16" dy="6">0</tspan></text>
   <text x="195" y="68" fill="#111827" font-size="24" font-style="italic" text-anchor="middle">R<tspan font-size="16" dy="6">Q</tspan></text>
   <text x="316" y="178" fill="#111827" font-size="24" font-style="italic">R</text>
-  <text x="474" y="164" fill="#15803d" font-size="19" font-style="italic">R<tspan font-size="14" dy="5">i,V</tspan></text>
+  <text x="474" y="164" fill="#15803d" font-size="19" font-style="italic">R<tspan font-size="14" dy="5">V</tspan></text>
   <text x="474" y="190" fill="#15803d" font-size="17">&#8776; 10 M&#937;</text>
   <text x="110" y="292" fill="#6b7280" font-size="19">Voltmeter liegt <tspan font-weight="bold">parallel</tspan> &#8594; zieht Strom &#8594; Lastfehler</text>
 </svg>
