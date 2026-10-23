@@ -381,7 +381,7 @@ Versetzen Sie die Ellipse aus Aufgabe 6 (Halbachsen 30 und 15) **nach innen**, a
 
 ### Leseauftrag & Ausblick
 
-- **Leseauftrag:** Buch Kapitel 6
+- **Leseauftrag:** Buch Kapitel 6 bis einschließlich „The Limits of Analytic Curves“
 - **Wer mehr will:** Krümmung entlang der Ellipse an 50 Stellen mit `curvatureAt` abtasten und über $t$ plotten
 - **Nächste Woche:** Freiformgeometrie – Freiformkurven (Bézier, B-Spline, NURBS) und das Kühlkanal-Profil
 - Bis dahin: `w04/` committet und gepusht

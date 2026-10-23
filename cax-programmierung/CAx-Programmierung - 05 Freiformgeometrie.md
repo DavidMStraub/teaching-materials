@@ -62,24 +62,26 @@ Der **Kühlkanal** des Moduls braucht ein frei geformtes Profil – über Linie,
 
 ### Warum Polynome – aber niedrigen Grades?
 
+![bg right:30% 90%](assets/cax05_runge.svg)
+
 Eine Kurve ist $\mathbf{C}(u) = (x(u), y(u), z(u))$ – welche Funktion?
 
 | Ansatz | Problem |
 |---|---|
 | Lineare Interpolation | Knick an jedem Stützpunkt |
 | Sinus/Kosinus | schwer zu verketten, teuer |
-| Ein Polynom hohen Grades | Runge-Phänomen: Oszillation |
+| Ein Polynom hohen Grades | Runge-Phänomen: Oszillation (rechts oben) |
 | **Stückweise Polynome niedrigen Grades** | ✓ flexibel, stabil, lokal steuerbar |
 
 → Alle Freiformkurven (Bézier, B-Spline, NURBS) sind **stückweise Polynome niedrigen Grades**.
 
-### Der naive Weg: Potenzbasis
+### Erster Ansatz: Potenzbasis
 
 Koordinaten direkt als Polynom in $u$:
 
 $$\mathbf{C}(u) = \mathbf{a}_0 + \mathbf{a}_1 u + \mathbf{a}_2 u^2 + \cdots + \mathbf{a}_n u^n$$
 
-Unbrauchbar in der Praxis:
+In der Praxis ungeeignet:
 
 - **Kein geometrischer Bezug:** aus $\mathbf{a}_3$ liest man den Kurvenverlauf nicht ab
 - **Numerisch empfindlich** bei hohem Grad
@@ -93,10 +95,10 @@ Unbrauchbar in der Praxis:
 
 Renault, 1962 (Karosseriedesign). Kurve direkt über $n+1$ **Kontrollpunkte**:
 
-$$\mathbf{C}(u) = \sum_{i=0}^{n} B_{i,n}(u)\, \mathbf{P}_i, \quad u \in [0,1]$$
+$$\mathbf{C}(u) = \sum_{i=0}^{n} B_{i,n}(u)\, \mathbf{P}_i, \qquad B_{i,n}(u) = \binom{n}{i} u^i (1-u)^{n-i}, \quad u \in [0,1]$$
 
-- $B_{i,n}$: **Bernstein-Basis** – nicht-negativ, $\sum_i B_{i,n} = 1$
-- $\mathbf{C}(u)$ ist eine **Konvexkombination** → Kurve liegt in der konvexen Hülle
+- $B_{i,n}$: **Bernstein-Basis** – nicht-negativ, $\sum_i B_{i,n} = 1$. Jeder Kurvenpunkt ist also ein gewichteter Mittelwert der Kontrollpunkte (**Konvexkombination**).
+- Folge: Die Kurve liegt in der **konvexen Hülle** – dem kleinsten konvexen Polygon um alle Kontrollpunkte.
 - Läuft durch $\mathbf{P}_0$ und $\mathbf{P}_n$; Tangente in $\mathbf{P}_0$: Richtung $\mathbf{P}_1 - \mathbf{P}_0$
 
 ### Die Grenzen der einzelnen Bézier-Kurve
@@ -106,19 +108,30 @@ Eine einzelne Bézier-Kurve über *alle* Punkte hat zwei Schwächen:
 - **Grad = Punktzahl − 1:** 20 Punkte → Grad 19 → numerisch instabil, wellig
 - **Globale Kontrolle:** jeder Punkt beeinflusst die **ganze** Kurve – kein lokales Anpassen
 
-### Stückweise Bézier: Übergänge von Hand
+### Stückweise Bézier: Übergänge
 
-**Ausweg:** die Kurve in **Segmente** teilen, jedes ein Bézier-Stück niedrigen Grades. Aber wie glatt müssen die Übergänge sein?
+**Ausweg:** die Kurve in **Segmente** teilen, jedes ein Bézier-Stück niedrigen Grades. Am Übergang trifft der letzte Kontrollpunkt $\mathbf{P}_3$ eines Segments auf den ersten $\mathbf{Q}_0$ des nächsten.
 
-| Bedingung | Effekt | fixiert |
-|---|---|---|
-| $C^0$ | kein Spalt | $\mathbf{a}_3 = \mathbf{b}_0$ |
-| $C^1$ | glatte Tangente | + 1 Punkt |
-| $C^2$ | glatte Krümmung | + 1 Punkt |
+Wie glatt ist der Übergang?
 
-→ Bei $C^2$ sind **3 von 4** Kontrollpunkten je Segment gebunden – bei vielen Segmenten mühsam von Hand.
+- $C^0$: $\mathbf{Q}_0 = \mathbf{P}_3$ – kein Spalt
+- $C^k$: zusätzlich stimmen die ersten $k$ **Ableitungen nach $u$** überein
+- $G^1$: nur die **Richtung** der Tangente stimmt, ihre Länge darf springen
 
-**Interaktiv:** [Piecewise Bézier Editor](https://davidstraub.de/teaching-apps/bezier-editor/) – Segmente ziehen und die Übergänge selbst verwalten
+$C$ steht für die Parametrisierung, $G$ für die Geometrie: $G^1$ fragt nur, ob die Kurve glatt *aussieht*.
+
+### Übergänge im Editor ausprobieren
+
+[Piecewise Bézier Editor](https://davidstraub.de/teaching-apps/bezier-editor/) – stellen Sie **kubisch** ein, dann nacheinander $C^0$, $G^1$, $C^1$, $C^2$. Ziehen Sie jeweils einen Griff direkt neben einem Übergang.
+
+| Bedingung | Was bewegt sich auf der anderen Seite des Übergangs mit? |
+|---|---|
+| $C^0$ | |
+| $G^1$ | |
+| $C^1$ | |
+| $C^2$ | |
+
+Wie viele der vier Kontrollpunkte eines Segments können Sie bei $C^2$ noch frei setzen?
 
 ### Der B-Spline: überlappende Fenster
 
@@ -136,24 +149,31 @@ Der **B-Spline** nimmt diese Buchhaltung ab: benachbarte Spannen teilen sich all
 
 ![bg right:38% 90%](assets/control_comparison.svg)
 
-$$\mathbf{C}(u) = \sum_{i=0}^{n} \mathbf{P}_i\, N_{i,k}(u)$$
+$$\mathbf{C}(u) = \sum_{i=0}^{n} \mathbf{P}_i\, N_{i,p}(u)$$
 
 - $\mathbf{P}_i$ – die $n+1$ **Kontrollpunkte** (die Griffe)
-- $N_{i,k}(u)$ – **Basisfunktionen** der Ordnung $k$ (Grad $k-1$): das Gewicht, mit dem $\mathbf{P}_i$ beim Parameter $u$ zieht
-- jede $N_{i,k}$ ist nur über ein **Fenster** ungleich null → **lokale** Kontrolle (rechts: Bézier global, B-Spline lokal)
-- $\sum_i N_{i,k}(u) = 1$ → Konvexkombination wie bei Bézier
+- $N_{i,p}(u)$ – **Basisfunktionen** vom Grad $p$ (kubisch: $p = 3$): das Gewicht, mit dem $\mathbf{P}_i$ beim Parameter $u$ zieht
+- jede $N_{i,p}$ ist nur über ein **Fenster** ungleich null → **lokale** Kontrolle (rechts: Bézier global, B-Spline lokal)
+- $\sum_i N_{i,p}(u) = 1$ → Konvexkombination wie bei Bézier
 
 ### Der Knotenvektor
 
-Was die $N_{i,k}$ überhaupt festlegt, ist der **Knotenvektor**:
+Was die $N_{i,p}$ überhaupt festlegt, ist der **Knotenvektor**:
 
-$$T = (t_0 \le t_1 \le \dots \le t_m)$$
+$$U = (u_0 \le u_1 \le \dots \le u_m)$$
 
-- eine **nicht-fallende** Folge von Parameterwerten (die „Knoten"); sie teilen die Parameterachse in **Spannen** und legen fest, **wo** jede $N_{i,k}$ ihr Fenster hat
-- bei einfachen Knoten: Ordnung $k$ → **$C^{k-2}$** (kubisch, $k=4$ → $C^2$, der CAD-Standard)
-- **Multiplizität:** einen Knoten mehrfach setzen senkt dort die Stetigkeit; volle Multiplizität → Knick
+- eine **nicht-fallende** Folge von Parameterwerten, den **Knoten**
+- die Knoten teilen die Parameterachse in **Spannen** und legen fest, **wo** jede $N_{i,p}$ ihr Fenster hat
+- bei lauter verschiedenen Knoten ist eine Kurve vom Grad $p$ überall **$C^{p-1}$** – kubisch also $C^2$, der CAD-Standard
+- ein Knotenwert darf **mehrfach** vorkommen; wie oft, heißt seine **Multiplizität**
 
-**Interaktiv:** [B-Spline-Editor](https://davidstraub.de/teaching-apps/bspline-editor/) – Knoten-Ticks ziehen, Multiplizität erhöhen und den Knick entstehen sehen
+### Knoten im Editor ausprobieren
+
+[B-Spline-Editor](https://davidstraub.de/teaching-apps/bspline-editor/) – kubisch, unten die Basisfunktionen $N_{i,3}$ und die Knoten-Ticks
+
+1. Ziehen Sie einen Kontrollpunkt. Welcher Teil der Kurve bewegt sich? Vergleichen Sie mit den Basisfunktionen.
+2. **Sagen Sie zuerst voraus:** Was passiert an einer Stelle, an der zwei Knoten zusammenfallen? Und bei drei?
+3. Probieren Sie es aus: Schieben Sie Knoten-Ticks aufeinander.
 
 ### Interpolation: Kurve durch gegebene Punkte
 
@@ -171,35 +191,46 @@ Rechts: die Kurve trifft jeden Datenpunkt (rot), die dafür berechneten Kontroll
 
 Legen Sie eine Kurve durch fünf frei gewählte Punkte – einmal als **Spline**, einmal als **Polyline**.
 
-1. Trifft die Spline-Kurve den ersten und letzten Punkt exakt?
-2. Wo liegt der Unterschied zwischen beiden – geometrisch und im `geomType`?
+1. Aus wie vielen Kanten bestehen beide, und welchen `geomType` haben die Kanten?
+2. **Sagen Sie zuerst voraus:** Sie verschieben einen mittleren Punkt um 5 mm. Ändert sich der Spline nur in der Nähe dieses Punktes oder überall? Prüfen Sie es.
+3. Passt das Ergebnis zur lokalen Kontrolle aus der Theorie?
 
-*Hinweise:* `cf.spline`, `cf.polyline`, `.geomType()`, `.positionAt(0.0)` / `.positionAt(1.0)`
+*Hinweise:* `cf.spline`, `cf.polyline`, `.Edges()`, `e.geomType()`; beide Splines im Viewer übereinander zeigen
 
 ### Aufgabe 2: Der Einlass-Querschnitt
 
-Bauen Sie den Kühlkanal-Querschnitt als **geschlossene, glatte** Kurve aus etwa acht Punkten (Breite ≈ 50 mm, Höhe ≈ 14 mm) und daraus eine Fläche.
+![bg right:40% 92%](assets/cax05_kuehlkanal.png)
 
-1. Prüfen Sie `IsClosed()` und den Flächeninhalt.
+Der Kühlkanal verjüngt sich vom Einlass zum Auslass (rechts; den Körper baut Einheit 6).
+
+Bauen Sie den Einlass-Querschnitt als **geschlossene, glatte** Kurve aus etwa acht Punkten (Breite ≈ 50 mm, Höhe ≈ 14 mm) und daraus eine Fläche.
+
+1. Prüfen Sie `IsClosed()` und den Flächeninhalt – plausibel ist ein Wert nahe $\frac{\pi}{4} \cdot 50 \cdot 14 \approx 550$ mm².
 2. Vergleichen Sie mit `periodic=False` und dupliziertem Endpunkt: Wo entsteht der Knick?
 
 *Hinweise:* `cf.spline(*pts, periodic=True)` – den Startpunkt am Ende **nicht** wiederholen; `cf.face`, `.IsClosed()`, `.Area()`
 
 ## Theorie B: NURBS, Stetigkeit, Flächen
 
-### NURBS: warum ein B-Spline nicht genügt
+### Ein exakter Kreis als B-Spline?
+
+Ein B-Spline ist in jeder Spanne ein **Polynom** in $u$.
+
+**Kann ein B-Spline einen exakten Kreis darstellen?** Begründen Sie Ihre Antwort.
+
+*Tipp:* Was müsste für $x(u)^2 + y(u)^2$ gelten?
+
+### NURBS: Kurven mit Gewichten
 
 ![bg right:36% 90%](assets/nurbs_circle.svg)
 
-> Kann ein B-Spline einen **exakten Kreis** darstellen?
+Jeder Kontrollpunkt bekommt ein **Gewicht** $h_i > 0$. Die Kurve wird ein Bruch zweier Polynome – eine **rationale** Kurve:
 
-**Nein.** Wäre $\mathbf{C}(t)$ ein Polynom mit $x(t)^2 + y(t)^2 = R^2$ für alle $t$, müssten alle nicht-konstanten Terme verschwinden – die Kurve wäre ein Punkt. Widerspruch.
+$$\mathbf{C}(u) = \frac{\sum_i h_i\, \mathbf{P}_i\, N_{i,p}(u)}{\sum_i h_i\, N_{i,p}(u)}$$
 
-**Lösung – Gewichte** $h_i > 0$ (rationale Kurve):
+NURBS = **N**on-**U**niform **R**ational **B**-**S**pline.
 
-$$\mathbf{C}(u) = \frac{\sum_i h_i\, \mathbf{P}_i\, N_{i,k}(u)}{\sum_i h_i\, N_{i,k}(u)}$$
-
-Viertelkreis exakt: 3 Punkte, Gewichte $1, \tfrac{\sqrt2}{2}, 1$. Rechts: gleiche Punkte, ein Gewicht – B-Spline wölbt sich, NURBS trifft den Bogen exakt.
+Viertelkreis exakt: 3 Punkte, Gewichte $1, \tfrac{\sqrt2}{2}, 1$. Rechts: gleiche Punkte – mit gleichen Gewichten wölbt sich die Kurve, mit dem kleineren Gewicht in der Mitte trifft sie den Bogen exakt.
 
 ### NURBS ist die universelle Darstellung
 
@@ -216,9 +247,9 @@ Beim STEP-Import erscheinen Freiformkurven als `BSPLINE`, teils sogar ursprüngl
 
 ### Stetigkeit: $C^0$, $G^1$, $G^2$
 
-![bg right:38% 90%](assets/curvature_comb.svg)
+![bg right:34% 95%](assets/cax05_stetigkeit.svg)
 
-Beim Aneinanderstoßen von Kurven/Flächen zählt die Anschlussbedingung:
+Aus Theorie A: $C$ fragt nach den Ableitungen nach $u$, $G$ nur nach der Geometrie. Beim Aneinanderstoßen von Kurven und Flächen zählen im CAD vor allem:
 
 | Klasse | stimmt überein | sichtbar |
 |---|---|---|
@@ -226,11 +257,11 @@ Beim Aneinanderstoßen von Kurven/Flächen zählt die Anschlussbedingung:
 | $G^1$ | Tangentenrichtung | glatt fürs Auge |
 | $G^2$ | Krümmung | reflexionsglatt |
 
-Rechts: Linie trifft Kreisbogen tangential – **$G^1$**, kein Knick. Der **Krümmungskamm** springt aber am Übergang von 0 auf $1/R$: nur $G^1$, nicht $G^2$.
+Rechts der **Krümmungskamm**: Striche senkrecht zur Kurve, ihre Länge ist proportional zur Krümmung.
 
 ### Wo Stetigkeit wirklich zählt
 
-Nicht überall ist $G^2$ nötig – aber wo, dann hart:
+$G^2$ ist nicht überall nötig. Hier schon:
 
 | Anwendung | warum $G^2$ |
 |---|---|
@@ -239,16 +270,18 @@ Nicht überall ist $G^2$ nötig – aber wo, dann hart:
 | Aerodynamik | Grenzschicht reagiert auf Krümmungsänderung |
 | Kontakt / Implantate | Spannungsspitze genau am Krümmungssprung |
 
-Faustregel: $C^0$ für boolesche Kanten, $G^1$ für `fillet`, $G^2$ für Karosserie/Strömung.
+Faustregel: $C^0$ für boolesche Kanten, $G^2$ für Karosserie und Strömung.
 
 ### Von Kurven zu Flächen
+
+![bg right:36% 92%](assets/cax05_flaeche.png)
 
 Eine Fläche hat **zwei** Parameter:
 $$\mathbf{S}(u, v) = \begin{pmatrix} x(u,v) \\ y(u,v) \\ z(u,v) \end{pmatrix}$$
 
 Alles von den Kurven gilt eine Dimension höher weiter. Die **analytische Familie** (Ebene, Zylinder, Kegel, Kugel, Torus) reicht für Standardkörper – der Rest wird `BSPLINE`.
 
-Die Normale ist $\mathbf{S}_u \times \mathbf{S}_v$ (normiert) – genau das, was `normalAt()` aus Einheit 2 berechnet.
+Hält man $u$ oder $v$ fest, entsteht eine Kurve auf der Fläche (rechts). Die Normale ist $\mathbf{S}_u \times \mathbf{S}_v$ (normiert) – genau das, was `normalAt()` berechnet.
 
 ### Was Loft erzeugt: `ruled` vs. glatt
 
@@ -257,9 +290,11 @@ Die Normale ist $\mathbf{S}_u \times \mathbf{S}_v$ (normiert) – genau das, was
 Das **Eingangsprofil** bestimmt die Ausgabefläche. Loft hat zusätzlich eine Stetigkeits-Entscheidung:
 
 ```python
+from cadquery import func as cf
+
 secs = [cf.wire(cf.circle(10)),
-        cf.wire(cf.circle(16)).translate((0,0,25)),
-        cf.wire(cf.circle(10)).translate((0,0,50))]
+        cf.wire(cf.circle(16)).moved(z=25),
+        cf.wire(cf.circle(10)).moved(z=50)]
 
 cf.loft(secs, ruled=True)    # ['CONE', 'CONE'] – Knick in der Mitte
 cf.loft(secs, ruled=False)   # ['BSPLINE'] – eine glatte Fläche
@@ -276,10 +311,18 @@ print(sorted(set(f.geomType() for f in box_f.Faces())))
 # ['CYLINDER', 'PLANE', 'SPHERE']
 ```
 
-- Zylinderfläche entlang jeder gerundeten Kante, Kugelfläche in jeder Ecke
-- Beide **tangential** ($G^1$) an die Ebenen – aber die Krümmung springt: nicht $G^2$
+- Zylinderfläche entlang jeder gerundeten Kante
+- Kugelfläche in jeder Ecke
 
 Das ist dieselbe Verrundung wie seit Einheit 1 – jetzt sehen Sie, *welche* Flächen sie erzeugt.
+
+### Welche Stetigkeit hat die Verrundung?
+
+An `box_f` stößt eine ebene Seitenfläche an die Zylinderfläche der Verrundung ($r = 3$ mm).
+
+**Welche Stetigkeit hat dieser Übergang?**
+
+A) $C^0$ &nbsp;&nbsp; B) $G^1$ &nbsp;&nbsp; C) $G^2$
 
 ### Stetigkeit sehen: Zebra-Streifen
 
@@ -291,35 +334,39 @@ Der Reiter *Zebra* im Viewer spiegelt parallele Lichtstreifen auf der Oberfläch
 | $G^1$ | laufen durch, mit Knick |
 | $G^2$ | laufen glatt durch |
 
-Die `fillet`-Kante von eben: Streifen durchgehend, aber geknickt – $G^1$. Der glatte Loft: ohne Knick.
+**Prüfen Sie Ihre Antwort:** Zeigen Sie `box_f`, `cf.loft(secs, ruled=True)` und `cf.loft(secs)` im Viewer und öffnen Sie den Reiter *Zebra*. Welche Stetigkeit hat jeder Übergang?
 
 ## Praktikum B: Auslass-Querschnitt und Kurveneigenschaften
 
 ### Aufgabe 3: Der Auslass-Querschnitt
 
-Der Kanal verjüngt sich zum Auslass (gleichmäßige Flussverteilung). Bauen Sie einen **zweiten**, kleineren Querschnitt – gleiches Prinzip, kleinere Maße:
+Der Kanal verjüngt sich zum Auslass (gleichmäßige Flussverteilung). Bauen Sie den Auslass als zweiten Querschnitt:
 
-```python
-auslass = [(22,0,0),(13,4,0),(0,5,0),(-10,3,0),
-           (-15,0,0),(-10,-3,0),(0,-5,0),(13,-4,0)]
-profil_auslass = cf.spline(*auslass, periodic=True)
-```
+- gleiche Form wie Ihr Einlass, aber nur **≈ 36 × 10 mm**
+- **40 mm** über dem Einlass (`.moved(z=40)`) – so verbindet Einheit 6 beide per Loft
 
-1. Erzeugen Sie beide Profile (Einlass aus Aufgabe 2, Auslass hier) und legen Sie sie in verschiedene Höhen (`.translate((0,0,z))`).
-2. **Damit ist der Kanal vorbereitet:** aus den beiden Querschnitten wird per Loft der verjüngte Kühlkanal – speichern Sie beide.
+*Prüfen:* Fläche nahe $\frac{\pi}{4} \cdot 36 \cdot 10 \approx 280$ mm²; `BoundingBox().zmin` ≈ 40
 
 ### Aufgabe 4: Kurveneigenschaften auslesen
 
-1. `profil.geomType()` für Ihre Splines – und für einen Kreis (`cf.circle`). Was fällt auf?
-2. Versetzen Sie das geschlossene Profil um 3 (`cf.offset2D(cf.wire(profil), 3.0)`) und lesen Sie die `geomType`-Werte der Ergebniskanten. Analytisch oder nicht?
-3. *(Zusatz)* Tasten Sie `curvatureAt(t)` entlang eines Profils ab – wo ist die Krümmung am größten (Nase vs. flanke)?
-4. *(Zusatz)* Zeigen Sie `cf.loft(secs, ruled=True)`, `cf.loft(secs)` und `box_f` im Viewer und öffnen Sie den Reiter *Zebra*: Welche Stetigkeit hat jeder Übergang?
+1. `geomType()` Ihrer Splines – und eines Kreises (`cf.circle`). Was fällt auf?
+2. Tasten Sie `curvatureAt(t)` an 100 Stellen entlang Ihres Einlass-Profils ab. Wo ist die Krümmung am größten, und wie groß ist dort der Krümmungsradius?
+3. Für die Strömung soll der Kanal nirgends enger als **R = 3 mm** gekrümmt sein. Erfüllt Ihr Profil das?
+
+*Hinweise:* `for i in range(100):` mit `t = i / 100`, `max(...)`, `.positionAt(t)`
+
+### Aufgabe 5 *(Zusatz)*: Profil glätten
+
+Verschieben Sie Punkte Ihres Einlass-Profils, bis der kleinste Krümmungsradius **mindestens 3 mm** beträgt – bei unveränderter Breite und Höhe.
+
+1. Welche Punkte bewirken am meisten?
+2. Wie ändert sich dabei der Flächeninhalt?
 
 ## Abschluss
 
 ### Leseauftrag & Ausblick
 
-- **Leseauftrag:** Buch Kapitel 6
+- **Leseauftrag:** Buch Kapitel 6 ab „Building Curves from Control Points“
 - **Wer mehr will:** einen Loft der beiden Profile schon vorab probieren (`cf.loft`) – und `ruled=True` vs. `False` vergleichen
 - **Nächste Woche:** Profile – Sweep und Loft: die beiden Querschnitte werden zum verjüngten Kühlkanal (Loft), der Kanal läuft als Sweep durch die Platte
 - Bis dahin: `w05/` (beide Profile) committet und gepusht
