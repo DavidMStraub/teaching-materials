@@ -210,7 +210,7 @@ d) Welchen Widerstand hat ein Draht gleicher Abmessungen aus Aluminium ($\rho_\t
 
 ### Temperaturabhängigkeit des Widerstands
 
-**Bisher:** konstante Temperatur. **Glühlampe:** Erwärmung → $R$ steigt → Kennlinie flacht ab.
+**Warum?** Wärmer → die Atomrümpfe schwingen stärker → die Elektronen stoßen öfter → bei gleichem Feld fließt weniger Strom: $R$ steigt.
 
 Lineare Näherung in einem begrenzten Temperaturbereich:
 
@@ -219,7 +219,9 @@ $$R(T) = R(T_0) \cdot [1 + \alpha \cdot (T - T_0)]$$
 - $\alpha$: Temperaturkoeffizient, $[\alpha] = \frac{1}{\text{K}}$
 - $T_0$: Bezugstemperatur (üblicherweise 20 °C oder 0 °C)
 
-![bg 90% right:38%](img/widerstand-temperatur.svg)
+**Glühlampe:** Mehr Spannung → heißerer Faden → größeres $R$ → ihre $I$-$U$-Kennlinie flacht ab.
+
+![bg 90% right:36%](img/ohm-kennlinie.svg)
 
 ### Leitfähigkeit verschiedener Materialien
 
