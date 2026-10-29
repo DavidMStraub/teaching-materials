@@ -77,7 +77,7 @@ Eine Kurve ist $\mathbf{C}(u) = (x(u), y(u), z(u))$ – welche Funktion?
 
 ### Erster Ansatz: Potenzbasis
 
-Koordinaten direkt als Polynom in $u$:
+Zuerst ein einzelnes Stück: Wie schreibt man ein Polynom so auf, dass man seine Form gut steuern kann? Naheliegend sind die Koordinaten direkt als Polynom in $u$:
 
 $$\mathbf{C}(u) = \mathbf{a}_0 + \mathbf{a}_1 u + \mathbf{a}_2 u^2 + \cdots + \mathbf{a}_n u^n$$
 
@@ -85,32 +85,50 @@ In der Praxis ungeeignet:
 
 - **Kein geometrischer Bezug:** aus $\mathbf{a}_3$ liest man den Kurvenverlauf nicht ab
 - **Numerisch empfindlich** bei hohem Grad
-- **Ändern = Gleichungssystem lösen**, nicht per Hand
 
 → Gesucht: eine Basis, deren Parameter **selbst Punkte im Raum** sind.
 
-### Bézier: Kontrollpunkte statt Koeffizienten
+### Bézier: Kontrollpunkte als Gewichte
 
 ![bg right:25% 80%](assets/bezier_degrees.svg)
 
-Renault, 1962 (Karosseriedesign). Kurve direkt über $n+1$ **Kontrollpunkte**:
+Renault, 1962 (Karosseriedesign): Die Kurve wird direkt aus **Kontrollpunkten** $\mathbf{P}_i$ gemischt, $u \in [0, 1]$.
 
-$$\mathbf{C}(u) = \sum_{i=0}^{n} B_{i,n}(u)\, \mathbf{P}_i, \qquad B_{i,n}(u) = \binom{n}{i} u^i (1-u)^{n-i}, \quad u \in [0,1]$$
+**Grad 1**, zwei Punkte – eine Strecke:
 
-- $B_{i,n}$: **Bernstein-Basis** – nicht-negativ, $\sum_i B_{i,n} = 1$. Jeder Kurvenpunkt ist also ein gewichteter Mittelwert der Kontrollpunkte (**Konvexkombination**).
-- Folge: Die Kurve liegt in der **konvexen Hülle** – dem kleinsten konvexen Polygon um alle Kontrollpunkte.
-- Läuft durch $\mathbf{P}_0$ und $\mathbf{P}_n$; Tangente in $\mathbf{P}_0$: Richtung $\mathbf{P}_1 - \mathbf{P}_0$
+$$\mathbf{C}(u) = (1-u)\,\mathbf{P}_0 + u\,\mathbf{P}_1$$
+
+Jeder Kurvenpunkt ist ein **gewichteter Mittelwert** der Kontrollpunkte.
+
+**Grad 2**, drei Punkte:
+
+$$\mathbf{C}(u) = (1-u)^2\,\mathbf{P}_0 + 2u(1-u)\,\mathbf{P}_1 + u^2\,\mathbf{P}_2$$
+
+**Rechnen Sie:** $\mathbf{P}_0 = (0, 0)$, $\mathbf{P}_1 = (10, 20)$, $\mathbf{P}_2 = (20, 0)$. Wo liegt $\mathbf{C}(0{,}5)$?
+
+### Die Bernstein-Polynome
+
+![bg right:36% 92%](assets/cax05_bernstein.svg)
+
+Allgemein, Grad $n$ mit $n+1$ Kontrollpunkten:
+
+$$\mathbf{C}(u) = \sum_{i=0}^{n} B_{i,n}(u)\, \mathbf{P}_i, \qquad B_{i,n}(u) = \binom{n}{i} u^i (1-u)^{n-i}$$
+
+Die Gewichte von eben sind genau diese **Bernstein-Polynome**: $B_{0,2} = (1-u)^2$, $B_{1,2} = 2u(1-u)$, $B_{2,2} = u^2$.
+
+- nie negativ, Summe immer 1 → jeder Kurvenpunkt ist ein gewichteter Mittelwert (**Konvexkombination**) → die Kurve bleibt in der **konvexen Hülle**, dem kleinsten konvexen Polygon um alle $\mathbf{P}_i$
+- bei $u = 0$ ist nur $B_{0,n} = 1$ → die Kurve beginnt in $\mathbf{P}_0$ und endet in $\mathbf{P}_n$; Tangente in $\mathbf{P}_0$: Richtung $\mathbf{P}_1 - \mathbf{P}_0$
 
 ### Die Grenzen der einzelnen Bézier-Kurve
 
 Eine einzelne Bézier-Kurve über *alle* Punkte hat zwei Schwächen:
 
 - **Grad = Punktzahl − 1:** 20 Punkte → Grad 19 → numerisch instabil, wellig
-- **Globale Kontrolle:** jeder Punkt beeinflusst die **ganze** Kurve – kein lokales Anpassen
+- **Globale Kontrolle:** Jedes Bernstein-Polynom ist auf ganz $[0, 1]$ ungleich null (Plot auf der Folie davor). Jeder Punkt beeinflusst also die **ganze** Kurve.
 
 ### Stückweise Bézier: Übergänge
 
-**Ausweg:** die Kurve in **Segmente** teilen, jedes ein Bézier-Stück niedrigen Grades. Am Übergang trifft der letzte Kontrollpunkt $\mathbf{P}_3$ eines Segments auf den ersten $\mathbf{Q}_0$ des nächsten.
+**Ausweg:** die Kurve in **Segmente** teilen, jedes ein kubisches Bézier-Stück mit 4 Kontrollpunkten. Am Übergang trifft der letzte Kontrollpunkt $\mathbf{P}_3$ eines Segments auf den ersten $\mathbf{Q}_0$ des nächsten.
 
 Wie glatt ist der Übergang?
 
@@ -133,11 +151,23 @@ $C$ steht für die Parametrisierung, $G$ für die Geometrie: $G^1$ fragt nur, ob
 
 Wie viele der vier Kontrollpunkte eines Segments können Sie bei $C^2$ noch frei setzen?
 
+### Wo stückweise Bézier eingesetzt wird
+
+![bg right:30% 85%](assets/cax05_bezier_schrift.svg)
+
+Für wenige, von Hand gesetzte Segmente ist stückweise Bézier bis heute der Standard:
+
+- **SVG-Pfade** und Vektorgrafik-Programme
+- **Schriften:** jeder Buchstabe ein Umriss aus Bézier-Segmenten – rechts das „c“ der Buchschrift. An den Quadraten liegen beide Griffe auf einer Linie, an den Rauten sitzt ein gewollter Knick.
+- OCCT kennt `BEZIER` als eigenen `geomType`, etwa nach einem STEP-Import
+
+**Für CAD-Flächen zu aufwendig:** Dort gibt es Tausende Kontrollpunkte, und jeder glatte Übergang muss von Hand verwaltet werden.
+
 ### Der B-Spline: überlappende Fenster
 
 ![bg right:46% 92%](assets/bspline_fenster.svg)
 
-Der **B-Spline** nimmt diese Buchhaltung ab: benachbarte Spannen teilen sich alle Kontrollpunkte **bis auf einen**.
+Der **B-Spline** nimmt diese Buchhaltung ab. Er besteht aus **Spannen** – Abschnitten, in denen die Kurve jeweils ein Polynom ist. Benachbarte Spannen teilen sich alle Kontrollpunkte **bis auf einen**.
 
 - **Eine Bézier-Kurve:** eine Spanne, jeder Punkt wirkt überall
 - **Stückweise Bézier:** eigene Punkte je Spanne, jeder Übergang von Hand
@@ -145,35 +175,73 @@ Der **B-Spline** nimmt diese Buchhaltung ab: benachbarte Spannen teilen sich all
 
 → Automatische Stetigkeit *und* lokale Kontrolle, ohne Übergangsgleichungen.
 
-### Die B-Spline-Formel
+### B-Spline und Bézier: gleiche Summe, andere Basis
 
-![bg right:38% 90%](assets/control_comparison.svg)
+![bg right:34% 95%](assets/cax05_basis_vergleich.svg)
 
-$$\mathbf{C}(u) = \sum_{i=0}^{n} \mathbf{P}_i\, N_{i,p}(u)$$
+$$\text{Bézier:} \quad \mathbf{C}(u) = \sum_{i=0}^{n} B_{i,n}(u)\, \mathbf{P}_i$$
 
-- $\mathbf{P}_i$ – die $n+1$ **Kontrollpunkte** (die Griffe)
-- $N_{i,p}(u)$ – **Basisfunktionen** vom Grad $p$ (kubisch: $p = 3$): das Gewicht, mit dem $\mathbf{P}_i$ beim Parameter $u$ zieht
-- jede $N_{i,p}$ ist nur über ein **Fenster** ungleich null → **lokale** Kontrolle (rechts: Bézier global, B-Spline lokal)
-- $\sum_i N_{i,p}(u) = 1$ → Konvexkombination wie bei Bézier
+$$\text{B-Spline:} \quad \mathbf{C}(u) = \sum_{i=0}^{n} N_{i,p}(u)\, \mathbf{P}_i$$
 
-### Der Knotenvektor
+| | Bézier | B-Spline |
+|---|---|---|
+| Grad | $n$ = Punktzahl − 1 | $p$ frei wählbar, meist 3 |
+| Basisfunktion $\neq 0$ | auf ganz $[0, 1]$ | nur auf $p + 1$ Spannen |
+| festgelegt durch | nur $n$ | $p$ und den **Knotenvektor** |
 
-Was die $N_{i,p}$ überhaupt festlegt, ist der **Knotenvektor**:
+Auch die $N_{i,p}$ summieren sich überall zu 1 – die Kurve bleibt in der konvexen Hülle.
 
-$$U = (u_0 \le u_1 \le \dots \le u_m)$$
+### Der Knotenvektor am Beispiel
 
-- eine **nicht-fallende** Folge von Parameterwerten, den **Knoten**
-- die Knoten teilen die Parameterachse in **Spannen** und legen fest, **wo** jede $N_{i,p}$ ihr Fenster hat
-- bei lauter verschiedenen Knoten ist eine Kurve vom Grad $p$ überall **$C^{p-1}$** – kubisch also $C^2$, der CAD-Standard
-- ein Knotenwert darf **mehrfach** vorkommen; wie oft, heißt seine **Multiplizität**
+Die B-Spline-Basis von eben gehört zum Knotenvektor $U = (0, 0, 0, 0,\ 1,\ 2,\ 3,\ 4, 4, 4, 4)$.
+
+Die **Knoten** sind die senkrechten Linien, dazwischen liegt je eine **Spanne**. 7 Basisfunktionen gehören zu 7 Kontrollpunkten $\mathbf{P}_0 \ldots \mathbf{P}_6$.
+
+![w:17cm](assets/cax05_knoten.svg)
+
+### Was der Knotenvektor festlegt
+
+$U = (0, 0, 0, 0,\ 1,\ 2,\ 3,\ 4, 4, 4, 4)$
+
+- **Innere Knoten** (1, 2, 3) teilen die Kurve in Spannen; in jeder Spanne ist sie ein Polynom vom Grad $p$
+- Bei lauter einfachen inneren Knoten ist die Kurve überall $C^{p-1}$ – kubisch also $C^2$, der CAD-Standard
+- **Randknoten** (0 und 4) stehen je viermal da: Die Kurve beginnt genau in $\mathbf{P}_0$ und endet in $\mathbf{P}_6$
+- Wie oft ein Knotenwert vorkommt, heißt seine **Multiplizität**
+
+### Lokale Kontrolle: ein Punkt verschoben
+
+![bg right:40% 92%](assets/control_comparison.svg)
+
+Gleiche 7 Kontrollpunkte, $\mathbf{P}_1$ gleich weit verschoben:
+
+- **Bézier, Grad 6:** die ganze Kurve ändert sich
+- **Kubischer B-Spline:** nur der Anfang ändert sich; ab der Markierung ist die Kurve identisch mit dem Original
+
+Der Grund steht im Plot der Basisfunktionen: $N_{1,3}$ ist nur auf den ersten Spannen ungleich null.
 
 ### Knoten im Editor ausprobieren
 
 [B-Spline-Editor](https://davidstraub.de/teaching-apps/bspline-editor/) – kubisch, unten die Basisfunktionen $N_{i,3}$ und die Knoten-Ticks
 
-1. Ziehen Sie einen Kontrollpunkt. Welcher Teil der Kurve bewegt sich? Vergleichen Sie mit den Basisfunktionen.
-2. **Sagen Sie zuerst voraus:** Was passiert an einer Stelle, an der zwei Knoten zusammenfallen? Und bei drei?
-3. Probieren Sie es aus: Schieben Sie Knoten-Ticks aufeinander.
+1. **Sagen Sie zuerst voraus:** Was passiert an einer Stelle, an der zwei innere Knoten zusammenfallen? Und bei drei?
+2. Probieren Sie es aus: Schieben Sie Knoten-Ticks aufeinander. Achten Sie auf die Kurve und auf die Basisfunktionen.
+
+### Knotenvektor lesen
+
+B-Spline vom Grad $p$ mit Knotenvektor $U = (u_0, u_1, \ldots)$:
+
+| Frage | Regel |
+|---|---|
+| Wie viele Kontrollpunkte? | Länge von $U$ minus $p$ minus 1 |
+| Stetigkeit an einem inneren Knoten, der $m$-mal vorkommt? | $C^{p-m}$ – bei $m = p$ ein Knick |
+| Läuft die Kurve durch $\mathbf{P}_0$? | ja, wenn der erste Knoten $(p+1)$-mal vorkommt |
+| Wo wirkt $\mathbf{P}_i$? | nur für $u$ von $u_i$ bis $u_{i+p+1}$ |
+
+**Üben Sie:** kubisch, $U = (0, 0, 0, 0,\ 1, 1,\ 2,\ 3, 3, 3, 3)$
+
+1. Wie viele Kontrollpunkte hat die Kurve?
+2. Welche Stetigkeit hat sie bei $u = 1$ und bei $u = 2$?
+3. In welchem Bereich von $u$ wirkt der letzte Kontrollpunkt?
 
 ### Interpolation: Kurve durch gegebene Punkte
 
@@ -181,7 +249,7 @@ $$U = (u_0 \le u_1 \le \dots \le u_m)$$
 
 Kontrollpunkte sind Hebel – die Kurve läuft an ihnen vorbei. Oft liegen die Punkte aber **fest**: gemessen, aus einer Tabelle, aus einer Formel. Dann soll die Kurve **genau hindurch**.
 
-Das ist **Interpolation**: Zu den Datenpunkten $\mathbf{Q}_i$ löst der Kern die passenden Kontrollpunkte $\mathbf{P}_i$ – ein lineares Gleichungssystem.
+Das ist **Interpolation**: Zu den Datenpunkten $\mathbf{Q}_i$ löst der Kern die passenden Kontrollpunkte $\mathbf{P}_i$ – ein lineares Gleichungssystem. `cf.spline(punkte)` macht genau das.
 
 Rechts: die Kurve trifft jeden Datenpunkt (rot), die dafür berechneten Kontrollpunkte (blau) liegen woanders.
 
@@ -208,7 +276,7 @@ Bauen Sie den Einlass-Querschnitt als **geschlossene, glatte** Kurve aus etwa ac
 1. Prüfen Sie `IsClosed()` und den Flächeninhalt – plausibel ist ein Wert nahe $\frac{\pi}{4} \cdot 50 \cdot 14 \approx 550$ mm².
 2. Vergleichen Sie mit `periodic=False` und dupliziertem Endpunkt: Wo entsteht der Knick?
 
-*Hinweise:* `cf.spline(*pts, periodic=True)` – den Startpunkt am Ende **nicht** wiederholen; `cf.face`, `.IsClosed()`, `.Area()`
+*Hinweise:* `cf.spline(*pts, periodic=True)` schließt die Kurve glatt vom letzten zum ersten Punkt – den Startpunkt am Ende **nicht** wiederholen; `cf.face`, `.IsClosed()`, `.Area()`
 
 ## Theorie B: NURBS, Stetigkeit, Flächen
 
@@ -336,18 +404,9 @@ Der Reiter *Zebra* im Viewer spiegelt parallele Lichtstreifen auf der Oberfläch
 
 **Prüfen Sie Ihre Antwort:** Zeigen Sie `box_f`, `cf.loft(secs, ruled=True)` und `cf.loft(secs)` im Viewer und öffnen Sie den Reiter *Zebra*. Welche Stetigkeit hat jeder Übergang?
 
-## Praktikum B: Auslass-Querschnitt und Kurveneigenschaften
+## Praktikum B: Kurveneigenschaften und Auslass-Querschnitt
 
-### Aufgabe 3: Der Auslass-Querschnitt
-
-Der Kanal verjüngt sich zum Auslass (gleichmäßige Flussverteilung). Bauen Sie den Auslass als zweiten Querschnitt:
-
-- gleiche Form wie Ihr Einlass, aber nur **≈ 36 × 10 mm**
-- **40 mm** über dem Einlass (`.moved(z=40)`) – so verbindet Einheit 6 beide per Loft
-
-*Prüfen:* Fläche nahe $\frac{\pi}{4} \cdot 36 \cdot 10 \approx 280$ mm²; `BoundingBox().zmin` ≈ 40
-
-### Aufgabe 4: Kurveneigenschaften auslesen
+### Aufgabe 3: Kurveneigenschaften auslesen
 
 1. `geomType()` Ihrer Splines – und eines Kreises (`cf.circle`). Was fällt auf?
 2. Tasten Sie `curvatureAt(t)` an 100 Stellen entlang Ihres Einlass-Profils ab. Wo ist die Krümmung am größten, und wie groß ist dort der Krümmungsradius?
@@ -355,12 +414,23 @@ Der Kanal verjüngt sich zum Auslass (gleichmäßige Flussverteilung). Bauen Sie
 
 *Hinweise:* `for i in range(100):` mit `t = i / 100`, `max(...)`, `.positionAt(t)`
 
-### Aufgabe 5 *(Zusatz)*: Profil glätten
+### Aufgabe 4 *(Zusatz)*: Profil glätten
 
 Verschieben Sie Punkte Ihres Einlass-Profils, bis der kleinste Krümmungsradius **mindestens 3 mm** beträgt – bei unveränderter Breite und Höhe.
 
 1. Welche Punkte bewirken am meisten?
 2. Wie ändert sich dabei der Flächeninhalt?
+
+### Aufgabe 5 *(Zusatz)*: Der Auslass-Querschnitt
+
+Der Kanal verjüngt sich zum Auslass (gleichmäßige Flussverteilung). Bauen Sie den Auslass als zweiten Querschnitt:
+
+- gleiche Form wie Ihr Einlass, aber nur **≈ 36 × 10 mm**
+- **40 mm** über dem Einlass (`.moved(z=40)`)
+
+Einheit 6 verbindet Einlass und Auslass per Loft – erledigen Sie diese Aufgabe spätestens bis dahin.
+
+*Prüfen:* Fläche nahe $\frac{\pi}{4} \cdot 36 \cdot 10 \approx 280$ mm²; `BoundingBox().zmin` ≈ 40
 
 ## Abschluss
 
