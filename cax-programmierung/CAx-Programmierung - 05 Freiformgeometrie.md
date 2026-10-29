@@ -161,19 +161,19 @@ Für wenige, von Hand gesetzte Segmente ist stückweise Bézier bis heute der St
 - **Schriften:** jeder Buchstabe ein Umriss aus Bézier-Segmenten – rechts das „c“ der Buchschrift. An den Quadraten liegen beide Griffe auf einer Linie, an den Rauten sitzt ein gewollter Knick.
 - OCCT kennt `BEZIER` als eigenen `geomType`, etwa nach einem STEP-Import
 
-**Für CAD-Flächen zu aufwendig:** Dort gibt es Tausende Kontrollpunkte, und jeder glatte Übergang muss von Hand verwaltet werden.
+**Für CAD-Flächen ungünstig:** Die Glätte ist eine **Nebenbedingung** zwischen den Punkten. Jede Änderung – von Hand oder per Algorithmus – muss die abhängigen Punkte an jedem Übergang mitführen, sonst entsteht ein Knick.
 
 ### Der B-Spline: überlappende Fenster
 
 ![bg right:46% 92%](assets/bspline_fenster.svg)
 
-Der **B-Spline** nimmt diese Buchhaltung ab. Er besteht aus **Spannen** – Abschnitten, in denen die Kurve jeweils ein Polynom ist. Benachbarte Spannen teilen sich alle Kontrollpunkte **bis auf einen**.
+Beim **B-Spline** ist die Glätte in die Darstellung eingebaut. Er besteht aus **Spannen** – Abschnitten, in denen die Kurve jeweils ein Polynom ist. Benachbarte Spannen teilen sich alle Kontrollpunkte **bis auf einen**.
 
 - **Eine Bézier-Kurve:** eine Spanne, jeder Punkt wirkt überall
-- **Stückweise Bézier:** eigene Punkte je Spanne, jeder Übergang von Hand
+- **Stückweise Bézier:** eigene Punkte je Spanne, Glätte als Nebenbedingung an jedem Übergang
 - **B-Spline:** überlappende Spannen → Stetigkeit entsteht **von selbst**
 
-→ Automatische Stetigkeit *und* lokale Kontrolle, ohne Übergangsgleichungen.
+→ Jede Lage der Kontrollpunkte ergibt eine glatte Kurve – ohne Nebenbedingungen, mit lokaler Kontrolle.
 
 ### B-Spline und Bézier: gleiche Summe, andere Basis
 
@@ -280,13 +280,16 @@ Bauen Sie den Einlass-Querschnitt als **geschlossene, glatte** Kurve aus etwa ac
 
 ## Theorie B: NURBS, Stetigkeit, Flächen
 
-### Ein exakter Kreis als B-Spline?
+### Kreisbogen als B-Spline
 
-Ein B-Spline ist in jeder Spanne ein **Polynom** in $u$.
+In jeder Spanne eines B-Splines sind $x(u)$ und $y(u)$ **Polynome** in $u$. Gesucht ist eine Spanne, die genau auf dem Einheitskreis liegt:
 
-**Kann ein B-Spline einen exakten Kreis darstellen?** Begründen Sie Ihre Antwort.
+$$x(u)^2 + y(u)^2 = 1 \quad \text{für alle } u$$
 
-*Tipp:* Was müsste für $x(u)^2 + y(u)^2$ gelten?
+1. Versuchen Sie es mit Grad 1: $x = a_0 + a_1 u$, $y = b_0 + b_1 u$. Multiplizieren Sie $x^2 + y^2$ aus und bestimmen Sie die Koeffizienten.
+2. Versuchen Sie es mit Grad 2: $x = a_0 + a_1 u + a_2 u^2$, $y = b_0 + b_1 u + b_2 u^2$.
+
+*Tipp:* Ein Polynom ist genau dann für alle $u$ gleich 1, wenn sein konstanter Term 1 ist und alle anderen Koeffizienten null sind.
 
 ### NURBS: Kurven mit Gewichten
 
@@ -295,6 +298,8 @@ Ein B-Spline ist in jeder Spanne ein **Polynom** in $u$.
 Jeder Kontrollpunkt bekommt ein **Gewicht** $h_i > 0$. Die Kurve wird ein Bruch zweier Polynome – eine **rationale** Kurve:
 
 $$\mathbf{C}(u) = \frac{\sum_i h_i\, \mathbf{P}_i\, N_{i,p}(u)}{\sum_i h_i\, N_{i,p}(u)}$$
+
+Sind alle Gewichte gleich, kürzen sie sich heraus. Wegen $\sum_i N_{i,p} = 1$ wird der Nenner 1 – übrig bleibt der gewöhnliche B-Spline.
 
 NURBS = **N**on-**U**niform **R**ational **B**-**S**pline.
 
