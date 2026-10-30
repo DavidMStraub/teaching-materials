@@ -36,21 +36,53 @@ Vor dem Rechnen bekommt **jede** Spannung und **jeder** Strom eine Zählrichtung
 
 ### Knotenpunktregel (1. Kirchhoff’sches Gesetz)
 
-In einem Knotenpunkt kann weder Ladung gespeichert noch erzeugt werden. Die Summe aller zufließenden Ströme ist gleich der Summe aller abfließenden Ströme:
+**Knoten:** Punkt, an dem sich die Leitung verzweigt.
 
-$$\sum_{k} I_{k} = 0$$
+Im Knoten kann weder Ladung gespeichert noch erzeugt werden. Was hineinfließt, fließt auch wieder heraus:
 
-Zufließende Ströme zählen positiv, abfließende negativ.
+$$\sum I_\text{zu} = \sum I_\text{ab}$$
 
-![bg right:30% 80%](img/kirchhoff-knoten.svg)
+Gleichwertig: Alle Ströme mit Vorzeichen addieren, zufließend $+$, abfließend $-$. Das Ergebnis ist Null.
+
+Ob ein Strom zu- oder abfließt, legt sein **Zählpfeil** fest.
+
+![bg right:40% 90%](img/kirchhoff-netz-knoten.svg)
+
+### Knotenpunktregel: Beispiel
+
+$I_1$ und $I_4$ fließen zu, $I_2$ und $I_3$ fließen ab:
+
+$$I_1 + I_4 = I_2 + I_3$$
+
+Mit Vorzeichen auf eine Seite gebracht:
+
+$$I_1 - I_2 - I_3 + I_4 = 0$$
+
+![bg right:35% 80%](img/kirchhoff-knoten.svg)
 
 ### Maschenregel (2. Kirchhoff’sches Gesetz)
 
-Spannung ist eine Potentialdifferenz (2.2). Wer einmal die Masche entlang läuft, kommt beim selben Potential wieder an. Die Summe aller Spannungen in einer Masche ist deshalb Null:
+**Masche:** geschlossener Umlauf durch die Schaltung.
 
-$$\sum_{k} U_{k} = 0$$
+Spannung ist eine Potentialdifferenz (2.2). Wer einmal die Masche entlang läuft, kommt beim selben Potential wieder an. Deshalb gilt:
 
-![bg right:42% 90%](img/kirchhoff-masche.svg)
+Alle Spannungen der Masche mit Vorzeichen addieren ergibt Null.
+
+1. Umlaufrichtung wählen (frei)
+2. Spannungspfeil **in** Umlaufrichtung → $+U$
+3. Spannungspfeil **gegen** Umlaufrichtung → $-U$
+
+![bg right:40% 90%](img/kirchhoff-netz-masche.svg)
+
+### Maschenregel: Beispiel
+
+Umlauf im Uhrzeigersinn: $U_1$ und $U_2$ zeigen in Umlaufrichtung, $U_\text{q}$ zeigt dagegen:
+
+$$-U_\text{q} + U_1 + U_2 = 0$$
+
+Umgestellt: $U_\text{q} = U_1 + U_2$. Die Quellenspannung teilt sich auf die Widerstände auf.
+
+![bg right:42% 90%](img/kirchhoff-masche-beispiel.svg)
 
 ### 🗳️ Vorzeichen in der Masche
 
@@ -321,7 +353,7 @@ c) Skizzieren Sie die $U$-$I$-Kennlinie und tragen Sie Leerlauf, Kurzschluss und
 ### Zwischenstand & Ausblick
 
 - Zählpfeile zuerst festlegen; ein negatives Ergebnis heißt: es fließt andersherum
-- Kirchhoff: $\sum I_k = 0$ (Knoten), $\sum U_k = 0$ (Masche); $k-1$ unabhängige Knotengleichungen
+- Kirchhoff: zufließend = abfließend (Knoten), Spannungen im Umlauf mit Vorzeichen ergeben Null (Masche); $k-1$ unabhängige Knotengleichungen
 - Teilerregeln: Spannung ∝ R (Reihe), Strom ∝ G (parallel) – entscheidend sind die Knoten, nicht die Zeichnung
 - Ein belasteter Spannungsteiler bricht ein!
 - Reale Quelle = zwei Kenngrößen: $U_0$ und $R_i$ (oder äquivalent $I_0 = U_0/R_i$)
