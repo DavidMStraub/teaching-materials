@@ -20,13 +20,13 @@ David Straub
 4. Temperaturabhängigkeit des Widerstands
 5. Die Kirchhoff’schen Gesetze
 6. Reihen- und Parallelschaltung, Teilerregeln
-7. Zweipoltheorie
-8. Arbeit und Leistung
-9. Reale Messungen im Gleichstromkreis
+7. Zweipoltheorie: **Ersatzquelle eines Netzwerks, Quellen in Reihe und parallel**
+8. **Arbeit und Leistung: Leistungsanpassung, Wirkungsgrad, Arbeitspunkt**
+9. **Reale Messungen im Gleichstromkreis: Spannung, Strom (Shunt), Vierleitermessung**
 
-### Ersatzquelle eines beliebigen Netzwerks bestimmen 🔑
+### Ersatzquelle eines beliebigen Netzwerks bestimmen
 
-Jetzt lösen wir das Versprechen aus der letzten Woche ein: Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersatzspannungsquelle** ($U_0$, $R_i$) oder **Ersatzstromquelle** ($I_0$, $R_i$) darstellen. Rezept:
+Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersatzspannungsquelle** ($U_0$, $R_i$) oder **Ersatzstromquelle** ($I_0$, $R_i$) darstellen. Rezept:
 
 1. **Leerlaufspannung** $U_0$: Spannung an den offenen Klemmen berechnen
 2. **Innenwiderstand** $R_i$: Quellen deaktivieren (U-Quelle → **Kurzschluss**, I-Quelle → **Unterbrechung**), dann Widerstand von den Klemmen aus berechnen
@@ -37,6 +37,8 @@ Jetzt lösen wir das Versprechen aus der letzten Woche ein: Jedes lineare Netzwe
 ![bg 92% right:30%](img/blackbox-esb.svg)
 
 ### 🗳️ Innenwiderstand mit Stromquelle
+
+Kurzschreibweise für zwei parallele Widerstände: $R_1 \parallel R_2 = \dfrac{R_1 R_2}{R_1 + R_2}$
 
 Wie groß ist der Innenwiderstand $R_i$ der Schaltung an den Klemmen a–b?
 
