@@ -100,12 +100,18 @@ D) $-1 \, \text{V}$
 
 ![bg right:35% 90%](img/kirchhoff-masche.svg)
 
+### Knoten und Zweige
+
+- **Knoten:** Verzweigungspunkt, an dem mindestens drei Zweige zusammentreffen
+- **Zweig:** Verbindung zwischen zwei Knoten (ein oder mehrere Bauteile in Reihe); durch einen Zweig fließt überall derselbe Strom
+
+Im Bild: 2 Knoten und 3 Zweige (Quelle $U$, $R_1$, $R_2$)
+
+![bg 90% right:33%](img/knoten-zweige.svg)
+
 ### Wie viele unabhängige Gleichungen gibt es?
 
 Netzwerk mit $k$ Knoten und $z$ Zweigen:
-
-- **Knoten:** alle Punkte, die nur durch Draht verbunden sind
-- **Zweig:** ein Bauteil (Widerstand, Quelle) zwischen zwei Knoten
 
 - **Unabhängige Knotengleichungen:** $k - 1$
   (die letzte Knotengleichung folgt aus den anderen)
@@ -173,7 +179,7 @@ Zwei Widerstände: $\quad I_1 = I \cdot \dfrac{R_2}{R_1 + R_2}$
 
 ### Reihe oder parallel? So erkennt man es *wirklich*
 
-- **In Reihe** ⇔ zwischen ihnen **kein Knoten mit Abzweig** ⇔ zwingend **derselbe Strom**
+- **In Reihe** ⇔ zwischen ihnen **kein Knoten** ⇔ zwingend **derselbe Strom**
 - **Parallel** ⇔ beide an **denselben zwei Knoten** ⇔ zwingend **dieselbe Spannung**
 
 ![w:800](img/reihe-parallel.svg)
@@ -182,7 +188,7 @@ Zwei Widerstände: $\quad I_1 = I \cdot \dfrac{R_2}{R_1 + R_2}$
 
 ### Methode: Knoten markieren
 
-1. Alle Punkte, die nur durch Draht verbunden sind, bilden **einen** Knoten → gleich einfärben
+1. Alles, was nur durch Draht mit einem Knoten verbunden ist, gehört zu **diesem** Knoten (gleiches Potential) → gleich einfärben
 2. Schaltung mit diesen Knoten **neu zeichnen**
 3. Kriterium von der vorigen Folie anwenden
 

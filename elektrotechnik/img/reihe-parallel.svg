@@ -9,7 +9,6 @@
     <line x1="260" y1="90" x2="315" y2="90"/>
     <circle cx="320" cy="90" r="5"/>
   </g>
-  <circle cx="170" cy="90" r="7" fill="#dc2626"/>
   <text x="95" y="68" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">1</tspan></text>
   <text x="215" y="68" fill="#111827" font-size="22" font-style="italic">R<tspan font-size="16" dy="6">2</tspan></text>
 
