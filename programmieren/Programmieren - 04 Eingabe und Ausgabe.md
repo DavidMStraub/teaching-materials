@@ -44,7 +44,7 @@ else:
 ### Heute lernen Sie
 
 - Programme, die **Eingaben** entgegennehmen: `input()`
-- Eingaben in Zahlen **umwandeln**: `int()`, `float()`
+- Werte in einen anderen Typ **umwandeln**: `int()`, `float()`
 - Ausgaben **formatieren**: f-Strings
 - Das Muster, nach dem fast jedes Programm aufgebaut ist: **Eingabe → Verarbeitung → Ausgabe**
 
@@ -82,7 +82,22 @@ print(zahl + zahl)       # "5" + "5" → "55"
 - Kennen Sie aus Woche 2: `+` **verkettet** Text
 - Wer rechnen will, muss erst **umwandeln**
 
-### Umwandeln: `int()` und `float()`
+### Typumwandlung: `int()` und `float()`
+
+```python
+text = input("Zahl: ")    # Eingabe: 5
+print(type(text))
+
+zahl = int(text)
+print(type(zahl))
+print(zahl + zahl)
+```
+
+- `int(...)` wandelt einen Wert in eine ganze Zahl, `float(...)` in eine Kommazahl
+- Der Typ ändert sich – und damit, was `+` tut: jetzt wird gerechnet
+- Funktioniert mit jedem passenden Wert, nicht nur mit Eingaben
+
+### Kurzform: Funktionen verschachteln
 
 ```python
 alter = int(input("Alter: "))
@@ -92,9 +107,33 @@ print(alter + 1)
 print(groesse * 100)
 ```
 
-- `int(...)` wandelt Text in eine ganze Zahl, `float(...)` in eine Kommazahl
-- Bei unsinniger Eingabe (`"abc"`) gibt es einen `ValueError` – Fehlermeldung lesen!
-- Kommazahlen mit **Punkt** eintippen: `3.5` – bei `3,5` gibt es ebenfalls einen `ValueError`
+- Von **innen nach außen** lesen: erst `input(...)` liefert Text, dann macht `int(...)` daraus eine Zahl
+- Das Ergebnis der inneren Funktion ist der Wert für die äußere – wie bei `print(type(x))` aus Woche 2
+
+### Vorhersage-Aufgabe (2 min)
+
+Zahl oder Fehler? Aufschreiben, dann ausführen:
+
+```python
+print(int("42"))
+print(float("3.5"))
+print(float(7))
+print(int(13.7))
+print(int("13.7"))
+```
+
+### Was `int()` und `float()` annehmen
+
+```
+----> 5 print(int("13.7"))
+
+ValueError: invalid literal for int() with base 10: '13.7'
+```
+
+- `float(7)` ergibt `7.0` – aus der ganzen Zahl wird eine Kommazahl
+- `int(13.7)` ergibt `13` – es schneidet ab, statt zu runden
+- `int("13.7")` scheitert: Text für `int(...)` muss wie eine **ganze** Zahl aussehen
+- Ebenso `ValueError`: `int("abc")` und `float("3,5")` – Kommazahlen mit **Punkt** eintippen
 
 ### Mini-Aufgabe (3 min)
 
@@ -138,7 +177,8 @@ print(f"Reichweite: {reichweite} km")
 ```
 
 - `f` **vor** dem Anführungszeichen
-- Alles in `{...}` wird durch den Wert ersetzt – auch Ausdrücke: `f"{energie / 2} kWh"`
+- Alles in `{...}` wird durch den Wert ersetzt – auch Ausdrücke: `f"Halbe Reichweite: {reichweite / 2} km"`
+- Beliebig viele `{...}` in einem f-String: `f"{name} fährt {reichweite} km"`
 
 ### Formatieren: Nachkommastellen und Feldbreite
 
@@ -152,17 +192,32 @@ print(f"|{reichweite:>8.1f}|")
 ```
 
 - `:.1f` – eine Nachkommastelle (`.3f` – drei, …)
-- `:>6` – rechtsbündig in 6 Zeichen Breite (praktisch für Tabellen)
+- `:>6` – rechtsbündig in 6 Zeichen Breite (praktisch für Tabellen); die `|` sind nur Text und machen die Breite sichtbar
 - Beides kombinierbar – und beides begegnet Ihnen ab jetzt jede Woche: Sie kennen es bald auswendig, ohne es zu merken
 
-### Mini-Aufgabe (2 min)
+### Vorhersage-Aufgabe (2 min)
+
+Wie sieht die Ausgabe aus – Zeichen für Zeichen? Aufschreiben, dann ausführen:
+
+```python
+print(f"|{3.14159:>8.2f}|")
+print(f"|{42:>5}|")
+print(f"|{12345:>3}|")
+```
+
+Zählen Sie die Leerzeichen!
+
+### Mini-Aufgabe (4 min)
 
 Zurück zu Ihrem Reichweiten-Rechner:
 
-Ändern Sie die Ausgabe (`print`) so, dass die Reichweite mit **genau einer Nachkommastelle** erscheint:
+1. Geben Sie die Reichweite mit **genau einer Nachkommastelle** aus: `Reichweite: 400.0 km`
+2. Ergänzen Sie eine kleine Tabelle für zwei Verbrauchswerte, `15` und `20` kWh/100 km – Zahlen rechtsbündig unter den Überschriften:
 
 ```
-Reichweite: 400.0 km
+Verbrauch  Reichweite
+     15.0       400.0
+     20.0       300.0
 ```
 
 ### Debug-Aufgabe (3 min)
@@ -179,14 +234,14 @@ print("Nächstes Jahr sind Sie {naechstes_jahr}")
 
 ```python
 # 1. Eingabe
-u = float(input("Spannung in V: "))
-i = float(input("Strom in A: "))
+spannung = float(input("Spannung in V: "))
+strom = float(input("Strom in A: "))
 
 # 2. Verarbeitung
-r = u / i
+widerstand = spannung / strom
 
 # 3. Ausgabe
-print(f"Widerstand: {r:.2f} Ohm")
+print(f"Widerstand: {widerstand:.2f} Ohm")
 ```
 
 Fast jedes Programm folgt diesem Muster – vom Mini-Skript bis zur Messdaten-Auswertung.
@@ -200,9 +255,12 @@ Unser Programm aus Woche 2 – jetzt mit echter Eingabe:
 1. Kapazität in mAh **einlesen** (`float`)
 2. Stromaufnahme in mA **einlesen** (`float`)
 3. Laufzeit in Stunden **berechnen**
-4. **Ausgeben** (`print`) mit einer Nachkommastelle: `Laufzeit: 13.7 Stunden`
+4. **Ausgeben** (`print`) – mit einer Nachkommastelle **und** in Stunden und Minuten:
+   `Laufzeit: 13.7 Stunden (13 h 42 min)`
 
 Notieren Sie zuerst die drei Phasen: Was wird eingelesen? Was berechnet? Was ausgegeben?
+
+Und: Wie kommen Sie von 13.714… Stunden auf 13 h und 42 min?
 
 Zusatz für Schnelle: Geben Sie eine Warnung aus (`print`), wenn die Laufzeit unter 8 Stunden liegt – Woche 3 lässt grüßen.
 
