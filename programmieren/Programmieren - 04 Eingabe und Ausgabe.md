@@ -94,6 +94,7 @@ print(groesse * 100)
 
 - `int(...)` wandelt Text in eine ganze Zahl, `float(...)` in eine Kommazahl
 - Bei unsinniger Eingabe (`"abc"`) gibt es einen `ValueError` – Fehlermeldung lesen!
+- Kommazahlen mit **Punkt** eintippen: `3.5` – bei `3,5` gibt es ebenfalls einen `ValueError`
 
 ### Mini-Aufgabe (3 min)
 
@@ -114,6 +115,10 @@ haelfte = energie / 2
 ```
 
 ```
+Cell In[1], line 2
+      1 energie = input("Energieinhalt in kWh: ")
+----> 2 haelfte = energie / 2
+
 TypeError: unsupported operand type(s) for /: 'str' and 'int'
 ```
 
@@ -162,12 +167,12 @@ Reichweite: 400.0 km
 
 ### Debug-Aufgabe (3 min)
 
-Dieses Programm stürzt ab. Finden Sie den Fehler und beheben Sie ihn:
+Dieses Programm soll ausgeben, wie alt Sie nächstes Jahr sind. Finden Sie beide Fehler:
 
 ```python
 alter = input("Alter: ")
 naechstes_jahr = alter + 1
-print(f"Nächstes Jahr sind Sie {naechstes_jahr}")
+print("Nächstes Jahr sind Sie {naechstes_jahr}")
 ```
 
 ### Das Muster: Eingabe → Verarbeitung → Ausgabe
@@ -211,12 +216,30 @@ Ohne Computer – was kommt heraus?
 
 1. Welchen Datentyp liefert `input()` – immer?
 2. `print(f"{2.5:.2f}")`
-3. `eingabe = input(...)` – der Benutzer tippt `12`. Was gibt `print(eingabe + 1)`?
+3. `eingabe = input(...)` – eingetippt wird `12`. Was gibt `print(eingabe + 1)`?
 4. Wie breit ist die Ausgabe von `f"{7:>4}"` – und wo steht die 7?
+
+### 🗳️ Zum Schluss: Was gibt das aus?
+
+Eingetippt wird zuerst `3`, dann `4`:
+
+```python
+a = input("a: ")
+b = input("b: ")
+print(a * 2 + b)
+```
+
+A) `10`
+
+B) `334`
+
+C) `64`
+
+D) `TypeError`
 
 ### Bis nächste Woche!
 
 Nächste Woche: **Schleifen** – Programme, die Dinge wiederholen
 
-- Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
+- Üben: KI-Quizze auf OneTutor: https://link.hm.edu/vkej
 - Fragen: jederzeit im Matrix-Chat
