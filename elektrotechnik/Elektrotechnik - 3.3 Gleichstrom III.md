@@ -24,6 +24,30 @@ David Straub
 8. **Arbeit und Leistung: Leistungsanpassung, Wirkungsgrad, Arbeitspunkt**
 9. **Reale Messungen im Gleichstromkreis: Spannung, Strom (Shunt), Vierleitermessung**
 
+### Rückblick: reale Spannungsquelle
+
+Ideale Spannungsquelle $U_0$ **in Reihe** mit dem Innenwiderstand $R_i$:
+
+$$U = U_0 - R_i \cdot I$$
+
+- Leerlauf ($I = 0$): $U = U_0$
+- Kurzschluss ($U = 0$): $I_k = \dfrac{U_0}{R_i}$
+- Kennlinie: fallende Gerade mit Steigung $-R_i$
+
+![bg right:38% vertical 80%](img/quelle-u-real.svg)
+![bg 80%](img/kennlinie.svg)
+
+### 📝 Kurzaufgabe: Was sieht der Verbraucher?
+
+Spannungsteiler aus Aufgabe 7b: $U = 12 \, \text{V}$, $R_1 = R_2 = 1 \, \text{k}\Omega$. Bekannt aus 7b:
+
+- Leerlauf: $U_a = 6 \, \text{V}$
+- mit $R_L = 1 \, \text{k}\Omega$: $U_a = 4 \, \text{V}$, also $I = 4 \, \text{mA}$
+
+Der Verbraucher sieht nur die Klemmen a–b. Durch welche reale Spannungsquelle ($U_0$, $R_i$) lässt sich der Spannungsteiler ersetzen?
+
+![bg 90% right:45%](img/spannungsteiler-last.svg)
+
 ### Ersatzquelle eines beliebigen Netzwerks bestimmen
 
 Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersatzspannungsquelle** ($U_0$, $R_i$) oder **Ersatzstromquelle** ($I_0$, $R_i$) darstellen. Rezept:
@@ -36,9 +60,22 @@ Jedes lineare Netzwerk mit Quellen lässt sich an zwei Klemmen a–b als **Ersat
 
 ![bg 92% right:30%](img/blackbox-esb.svg)
 
-### 🗳️ Innenwiderstand mit Stromquelle
+### Rezept am Spannungsteiler
 
-Kurzschreibweise für zwei parallele Widerstände: $R_1 \parallel R_2 = \dfrac{R_1 R_2}{R_1 + R_2}$
+Derselbe Spannungsteiler, jetzt ohne Messpunkte:
+
+1. Leerlauf: $U_0 = U \cdot \dfrac{R_2}{R_1 + R_2}$
+2. Quelle kurzschließen: $R_1$ und $R_2$ liegen dann beide zwischen a und b, also parallel:
+
+$$R_i = R_1 \parallel R_2 = \dfrac{R_1 R_2}{R_1 + R_2}$$
+
+$R_1 \parallel R_2$ ist die Kurzschreibweise für zwei parallele Widerstände.
+
+Vergleichen Sie mit Ihrem Ergebnis aus der Kurzaufgabe.
+
+![bg 90% right:45%](img/spannungsteiler-last.svg)
+
+### 🗳️ Innenwiderstand mit Stromquelle
 
 Wie groß ist der Innenwiderstand $R_i$ der Schaltung an den Klemmen a–b?
 
@@ -51,16 +88,6 @@ C) $R_1 \parallel R_2$
 D) $R_1$
 
 ![bg 90% right:45%](img/ri-frage.svg)
-
-### Beispiel: Ersatzquelle des belasteten Spannungsteilers
-
-Unser Spannungsteiler aus Aufgabe 7b ($U = 12 \, \text{V}$, $R_1 = R_2 = 1 \, \text{k}\Omega$), Klemmen über $R_2$:
-
-1. Leerlauf: $U_0 = U \cdot \dfrac{R_2}{R_1 + R_2} = 6 \, \text{V}$
-2. Quelle kurzschließen: $R_i = R_1 \parallel R_2 = \dfrac{R_1 R_2}{R_1 + R_2} = 500 \, \Omega$
-3. Last $R_L = 1 \, \text{k}\Omega$ anschließen: $U_a = U_0 \cdot \dfrac{R_L}{R_i + R_L} = 4 \, \text{V}$
-
-Gleiche Antwort wie in Aufgabe 7b – jetzt in zwei Zeilen statt Netzwerk-Umformung.
 
 ### 📝 Aufgabe 8: Ersatzquelle
 
@@ -78,7 +105,10 @@ Bei der Reihenschaltung von realen Spannungsquellen addieren sich Leerlaufspannu
 
 $$U_{0,\text{ges}} = \sum_j U_{0,j}, \qquad R_{i,\text{ges}} = \sum_j R_{i,j}$$
 
-Begründung: Maschenregel – durch alle fließt derselbe Strom, die Spannungen addieren sich.
+Begründung mit dem Rezept:
+
+- Leerlauf: Die Quellenspannungen addieren sich (Maschenregel).
+- Quellen kurzschließen: Die Innenwiderstände liegen in Reihe.
 
 **Anwendung:** Batteriepacks (Taschenlampe, E-Auto)
 **Vorteil:** höhere Gesamtspannung • **Nachteil:** höherer Innenwiderstand
@@ -91,7 +121,10 @@ Bei der Parallelschaltung von realen Spannungsquellen mit gleicher Leerlaufspann
 
 $$\frac{1}{R_{i,\text{ges}}} = \sum_j \frac{1}{R_{i,j}}$$
 
-Begründung: Beide in Stromquellen $I_{0,j} = U_0 / R_{i,j}$ umwandeln. Parallel addieren sich die Ströme und die Leitwerte.
+Begründung mit dem Rezept:
+
+- Leerlauf: Alle Quellen haben dasselbe $U_0$, zwischen ihnen fließt kein Strom. An den Klemmen liegt $U_0$.
+- Quellen kurzschließen: Die Innenwiderstände liegen parallel.
 
 **Anwendung:** höhere Ströme, Redundanz
 **Nachteil:** nur bei gleichen Spannungen sinnvoll (sonst Ausgleichsströme!)
@@ -141,7 +174,8 @@ $$P = R \cdot I^2 = U_0^2 \cdot \frac{R}{(R_i + R)^2}$$
 
 $$P_\text{max} = \frac{U_0^2}{4 R_i}$$
 
-![bg 95% right:40%](img/anpassung-p.svg)
+![bg right:40% vertical 80%](img/quelle-u-real.svg)
+![bg 80%](img/anpassung-p.svg)
 
 ### Anpassungsverhältnis und Wirkungsgrad
 
