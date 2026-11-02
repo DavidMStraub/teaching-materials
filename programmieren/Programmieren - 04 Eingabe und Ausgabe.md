@@ -135,7 +135,7 @@ ValueError: invalid literal for int() with base 10: '13.7'
 - `int("13.7")` scheitert: Text für `int(...)` muss wie eine **ganze** Zahl aussehen
 - Ebenso `ValueError`: `int("abc")` und `float("3,5")` – Kommazahlen mit **Punkt** eintippen
 
-### Mini-Aufgabe (3 min)
+### Mini-Aufgabe (5 min)
 
 Schreiben Sie einen Reichweiten-Rechner für ein Elektrofahrzeug:
 
@@ -143,8 +143,9 @@ Schreiben Sie einen Reichweiten-Rechner für ein Elektrofahrzeug:
 2. Verbrauch in kWh/100 km einlesen (`float`)
 3. Reichweite berechnen: Energieinhalt geteilt durch Verbrauch, mal 100
 4. Ergebnis ausgeben (`print`)
+5. Entfernung zum Ziel in km einlesen und ausgeben (`print`), ob die Reichweite genügt oder ein Ladestopp nötig ist
 
-Testen Sie mit 60 kWh und 15 kWh/100 km – das sollte 400 km ergeben.
+Testen Sie mit 60 kWh und 15 kWh/100 km – das sollte 400 km ergeben. Dann mit einem Ziel in 350 km und in 450 km.
 
 ### Achtung typischer Fehler
 
@@ -220,14 +221,17 @@ Verbrauch  Reichweite
      20.0       300.0
 ```
 
-### Debug-Aufgabe (3 min)
+### Debug-Aufgabe (4 min)
 
-Dieses Programm soll ausgeben, wie alt Sie nächstes Jahr sind. Finden Sie beide Fehler:
+Dieses Programm soll ausgeben, wie alt Sie nächstes Jahr sind – und ob Sie dann volljährig werden. Finden Sie alle drei Fehler:
 
 ```python
 alter = input("Alter: ")
 naechstes_jahr = alter + 1
 print("Nächstes Jahr sind Sie {naechstes_jahr}")
+
+if naechstes_jahr = 18:
+    print("Dann werden Sie volljährig!")
 ```
 
 ### Das Muster: Eingabe → Verarbeitung → Ausgabe
@@ -248,21 +252,34 @@ Fast jedes Programm folgt diesem Muster – vom Mini-Skript bis zur Messdaten-Au
 
 ## Transfer
 
-### Aufgabe: Akkulaufzeit 2.0 (Denkphase: 5 min, auf Papier)
+### Aufgabe: Ladestopp (Denkphase: 5 min, auf Papier)
 
-Unser Programm aus Woche 2 – jetzt mit echter Eingabe:
+Ihr Reichweiten-Rechner sagt: Ladestopp nötig. Schreiben Sie ein Programm für die Schnellladesäule:
 
-1. Kapazität in mAh **einlesen** (`float`)
-2. Stromaufnahme in mA **einlesen** (`float`)
-3. Laufzeit in Stunden **berechnen**
-4. **Ausgeben** (`print`) – mit einer Nachkommastelle **und** in Stunden und Minuten:
-   `Laufzeit: 13.7 Stunden (13 h 42 min)`
+1. **Einlesen:** Akkugröße (kWh), Ladestand jetzt (%), Ziel-Ladestand (%), Ladeleistung (kW), Strompreis (€/kWh)
+2. **Berechnen:** nachgeladene Energie, Ladedauer, Kosten – vereinfacht mit konstanter Ladeleistung
+3. **Ausgeben** als Beleg, Zahlen rechtsbündig untereinander:
 
-Notieren Sie zuerst die drei Phasen: Was wird eingelesen? Was berechnet? Was ausgegeben?
+```
+Nachgeladen:     53.9 kWh
+Ladedauer:        1.1 h (1 h 4 min)
+Kosten:         31.80 €
+```
 
-Und: Wie kommen Sie von 13.714… Stunden auf 13 h und 42 min?
+Testwerte: 77 kWh, von 10 % auf 80 %, 50 kW, 0.59 €/kWh
 
-Zusatz für Schnelle: Geben Sie eine Warnung aus (`print`), wenn die Laufzeit unter 8 Stunden liegt – Woche 3 lässt grüßen.
+### Ladestopp: Denkphase
+
+Notieren Sie auf Papier:
+
+- Welche Zwischenergebnisse brauchen Sie – in welcher Reihenfolge?
+- Was machen Sie mit den Prozentangaben, bevor Sie rechnen?
+- Wie kommen Sie von 1.078 Stunden auf 1 h und 4 min?
+
+Zusatz für Schnelle:
+
+- Liegt das Ziel nicht über dem jetzigen Ladestand, erscheint statt des Belegs ein Hinweis (`print`) – Woche 3 lässt grüßen
+- Die Säule liefert 50 kW, davon landen nur 90 % im Akku. Was ändert sich an Ladedauer und Kosten?
 
 ### Gemeinsam live
 
