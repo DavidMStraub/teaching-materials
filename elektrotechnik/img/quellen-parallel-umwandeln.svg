@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 670" font-family="Helvetica, Arial, sans-serif">
+  <!-- ===== 1: zwei reale Spannungsquellen parallel ===== -->
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <line x1="90" y1="30" x2="414" y2="30"/>
+    <line x1="90" y1="190" x2="414" y2="190"/>
+    <line x1="90" y1="30" x2="90" y2="50"/>
+    <rect x="78" y="50" width="24" height="50" fill="#fff"/>
+    <line x1="90" y1="100" x2="90" y2="190"/>
+    <circle cx="90" cy="140" r="22" fill="#fff"/>
+    <line x1="90" y1="118" x2="90" y2="162"/>
+    <line x1="230" y1="30" x2="230" y2="50"/>
+    <rect x="218" y="50" width="24" height="50" fill="#fff"/>
+    <line x1="230" y1="100" x2="230" y2="190"/>
+    <circle cx="230" cy="140" r="22" fill="#fff"/>
+    <line x1="230" y1="118" x2="230" y2="162"/>
+  </g>
+  <circle cx="230" cy="30" r="5" fill="#111827"/>
+  <circle cx="230" cy="190" r="5" fill="#111827"/>
+  <circle cx="420" cy="30" r="6" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <circle cx="420" cy="190" r="6" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <text x="110" y="84" fill="#111827" font-size="28" font-style="italic">R<tspan font-size="20" dy="6">i,1</tspan></text>
+  <text x="250" y="84" fill="#111827" font-size="28" font-style="italic">R<tspan font-size="20" dy="6">i,2</tspan></text>
+  <line x1="126" y1="122" x2="126" y2="150" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="126,162 121,149 131,149" fill="#2563eb"/>
+  <text x="136" y="150" fill="#2563eb" font-size="28" font-style="italic">U<tspan font-size="20" dy="6">0,1</tspan></text>
+  <line x1="266" y1="122" x2="266" y2="150" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="266,162 261,149 271,149" fill="#2563eb"/>
+  <text x="276" y="150" fill="#2563eb" font-size="28" font-style="italic">U<tspan font-size="20" dy="6">0,2</tspan></text>
+
+  <text x="235" y="238" fill="#111827" font-size="36" text-anchor="middle">≙</text>
+
+  <!-- ===== 2: umgewandelt in reale Stromquellen ===== -->
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <line x1="60" y1="265" x2="414" y2="265"/>
+    <line x1="60" y1="405" x2="414" y2="405"/>
+    <line x1="60" y1="265" x2="60" y2="405"/>
+    <circle cx="60" cy="335" r="22" fill="#fff"/>
+    <line x1="38" y1="335" x2="82" y2="335"/>
+    <line x1="140" y1="265" x2="140" y2="405"/>
+    <rect x="128" y="305" width="24" height="60" fill="#fff"/>
+    <line x1="250" y1="265" x2="250" y2="405"/>
+    <circle cx="250" cy="335" r="22" fill="#fff"/>
+    <line x1="228" y1="335" x2="272" y2="335"/>
+    <line x1="330" y1="265" x2="330" y2="405"/>
+    <rect x="318" y="305" width="24" height="60" fill="#fff"/>
+  </g>
+  <circle cx="140" cy="265" r="5" fill="#111827"/>
+  <circle cx="140" cy="405" r="5" fill="#111827"/>
+  <circle cx="250" cy="265" r="5" fill="#111827"/>
+  <circle cx="250" cy="405" r="5" fill="#111827"/>
+  <circle cx="330" cy="265" r="5" fill="#111827"/>
+  <circle cx="330" cy="405" r="5" fill="#111827"/>
+  <circle cx="420" cy="265" r="6" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <circle cx="420" cy="405" r="6" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <polygon points="98,312 93,325 103,325" fill="#ef4444"/>
+  <line x1="98" y1="324" x2="98" y2="355" stroke="#ef4444" stroke-width="2.5"/>
+  <polygon points="288,312 283,325 293,325" fill="#ef4444"/>
+  <line x1="288" y1="324" x2="288" y2="355" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="30" y="442" fill="#ef4444" font-size="28" font-style="italic">I<tspan font-size="20" dy="6">k,1</tspan></text>
+  <text x="222" y="442" fill="#ef4444" font-size="28" font-style="italic">I<tspan font-size="20" dy="6">k,2</tspan></text>
+  <text x="158" y="342" fill="#111827" font-size="28" font-style="italic">R<tspan font-size="20" dy="6">i,1</tspan></text>
+  <text x="348" y="342" fill="#111827" font-size="28" font-style="italic">R<tspan font-size="20" dy="6">i,2</tspan></text>
+
+  <text x="235" y="488" fill="#111827" font-size="36" text-anchor="middle">≙</text>
+
+  <!-- ===== 3: Ersatzstromquelle ===== -->
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <line x1="140" y1="515" x2="414" y2="515"/>
+    <line x1="140" y1="655" x2="414" y2="655"/>
+    <line x1="140" y1="515" x2="140" y2="655"/>
+    <circle cx="140" cy="585" r="22" fill="#fff"/>
+    <line x1="118" y1="585" x2="162" y2="585"/>
+    <line x1="250" y1="515" x2="250" y2="655"/>
+    <rect x="238" y="555" width="24" height="60" fill="#fff"/>
+  </g>
+  <circle cx="250" cy="515" r="5" fill="#111827"/>
+  <circle cx="250" cy="655" r="5" fill="#111827"/>
+  <circle cx="420" cy="515" r="6" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <circle cx="420" cy="655" r="6" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <polygon points="104,562 99,575 109,575" fill="#ef4444"/>
+  <line x1="104" y1="574" x2="104" y2="605" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="92" y="596" fill="#ef4444" font-size="28" font-style="italic" text-anchor="end">I<tspan font-size="20" dy="6">k,ges</tspan></text>
+  <text x="268" y="592" fill="#111827" font-size="28" font-style="italic">R<tspan font-size="20" dy="6">i,ges</tspan></text>
+</svg>

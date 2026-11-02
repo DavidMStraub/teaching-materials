@@ -117,17 +117,29 @@ Begründung mit dem Rezept:
 
 ### Parallelschaltung von aktiven, linearen Zweipolen
 
-Bei der Parallelschaltung von realen Spannungsquellen mit gleicher Leerlaufspannung $U_0$ addieren sich die Leitwerte der Innenwiderstände:
+Parallel addieren sich Ströme und Leitwerte. Deshalb jede Quelle in eine Stromquelle umwandeln, addieren und bei Bedarf zurückwandeln:
+
+$$I_{k,\text{ges}} = \sum_j I_{k,j} \quad \text{mit} \quad I_{k,j} = \frac{U_{0,j}}{R_{i,j}}$$
 
 $$\frac{1}{R_{i,\text{ges}}} = \sum_j \frac{1}{R_{i,j}}$$
 
-Begründung mit dem Rezept:
+$$U_{0,\text{ges}} = I_{k,\text{ges}} \cdot R_{i,\text{ges}}$$
 
-- Leerlauf: Alle Quellen haben dasselbe $U_0$, zwischen ihnen fließt kein Strom. An den Klemmen liegt $U_0$.
-- Quellen kurzschließen: Die Innenwiderstände liegen parallel.
+Bei der Reihenschaltung entsprechend mit Spannungsquellen rechnen: Dort addieren sich Spannungen und Widerstände.
 
+![bg 90% right:34%](img/quellen-parallel-umwandeln.svg)
+
+### Parallelschaltung: gleiche und ungleiche Spannungen
+
+**Gleiche Leerlaufspannungen** $U_{0,j} = U_0$: Die Formeln ergeben $U_{0,\text{ges}} = U_0$.
 **Anwendung:** höhere Ströme, Redundanz
-**Nachteil:** nur bei gleichen Spannungen sinnvoll (sonst Ausgleichsströme!)
+
+**Ungleiche Leerlaufspannungen:** Auch ohne Last fließt ein Ausgleichsstrom von der höheren zur niedrigeren Quelle:
+
+$$I_\text{A} = \frac{U_{0,1} - U_{0,2}}{R_{i,1} + R_{i,2}}$$
+
+- **erwünscht** beim Laden: Lichtmaschine parallel zur Bordbatterie
+- **unerwünscht** im Batteriepack: Die Zellen entladen sich ineinander
 
 ![bg 85% right:32%](img/quellen-parallel.svg)
 
