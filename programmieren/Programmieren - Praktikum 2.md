@@ -34,7 +34,7 @@ Heute lernt das Labor, mit Ihnen zu reden. Startpunkt ist dieser Stand (eine Bei
 kapazitaet_mAh = 3000
 spannung_V = 3.7
 masse_g = 45.0
-strom_mA = 600
+strom_mA = 700
 
 laufzeit_h = kapazitaet_mAh / strom_mA
 energie_Wh = spannung_V * kapazitaet_mAh / 1000
@@ -55,19 +55,20 @@ Feste Werte im Code bedeuten: Für jede neue Zelle muss jemand das Programm änd
 
 ### Aufgabe 2: Der Zell-Steckbrief
 
-Rohe Zahlen wie `11.100000000000001` liest niemand gern. Bauen Sie die Ausgabe zu einem Steckbrief aus:
+Rohe Zahlen wie `4.285714285714286` liest niemand gern. Bauen Sie die Ausgabe zu einem Steckbrief aus:
 
 1. Geben Sie Laufzeit und Energieinhalt mit **einer Nachkommastelle** aus (`print`, f-String)
-2. Ergänzen Sie Beschriftung und Einheit: `Laufzeit:  5.0 h`
-3. Richten Sie die Zahlen **rechtsbündig** untereinander aus (Feldbreite!), sodass ein sauberer Block entsteht
+2. Ergänzen Sie Beschriftung und Einheit: `Laufzeit:  4.3 h`
+3. Richten Sie die Zahlen **rechtsbündig** untereinander aus (Feldbreite!), sodass ein sauberer Block entsteht – dafür bringen Sie auch die Beschriftungen mit Leerzeichen auf gleiche Länge
 
 ### Aufgabe 3: Plausibilität
 
 Tippfehler passieren. Einzelwerte sind schwer zu beurteilen – aber die **spezifische Energie** (Wh/kg) liegt bei Li-Ionen-Zellen in einem engen typischen Bereich, egal wie groß die Zelle ist.
 
-1. Berechnen Sie die spezifische Energie aus den Eingaben (wie in Praktikum 1)
+1. Berechnen Sie die spezifische Energie aus den Eingaben: Energieinhalt geteilt durch die Masse in kg (wie in Praktikum 1)
 2. Prüfen Sie mit `if`: Liegt sie grob zwischen 100 und 400 Wh/kg? Sonst geben Sie eine Warnung aus (`print`), dass die Eingaben nicht zusammenpassen
 3. Testen Sie den Check: Was passiert, wenn Sie die Masse versehentlich in kg statt in g eingeben?
+4. Warnt Ihr Check bei korrekten Werten Ihrer Zelle? Dann liegt es an den Grenzen – passen Sie sie begründet an
 
 ### Aufgabe 4: Zellen einordnen
 
