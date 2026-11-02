@@ -95,15 +95,51 @@ Jetzt wird geladen – in Prozentschritten:
 3. Zählen Sie die Durchläufe mit und geben Sie am Ende aus (`print`): `Voll nach 20 Schritten`
 4. Machen Sie die Schrittweite zur Eingabe (`input`) – was passiert bei `schritt = 7`? Ist das Verhalten sinnvoll?
 
-### Zusatz für Schnelle
+### Zusatz 1: Machen Sie Ihr Programm kaputt
 
-Ohne Schleifen:
+Echte Nutzer tippen alles Mögliche. Suchen Sie Eingaben, mit denen Ihr Steckbrief-Programm …
 
-- Holen Sie die **Pack-Rechnung** aus Praktikum 1 ins Programm: Zellenzahl als Eingabe (`input`), Pack-Spannung und Pack-Energie im Steckbrief
-- Strompreis in €/kWh als Eingabe – was kostet eine volle Ladung Ihres Packs?
-- Die C-Rate aus Praktikum 1 in den Steckbrief
+1. … **abstürzt** – finden Sie mindestens zwei verschiedene Fehlermeldungen
+2. … **ohne Absturz Unsinn** ausgibt, z. B. eine negative Laufzeit
+3. Fangen Sie mit `if` ab, was Sie abfangen können: Statt abzustürzen oder Unsinn zu rechnen, gibt Ihr Programm einen Hinweis aus (`print`)
+4. Notieren Sie, was Sie mit Ihren bisherigen Werkzeugen **nicht** abfangen können – und warum
 
-Mit Schleifen:
+### Zusatz 2: Zwei Zellen im Vergleich
+
+Welche Zelle kaufen Sie? Stellen Sie Ihre Zelle einer zweiten aus der Datenbank gegenüber:
+
+1. Lesen Sie Kapazität, Spannung und Masse **beider** Zellen ein, dazu einen gemeinsamen Strom
+2. Geben Sie eine Tabelle aus – eine Zeile pro Kennzahl, eine Spalte pro Zelle, alles rechtsbündig:
+
+```
+                Zelle 1   Zelle 2
+Laufzeit (h)        5.0       4.3
+Energie (Wh)       12.6      11.1
+Spez. (Wh/kg)     264.7     246.7
+```
+
+3. Ihr Programm erklärt die Zelle mit der höheren spezifischen Energie zur Siegerin – und was, wenn beide gleichauf liegen?
+
+### Zusatz 3: Ein Pack auslegen
+
+Jetzt andersherum: Ein Fahrzeug braucht 400 V und 60 kWh. Wie viele Ihrer Zellen sind das?
+
+1. Lesen Sie Zielspannung und Ziel-Energieinhalt ein
+2. **Zellen in Serie:** Zielspannung geteilt durch Zellspannung – eine angebrochene Zelle gibt es aber nicht. Runden Sie **auf**, nur mit `int()` und `if`
+3. **Stränge parallel:** so viele Serienstränge nebeneinander, dass der Energieinhalt reicht – ebenfalls aufrunden
+4. Geben Sie das Pack in der üblichen Schreibweise aus, z. B. `112s43p` (112 in Serie, 43 parallel), dazu Zellenzahl, Masse in kg und die Kosten einer vollen Ladung bei einem Strompreis Ihrer Wahl
+
+### Zusatz 4: Laden erlaubt?
+
+Li-Ionen-Zellen dürfen nur in einem Temperaturfenster arbeiten: Laden typisch von 0 bis 45 °C, Entladen von −20 bis 60 °C.
+
+1. Lesen Sie ein, ob geladen oder entladen werden soll (eingetippt wird `laden` oder `entladen`), und die Zelltemperatur. Text vergleichen Sie wie Zahlen mit `==`, z. B. `betrieb == "laden"`
+2. Geben Sie aus, ob der Betrieb erlaubt ist
+3. Was passiert, wenn jemand `Laden` mit großem L tippt? Sorgen Sie dafür, dass Ihr Programm dann etwas Sinnvolles ausgibt
+4. Beim Laden darf außerdem die C-Rate (Strom geteilt durch Kapazität, beide in mA bzw. mAh) nicht über 1 liegen – erweitern Sie Ihre Bedingung
+
+### Zusatz mit Schleifen
 
 - Erweitern Sie den Simulator: ab 80 % soll zusätzlich `Schnellladen beendet` erscheinen – aber nur einmal
 - Der **Entlade**-Simulator: von 100 % herunter bis zur Abschaltgrenze Ihrer Wahl
+- Bauen Sie die Nachfrage-Schleife aus Aufgabe 5 in Zusatz 4 ein: so lange nachfragen, bis `laden` oder `entladen` eingetippt wurde. Vergleichen Sie Ihre Bedingung mit der aus Aufgabe 5 – `and` oder `or`?
