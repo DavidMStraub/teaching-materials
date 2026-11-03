@@ -14,10 +14,10 @@ David Straub
 
 ## 4. Magnetismus
 
-1. Magnetisches Feld
-2. Kräfte im magnetischen Feld
-3. Magnetische Feldgrößen und Durchflutungsgesetz
-4. Materie im Magnetfeld
+1. **Magnetisches Feld**
+2. **Kräfte im magnetischen Feld**
+3. **Magnetische Feldgrößen und Durchflutungsgesetz**
+4. **Materie im Magnetfeld**
 5. Der magnetische Kreis
 6. Kraft am Luftspalt
 
@@ -54,29 +54,25 @@ C) Nichts – die Drähte sind elektrisch neutral.
 
 D) Sie verdrehen sich gegeneinander.
 
+![bg 85% right:40%](img/leiter-parallel-frage.svg)
+
 ### Kräfte zwischen elektrischen Leitern
 
-Zwei parallele, stromdurchflossene Leiter üben eine Kraft aufeinander aus:
+Zwei parallele, stromdurchflossene Leiter üben eine Kraft aufeinander aus (Kraft pro Leiterlänge $\ell$):
 
-$$\frac{|\vec{F}_{12}|}{l} = 2k_A \cdot \frac{I_1 I_2}{d}$$
+$$\frac{|\vec{F}_{12}|}{\ell} = 2k_A \cdot \frac{I_1 I_2}{d}$$
 
 Magnetfelder entstehen durch bewegte elektrische Ladungen (Ströme).
 
-Im SI-System gilt $k_A = \frac{\mu_0}{4\pi}$ mit $\mu_0 \approx 4\pi \cdot 10^{-7} \, \frac{\text{N}}{\text{A}^2}$
+Wie $k$ im Coulomb’schen Gesetz ist $k_A$ eine **Einheiten-Konvention**: Ihr Wert hängt davon ab, in welchen Einheiten man Kraft, Strom und Länge misst. Im SI-System gilt $k_A = \frac{\mu_0}{4\pi}$ mit der magnetischen Feldkonstante $\mu_0 \approx 4\pi \cdot 10^{-7} \, \frac{\text{N}}{\text{A}^2}$.
 
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/b/bc/MagneticWireAttraction.svg)
-
-### Wichtiger Unterschied zur Elektrostatik
-
-- In der Elektrostatik haben wir die Feldstärke über die Kraft definiert: $\vec{E} = \frac{\vec{F}}{Q}$
-- In der Magnetostatik geht das nicht so einfach, da die Kraft senkrecht zur Bewegungsrichtung der Ladung wirkt
-- Experimentell lassen sich Feldlinien durch die Ausrichtung kleiner Permanentmagnete (Kompassnadeln) sichtbar machen
 
 ### Magnetische Feldlinien
 
 ![width:20cm](https://upload.wikimedia.org/wikipedia/commons/a/af/VFPt_cylindermagnet_field-representations.svg)
 
-- Magnetische Feldlinien zeigen in die Richtung, in die sich der Nordpol eines kleinen Testmagneten ausrichten würde: N → S außerhalb des Magneten
+- Kompassnadeln machen Feldlinien sichtbar: Feldlinien zeigen in die Richtung, in die sich der Nordpol einer kleinen Kompassnadel ausrichtet, außerhalb des Magneten von N nach S
 - Magnetische Feldlinien sind **immer geschlossen** (keine magnetischen Monopole!)
 - Die Dichte der Feldlinien ist ein Maß für die Stärke des Magnetfeldes
 
@@ -137,18 +133,15 @@ b) Berechnen Sie allgemein den Betrag der Flussdichte $B$ auf der Verbindungslin
 
 c) Vergleichen Sie mit dem Erdmagnetfeld!
 
-### Kräfte im magnetischen Feld
+![bg 95% right:40%](img/doppelleitung.svg)
 
-**Lorentzkraft auf bewegte Ladung:**
+### Lorentzkraft auf bewegte Ladung
 
 $$\vec{F} = Q \cdot (\vec{v} \times \vec{B})$$
 
-**Kraft auf stromdurchflossenen Leiter:**
-
-$$\vec{F} = I \cdot (\vec{\ell} \times \vec{B})$$
-
-- Skalar (wenn $\vec{\ell} \perp \vec{B}$): $F = I \cdot \ell \cdot B$
-- **Rechte-Hand-Regel:** Daumen = Stromrichtung, Zeigefinger = Feldrichtung, Mittelfinger = Kraftrichtung
+- Die Kraft steht **senkrecht** auf $\vec{v}$ und $\vec{B}$. Im elektrischen Feld wirkt $\vec{F} = Q \vec{E}$ dagegen in Feldrichtung.
+- Skalar (wenn $\vec{v} \perp \vec{B}$): $F = Q \cdot v \cdot B$
+- **Rechte-Hand-Regel:** Daumen = Bewegungsrichtung der positiven Ladung (Stromrichtung), Zeigefinger = Feldrichtung, Mittelfinger = Kraftrichtung
 
 ![bg right:30% 90%](https://upload.wikimedia.org/wikipedia/commons/2/23/UVW-regel-strom-und-positive-ladung.svg)
 
@@ -179,6 +172,20 @@ D) es wirkt keine Kraft
 **Anwendungen:** Teilchenbeschleuniger (Zyklotron), Massenspektrometer
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/3/3a/Circular-path-of-a-proton-in-a-homogeneous-magnetic-field.svg)
+
+### Kraft auf stromdurchflossenen Leiter
+
+Im Leiter bewegen sich viele Ladungen. Die Lorentzkräfte addieren sich zu:
+
+$$\vec{F} = I \cdot (\vec{\ell} \times \vec{B})$$
+
+Skalar (wenn $\vec{\ell} \perp \vec{B}$): $F = I \cdot \ell \cdot B$
+
+**Anwendung auf zwei parallele Leiter:** Leiter 1 erzeugt am Ort von Leiter 2 die Flussdichte $B_1 = \frac{\mu_0}{2\pi} \cdot \frac{I_1}{d}$. Damit:
+
+$$\frac{F_{12}}{\ell} = I_2 \cdot B_1 = \frac{\mu_0}{2\pi} \cdot \frac{I_1 I_2}{d} = 2k_A \cdot \frac{I_1 I_2}{d}$$
+
+![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/b/bc/MagneticWireAttraction.svg)
 
 ### Vergleich: Elektrisches und magnetisches Feld
 
@@ -219,13 +226,18 @@ $$\vec{B} = \mu_0 \vec{H}$$
 
 Einheit: $[H] = \frac{\text{A}}{\text{m}}$
 
+$H$ hängt nur von den Strömen ab, $B$ zusätzlich vom Material.
+
 **Beispiel:** gerader stromdurchflossener Leiter (Abstand $r$): $H = \frac{I}{2\pi r}$
 
 ### Durchflutungsgesetz (Ampèresches Gesetz)
 
-Die Summe der magnetischen Feldstärke längs eines geschlossenen Weges ist gleich der Gesamtstromdurchflutung:
+Das Umlaufintegral der magnetischen Feldstärke längs eines geschlossenen Weges ist gleich der Summe der umschlossenen Ströme, der **Durchflutung** $\Theta$:
 
-$$\Theta = N \cdot I = \oint \vec{H}(s) \cdot d\vec{s}$$
+$$\oint \vec{H}(s) \cdot d\vec{s} = \Theta = \sum I_\text{umschlossen}$$
+
+- Die Ströme zählen mit Richtung (Rechte-Faust-Regel bezogen auf den Umlaufsinn).
+- Umschließt der Weg eine Spule mit $N$ Windungen: $\Theta = N \cdot I$
 
 Erinnerung: in der Elektrostatik gilt aufgrund der Wegunabhängigkeit des Potentials:
 
@@ -274,7 +286,7 @@ $$H = \frac{N \cdot I}{\ell}, \qquad B = \mu_0 H$$
 
 **Außerhalb:** $B \approx 0$
 
-Mit einem Eisenkern wird $B$ um ein Vielfaches größer – dazu gleich beim Magnetfeld in Materie.
+Mit einem Eisenkern wird $B$ um ein Vielfaches größer.
 
 ![bg 95% right:45%](img/spule.svg)
 
@@ -300,29 +312,6 @@ $$\vec{B} = \mu_0 \mu_r \vec{H}$$
 
 Für die Technik verhalten sich Dia- und Paramagnete wie Luft. Ferromagnete bündeln den Fluss – daraus baut man Kerne.
 
-### Ferromagnete: Hysterese
-
-Die Flussdichte hängt von der *Vorgeschichte* ab:
-
-- **Sättigung** (1): mehr Strom bringt kaum noch mehr $B$
-- **Remanenz** (2): Flussdichte, die ohne äußeres Feld bleibt
-- **Koerzitivfeldstärke** (3): Feldstärke, die die Magnetisierung beseitigt
-
-**Weichmagnetisch** (schmale Schleife): Trafo- und Motorkerne, Elektromagnete
-**Hartmagnetisch** (breite Schleife): Permanentmagnete
-
-![bg right:40% 85%](https://upload.wikimedia.org/wikipedia/commons/e/ee/Hysteresis-from-unmagnetised-state.svg)
-
-### Weiches Eisen: Magnetisierungskurve
-
-Bei weichmagnetischen Werkstoffen ist die Schleife so schmal, dass man mit **einer** Kurve $B(H)$ rechnet.
-
-- Steiler Anstieg: $\mu_r$ sehr groß
-- Ab etwa 1,4 T Sättigung: $\mu_r$ sinkt stark
-- $\mu_r = \dfrac{B}{\mu_0 H}$ gilt nur im jeweiligen Arbeitspunkt
-
-![bg 90% right:45%](img/magnetisierungskurve.svg)
-
 ### 🗳️ Doppelter Strom im Eisenkern
 
 Eine Spule mit Eisenkern arbeitet bei $H = 800 \, \text{A/m}$, also $B \approx 1{,}4 \, \text{T}$. Der Spulenstrom wird **verdoppelt**.
@@ -337,6 +326,27 @@ C) $B$ bleibt exakt gleich
 
 D) $B$ steigt auf mehr als das Doppelte
 
+### Ferromagnete: Hysterese
+
+Die Flussdichte hängt von der *Vorgeschichte* ab:
+
+- **Sättigung** (1): mehr Strom bringt kaum noch mehr $B$
+- **Remanenz** (2): Flussdichte, die ohne äußeres Feld bleibt
+- **Koerzitivfeldstärke** (3): Feldstärke, die die Magnetisierung beseitigt
+
+**Weichmagnetisch** (schmale Schleife): Trafo- und Motorkerne, Elektromagnete
+**Hartmagnetisch** (breite Schleife): Permanentmagnete
+
+![bg right:40% 90%](img/hysterese.svg)
+
+### Weiches Eisen: Magnetisierungskurve
+
+Bei weichmagnetischen Werkstoffen ist die Schleife so schmal, dass man mit **einer** Kurve $B(H)$ rechnet.
+
+- Steiler Anstieg: $\mu_r$ sehr groß
+- Ab etwa 1,4 T Sättigung: $\mu_r$ sinkt stark
+- $\mu_r = \dfrac{B}{\mu_0 H}$ gilt nur im jeweiligen Arbeitspunkt
+
 ![bg 90% right:45%](img/magnetisierungskurve.svg)
 
 ### Übersicht: Größen in der Magnetostatik
@@ -350,21 +360,27 @@ Durchflutung (*magnetomotive force*) | $\Theta = N \cdot I = \oint \vec{H} \cdot
 Magnetische Feldkonstante | $\mu_0$ | $[\mu_0] = \frac{\text{N}}{\text{A}^2}$
 Relative Permeabilität | $\mu_r = \frac{\mu}{\mu_0}$ | dimensionslos
 
-### 📝 Aufgabe 12: Materie im Magnetfeld
+### 📝 Aufgabe 12a/b: Materie im Magnetfeld
 
 a) Ein Elektromagnet soll in einer Recyclinganlage Metallteile sortieren. Kann er Aluminiumplatten anheben? Stahlplatten? (Mit Begründung!)
 
-b) Lesen Sie aus den Hysteresekurven rechts ab: Welche Größe muss ein Material für einen guten *Permanentmagneten* besitzen – und welche für einen guten *Transformatorkern*?
+b) Lesen Sie aus den Hysteresekurven rechts ab: Welche Größe muss ein Material für einen guten *Permanentmagneten* besitzen – und welche für einen guten *Transformatorkern*? Welches Material eignet sich jeweils?
 
-c) Ein Ringkern aus Elektroblech ($\ell = 20 \, \text{cm}$) trägt $N = 200$ Windungen. Bestimmen Sie $H$, $B$ und $\mu_r$ für $I = 0{,}8 \, \text{A}$ und $I = 1{,}6 \, \text{A}$.
+![bg right:40% 88%](img/hysterese-vergleich.svg)
+
+### 📝 Aufgabe 12c: Ringkern
+
+Ein Ringkern aus Elektroblech (mittlere Feldlinienlänge $\ell = 20 \, \text{cm}$) trägt $N = 200$ Windungen. Bestimmen Sie $H$, $B$ und $\mu_r$ für $I = 0{,}8 \, \text{A}$ und $I = 1{,}6 \, \text{A}$.
+
+Magnetisierungskurve des Elektroblechs:
 
 | $H$ in A/m | 400 | 800 | 1600 |
 |---|---|---|---|
 | $B$ in T | 1,25 | 1,40 | 1,45 |
 
-![bg right:35% 100%](https://upload.wikimedia.org/wikipedia/commons/4/4b/Hysteresis-comparison.svg)
+![bg right:38% 85%](img/ringkern.svg)
 
-### Zwischenstand – und nächste Woche: Probeklausur!
+### Zusammenfassung und Probeklausur
 
 Heute: Magnetfeld ($B$, $H$, $\Phi$, $\Theta$), Kräfte ($F = Q v B$, $F = I \ell B$), Durchflutungsgesetz, Materie (dia/para/ferro, Hysterese)
 
@@ -378,8 +394,6 @@ Heute: Magnetfeld ($B$, $H$, $\Phi$, $\Theta$), Kräfte ($F = Q v B$, $F = I \el
 **In zwei Wochen:** der magnetische Kreis – Magnetfelder berechnen wie Stromkreise.
 
 ## Vertiefung
-
-Für alle, die es genauer wissen wollen
 
 ### Vertiefung: Magnetisches Verhalten von Materie
 
@@ -419,7 +433,7 @@ $$\vec{M} = \chi_m \vec{H}, \qquad \mu_r = 1 + \chi_m$$
 
 **Beispiele:** Kupfer, Silber, Gold, Wasser, organische Materialien
 
-Kuriosum: Diamagnete können in starken Feldern schweben →
+In sehr starken Feldern schweben Diamagnete, im Bild ein Frosch bei etwa 16 T.
 
 ![bg right:33% 90%](https://upload.wikimedia.org/wikipedia/commons/7/7b/Frog_diamagnetic_levitation.jpg)
 
