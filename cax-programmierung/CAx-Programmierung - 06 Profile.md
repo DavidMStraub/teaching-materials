@@ -47,17 +47,17 @@ David Straub
 
 ![bg right:42% 92%](assets/cax06_coldplate.png)
 
-*Durchgängiges Beispiel:* die Cold Plate mit Serpentinen-Kanal und zwei Anschlussstutzen aus Ihren Profilen von Einheit 5. Rechts das Ziel, das Kühlmittel ist blau dargestellt.
+Zwei Werkstücke: ein **verjüngtes Kanalstück** aus den Profilen von Einheit 5 und eine **Cold Plate** mit rundem Kanal und zwei runden Anschlüssen. Rechts die Cold Plate, der Hohlraum ist blau dargestellt.
 
 ### Rückblick: Einlass und Auslass
 
-Letzte Woche gebaut: Einlass- und Auslass-Querschnitt als Splines. Fehlt der Auslass, gibt es Referenzprofile.
+Aus Ihren Profilen aus Einheit 5 entsteht heute ein **verjüngtes Kanalstück**. Fehlt der Auslass, gibt es Referenzprofile.
 
-In der 12 mm dicken Platte wird der Kanal rund (⌀ 6 mm). Ihre Profile werden heute zum **Anschlussstutzen** auf der Platte:
+Die beiden Werkstücke entstehen mit unterschiedlichen Operationen:
 
-- Stutzen aus Einlass und Auslass (Loft)
-- Kanal als **Serpentine** durch die Platte (Sweep)
-- Platte, Kanal und Stutzen zu einem Körper (Boolean)
+- Kanalstück zwischen den beiden Profilen (Loft)
+- Serpentinen-Kanal mit ⌀ 6 mm in der Platte (Sweep)
+- Runde Anschlussstutzen auf der Platte (Boolean)
 
 ## Theorie A: Loft
 
@@ -106,15 +106,15 @@ Prüfen Sie es dann mit `[f.geomType() for f in form.Faces()]`.
 
 ### Eine Wand aus dem Versatz
 
-![bg right:42% 95%](assets/cax06_stutzen.png)
+![bg right:42% 95%](assets/cax06_kanalstueck.png)
 
-Der Loft `cf.loft([w_ein, w_aus], cap=True)` aus Ihren Profilen ist der **Hohlraum** des Stutzens. Für eine Wand von 2 mm braucht er eine Außenform:
+Der Loft `cf.loft([w_ein, w_aus], cap=True)` aus Ihren Profilen ist der **Hohlraum** des Kanalstücks. Für die Wand braucht er eine Außenform:
 
 - `cf.offset2D(w, 2.0)` versetzt jedes Profil um 2 mm nach außen (Einheit 4)
 - der Loft der versetzten Profile ist die **Außenform**
-- Außenform minus Hohlraum ergibt den **Stutzen**
+- Außenform minus Hohlraum ergibt das **hohle Kanalstück**
 
-## Praktikum A: Anschlussstutzen (Loft)
+## Praktikum A: Verjüngtes Kanalstück (Loft)
 
 ### Aufgabe 1: Der Hohlraum
 
@@ -136,12 +136,12 @@ Loften Sie Ihre beiden Profile zum Hohlraum `innen`: Einlass auf z = 0, Auslass 
 
 ### Aufgabe 3: Die Wand
 
-![bg right:38% 95%](assets/cax06_stutzen.png)
+![bg right:38% 95%](assets/cax06_kanalstueck.png)
 
-Bauen Sie den Stutzen mit 2 mm Wand: Außenform aus den versetzten Profilen, Hohlraum abziehen.
+Bauen Sie die Wand des Kanalstücks: Profile je 2 mm nach außen versetzen, daraus die Außenform loften und den Hohlraum abziehen.
 
 1. Prüfen Sie `isValid()` und `len(Solids())`.
-2. Schätzen Sie das Wandvolumen ab: mittlerer Umfang · Wanddicke · Höhe. Passt Ihr Ergebnis?
+2. Schätzen Sie das Wandvolumen ab: mittlerer Umfang · 2 mm · Höhe. Passt Ihr Ergebnis?
 
 *Hinweise:* `cf.offset2D(w, 2.0)`, `cf.loft([...], cap=True)`, `-`, `w.Length()` für den Umfang
 
@@ -240,16 +240,28 @@ Ersetzen Sie den geraden Pfad durch die Serpentine rechts. Die Kehre ist ein Hal
 
 *Hinweise:* `cf.spline(*punkte)` mit dicht gesetzten Punkten entlang der Spuren und um die Kehre, sonst weicht der Spline zwischen ihnen von der Bahn ab; `curvatureAt(t)`
 
+### Die Anschlüsse im Schnitt
+
+![bg right:48% 95%](assets/cax06_anschluss_schnitt.svg)
+
+An beiden Kanalenden sitzt ein runder **Rohrstutzen**:
+
+- außen ⌀ 10 mm, innen ⌀ 6 mm
+- 10 mm hoch, auf der Plattenoberseite: z = 12 bis 22
+- der senkrechte Durchgang reicht von z = 6 bis 22
+
+Stutzen, Bohrung und Kanal haben denselben **Innendurchmesser von 6 mm**.
+
 ### Aufgabe 6: Die Cold Plate zusammenbauen
 
-![bg right:34% 95%](assets/cax06_coldplate.png)
+![bg right:36% 95%](assets/cax06_coldplate.png)
 
 1. Schneiden Sie den Serpentinen-Kanal aus der Platte. Ist die Volumendifferenz plausibel?
-2. Bohren Sie am Kanalanfang senkrecht (⌀ 6 mm) von der Kanalmitte bis zur Oberseite.
-3. Setzen Sie den Stutzen aus Aufgabe 3 über die Bohrung: Außenform hinzufügen, Hohlraum abziehen.
+2. Fügen Sie an **beiden Kanalenden** je einen Zylinder zur Platte hinzu: ⌀ 10 mm, von z = 12 bis 22.
+3. Schneiden Sie an beiden Enden einen senkrechten Durchgang aus: ⌀ 6 mm, von z = 6 bis 22.
 4. Verrunden Sie die vier senkrechten Außenkanten (r = 5 mm). Wie viele Kanten trifft `edges("|Z")`?
 
-*Hinweise:* `pfad.positionAt(0.0)` liefert den Kanalanfang, `.moved(cf.Location((x, y, z)))`, `cf.cylinder(d=..., h=...)`; der Stutzen muss mittig um den Ursprung liegen, bevor Sie ihn verschieben
+*Hinweise:* `pfad.positionAt(0.0)` und `pfad.positionAt(1.0)` liefern die Endpunkte; `cf.cylinder(d=..., h=...)`, `.moved(cf.Location((x, y, z)))`
 
 ### Aufgabe 7: Kollisionsprüfung
 
@@ -257,18 +269,20 @@ Die Platte wird mit vier Schrauben befestigt: durchgehende Bohrungen ⌀ 5 mm be
 
 1. Bohren Sie die vier Löcher.
 2. Prüfen Sie im Code, dass keine Bohrung den Kanal anschneidet.
-3. Wie dick ist die Wand zwischen Kanal und nächster Bohrung? Und zwischen Stutzen und nächster Bohrung?
+3. Wie groß ist der kleinste Abstand zwischen Kanal und Befestigungsbohrungen? Und zwischen Stutzen und Befestigungsbohrungen?
 4. Was meldet Ihre Prüfung, wenn Sie eine Bohrung auf (50, 0) setzen?
 
 *Hinweise:* Schnittvolumen `(kanal * bohrung).Volume()`, Abstand `kanal.distance(bohrung)`
 
-### Aufgabe 8 *(Zusatz)*: Der zweite Stutzen
+### Aufgabe 8 *(Zusatz)*: Eine Funktion für die Anschlüsse
 
-Setzen Sie auch am Kanalende eine Bohrung und einen Stutzen.
+Fassen Sie das Hinzufügen des Zylinders und das Ausschneiden des Durchgangs aus Aufgabe 6 in einer Funktion zusammen.
 
-Schreiben Sie dafür eine Funktion, die Bohrung und Stutzen an einem gegebenen Punkt setzt, und rufen Sie sie für beide Kanalenden auf.
+Die Funktion erhält den bisherigen Körper und einen Kanalendpunkt und gibt den Körper mit Anschluss zurück. Rufen Sie sie für beide Endpunkte auf.
 
-*Hinweise:* `pfad.positionAt(1.0)`; Funktionen mit Parametern wie in Einheit 3
+Prüfen Sie, dass Volumen und Anzahl der Körper mit Ihrer bisherigen Lösung übereinstimmen.
+
+*Hinweise:* `pfad.positionAt(0.0)`, `pfad.positionAt(1.0)`; Funktionen mit Parametern wie in Einheit 3
 
 ### Aufgabe 9 *(Zusatz)*: Ein Kanal, der sich verjüngt
 
@@ -279,6 +293,8 @@ kanal = cf.sweep([profil_anfang, profil_ende], pfad)
 ```
 
 Bauen Sie die Serpentine mit ⌀ 8 mm am Anfang und ⌀ 5 mm am Ende. Prüfen Sie: Liegt das Volumen zwischen dem eines ⌀-5- und eines ⌀-8-Kanals gleicher Länge?
+
+Passen Sie auch die Durchgänge und Stutzen an: innen jeweils der Durchmesser des Kanalendes, außen 4 mm mehr.
 
 *Hinweise:* `pfad.locationAt(0.0)` und `pfad.locationAt(1.0)` für die beiden Profile, `pfad.Length()`
 
