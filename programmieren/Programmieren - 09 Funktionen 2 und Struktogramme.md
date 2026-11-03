@@ -179,8 +179,6 @@ Wenn ein Programm nicht tut, was es soll – der Reihe nach:
 3. Welche Stelle ist **verdächtig** – welche Bedingung, welche Variable?
 4. Welcher **kleinste Test** entscheidet? Oft: ein `print` an der richtigen Stelle
 
-Kennen Sie übrigens schon: genau so haben wir in Woche 1 die Batterie-Schleife entlarvt.
-
 ## Struktogramme
 
 ### Programme auf Papier: Struktogramme

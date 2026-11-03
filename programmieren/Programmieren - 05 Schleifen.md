@@ -28,18 +28,19 @@ David Straub
 
 ### Warm-up: Was gibt der Code aus?
 
-Der Benutzer tippt `3` ein. Aufschreiben, dann ausführen:
+Aufschreiben, Zeichen für Zeichen, bevor wir es ausführen:
 
 ```python
-zahl = input("Zahl: ")
-print(zahl * 2)
-print(f"{10 / 4:.1f}")
+zellen = int(13.9)
+spannung = float("3.7")
+print(f"{zellen} Zellen:{zellen * spannung:>7.1f} V")
 ```
 
 ### Heute lernen Sie
 
 - Code **wiederholen**, ohne ihn zu kopieren: `while` und `for`
 - Robuste Programme: **Eingabe wiederholen, bis sie gültig ist**
+- Werte in einer Schleife **aufsummieren**
 - Schleifen **vorzeitig abbrechen**: `break`
 - Endlosschleifen erkennen – und stoppen
 
@@ -54,7 +55,7 @@ print("Messung 3")
 # ... und bei 1000 Messungen?
 ```
 
-Kopierter Code ist der Anfang allen Übels. Es geht besser:
+Kopierter Code muss bei jeder Änderung an vielen Stellen angepasst werden. Eine Schleife wiederholt ihn stattdessen:
 
 ### Die `while`-Schleife
 
@@ -76,7 +77,22 @@ while i <= 3:
 | 3 | 3 | True | Messung 3 |
 | – | 4 | False | *(Ende)* |
 
-Kurzform für das Hochzählen: `i += 1` bedeutet `i = i + 1` – diese Kurzform sehen Sie überall in echtem Code.
+### Vorhersage-Aufgabe (3 min)
+
+Neu darin: `n += 2` ist die Kurzform für `n = n + 2` – diese Kurzform sehen Sie überall in echtem Code.
+
+Legen Sie eine Tabelle wie eben an: eine Zeile pro Durchlauf, eine Spalte pro Variable. Dann ausführen:
+
+```python
+n = 1
+summe = 0
+while summe < 10:
+    summe += n
+    n += 2
+print(n, summe)
+```
+
+Wie oft läuft die Schleife? Was wird ausgegeben?
 
 ### Die Endlosschleife
 
@@ -88,10 +104,9 @@ while i < 3:
 
 - `i` ändert sich nie – die Bedingung bleibt für immer `True`
 - Kein Fehler, keine Meldung: das Programm läuft einfach **endlos**
-- Kennen Sie schon: die Batterie-Schleife aus Woche 1 war genau das!
 - Stoppen in Jupyter: das **Stopp-Symbol** (Kernel unterbrechen)
 
-### Mini-Aufgabe (3 min)
+### Mini-Aufgabe (4 min)
 
 ```python
 i = 0
@@ -103,6 +118,7 @@ while i < 5:
 1. Führen Sie den Code aus
 2. Ändern Sie ihn so, dass nur bis `3` gezählt wird (letzte Ausgabe: `3`)
 3. Ändern Sie ihn so, dass er bei `1` startet
+4. Jetzt nur die geraden Zahlen von `0` bis `8` – finden Sie **zwei** Wege (Tipp: einer davon nutzt `%` aus Woche 2)
 
 ### Robuste Programme: Eingabe wiederholen, bis sie gültig ist
 
@@ -115,17 +131,26 @@ print(f"Ihre Zahl: {zahl}")
 
 - Die Schleife läuft, **solange die Eingabe ungültig ist**
 - Das `or` kennen Sie aus Woche 3 – „ungültig“ ist ein `or` aus Verstößen
-- Nutzer tippen Unsinn – gute Programme fangen das freundlich ab. Dieses Muster gehört zum Handwerk
+- Ungültige Eingaben kommen vor – ein robustes Programm fragt dann erneut nach. Dieses Muster gehört zum Handwerk
 
-### Debug-Aufgabe (3 min)
+### Mini-Aufgabe (5 min)
 
-Dieser Countdown soll `5 4 3 2 1 Start!` ausgeben – stattdessen läuft er endlos. Finden Sie den Fehler und beheben Sie ihn:
+Machen Sie Ihren Reichweiten-Rechner aus Woche 4 robust:
+
+1. Der Energieinhalt wird so lange neu abgefragt, bis er über 0 liegt
+2. Der Verbrauch wird so lange neu abgefragt, bis er zwischen 5 und 50 kWh/100 km liegt
+3. Testen Sie mit `-60`, `0`, `60` und mit `3`, `80`, `15`
+4. Was passiert, wenn jemand `abc` eintippt? Warum hilft Ihre Schleife da nicht?
+
+### Debug-Aufgabe (4 min)
+
+Dieser Countdown soll von `5` bis `1` herunterzählen und dann einmal `Start!` ausgeben. Stattdessen läuft er endlos. Finden Sie beide Fehler:
 
 ```python
 countdown = 5
 while countdown > 0:
     print(countdown)
-print("Start!")
+    print("Start!")
 ```
 
 ## `for`: wiederholen mit Zähler
@@ -139,7 +164,7 @@ for i in range(5):
 
 - `range(5)` erzeugt die Zahlen `0, 1, 2, 3, 4` – **die 5 ist nicht dabei!**
 - Start bei 0, wie beim Zählen in Python üblich
-- `range(...)` ist übrigens wieder ein Funktionsaufruf
+- Auch `range(...)` ist ein Funktionsaufruf
 
 ### `range` mit Start und Stopp
 
@@ -150,6 +175,47 @@ for i in range(1, 6):
 
 - `range(1, 6)` → `1, 2, 3, 4, 5` – Start dabei, Stopp nicht
 - Es gibt auch eine Schrittweite: `range(0, 10, 2)` zählt in Zweierschritten
+
+### Vorhersage-Aufgabe (2 min)
+
+Welche Zahlen durchläuft `i` jeweils? Aufschreiben, dann mit einer `for`-Schleife prüfen:
+
+```python
+range(2, 6)
+range(0, 10, 3)
+range(5, 0, -1)
+range(5, 1)
+```
+
+### Was `range()` liefert
+
+- `range(0, 10, 3)` → `0, 3, 6, 9` – die Schrittweite bestimmt den Abstand, der Stopp ist nie dabei
+- `range(5, 0, -1)` → `5, 4, 3, 2, 1` – mit negativer Schrittweite zählt `range` **rückwärts**
+- `range(5, 1)` → leer: der Start liegt bereits hinter dem Stopp
+- Bei leerer `range` läuft die Schleife **null Mal** – ohne Fehlermeldung
+
+### Aufsummieren in der Schleife
+
+```python
+summe = 0
+for i in range(1, 5):
+    summe += i
+print(summe)
+```
+
+- **Vor** der Schleife mit 0 starten, **in** der Schleife in jedem Durchlauf dazuzählen
+- Das `print` steht **nach** der Schleife (nicht eingerückt) – es gibt nur das Endergebnis aus: `10`
+- Dasselbe Muster steckt in der Vorhersage-Aufgabe mit `summe` und `n`
+
+### Mini-Aufgabe (5 min)
+
+Ein Fahrtenbuch für Ihr Elektrofahrzeug:
+
+1. Anzahl der Fahrten einlesen
+2. Mit einer `for`-Schleife für jede Fahrt die Strecke in km einlesen – die Aufforderung zeigt die Nummer: `Fahrt 1 in km: `, `Fahrt 2 in km: `, …
+3. Gesamtstrecke und Durchschnitt pro Fahrt mit einer Nachkommastelle ausgeben (`print`)
+
+Testen Sie mit 3 Fahrten: 12.5, 40 und 7.5 km – das sollte 60.0 km und 20.0 km ergeben. Was passiert bei 0 Fahrten?
 
 ### `while` oder `for`?
 
@@ -191,20 +257,32 @@ for i in range(1, 8):
 
 ## Transfer
 
-### Aufgabe: Balkenanzeige (Denkphase: 5 min, auf Papier)
+### Aufgabe: Ladeanzeige (Denkphase: 5 min, auf Papier)
 
-Schreiben Sie ein Programm:
+Ihr Fahrzeug zeigt den Ladestand als Balken aus 10 Segmenten. Schreiben Sie das Programm:
 
-1. Eine Zahl `n` zwischen 1 und 20 **einlesen** – ungültige Eingaben wiederholen (das neue Muster von eben!)
-2. Dann eine Zeile mit genau `n` Rauten **ausgeben** (`print`), z. B. für `n = 6`:
+1. **Einlesen:** Ladestand in % als ganze Zahl – ungültige Eingaben wiederholen
+2. **Ausgeben** (`print`): pro volle 10 % ein `#`, den Rest mit `-` auffüllen, dahinter den Ladestand rechtsbündig:
 
 ```
-######
+######----  67 %
+########## 100 %
 ```
 
-Notieren Sie zuerst: Welche Schleife für die Eingabe? Welche für die Rauten? Warum?
+Testwerte: 67, 100, 0, 5 – für die Eingabeprüfung 120 und −3
 
-Zusatz für Schnelle: Geben Sie hinter den Rauten die Zahl aus (`print`), z. B. `###### 6`
+### Ladeanzeige: Denkphase
+
+Notieren Sie auf Papier:
+
+- Welche Schleife für die Eingabe, welche für den Balken – warum?
+- Wie viele `#` bei 67 %, wie viele `-`? Wie rechnet Ihr Programm das aus?
+- Wie landen Balken und Zahl in **einer** Zeile?
+
+Zusatz für Schnelle:
+
+- Unter 20 % erscheint unter dem Balken zusätzlich `Bitte laden!`
+- Die Anzahl der Segmente wird ebenfalls eingelesen, z. B. 20 – was ändert sich an Ihrer Rechnung?
 
 ### Gemeinsam live
 
@@ -214,14 +292,31 @@ Wir entwickeln die Lösung jetzt zusammen.
 
 Ohne Computer – was kommt heraus?
 
-1. `range(4)` – welche Zahlen sind das?
+1. Welche Zahlen liefert `range(2, 8, 2)`?
 2. Warum läuft `while i < 3: print(i)` endlos?
-3. Was bewirkt `end=""` bei `print`?
-4. Eingabe validieren, bis sie passt – `for` oder `while`? Warum?
+3. Eingabe validieren, bis sie passt – `for` oder `while`? Warum?
+4. Beim Aufsummieren: Was passiert, wenn `summe = 0` **in** der Schleife steht?
+
+### 🗳️ Zum Schluss: Was gibt das aus?
+
+```python
+summe = 0
+for i in range(1, 4):
+    summe += i
+    print(summe, end=" ")
+```
+
+A) `6`
+
+B) `1 3 6`
+
+C) `0 1 3`
+
+D) `1 2 3`
 
 ### Bis nächste Woche!
 
 Nächste Woche: **Funktionen** – eigene Bausteine bauen
 
-- Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
+- Üben: KI-Quizze auf OneTutor: https://link.hm.edu/vkej
 - Fragen: jederzeit im Matrix-Chat

@@ -164,7 +164,7 @@ $$0{,}1_{10} = 0{,}0\overline{0011}_2 \quad \text{– unendlich periodisch}$$
 
 Der Computer speichert endlich viele Stellen – **0,1 ist im Rechner nie exakt 0,1.**
 
-### Erinnern Sie sich? Die Batterie-Schleife aus Woche 1
+### Eine Schleife, die nie endet
 
 ```python
 ladezustand = 0.0
@@ -172,7 +172,7 @@ while ladezustand != 1.0:
     ladezustand = ladezustand + 0.1
 ```
 
-Zehnmal ein *fast*-0,1 ergibt *fast*-1,0 – aber nie **exakt** 1,0. Die Bedingung wurde nie falsch. Deshalb hing die Schleife.
+Zehnmal ein *fast*-0,1 ergibt *fast*-1,0 – aber nie **exakt** 1,0. Die Bedingung bleibt immer `True`, die Schleife läuft endlos.
 
 ### Vorhersage-Aufgabe (1 min)
 
@@ -205,7 +205,7 @@ if abs(a - 0.3) < 1e-9:
     print("praktisch gleich")
 ```
 
-- Und die Batterie-Schleife von Woche 1, korrekt:
+- Die Ladeschleife von eben, korrekt:
 
 ```python
 while ladezustand < 1.0:
