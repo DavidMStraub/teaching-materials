@@ -214,7 +214,7 @@ cold_plate = platte - kanal
 cold_plate = cf.fillet(cold_plate, cold_plate.edges("|Z"), 5.0)
 ```
 
-Achtung: `&` bildet die Schnittmenge von **Auswahlen**, etwa von zwei Kantenlisten. Für zwei Körper liefert es ein leeres Ergebnis ohne Fehlermeldung.
+Bei Shapes bildet `&` die Schnittmenge von **Auswahlen**. Die **geometrische Schnittmenge** berechnen Sie mit `*` oder `cf.intersect(a, b)`.
 
 Zum Verrunden wählt ein Selektor die Kanten. Er fragt den **aktuellen Stand** ab (Einheit 3). Prüfen Sie vor dem Verrunden, welche Kanten er trifft.
 
