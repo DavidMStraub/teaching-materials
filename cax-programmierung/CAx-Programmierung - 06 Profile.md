@@ -43,182 +43,250 @@ David Straub
 
 - **Loft:** ein Körper zwischen zwei Profilen
 - **Sweep:** ein Profil entlang eines Pfades
-- **Boolean, Fillet/Chamfer:** Körper kombinieren und finishen
+- **Boolean, Fillet:** Körper kombinieren und verrunden
 
-![bg right:40% 95%](assets/sweep_loft.png)
+![bg right:42% 92%](assets/cax06_coldplate.png)
 
-*Durchgängiges Beispiel:* der Kühlkanal der Cold Plate – aus den Profilen von Einheit 5 wird ein Körper, dann wandert der Kanal durch die Platte
+*Durchgängiges Beispiel:* die Cold Plate mit Serpentinen-Kanal und zwei Anschlussstutzen aus Ihren Profilen von Einheit 5. Rechts das Ziel, das Kühlmittel ist blau dargestellt.
 
-### Rückblick: zwei Kanalprofile
+### Rückblick: Einlass und Auslass
 
-Letzte Woche gebaut: **Einlass-** und **Auslass-Querschnitt** als geschlossene Splines.
+Letzte Woche gebaut: Einlass- und Auslass-Querschnitt als Splines. Fehlt der Auslass, gibt es Referenzprofile.
 
-Bislang sind das nur Kurven in der Ebene. Heute:
+In der 12 mm dicken Platte wird der Kanal rund (⌀ 6 mm). Ihre Profile werden heute zum **Anschlussstutzen** auf der Platte:
 
-- aus den zwei Profilen wird ein **verjüngter Kanal** (Loft)
-- ein konstantes Profil wandert als **Serpentine** durch die Platte (Sweep)
-- der Kanal wird aus der Cold Plate **ausgeschnitten** (Boolean)
+- Stutzen aus Einlass und Auslass (Loft)
+- Kanal als **Serpentine** durch die Platte (Sweep)
+- Platte, Kanal und Stutzen zu einem Körper (Boolean)
 
 ## Theorie A: Loft
 
-### Loft: ein Körper zwischen Profilen
+### Referenzprofile
+
+Für alle, denen der Auslass aus Einheit 5 (Aufgabe 5) fehlt:
 
 ```python
 from cadquery import func as cf
 
-kanal = cf.loft([w_einlass, w_auslass], cap=True)
+einlass = [(25, 0, 0), (15, 6, 0), (0, 7, 0), (-15, 5, 0),
+           (-25, 0, 0), (-15, -5, 0), (0, -7, 0), (15, -6, 0)]
+auslass = [(18, 0, 0), (11, 4.3, 0), (0, 5, 0), (-11, 3.6, 0),
+           (-18, 0, 0), (-11, -3.6, 0), (0, -5, 0), (11, -4.3, 0)]
+
+w_ein = cf.wire(cf.spline(*einlass, periodic=True))
+w_aus = cf.wire(cf.spline(*auslass, periodic=True)).moved(z=40)
 ```
 
-- `loft` interpoliert eine Fläche **zwischen** den Querschnitten
-- Eingang: `Wire`s oder `Face`s in verschiedenen Ebenen
-- `cap=True` schließt die Enden → ein **`Solid`**
+### Loft zwischen verschiedenen Formen
 
-### Shell oder Solid?
-
-![bg right:40% 92%](assets/cap_falle.svg)
-
-| Eingang | `cap` | Ergebnis |
-|---|---|---|
-| `Wire`s | `False` *(Standard)* | `Shell` |
-| `Wire`s | `True` | `Solid` |
-| `Face`s | beliebig | `Solid` |
-
-Der **Standard ist `cap=False`** – aus Wires kommt ohne Zutun eine Hülle zurück, kein Volumen.
-
-> Faustregel: `Face` rein → `Solid` raus. Wer mit `Wire`s arbeitet, setzt `cap=True`.
-
-### Ruled vs. smooth
-
-![bg right:42% 90%](assets/loft_continuity.png)
+![bg right:30% 88%](assets/cax06_uebergang.png)
 
 ```python
-cf.loft([w1, w2, w3], ruled=True)    # Regelflächen
-cf.loft([w1, w2, w3], ruled=False)   # glatt (Standard)
+rund      = cf.wire(cf.circle(25.0))
+eckig     = cf.wire(cf.rect(60.0, 40.0)).moved(z=80)
+uebergang = cf.loft([rund, eckig], cap=True)
 ```
 
-- `ruled=True`: gerade Verbindungslinien, Knick an jedem Profil ($C^0$) – rechts die sichtbare Kante am mittleren Querschnitt
-- `ruled=False`: tangentenstetiger Übergang ($C^2$), eine glatte `BSPLINE`-Fläche (Einheit 5)
+- Die Profile dürfen ganz verschiedene Formen haben: hier ein Übergangsstück von rund auf eckig, wie im Rohrleitungs- und Lüftungsbau
+- Eingang: Wires oder Faces in verschiedenen Ebenen
+- `cap=True` schließt die beiden Enden mit Deckelflächen
+- `ruled` und glatt aus Einheit 5 gelten weiter; bei nur zwei Profilen sind beide gleich
 
-### Der `cap`-Stolperstein: gültig, aber falsch
+### Ein Loft auf einen Punkt
+
+Statt eines zweiten Profils darf am Ende ein einzelner Punkt stehen:
 
 ```python
-solid = cf.loft([w1, w2], cap=True)    # Volumen 15932 mm³
-shell = cf.loft([w1, w2], cap=False)   # Volumen  3794 mm³ (!)
-print(solid.isValid(), shell.isValid())  # True True
+form = cf.loft([cf.wire(cf.circle(10)), cf.vertex((0, 0, 30))], cap=True)
 ```
 
-- Ohne `cap` bleibt eine offene **`Shell`** – `isValid()` meldet trotzdem `True`
-- Sie meldet als „Volumen“ ihre Oberfläche: `Volume()` und `Area()` liefern **dieselbe Zahl**
+**Sagen Sie zuerst voraus:** Welchen `geomType` hat die Mantelfläche von `form`?
 
-> `isValid()` heißt gültig, sagt aber nichts über richtig. Der verlässliche Test ist `len(Solids()) == 1`.
+Prüfen Sie es dann mit `[f.geomType() for f in form.Faces()]`.
 
-## Praktikum A: verjüngter Kühlkanal (Loft)
+### Eine Wand aus dem Versatz
 
-### Aufgabe 1: Die zwei Profile loften
+![bg right:42% 95%](assets/cax06_stutzen.png)
 
-Verbinden Sie Ihre beiden Profile aus Einheit 5 zu einem Körper – den Auslass **40 mm** über dem Einlass.
+Der Loft `cf.loft([w_ein, w_aus], cap=True)` aus Ihren Profilen ist der **Hohlraum** des Stutzens. Für eine Wand von 2 mm braucht er eine Außenform:
 
-1. Erzeugen Sie den Kanal und prüfen Sie Volumen und Flächenzahl.
-2. Vergleichen Sie `ruled=True` und `ruled=False` – wo sitzt der Knick?
+- `cf.offset2D(w, 2.0)` versetzt jedes Profil um 2 mm nach außen (Einheit 4)
+- der Loft der versetzten Profile ist die **Außenform**
+- Außenform minus Hohlraum ergibt den **Stutzen**
 
-*Hinweise:* `.translate((0, 0, 40))` hebt den Auslass an, `cf.loft([...], cap=True)`, `.Volume()`, `.Faces()`
+## Praktikum A: Anschlussstutzen (Loft)
 
-### Aufgabe 2: Die `cap`-Falle selbst sehen
+### Aufgabe 1: Der Hohlraum
 
-Bauen Sie denselben Loft noch einmal mit `cap=False`.
+Loften Sie Ihre beiden Profile zum Hohlraum `innen`: Einlass auf z = 0, Auslass auf z = 40. Liegt Ihr Auslass schon auf z = 40, verschieben Sie ihn nicht noch einmal.
 
-1. Was meldet `isValid()`? Was das Volumen?
-2. Wie viele Faces hat die `Shell`, wie viele der `Solid` mit `cap=True`?
-3. **Diskussion:** Woran würden Sie im Code merken, dass hier etwas nicht stimmt?
+1. Wie groß ist das Volumen, wie viele Faces hat der Körper?
+2. Ist das Volumen plausibel? Es muss zwischen 40 · (Fläche des Auslasses) und 40 · (Fläche des Einlasses) liegen.
 
-*Hinweise:* `.isValid()`, `.Volume()`, `.Faces()`, `.Solids()`
+*Hinweise:* `cf.loft([...], cap=True)`, `.Volume()`, `.Faces()`, `cf.face(w).Area()`
+
+### Aufgabe 2: Ohne Deckel
+
+1. **Sagen Sie zuerst voraus:** Was liefert `cf.loft([w_ein, w_aus])` ohne `cap=True`? Welcher Typ, und was melden `isValid()`, `Volume()` und `len(Solids())`?
+2. Prüfen Sie Ihre Vorhersage. Vergleichen Sie dabei auch `Volume()` mit `Area()`.
+3. Übergeben Sie statt der Wires Flächen (`cf.face(w_ein)`, `cf.face(w_aus)`), wieder ohne `cap`. Was entsteht jetzt?
+4. Woran erkennen Sie im Code zuverlässig, dass das Ergebnis ein Körper ist?
+
+*Hinweise:* `type(...)`, `.isValid()`, `.Volume()`, `.Area()`, `.Solids()`
+
+### Aufgabe 3: Die Wand
+
+![bg right:38% 95%](assets/cax06_stutzen.png)
+
+Bauen Sie den Stutzen mit 2 mm Wand: Außenform aus den versetzten Profilen, Hohlraum abziehen.
+
+1. Prüfen Sie `isValid()` und `len(Solids())`.
+2. Schätzen Sie das Wandvolumen ab: mittlerer Umfang · Wanddicke · Höhe. Passt Ihr Ergebnis?
+
+*Hinweise:* `cf.offset2D(w, 2.0)`, `cf.loft([...], cap=True)`, `-`, `w.Length()` für den Umfang
 
 ## Theorie B: Sweep, Boolean, Fillet
 
 ### Sweep: ein Profil entlang eines Pfades
 
+![bg right:38% 92%](assets/cax06_locationat.png)
+
 ```python
+pfad   = cf.segment((0, 0, 0), (40, 0, 30))
 profil = cf.face(cf.circle(3)).moved(pfad.locationAt(0.0))
 kanal  = cf.sweep(profil, pfad)
 ```
 
 - `sweep` zieht ein **konstantes** Profil entlang einer Pfadkurve
-- `pfad.locationAt(0.0)` liefert das Koordinatensystem am Pfadstart – dort quer zur Tangente
-- Ein `Face` als Profil liefert einen `Solid` – dieselbe Regel wie beim Loft
+- `pfad.locationAt(0.0)` ist das lokale Koordinatensystem am Pfadstart: Seine z-Achse ist die **Tangente**, das Profil liegt quer dazu
+- Ein `Face` als Profil liefert einen Körper
 
-### Wenn der Pfad in der Profilebene liegt
+### Wo liegt das Ende einer Polyline?
 
-![w:600](assets/sweep_ausrichtung.svg)
+```python
+zickzack = cf.polyline((0, 0, 0), (30, 0, 0), (30, 30, 0), (60, 30, 0))
+```
 
-Der Pfad muss die Profilebene **durchstoßen**. Schräg genügt: 45° liefert einen sauberen Körper, nur mit schiefwinkligem Querschnitt. Läuft der Pfad dagegen **in** der Ebene, entartet der Sweep – `isValid()` ist `True`, `Solids()` hat ein Element, `Volume()` ist **0**.
+Die Polyline besteht aus drei Kanten.
+
+**Sagen Sie zuerst voraus:** Wo liegen `zickzack.positionAt(1.0)` und `zickzack.positionAt(1.0, mode="parameter")`?
+
+Prüfen Sie es dann im Notebook. Denken Sie an den Rohparameter aus Einheit 4.
 
 ### Ecken im Pfad: `transition`
 
-![bg right:25% 88%](assets/sweep_transitions.png)
-
 ```python
-cf.sweep(profil, pfad, transition="round")
+kanal = cf.sweep(profil, pfad, transition="round")
 ```
 
-- `transformed` *(Standard)*: Gehrungsschnitt
-- `right`: scharf rechtwinklig
-- `round`: abgerundet
+`transition` legt fest, was an einer **Ecke** des Pfades passiert, also dort, wo zwei Kanten mit einem Knick aufeinandertreffen:
 
-Am 90°-Knick durchdringt sich der Querschnitt beim Standard selbst und schnürt die Röhre zu. Das Volumen wird **negativ** – `isValid()` bleibt `True`. Bei engen Serpentinen ist `round` die sichere Wahl.
+- `"transformed"` *(Standard)*: Das Profil wird nur mitgedreht
+- `"right"`: scharfe Ecke
+- `"round"`: abgerundete Ecke
+
+Bei einem glatten Pfad ohne Ecken spielt `transition` keine Rolle.
+
+### Eine Serpentine mit scharfen Ecken
+
+```python
+pfad_eckig   = cf.polyline((-30, 20, 6), (50, 20, 6), (50, -20, 6), (-30, -20, 6))
+profil_eckig = cf.face(cf.circle(3)).moved(pfad_eckig.locationAt(0.0))
+```
+
+Dieses Profil wird mit allen drei Einstellungen entlang der Polyline gezogen.
+
+**Sagen Sie zuerst voraus:** Mit welcher `transition` entsteht ein durchgehender Kanal?
+
+A) `"transformed"` &nbsp;&nbsp; B) `"right"` &nbsp;&nbsp; C) `"round"` &nbsp;&nbsp; D) `"right"` und `"round"`
 
 ### Boolean und Fillet
 
-`+`, `-`, `&` sind Union, Cut und Intersect – im Einsatz seit Einheit 1:
+| Operation | Operator |
+|---|---|
+| Vereinigung (Union) | `a + b` |
+| Differenz (Cut) | `a - b` |
+| Schnittmenge (Intersect) | `a * b` |
 
 ```python
-cold_plate = plate - kanal          # Kanal aus der Platte schneiden
-cold_plate = cf.fillet(cold_plate, cold_plate.edges("|Z"), 3.0)
+platte     = cf.box(120, 80, 12)
+cold_plate = platte - kanal
+cold_plate = cf.fillet(cold_plate, cold_plate.edges("|Z"), 5.0)
 ```
 
-Finishing (Fillet/Chamfer) kommt zuletzt – der Grund aus Einheit 3: Selektoren fragen den aktuellen Stand ab.
+Achtung: `&` bildet die Schnittmenge von **Auswahlen**, etwa von zwei Kantenlisten. Für zwei Körper liefert es ein leeres Ergebnis ohne Fehlermeldung.
 
-## Praktikum B: Serpentinen-Kanal in der Cold Plate
+Zum Verrunden wählt ein Selektor die Kanten. Er fragt den **aktuellen Stand** ab (Einheit 3). Prüfen Sie vor dem Verrunden, welche Kanten er trifft.
 
-### Aufgabe 3: Ein gerader Kanal
+## Praktikum B: Cold Plate mit Serpentinen-Kanal
 
-Die Cold Plate ist **120 × 80 × 12 mm**. Ziehen Sie zunächst einen runden Kanal (⌀ 6 mm) **geradlinig** durch ihre Mittelebene, von Rand zu Rand.
+### Aufgabe 4: Ein gerader Kanal
 
-1. Erzeugen Sie ihn; prüfen Sie `isValid()`, `len(Solids())` **und** `Volume()`.
-2. Nehmen Sie einmal ein Profil in der `XY`-Ebene **ohne** Ausrichtung am Pfadstart. Was melden die drei Prüfungen jetzt?
+Die Cold Plate ist **120 × 80 × 12 mm** (`cf.box` liegt mittig in x und y, die Unterseite bei z = 0). Ziehen Sie einen runden Kanal (⌀ 6 mm) **geradlinig** durch die Mittelebene z = 6, von Rand zu Rand.
 
-*Hinweise:* `cf.circle` + `cf.face` für das Profil, `pfad.locationAt(0.0)` richtet es aus, `cf.sweep(profil, pfad)`
+1. Prüfen Sie `isValid()`, `len(Solids())` und `Volume()`.
+2. **Sagen Sie zuerst voraus:** Sie lassen das Profil in der XY-Ebene liegen, ohne `locationAt`. Was melden die drei Prüfungen jetzt? Probieren Sie es dann aus.
 
-### Aufgabe 4: Die Serpentine
+*Hinweise:* `cf.segment`, `cf.circle` + `cf.face`, `pfad.locationAt(0.0)`, `cf.sweep(profil, pfad)`
 
-![bg right:40% 92%](assets/serpentine_pfad.svg)
+### Aufgabe 5: Die Serpentine
 
-Ersetzen Sie den geraden Pfad durch die Serpentine rechts: zwei Spuren, eine Kehre.
+![bg right:42% 95%](assets/cax06_serpentine.svg)
+
+Ersetzen Sie den geraden Pfad durch die Serpentine rechts. Die Kehre ist ein Halbkreis mit Radius 20 mm um (30, 0). Die Enden liegen **in** der Platte, dort sitzen später die Stutzen.
 
 1. Bauen Sie den Pfad als Spline und sweepen Sie erneut.
-2. Vergleichen Sie `transition="round"` mit dem Standard.
+2. Wie klein ist der kleinste Krümmungsradius des Pfades? Warum muss er größer sein als der Kanalradius von 3 mm?
 
-*Hinweise:* `cf.spline(*punkte)`, Punkte entlang der Spuren und um die Kehre verteilen
+*Hinweise:* `cf.spline(*punkte)` mit dicht gesetzten Punkten entlang der Spuren und um die Kehre, sonst weicht der Spline zwischen ihnen von der Bahn ab; `curvatureAt(t)`
 
-### Aufgabe 5: Ausschneiden und verrunden
+### Aufgabe 6: Die Cold Plate zusammenbauen
 
-Schneiden Sie den Kanal aus der Cold Plate heraus.
+![bg right:34% 95%](assets/cax06_coldplate.png)
 
-1. Volumen vor und nach dem Schnitt – ist die Differenz plausibel?
-2. Verrunden Sie die vier äußeren senkrechten Kanten.
+1. Schneiden Sie den Serpentinen-Kanal aus der Platte. Ist die Volumendifferenz plausibel?
+2. Bohren Sie am Kanalanfang senkrecht (⌀ 6 mm) von der Kanalmitte bis zur Oberseite.
+3. Setzen Sie den Stutzen aus Aufgabe 3 über die Bohrung: Außenform hinzufügen, Hohlraum abziehen.
+4. Verrunden Sie die vier senkrechten Außenkanten (r = 5 mm). Wie viele Kanten trifft `edges("|Z")`?
 
-*Hinweise:* `cf.box(120, 80, 12)`, `-`, `cf.fillet(form, kanten, r)`, `.Volume()`; die Kanalenden müssen über den Plattenrand **hinausragen** – ein Schnitt exakt auf der Randfläche hinterlässt Artefakte
+*Hinweise:* `pfad.positionAt(0.0)` liefert den Kanalanfang, `.moved(cf.Location((x, y, z)))`, `cf.cylinder(d=..., h=...)`; der Stutzen muss mittig um den Ursprung liegen, bevor Sie ihn verschieben
 
-### Aufgabe 6 *(Zusatz)*: Ein- und Auslass anschließen
+### Aufgabe 7: Kollisionsprüfung
 
-Setzen Sie an die beiden Kanalenden je eine senkrechte Bohrung (Anschluss für den Kühlmittel-Schlauch).
+Die Platte wird mit vier Schrauben befestigt: durchgehende Bohrungen ⌀ 5 mm bei (±50, ±30).
 
-*Hinweise:* `pfad.locationAt(1.0)` liefert das Koordinatensystem am Pfadende – daraus die Ebene für die Bohrung, wie in Einheit 3
+1. Bohren Sie die vier Löcher.
+2. Prüfen Sie im Code, dass keine Bohrung den Kanal anschneidet.
+3. Wie dick ist die Wand zwischen Kanal und nächster Bohrung? Und zwischen Stutzen und nächster Bohrung?
+4. Was meldet Ihre Prüfung, wenn Sie eine Bohrung auf (50, 0) setzen?
+
+*Hinweise:* Schnittvolumen `(kanal * bohrung).Volume()`, Abstand `kanal.distance(bohrung)`
+
+### Aufgabe 8 *(Zusatz)*: Der zweite Stutzen
+
+Setzen Sie auch am Kanalende eine Bohrung und einen Stutzen.
+
+Schreiben Sie dafür eine Funktion, die Bohrung und Stutzen an einem gegebenen Punkt setzt, und rufen Sie sie für beide Kanalenden auf.
+
+*Hinweise:* `pfad.positionAt(1.0)`; Funktionen mit Parametern wie in Einheit 3
+
+### Aufgabe 9 *(Zusatz)*: Ein Kanal, der sich verjüngt
+
+Ein **Multisection-Sweep** zieht mehrere Profile entlang eines Pfades und geht dazwischen wie ein Loft von einem Profil ins nächste über:
+
+```
+kanal = cf.sweep([profil_anfang, profil_ende], pfad)
+```
+
+Bauen Sie die Serpentine mit ⌀ 8 mm am Anfang und ⌀ 5 mm am Ende. Prüfen Sie: Liegt das Volumen zwischen dem eines ⌀-5- und eines ⌀-8-Kanals gleicher Länge?
+
+*Hinweise:* `pfad.locationAt(0.0)` und `pfad.locationAt(1.0)` für die beiden Profile, `pfad.Length()`
 
 ## Abschluss
 
 ### Leseauftrag & Ausblick
 
 - **Leseauftrag:** Buch Kapitel 7
-- **Wer mehr will:** einen Multisection-Sweep bauen (Profil variiert *entlang* des Pfads) – Sweep und Loft in einer Operation
-- **Nächste Woche:** Codequalität – Type Hints und Unittests für den Modul-Code: Massenbudget, Zell-Passung, CI auf Ihrem Repo
+- **Wer mehr will:** der Flügel aus Kapitel 7, ein Loft durch NACA-Profile entlang einer gekrümmten Kurve
+- **Nächste Woche:** Codequalität mit Type Hints und Unittests für den Modul-Code: Massenbudget, Zell-Passung, CI auf Ihrem Repo
 - Bis dahin: `w06/` committet und gepusht
