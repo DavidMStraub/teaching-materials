@@ -37,24 +37,9 @@ Grenzfälle:
 - Magnete besitzen immer zwei Pole: Nordpol (N) und Südpol (S)
     - Nordpol = Pol, der auf der Erde nach Norden zeigt
 - Gleichnamige Pole stoßen sich ab, ungleichnamige Pole ziehen sich an
+- Am geographischen Nordpol der Erde liegt deshalb ein magnetischer **Südpol**
 
 ![bg right:40% 70%](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Geomagnetic_field_and_magnet_analogy.png/960px-Geomagnetic_field_and_magnet_analogy.png)
-
-### 🗳️ Zwei parallele Leiter
-
-Zwei lange, parallele Drähte führen Ströme in **dieselbe** Richtung.
-
-Was passiert?
-
-A) Sie ziehen sich an.
-
-B) Sie stoßen sich ab.
-
-C) Nichts – die Drähte sind elektrisch neutral.
-
-D) Sie verdrehen sich gegeneinander.
-
-![bg 85% right:40%](img/leiter-parallel-frage.svg)
 
 ### Kräfte zwischen elektrischen Leitern
 
@@ -64,23 +49,28 @@ $$\frac{|\vec{F}_{12}|}{\ell} = 2k_A \cdot \frac{I_1 I_2}{d}$$
 
 Magnetfelder entstehen durch bewegte elektrische Ladungen (Ströme).
 
-Wie $k$ im Coulomb’schen Gesetz ist $k_A$ eine **Einheiten-Konvention**: Ihr Wert hängt davon ab, in welchen Einheiten man Kraft, Strom und Länge misst. Im SI-System gilt $k_A = \frac{\mu_0}{4\pi}$ mit der magnetischen Feldkonstante $\mu_0 \approx 4\pi \cdot 10^{-7} \, \frac{\text{N}}{\text{A}^2}$.
+**Anwendung:** Bei einem Kurzschluss fließen Ströme von vielen kA. Stromschienen in Schaltanlagen und Batteriesystemen werden mechanisch auf diese Kräfte ausgelegt.
 
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/b/bc/MagneticWireAttraction.svg)
 
-### Magnetische Feldlinien
+### Die Konstante $k_A$
+
+| Elektrostatik | Magnetostatik |
+|---|---|
+| $\lvert\vec{F}_{12}\rvert = k \cdot \dfrac{\lvert Q_1 Q_2\rvert}{r^2}$ | $\dfrac{\lvert\vec{F}_{12}\rvert}{\ell} = 2k_A \cdot \dfrac{I_1 I_2}{d}$ |
+| $k = \dfrac{1}{4\pi\varepsilon_0}$ | $k_A = \dfrac{\mu_0}{4\pi}$ |
+
+Wie $k$ ist $k_A$ eine **Einheiten-Konvention**: Ihr Wert hängt davon ab, in welchen Einheiten man Kraft, Strom und Länge misst.
+
+Im SI-System: magnetische Feldkonstante $\mu_0 \approx 4\pi \cdot 10^{-7} \, \frac{\text{N}}{\text{A}^2}$
+
+### Magnetische Feldlinien und Flussdichte $\vec{B}$
 
 ![width:20cm](https://upload.wikimedia.org/wikipedia/commons/a/af/VFPt_cylindermagnet_field-representations.svg)
 
 - Kompassnadeln machen Feldlinien sichtbar: Feldlinien zeigen in die Richtung, in die sich der Nordpol einer kleinen Kompassnadel ausrichtet, außerhalb des Magneten von N nach S
 - Magnetische Feldlinien sind **immer geschlossen** (keine magnetischen Monopole!)
-- Die Dichte der Feldlinien ist ein Maß für die Stärke des Magnetfeldes
-
-### Magnetische Flussdichte $\vec{B}$
-
-Die magnetische Flussdichte $\vec{B}$ zeigt entlang der magnetischen Feldlinien. Ihr Betrag ist proportional zur Dichte der Feldlinien.
-
-![bg right:33% 70%](https://upload.wikimedia.org/wikipedia/commons/0/0c/VFPt_cylindrical_magnet_thumb.svg)
+- Die **magnetische Flussdichte** $\vec{B}$ zeigt entlang der Feldlinien. Ihr Betrag ist proportional zur Dichte der Feldlinien.
 
 ### Rechte-Faust-Regel
 
@@ -98,6 +88,8 @@ $$|\vec{B}| = \frac{\mu_0}{2\pi} \cdot \frac{I}{r}$$
 Einheit: das **Tesla**
 
 $$[\vec{B}] = [\mu_0] \cdot \frac{[I]}{[r]} = \frac{\text{N}}{\text{A}^2} \cdot \frac{\text{A}}{\text{m}} = \frac{\text{N}}{\text{A}\cdot\text{m}} = \text{T}$$
+
+**Anwendung:** Die Stromzange misst den Strom über das Magnetfeld $B \sim I$, ohne den Leiter aufzutrennen.
 
 ### 🗳️ 1 Tesla im Abstand 1 m
 
@@ -139,9 +131,11 @@ c) Vergleichen Sie mit dem Erdmagnetfeld!
 
 $$\vec{F} = Q \cdot (\vec{v} \times \vec{B})$$
 
-- Die Kraft steht **senkrecht** auf $\vec{v}$ und $\vec{B}$. Im elektrischen Feld wirkt $\vec{F} = Q \vec{E}$ dagegen in Feldrichtung.
-- Skalar (wenn $\vec{v} \perp \vec{B}$): $F = Q \cdot v \cdot B$
+- Die Kraft steht **senkrecht** auf $\vec{v}$ und $\vec{B}$. Im elektrischen Feld wirkt $\vec{F} = Q \vec{E}$ auf eine positive Ladung dagegen in Feldrichtung.
+- Betrag (wenn $\vec{v} \perp \vec{B}$): $F = |Q| \cdot v \cdot B$
 - **Rechte-Hand-Regel:** Daumen = Bewegungsrichtung der positiven Ladung (Stromrichtung), Zeigefinger = Feldrichtung, Mittelfinger = Kraftrichtung
+
+**Anwendung:** Hall-Sensor. Die Lorentzkraft lenkt die Ladungsträger in einem Halbleiterplättchen seitlich ab, es entsteht eine messbare Spannung $\sim B$. So messen Antriebe Drehzahl und Rotorlage.
 
 ![bg right:30% 90%](https://upload.wikimedia.org/wikipedia/commons/2/23/UVW-regel-strom-und-positive-ladung.svg)
 
@@ -165,9 +159,9 @@ D) es wirkt keine Kraft
 
 **Kreisbewegung:**
 
-- Lorentzkraft wirkt als Zentripetalkraft: $Q \cdot v \cdot B = \frac{m \cdot v^2}{r}$
-- Bahnradius: $r = \frac{m \cdot v}{Q \cdot B}$
-- Umlauffrequenz: $f = \frac{Q \cdot B}{2\pi m}$ (unabhängig von $v$!)
+- Lorentzkraft wirkt als Zentripetalkraft: $|Q| \cdot v \cdot B = \frac{m \cdot v^2}{r}$
+- Bahnradius: $r = \frac{m \cdot v}{|Q| \cdot B}$
+- Umlauffrequenz: $f = \frac{|Q| \cdot B}{2\pi m}$ (unabhängig von $v$!)
 
 **Anwendungen:** Teilchenbeschleuniger (Zyklotron), Massenspektrometer
 
@@ -187,7 +181,19 @@ $$\frac{F_{12}}{\ell} = I_2 \cdot B_1 = \frac{\mu_0}{2\pi} \cdot \frac{I_1 I_2}{
 
 ![bg right:30% 80%](https://upload.wikimedia.org/wikipedia/commons/b/bc/MagneticWireAttraction.svg)
 
-### Vergleich: Elektrisches und magnetisches Feld
+### Anwendung: Gleichstrommotor
+
+Drehbar gelagerte Leiterschleife (Länge $\ell$, Radius $r$) im Magnetfeld:
+
+- Auf beide Seiten wirkt $F = I \ell B$, entgegengesetzt gerichtet.
+- Drehmoment des Kräftepaars bei $N$ Windungen: $M = 2 N r I \ell B$, also $M \sim I$
+- Nach einer halben Umdrehung muss der Strom umgepolt werden: Kommutator mit Bürsten. Beim bürstenlosen Motor sitzen die Magnete auf dem Rotor, und eine Leistungselektronik schaltet die Ströme in den feststehenden Spulen um.
+
+Gleiches Prinzip: Linearmotor, Lautsprecher, Tauchspulaktor
+
+![bg 95% right:36%](img/gleichstrommotor.svg)
+
+### Vergleich: Elektrostatisches und magnetostatisches Feld
 
 | Eigenschaft | Elektrisches Feld | Magnetisches Feld |
 |-------------|-------------------|-------------------|
@@ -205,6 +211,8 @@ $$\frac{F_{12}}{\ell} = I_2 \cdot B_1 = \frac{\mu_0}{2\pi} \cdot \frac{I_1 I_2}{
 Der magnetische Fluss $\Phi$ durch eine Fläche $A$:
 
 $$\Phi = \int_A \vec{B} \cdot d\vec{A}$$
+
+Homogenes Feld, ebene Fläche: $\Phi = B \cdot A \cdot \cos \alpha$
 
 Einheit: $[\Phi] = \text{Vs} = \text{Wb}$ (Weber)
 
@@ -226,7 +234,7 @@ $$\vec{B} = \mu_0 \vec{H}$$
 
 Einheit: $[H] = \frac{\text{A}}{\text{m}}$
 
-$H$ hängt nur von den Strömen ab, $B$ zusätzlich vom Material.
+In Spule und Ringkern bestimmen die Ströme $H$. Das Material bestimmt, welches $B$ daraus wird.
 
 **Beispiel:** gerader stromdurchflossener Leiter (Abstand $r$): $H = \frac{I}{2\pi r}$
 
@@ -276,17 +284,17 @@ D) $14 \, \text{A}$
 
 ### Magnetfeld einer langen Spule
 
-Lange Spule mit $N$ Windungen, Länge $\ell$, Strom $I$. Durchflutungsgesetz:
+$N$ Windungen, Länge $\ell$, Strom $I$. Innen ist das Feld homogen, außen gilt $H \approx 0$.
 
-$$\oint \vec{H} \cdot d\vec{s} = N \cdot I$$
+Durchflutungsgesetz auf dem gestrichelten Weg, abschnittsweise:
 
-**Im Inneren der Spule** (Luft):
+- innen ($\vec{H} \parallel d\vec{s}$, Länge $\ell$): $H \cdot \ell$
+- außen ($H \approx 0$): $0$
+- Querstücke ($\vec{H} \perp d\vec{s}$): $0$
 
-$$H = \frac{N \cdot I}{\ell}, \qquad B = \mu_0 H$$
+$$H \cdot \ell = N \cdot I \quad\Rightarrow\quad H = \frac{N \cdot I}{\ell}, \qquad B = \mu_0 H$$
 
-**Außerhalb:** $B \approx 0$
-
-Mit einem Eisenkern wird $B$ um ein Vielfaches größer.
+Mit Eisenkern wird $B$ um ein Vielfaches größer: Elektromagnet, Relais, Magnetventil (z.B. Einspritzventil)
 
 ![bg 95% right:45%](img/spule.svg)
 
@@ -310,7 +318,32 @@ $$\vec{B} = \mu_0 \mu_r \vec{H}$$
 | paramagnetisch | knapp über 1 (z.B. $1 + 2 \cdot 10^{-5}$) | Aluminium, Luft, Platin |
 | ferromagnetisch | $10^2$ bis $10^5$, **nicht konstant** | Eisen, Nickel, Kobalt und ihre Legierungen |
 
-Für die Technik verhalten sich Dia- und Paramagnete wie Luft. Ferromagnete bündeln den Fluss – daraus baut man Kerne.
+Für die Technik verhalten sich Dia- und Paramagnete wie Luft. Ferromagnete bündeln den Fluss: Daraus baut man Kerne (Elektroblech in Motor und Trafo) und Permanentmagnete (NdFeB in Synchronmotoren von E-Autos und Drohnen).
+
+### Ferromagnete: Hysterese
+
+Die Flussdichte hängt von der *Vorgeschichte* ab:
+
+- **Sättigung** (1): mehr Strom bringt kaum noch mehr $B$
+- **Remanenz** $B_r$ (2): Flussdichte, die nach Abschalten des Stroms bleibt
+- **Koerzitivfeldstärke** $H_c$ (3): Gegenfeldstärke, bei der die Flussdichte verschwindet
+
+**Weichmagnetisch** (schmale Schleife): Trafo- und Motorkerne, Elektromagnete. Jeder Umlauf kostet Energie (Ummagnetisierungsverluste), die Motor und Trafo erwärmt.
+**Hartmagnetisch** (breite Schleife): Permanentmagnete
+
+![bg right:40% 98%](img/hysterese.svg)
+
+### Weiches Eisen: Magnetisierungskurve
+
+Bei weichmagnetischen Werkstoffen ist die Schleife so schmal, dass man mit **einer** Kurve $B(H)$ rechnet.
+
+- Steiler Anstieg: $\mu_r$ sehr groß
+- Ab etwa 1,4 T Sättigung: $\mu_r$ sinkt stark
+- $\mu_r = \dfrac{B}{\mu_0 H}$ gilt nur im jeweiligen Arbeitspunkt
+
+**Anwendung:** Elektromotoren werden auf etwa 1,5 T ausgelegt. Mehr Strom bringt dann kaum mehr Kraft, nur mehr Wärme.
+
+![bg 90% right:45%](img/magnetisierungskurve.svg)
 
 ### 🗳️ Doppelter Strom im Eisenkern
 
@@ -325,29 +358,6 @@ B) $B$ steigt, aber deutlich weniger als doppelt
 C) $B$ bleibt exakt gleich
 
 D) $B$ steigt auf mehr als das Doppelte
-
-### Ferromagnete: Hysterese
-
-Die Flussdichte hängt von der *Vorgeschichte* ab:
-
-- **Sättigung** (1): mehr Strom bringt kaum noch mehr $B$
-- **Remanenz** (2): Flussdichte, die ohne äußeres Feld bleibt
-- **Koerzitivfeldstärke** (3): Feldstärke, die die Magnetisierung beseitigt
-
-**Weichmagnetisch** (schmale Schleife): Trafo- und Motorkerne, Elektromagnete
-**Hartmagnetisch** (breite Schleife): Permanentmagnete
-
-![bg right:40% 90%](img/hysterese.svg)
-
-### Weiches Eisen: Magnetisierungskurve
-
-Bei weichmagnetischen Werkstoffen ist die Schleife so schmal, dass man mit **einer** Kurve $B(H)$ rechnet.
-
-- Steiler Anstieg: $\mu_r$ sehr groß
-- Ab etwa 1,4 T Sättigung: $\mu_r$ sinkt stark
-- $\mu_r = \dfrac{B}{\mu_0 H}$ gilt nur im jeweiligen Arbeitspunkt
-
-![bg 90% right:45%](img/magnetisierungskurve.svg)
 
 ### Übersicht: Größen in der Magnetostatik
 
@@ -380,113 +390,10 @@ Magnetisierungskurve des Elektroblechs:
 
 ![bg right:38% 85%](img/ringkern.svg)
 
-### Zusammenfassung und Probeklausur
+### Zusammenfassung
 
-Heute: Magnetfeld ($B$, $H$, $\Phi$, $\Theta$), Kräfte ($F = Q v B$, $F = I \ell B$), Durchflutungsgesetz, Materie (dia/para/ferro, Hysterese)
-
-**Nächste Woche: Probeklausur unter Klausurbedingungen**
-
-- Stoff: Kapitel 1–3 (Einheiten, E-Feld, Gleichstrom)
-- 60 Minuten, keine Hilfsmittel – wie in der echten Prüfung
-- Mit „Ersatzwerten“ wie im Original: wenn Sie eine Teilaufgabe nicht lösen, rechnen Sie mit dem Ersatzwert weiter!
-- Danach: ausführliche Besprechung
-
-**In zwei Wochen:** der magnetische Kreis – Magnetfelder berechnen wie Stromkreise.
-
-## Vertiefung
-
-### Vertiefung: Magnetisches Verhalten von Materie
-
-Ähnlich wie bei Dielektrika im elektrischen Feld reagiert Materie im Magnetfeld durch **Magnetisierung**.
-
-**Magnetische Dipole in Atomen:**
-
-- Elektronen haben einen intrinsischen **Spin** (magnetischer Dipol)
-- Bahnbewegung der Elektronen erzeugt **Bahnmagnetismus**
-- Jedes Elektron ist ein winziger Permanentmagnet – makroskopische Magnete entstehen durch **Ausrichtung** vieler Spins
-
-![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/c/c8/Elementary-magnets.png)
-
-### Vertiefung: Magnetische Suszeptibilität und Permeabilität
-
-Die Magnetisierung $\vec{M}$ ist proportional zur magnetischen Feldstärke $\vec{H}$:
-
-$$\vec{M} = \chi_m \vec{H}, \qquad \mu_r = 1 + \chi_m$$
-
-**Reaktion auf äußeres Feld:**
-
-- **Diamagnetismus:** gegen das äußere Feld ($\mu_r < 1$, $\chi_m < 0$)
-- **Paramagnetismus:** mit dem äußeren Feld ($\mu_r > 1$, $\chi_m > 0$)
-- **Ferromagnetismus:** starke Ausrichtung ($\mu_r \gg 1$)
-
-### Vertiefung: Magnetische Eigenschaften der Elemente
-
-![width:23cm](img/magnetic_elements_magnetica.png)
-
-(S. Zurek, Encyclopedia Magnetica, CC-BY-SA 4.0)
-
-### Vertiefung: Diamagnetismus
-
-- Tritt in **allen** Materialien auf; $\chi_m < 0$ (sehr klein), $\mu_r$ knapp unter 1
-- Mechanismus: externes Feld induziert Änderung der Elektronenbahnen → magnetisches Moment **entgegen** dem äußeren Feld
-- Effekt verschwindet mit dem Feld
-
-**Beispiele:** Kupfer, Silber, Gold, Wasser, organische Materialien
-
-In sehr starken Feldern schweben Diamagnete, im Bild ein Frosch bei etwa 16 T.
-
-![bg right:33% 90%](https://upload.wikimedia.org/wikipedia/commons/7/7b/Frog_diamagnetic_levitation.jpg)
-
-### Vertiefung: Paramagnetismus
-
-- Atome besitzen **permanente magnetische Dipole**; $\chi_m > 0$ (klein), $\mu_r$ knapp über 1
-- Ohne Feld: zufällige Ausrichtung (thermische Bewegung); mit Feld: partielle Ausrichtung **parallel**
-- Paramagnete werden schwach von Magneten angezogen; stärker bei tiefen Temperaturen
-
-**Beispiele:** **Aluminium**, Platin, Sauerstoff
-
-### Vertiefung: Ferromagnetismus
-
-- Sehr starke Magnetisierung: $\mu_r \gg 1$ (bis zu $10^5$!)
-- **Spontane Magnetisierung** auch ohne externes Feld möglich
-- Mechanismus: starke Wechselwirkung benachbarter Atome (**Austauschwechselwirkung**) → Bildung von **Weiss’schen Bezirken** (Domänen), die ein externes Feld ausrichtet
-
-**Beispiele:** Eisen, Kobalt, Nickel
-
-### Vertiefung: Weiss’sche Bezirke
-
-- Bereiche mit **gleich orientierten magnetischen Dipolen**
-- Spontane Magnetisierung innerhalb der Bezirke
-
-**Ohne äußeres Feld:** Bezirke zufällig orientiert → keine Gesamtmagnetisierung
-**Mit äußerem Feld:** Bezirke richten sich aus; bei Sättigung einheitlich
-
-![bg right:50% 100%](https://upload.wikimedia.org/wikipedia/commons/0/0a/Growing-magnetic-domains.svg)
-
-### Vertiefung: Magnetisches Feld und Magnetisierung
-
-**Magnetisierung** $\vec{M}$: magnetisches Dipolmoment pro Volumeneinheit
-
-$$\vec{B} = \mu_0(\vec{H} + \vec{M}) = \mu_0 \mu_r \vec{H}$$
-
-**Konvention:** $\vec{H}$ beschreibt das durch **freie Ströme** erzeugte Feld – ohne Beiträge der Magnetisierung (vgl. $\vec{D}$ und freie Ladungen in der Elektrostatik!).
-
-**Vorteil:** Das Durchflutungsgesetz gilt unverändert:
-
-$$\oint \vec{H} \cdot d\vec{s} = I_{\text{frei}}$$
-
-### Vertiefung: Magnetfeld in einem Tokamak
-
-![](https://upload.wikimedia.org/wikipedia/commons/2/2a/Schematic-of-a-tokamak-chamber-and-magnetic-profile.jpg)
-
-### Vertiefung: Magnetfeld in einem Tokamak
-
-Ringförmiges Fusionsreaktor-Design mit toroidalem Magnetfeld zum Plasmaeinschluss.
-
-**Toroidale Feldspulen (TF):** $N$ Spulen, $M$ Windungen, Strom $I$; Ampèresches Gesetz auf kreisförmigem Weg (Radius $r$):
-
-$$H \cdot 2\pi r = N M I \quad\Rightarrow\quad H(r) = \frac{N M I}{2\pi r}$$
-
-Feld nimmt mit $1/r$ ab (inhomogen); typisch $B \approx 5{-}15 \, \text{T}$
-
-**Beispiel ITER:** 18 TF-Spulen, 134 Windungen, 68 kA → B = 5,3 T bei 6,2 m Radius
+- Ströme erzeugen Magnetfelder mit geschlossenen Feldlinien; gerader Leiter: $B = \frac{\mu_0}{2\pi} \cdot \frac{I}{r}$
+- Kräfte: $\vec{F} = Q \cdot (\vec{v} \times \vec{B})$ auf bewegte Ladungen, $\vec{F} = I \cdot (\vec{\ell} \times \vec{B})$ auf Leiter (Motorprinzip)
+- Fluss $\Phi = \int_A \vec{B} \cdot d\vec{A}$, durch jede geschlossene Fläche null
+- Durchflutungsgesetz $\oint \vec{H} \cdot d\vec{s} = \Theta$; lange Spule: $H = \frac{N I}{\ell}$
+- Materie: $B = \mu_0 \mu_r H$; Ferromagnete bündeln den Fluss, sättigen ab etwa 1,4 T und zeigen Hysterese
