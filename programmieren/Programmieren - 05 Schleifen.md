@@ -43,39 +43,52 @@ print(f"{zellen} Zellen:{zellen * spannung:>7.1f} V")
 - Werte in einer Schleife **aufsummieren**
 - Schleifen **vorzeitig abbrechen**: `break`
 - Endlosschleifen erkennen – und stoppen
+- Entscheiden: `while` oder `for`?
 
 ## `while`: wiederholen, solange …
 
 ### Ohne Schleife wäre es so
 
+Ein Kondensator verliert pro Zeitschritt die Hälfte seiner Spannung. Nach wie vielen Schritten liegt er unter 1 V?
+
 ```python
-print("Messung 1")
-print("Messung 2")
-print("Messung 3")
-# ... und bei 1000 Messungen?
+spannung = 12.0
+spannung = spannung / 2   # 6.0
+spannung = spannung / 2   # 3.0
+spannung = spannung / 2   # 1.5
+spannung = spannung / 2   # 0.75 – jetzt unter 1 V
 ```
 
-Kopierter Code muss bei jeder Änderung an vielen Stellen angepasst werden. Eine Schleife wiederholt ihn stattdessen:
+Bei 230 V bräuchten Sie mehr Zeilen – wie viele, zeigt sich erst beim Rechnen. Die Wiederholung muss sich nach einer **Bedingung** richten.
 
 ### Die `while`-Schleife
 
 ```python
-i = 1
-while i <= 3:
-    print(f"Messung {i}")
-    i = i + 1
+spannung = 12.0
+schritte = 0
+while spannung >= 1.0:
+    spannung = spannung / 2
+    schritte = schritte + 1
+print(f"Unter 1 V nach {schritte} Schritten")
 ```
 
 - Solange die Bedingung `True` ist, läuft der eingerückte Block – **immer wieder**
-- Gleiche Ausgabe wie eben – aber der Code wächst nicht mit der Anzahl: für 1000 Messungen ändert sich nur die `3`
-- Von Hand verfolgen (so prüft man Schleifen!):
+- Die Anzahl der Durchläufe ergibt sich aus der Bedingung: bei 230 V sind es mehr, der Code bleibt gleich
+- Das `print` ist nicht eingerückt – es läuft einmal, nach der Schleife
 
-| Durchlauf | `i` | `i <= 3`? | Ausgabe |
+### Von Hand verfolgen: die Trace-Tabelle
+
+So prüft man Schleifen – eine Zeile pro Durchlauf:
+
+| Durchlauf | `spannung >= 1.0`? | `spannung` danach | `schritte` danach |
 |---|---|---|---|
-| 1 | 1 | True | Messung 1 |
-| 2 | 2 | True | Messung 2 |
-| 3 | 3 | True | Messung 3 |
-| – | 4 | False | *(Ende)* |
+| 1 | True | 6.0 | 1 |
+| 2 | True | 3.0 | 2 |
+| 3 | True | 1.5 | 3 |
+| 4 | True | 0.75 | 4 |
+| – | False | *(Ende)* | |
+
+Ausgabe: `Unter 1 V nach 4 Schritten`
 
 ### Vorhersage-Aufgabe (3 min)
 
@@ -94,31 +107,51 @@ print(n, summe)
 
 Wie oft läuft die Schleife? Was wird ausgegeben?
 
-### Die Endlosschleife
-
-```python
-i = 0
-while i < 3:
-    print(i)
-```
-
-- `i` ändert sich nie – die Bedingung bleibt für immer `True`
-- Kein Fehler, keine Meldung: das Programm läuft einfach **endlos**
-- Stoppen in Jupyter: das **Stopp-Symbol** (Kernel unterbrechen)
-
 ### Mini-Aufgabe (4 min)
 
+Übernehmen Sie die Kondensator-Schleife und ändern Sie sie:
+
+1. Start bei 230 V – nach wie vielen Schritten liegt die Spannung unter 1 V?
+2. Geben Sie in jedem Durchlauf Schritt und Spannung aus (`print`), die Spannung mit zwei Nachkommastellen
+3. Pro Schritt sinkt die Spannung nur um 10 % – wie viele Schritte sind es jetzt?
+
+### Vorhersage-Aufgabe (2 min)
+
+Eine Batteriezelle wird in 0,1-Schritten geladen, bis der Ladezustand 1,0 erreicht:
+
 ```python
-i = 0
-while i < 5:
-    print(i)
-    i += 1
+ladezustand = 0.0
+while ladezustand != 1.0:
+    ladezustand = ladezustand + 0.1
+print("Voll!")
 ```
 
-1. Führen Sie den Code aus
-2. Ändern Sie ihn so, dass nur bis `3` gezählt wird (letzte Ausgabe: `3`)
-3. Ändern Sie ihn so, dass er bei `1` startet
-4. Jetzt nur die geraden Zahlen von `0` bis `8` – finden Sie **zwei** Wege (Tipp: einer davon nutzt `%` aus Woche 2)
+Wie oft läuft die Schleife? Aufschreiben, dann ausführen.
+
+### Die Endlosschleife
+
+- Die Bedingung wird nie `False` – das Programm läuft **endlos**, ohne Fehlermeldung
+- Stoppen in Jupyter: das **Stopp-Symbol** (Kernel unterbrechen)
+- Ein `print(ladezustand)` in der Schleife zeigt die Ursache: `0.9999999999999999`, dann `1.0999999999999999`
+- Kommazahlen werden intern nicht exakt gespeichert – warum, klären wir in Woche 11
+
+### Kommazahlen in Bedingungen
+
+Mit `<`, `>`, `<=` oder `>=` endet die Schleife sicher:
+
+```python
+ladezustand = 0.0
+while ladezustand < 1.0:
+    ladezustand = ladezustand + 0.1
+```
+
+Allerdings nach 11 Durchläufen, bei `1.0999999999999999`. Exakt zählen Sie mit ganzen Zahlen:
+
+```python
+prozent = 0
+while prozent < 100:
+    prozent = prozent + 10
+```
 
 ### Robuste Programme: Eingabe wiederholen, bis sie gültig ist
 
@@ -154,6 +187,17 @@ while countdown > 0:
 ```
 
 ## `for`: wiederholen mit Zähler
+
+### Wenn die Anzahl feststeht
+
+```python
+print("Messung 1")
+print("Messung 2")
+print("Messung 3")
+# ... und bei 1000 Messungen?
+```
+
+Hier steht vorher fest, wie oft wiederholt wird. Dafür gibt es eine eigene Schleife, die selbst mitzählt.
 
 ### Die `for`-Schleife mit `range()`
 
@@ -194,6 +238,23 @@ range(5, 1)
 - `range(5, 1)` → leer: der Start liegt bereits hinter dem Stopp
 - Bei leerer `range` läuft die Schleife **null Mal** – ohne Fehlermeldung
 
+### Vorhersage-Aufgabe (2 min)
+
+Aufschreiben, dann ausführen:
+
+```python
+for i in range(5):
+    print(i)
+    i += 2
+```
+
+### Warum ändert `i += 2` nichts?
+
+- `for` holt sich in jedem Durchlauf den **nächsten Wert** aus `range` und überschreibt damit `i`
+- Was Sie im Block mit `i` anstellen, gilt nur bis zum Ende dieses Durchlaufs
+- Andere Schrittweite? Die gehört in die `range`: `range(0, 5, 3)`
+- Bei `while` steuern Sie den Zähler dagegen selbst – dort wirkt `i += 2`
+
 ### Aufsummieren in der Schleife
 
 ```python
@@ -217,11 +278,40 @@ Ein Fahrtenbuch für Ihr Elektrofahrzeug:
 
 Testen Sie mit 3 Fahrten: 12.5, 40 und 7.5 km – das sollte 60.0 km und 20.0 km ergeben. Was passiert bei 0 Fahrten?
 
+### Zählen mit `while` und mit `for`
+
+Zweimal dieselbe Ausgabe, `1` bis `5`:
+
+```python
+i = 1               # 1. Startwert
+while i <= 5:       # 2. Bedingung
+    print(i)
+    i += 1          # 3. Erhöhung
+```
+
+```python
+for i in range(1, 6):
+    print(i)
+```
+
+- Bei `while` verteilt sich das Zählen auf drei Stellen – jede ist eine Fehlerquelle. Fehlt die Erhöhung, läuft die Schleife endlos
+- Jede `for`-Schleife lässt sich als `while`-Schleife schreiben – das üben wir in Woche 8
+
 ### `while` oder `for`?
 
 - **`for`**: die Anzahl der Wiederholungen steht vorher fest („10-mal“, „für jede Zahl von 1 bis 100“)
 - **`while`**: wiederholen, solange eine Bedingung gilt („bis die Eingabe gültig ist“)
-- Jede `for`-Schleife lässt sich als `while`-Schleife schreiben – das üben wir in Woche 8
+- Zum Zählen nehmen Sie `for` – eine Zeile statt drei Stellen
+
+### Mini-Aufgabe (2 min)
+
+`for` oder `while`? Entscheiden Sie und begründen Sie in einem Halbsatz:
+
+1. Eine Eingabe wiederholen, bis sie gültig ist
+2. Die Spannung von 8 Zellen nacheinander auslesen
+3. Halbieren, bis die Spannung unter 1 V liegt
+4. 100 Messwerte einlesen
+5. Messen, bis die Temperatur über 60 °C steigt
 
 ### Abbrechen mit `break`
 
@@ -294,7 +384,7 @@ Ohne Computer – was kommt heraus?
 
 1. Welche Zahlen liefert `range(2, 8, 2)`?
 2. Warum läuft `while i < 3: print(i)` endlos?
-3. Eingabe validieren, bis sie passt – `for` oder `while`? Warum?
+3. Wie oft läuft die Kondensator-Schleife, wenn die Spannung schon bei 0.5 V startet?
 4. Beim Aufsummieren: Was passiert, wenn `summe = 0` **in** der Schleife steht?
 
 ### 🗳️ Zum Schluss: Was gibt das aus?
