@@ -61,27 +61,13 @@ Die beiden Werkstücke entstehen mit unterschiedlichen Operationen:
 
 ## Theorie A: Loft
 
-### Referenzprofile
-
-Für alle, denen der Auslass aus Einheit 5 (Aufgabe 5) fehlt:
-
-```python
-from cadquery import func as cf
-
-einlass = [(25, 0, 0), (15, 6, 0), (0, 7, 0), (-15, 5, 0),
-           (-25, 0, 0), (-15, -5, 0), (0, -7, 0), (15, -6, 0)]
-auslass = [(18, 0, 0), (11, 4.3, 0), (0, 5, 0), (-11, 3.6, 0),
-           (-18, 0, 0), (-11, -3.6, 0), (0, -5, 0), (11, -4.3, 0)]
-
-w_ein = cf.wire(cf.spline(*einlass, periodic=True))
-w_aus = cf.wire(cf.spline(*auslass, periodic=True)).moved(z=40)
-```
-
 ### Loft zwischen verschiedenen Formen
 
 ![bg right:30% 88%](assets/cax06_uebergang.png)
 
 ```python
+from cadquery import func as cf
+
 rund      = cf.wire(cf.circle(25.0))
 eckig     = cf.wire(cf.rect(60.0, 40.0)).moved(z=80)
 uebergang = cf.loft([rund, eckig], cap=True)
@@ -90,7 +76,17 @@ uebergang = cf.loft([rund, eckig], cap=True)
 - Die Profile dürfen ganz verschiedene Formen haben: hier ein Übergangsstück von rund auf eckig, wie im Rohrleitungs- und Lüftungsbau
 - Eingang: Wires oder Faces in verschiedenen Ebenen
 - `cap=True` schließt die beiden Enden mit Deckelflächen
-- `ruled` und glatt aus Einheit 5 gelten weiter; bei nur zwei Profilen sind beide gleich
+
+### Loft: `ruled` oder glatt
+
+![bg right:40% 90%](assets/loft_continuity.png)
+
+Bei mehr als zwei Profilen entscheidet `ruled`, wie die Fläche durch die Zwischenprofile läuft:
+
+- `ruled=True`: gerade Verbindungslinien von Profil zu Profil, an jedem Zwischenprofil ein Knick ($C^0$)
+- `ruled=False` *(Standard)*: eine glatte B-Spline-Fläche durch alle Profile
+
+Bei nur zwei Profilen liefern beide dasselbe Ergebnis.
 
 ### Ein Loft auf einen Punkt
 
@@ -115,6 +111,20 @@ Der Loft `cf.loft([w_ein, w_aus], cap=True)` aus Ihren Profilen ist der **Hohlra
 - Außenform minus Hohlraum ergibt das **hohle Kanalstück**
 
 ## Praktikum A: Verjüngtes Kanalstück (Loft)
+
+### Referenzprofile
+
+Für alle, denen der Auslass aus Einheit 5 (Aufgabe 5) fehlt:
+
+```python
+einlass = [(25, 0, 0), (15, 6, 0), (0, 7, 0), (-15, 5, 0),
+           (-25, 0, 0), (-15, -5, 0), (0, -7, 0), (15, -6, 0)]
+auslass = [(18, 0, 0), (11, 4.3, 0), (0, 5, 0), (-11, 3.6, 0),
+           (-18, 0, 0), (-11, -3.6, 0), (0, -5, 0), (11, -4.3, 0)]
+
+w_ein = cf.wire(cf.spline(*einlass, periodic=True))
+w_aus = cf.wire(cf.spline(*auslass, periodic=True)).moved(z=40)
+```
 
 ### Aufgabe 1: Der Hohlraum
 
