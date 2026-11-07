@@ -120,6 +120,8 @@ def verdopple(x: str) -> int:
 verdopple(5)      # läuft durch, ohne Warnung
 ```
 
+In einer Dataclass macht erst die Annotation eine Zeile zum Feld. Den Typ prüft aber auch `@dataclass` nicht: `ModulParam(n_zellen="12")` läuft durch.
+
 ### Type-Checker: lesen, ohne auszuführen
 
 Die Annotationen wertet ein **Type-Checker** aus, ein zweites Programm. Es liest den Quelltext, verfolgt die Typen durch die Funktionen und meldet Widersprüche, ohne eine Zeile auszuführen:
@@ -231,9 +233,30 @@ if __name__ == "__main__":
 
 Starten Sie die Datei direkt, ist `__name__` gleich `"__main__"`, und der Block läuft. Beim Import mit `from w07.modul import stapel_bauen` ist `__name__` gleich `"w07.modul"`, und der Block bleibt aus.
 
+### Ein `ModulParam` für alle Funktionen
+
+Ab heute gilt diese Version. Kopieren Sie sie mit den Importen von `dataclass` und `cf` an den Anfang von `w07/modul.py`:
+
+```python
+@dataclass
+class ModulParam:
+    zell_b: float = 148.0        # mm, Zellbreite
+    zell_h: float = 98.0         # mm, Zellhöhe
+    zell_t: float = 11.0         # mm, Zelldicke
+    zell_r: float = 6.0          # mm, Eckradius der Zelle
+    n_zellen: int = 12           # Anzahl Zellen im Stapel
+    spacer: float = 1.5          # mm, Kompressionspad zwischen den Zellen
+    tab_l: float = 12.0          # mm, Überstand des Tabs über die kurze Seite
+    tab_b: float = 24.0          # mm, Tabbreite
+    tab_t: float = 6.0           # mm, Tabdicke, mittig in der Zelldicke
+    platten_rand: float = 12.0   # mm, Endplatte größer als Zellquerschnitt
+    platten_t: float = 8.0       # mm, Endplattendicke
+    zapfen_d: float = 16.0       # mm, Zentrierbohrung
+```
+
 ### Aufgabe 1: Den Modul-Code sammeln
 
-1. Legen Sie `w07/modul.py` an. Darin stehen `ModulParam`, `zelle_bauen` mit dem Tab aus Einheit 4 (Aufgabe 1), `stapel_bauen` mit Flip und `endplatten`.
+1. Ergänzen Sie in `w07/modul.py` unter `ModulParam` Ihre Funktionen: `zelle_bauen` mit dem Tab aus Einheit 4 (Aufgabe 1), `stapel_bauen` mit Flip und `endplatten`. Passen Sie die Feldnamen an.
 2. Stapel und untere Endplatte beginnen bei z = 0, ohne Grundplatte. Die Lage im Modul kommt erst beim Zusammenbau.
 3. Stellen Sie alles, was baut und anzeigt, unter `if __name__ == "__main__":`.
 
