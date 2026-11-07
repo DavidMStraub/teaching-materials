@@ -41,54 +41,55 @@ David Straub
 
 ## Codequalität
 
-- **Type Hints:** Fehler sichtbar, bevor der Code läuft
-- **Unittests:** jede Änderung automatisch geprüft
-- **CI:** die Prüfung läuft bei jedem Push
+- **Type Hints:** Typfehler finden, bevor der Code läuft
+- **Unittests:** die Geometrie bei jeder Änderung automatisch prüfen
+- **CI:** beides läuft bei jedem Push auf GitLab
 
-*Durchgängiges Beispiel:* der Modul-Code aus sechs Wochen – annotiert und durch Tests abgesichert
+*Durchgängiges Beispiel:* Ihr Batteriemodul aus Einheit 3 und 4, an einem Ort gesammelt, annotiert und getestet
 
-### Rückblick: der Modul-Code wächst
+### Rückblick: der Modul-Code
 
-Sechs Wochen: `ModulParam`, `zelle_bauen`, `stapel_bauen`, `endplatten`, Loft, Sweep.
+Ihr Modul-Code liegt bisher verteilt:
 
-Inzwischen berührt jede Änderung Bestehendes – der Fillet-Radius von heute entscheidet über die Zell-Passung von letzter Woche.
+- `w03/`: `ModulParam`, `zelle_bauen`, `stapel_bauen`, `endplatten`
+- `w04/`: dieselben Funktionen mit Tab und Flip, `ModulParam` noch einmal kopiert
 
-**Heute:** zwei Werkzeuge, die Fehler früh melden –
+Jede Datei baut beim Start das Modul und zeigt es an. Ob nach einer Änderung noch alles stimmt, sehen Sie nur im Viewer.
 
-- **Type Hints** zeigen Typfehler schon im Editor
-- **Unittests** prüfen die Geometrie bei jeder Änderung
+**Heute:** Der Code kommt an einen Ort. Dann melden zwei Werkzeuge Fehler, ohne dass Sie hinschauen müssen.
+
+Die Folien verwenden die Namen aus der Referenzlösung, etwa `platten_t` oder `stapel_hoehe`.
 
 ## Theorie A: Type Hints
 
-### Warum Type Hints?
+### Was meldet Python?
 
 ```python
-def finde_zelle(name):
-    for z in katalog:
-        if z.name == name:
-            return z
-    # nicht gefunden → kein return → implizit None
+def endplatten(p: ModulParam):
+    unten = cf.box(p.zell_b + p.platten_rand, p.zell_h + p.platten_rand, p.platten_t)
+    z_mitte = p.platten_t + stapel_hoehe(p) / 2
+    oben = unten.mirror("XY", basePointVector=(0, 0, z_mitte))
+    unten + oben
+
+
+platten = endplatten(ModulParam())
+show(platten.moved(cf.Location((0, 0, 6))))
 ```
 
-```python
-kapazitaet = finde_zelle("Pouch-40Ah").kapazitaet   # Tippfehler im Namen
-# → AttributeError: 'NoneType' has no attribute 'kapazitaet'
+**Was passiert beim Ausführen, und in welcher Zeile meldet Python den Fehler?**
+
+### Der Fehler fällt weit entfernt auf
+
+```
+    show(platten.moved(cf.Location((0, 0, 6))))
+         ^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'moved'
 ```
 
-Der Absturz passiert **weit entfernt** vom eigentlichen Fehler – und erst, wenn der Code läuft.
+- In `endplatten` fehlt das `return`. Ohne `return` liefert jede Funktion `None`.
+- Python meldet den Fehler erst dort, wo das Ergebnis **benutzt** wird, nicht in `endplatten`.
 
-### Warum findet Python das nicht?
-
-Python prüft Typen **zur Laufzeit**, und nur an den Stellen, die tatsächlich ausgeführt werden:
-
-```python
-len("hallo")     # → 5
-len([1, 2, 3])   # → 3
-```
-
-**Duck Typing:** Beim Aufruf zählt allein, ob das Objekt die verlangte Operation beherrscht. Einen deklarierten Typ gibt es nicht.
-
-`None` beherrscht fast nichts – der Fehler fliegt dort auf, wo das Ergebnis *benutzt* wird.
+Python prüft Typen **zur Laufzeit** und nur in Zeilen, die tatsächlich laufen. Dabei zählt allein, ob ein Objekt die verlangte Operation beherrscht (**Duck Typing**). `None` beherrscht fast nichts.
 
 ### Dynamisch und statisch typisiert
 
@@ -101,16 +102,16 @@ len([1, 2, 3])   # → 3
 
 In C weist der Compiler `int x = "hallo";` ab, bevor das Programm existiert. Python nimmt jede Zuweisung an und stolpert erst beim Benutzen.
 
-### Python: dynamisch typisiert – und annotierbar
+### Annotationen: den Typ hinschreiben
 
-Seit Python 3.5 (2015) gibt es eine Syntax, um den erwarteten Typ **hinzuschreiben**:
+In Einheit 3 standen schon Typ-Hinweise, in der Dataclass und an einer Funktion:
 
 ```python
-def finde_zelle(name: str) -> Zelle | None:
-    ...
+zell_t: float = 11.0
+def zell_volumen(p: ModulParam) -> float:
 ```
 
-`name: str` ist ein Hinweis. Python ignoriert ihn vollständig und führt den Code genauso aus – auch bei falscher Annotation:
+`: float`, `p: ModulParam` und `-> float` sind **Type Hints** (Annotationen), seit Python 3.5 (2015). Python selbst ignoriert sie und führt den Code genauso aus, auch bei falscher Annotation:
 
 ```python
 def verdopple(x: str) -> int:
@@ -119,301 +120,369 @@ def verdopple(x: str) -> int:
 verdopple(5)      # läuft durch, ohne Warnung
 ```
 
-### Statische Codeanalyse: lesen, ohne auszuführen
+### Type-Checker: lesen, ohne auszuführen
 
-Die Annotationen wertet ein **Type-Checker** aus, ein zweites Programm. Es liest den Quelltext wie ein Compiler, verfolgt die Typen durch die Funktionen und meldet Widersprüche – ohne eine einzige Zeile auszuführen:
+Die Annotationen wertet ein **Type-Checker** aus, ein zweites Programm. Es liest den Quelltext, verfolgt die Typen durch die Funktionen und meldet Widersprüche, ohne eine Zeile auszuführen:
 
 | Tool | Wann | Wie |
 |---|---|---|
-| **Pylance** | beim Tippen | Unterwellenlinie im Editor (VS Code) |
+| **Pylance** | beim Tippen | Wellenlinie im Editor (VS Code) |
 | **mypy** | Kommandozeile / CI | `uv run mypy w07/` |
 
-```python
-kapazitaet = finde_zelle("Pouch-40Ah").kapazitaet
-#            ⚠ Cannot access attribute "kapazitaet" for class "None"
-```
-
-Damit fällt das vergessene `None` auf, **bevor** der Code jemals läuft.
-
-### mypy: der Type-Checker für die Kommandozeile
-
-**mypy** ist ein eigenes Python-Programm – es steht seit Woche 1 in Ihrer `pyproject.toml` und ist damit schon installiert. Man ruft es auf einen Ordner auf – es liest die Dateien und gibt eine Liste aus:
-
-```bash
-uv run mypy w07/
-```
+Mit `def endplatten(p: ModulParam) -> cf.Shape:` meldet mypy den Fehler in der Funktion selbst:
 
 ```
-w07/zelle.py:42: error: Item "None" of "Zelle | None" has no attribute "kapazitaet"
-w07/stapel.py:17: error: Argument 1 has incompatible type "str"; expected "int"
-Found 2 errors in 2 files (checked 6 source files)
+w07/modul.py:51: error: Missing return statement  [return]
 ```
 
-Pylance und mypy sind zwei Programme mit fast denselben Regeln: Pylance meldet beim Tippen, mypy als Kommando – deshalb lässt es sich in die CI hängen (Theorie B). Eingestellt sind beide in der `pyproject.toml`.
+Pylance kommt mit der Python-Erweiterung von VS Code, mypy steht seit Woche 1 in Ihrer `pyproject.toml`. Eingestellt sind beide dort.
 
-### Syntax: Parameter, Rückgabe, Optional
+### Syntax: Parameter, Rückgabe, `| None`
 
 ```python
-def zellmasse(kapazitaet_ah: float, spez_energie: float) -> float:
-    return kapazitaet_ah * 3.7 / spez_energie
+def stapel_hoehe(p: ModulParam) -> float: ...
+def zelle_bauen(p: ModulParam) -> cf.Shape: ...
+def bericht(p: ModulParam) -> None: ...          # gibt nichts zurück
 
-def exportiere(koerper: cf.Shape, pfad: str) -> None:
-    koerper.exportStep(pfad)
+@dataclass
+class ModulParam:
+    n_zellen: int = 12
+    zapfen_d: float | None = 16.0                 # None: ohne Zentrierbohrung
 
-def finde_zelle(name: str) -> Zelle | None:   # kann None liefern
-    ...
+punkte: list[tuple[float, float, float]] = []     # Liste von Punkten
 ```
 
-- `-> None`: die Funktion gibt keinen Wert zurück – trotzdem hinschreiben
-- `Zelle | None`: der senkrechte Strich heißt **„oder“** – der Rückgabewert ist eine `Zelle` **oder** `None`, der Aufrufer muss mit beidem rechnen
+- `-> None`: Die Funktion gibt nichts zurück. Trotzdem hinschreiben: **Funktionen ganz ohne Annotation prüft mypy nicht.**
+- `float | None`: Der senkrechte Strich heißt **„oder“**. Wer den Wert benutzt, muss mit beidem rechnen.
 
 ### CadQuery-Typen
 
-```python
-from cadquery import Shape, Solid, Face, Edge, Wire, Vector
-
-def stapel_bauen(p: ModulParam) -> Shape:
-    ...
-
-def endplatten(p: ModulParam) -> Shape:
-    ...
-```
-
 | Typ | Bedeutung |
 |---|---|
-| `Shape` | Oberbegriff für alle Formen – wenn der genaue Typ offen ist (z. B. nach Boolean) |
-| `Solid` / `Face` / `Edge` / `Wire` | die konkreten Topologie-Elemente aus Einheit 2 |
+| `cf.Shape` | Oberbegriff für alle Formen |
+| `cf.Solid`, `cf.Face`, `cf.Wire`, `cf.Edge` | die konkreten Topologie-Elemente aus Einheit 2 |
 
-Einheiten kann kein Typ ausdrücken – **aussagekräftige Namen** sind der Ersatz: `kapazitaet_ah`, `plattenstaerke`, `winkel_grad`.
+- Grundkörper wie `cf.box` und `cf.cylinder` liefern `cf.Solid`.
+- Boolean, Fillet, Extrude, Loft und Selektoren liefern `cf.Shape`, weil der genaue Typ des Ergebnisses von der Geometrie abhängt.
+
+Einheiten kann kein Typ ausdrücken. Der Ersatz sind **aussagekräftige Namen**: `zell_t`, `platten_rand`, `winkel_grad`.
+
+### Was meldet mypy?
+
+```python
+p = ModulParam()
+platte = cf.box(170, 110, 6)
+platte = cf.fillet(platte, platte.edges("|Z"), 6)      # A
+boden = platte.faces("<Z").outerWire()                 # B
+bohrung = cf.cylinder(d=p.zapfen_d, h=10)              # C
+v = platte.Volume() / 1000                             # D
+```
+
+`ModulParam` ist die Version von der vorigen Folie, mit `zapfen_d: float | None`.
+
+**Welche Zeilen meldet mypy?** Stimmen Sie ab. Nachprüfen können Sie es in Aufgabe 3.
+
+### Auflösung: A, B und C
+
+- **A:** `cf.box` liefert `Solid`, `cf.fillet` ein `Shape`. Eine Variable behält für mypy den Typ ihrer ersten Zuweisung. Abhilfe: ein neuer Name (`platte_rund`) oder der Typ bei der ersten Zuweisung (`platte: cf.Shape = cf.box(...)`).
+- **B:** `faces(...)` liefert `Shape`. Trifft der Selektor eine Fläche, ist es ein `Face`, bei mehreren ein `Compound`. `outerWire` gibt es nur am `Face`.
+- **C:** `zapfen_d` kann `None` sein. Erst nach `if p.zapfen_d is not None:` weiß der Type-Checker, dass es ein `float` ist.
+
+Pylance meldet nur B und C. mypy ist bei Zuweisungen strenger, deshalb läuft in der CI mypy.
 
 ### Den Typ verengen: `assert isinstance`
 
-Der Type-Checker weiß bei `plate - kanal` nur, dass **irgendeine** `Shape` herauskommt – gebraucht wird aber ein `Solid`. Drei Wege, ein guter:
+Für B gibt es drei Wege, aber nur einer ist gut:
 
 ```python
-ergebnis = plate - kanal                 # Typ: Shape
+boden = platte.faces("<Z")              # Typ: Shape
 
-cast(Solid, ergebnis)                    # behauptet es, prüft nichts
-ergebnis  # type: ignore                 # blendet die Warnung nur aus
+cast(cf.Face, boden)                    # aus typing: behauptet es, prüft nichts
+boden.outerWire()  # type: ignore       # blendet die Meldung nur aus
 
-assert isinstance(ergebnis, Solid)       # prüft es wirklich – und verengt den Typ
+assert isinstance(boden, cf.Face)       # prüft es wirklich und verengt den Typ
+kontur = boden.outerWire()
 ```
 
-`assert bedingung` bricht mit Fehler ab, wenn die Bedingung falsch ist. Nur diese Zeile scheitert **an Ort und Stelle**, falls das Boolean einmal etwas anderes liefert – die anderen zwei schweigen.
+`isinstance(x, Typ)` ist `True`, wenn `x` von diesem Typ ist. `assert bedingung` bricht mit Fehler ab, wenn die Bedingung falsch ist. Trifft der Selektor einmal zwei Flächen, scheitert diese Zeile **an Ort und Stelle**. Die anderen zwei Wege schweigen.
 
 > Führt eine KI ein `# type: ignore` ein, das Sie nicht verstehen: nachfragen.
 
-### Derselbe Name, anderer Typ: `Solid` wird `Shape`
-
-Dieses naheliegende Muster meldet der Type-Checker als Fehler:
-
-```python
-plate = cf.box(160, 118, 8)                   # Typ: Solid
-plate = cf.fillet(plate, plate.edges(">Z"), 3)
-#       ⚠ Incompatible types in assignment (expression has type "Shape", variable has type "Solid")
-
-plate_rund = cf.fillet(plate, plate.edges(">Z"), 3)    # neuer Name – passt
-```
-
-- `cf.box` liefert ein `Solid`, `cf.fillet` ein `Shape` – ein Name trägt nur einen Typ
-- Das Ergebnis jedes Schritts bekommt einen eigenen, sprechenden Namen
-
-Der Type-Checker hat recht: Spätere Zeilen verlassen sich darauf, dass `plate` ein `Solid` ist – nach dem Fillet kann es jede `Shape` sein.
-
 ## Praktikum A: den Modul-Code annotieren
 
-### Aufgabe 1: Signaturen ergänzen
+### Ein Ort für den Modul-Code
 
-Annotieren Sie Ihre Funktionen aus den letzten Wochen vollständig – Parameter **und** Rückgabetyp.
+```
+w07/modul.py        ModulParam und alle Funktionen des Moduls
+tests/test_w07.py   die Tests (Praktikum B)
+```
 
-1. `zelle_bauen`, `stapel_bauen`, `endplatten`.
-2. Wo kann eine Funktion `None` liefern? Machen Sie es mit `| None` sichtbar.
+Die Tests importieren Ihre Funktionen. Dabei läuft die ganze Datei, also darf `modul.py` beim Import nichts bauen und nichts anzeigen:
 
-*Hinweise:* `-> Shape` für Geometrie-Funktionen, `-> None` wenn nichts zurückkommt, `float`/`int` für Maße
+```python
+def stapel_bauen(p: ModulParam) -> cf.Shape:
+    ...
 
-### Aufgabe 2: mypy laufen lassen und aufräumen
+if __name__ == "__main__":
+    from ocp_vscode import show
+    p = ModulParam()
+    show(stapel_bauen(p), endplatten(p))
+```
 
-1. Rufen Sie eine Funktion mit falschem Typ auf: `stapel_bauen("12")`. Was zeigt Pylance?
-2. Führen Sie auf der Kommandozeile aus und **beheben Sie jede gemeldete Zeile**, bis mypy nichts mehr findet:
+Starten Sie die Datei direkt, ist `__name__` gleich `"__main__"`, und der Block läuft. Beim Import mit `from w07.modul import stapel_bauen` ist `__name__` gleich `"w07.modul"`, und der Block bleibt aus.
+
+### Aufgabe 1: Den Modul-Code sammeln
+
+1. Legen Sie `w07/modul.py` an. Darin stehen `ModulParam`, `zelle_bauen` mit dem Tab aus Einheit 4 (Aufgabe 1), `stapel_bauen` mit Flip und `endplatten`.
+2. Stapel und untere Endplatte beginnen bei z = 0, ohne Grundplatte. Die Lage im Modul kommt erst beim Zusammenbau.
+3. Stellen Sie alles, was baut und anzeigt, unter `if __name__ == "__main__":`.
+
+*Prüfen:* Die Datei startet wie bisher mit dem Viewer. Im Projektordner läuft `uv run python -c "import w07.modul"` ohne Ausgabe und ohne Viewer.
+
+*Hinweise:* Fehlt Ihnen etwas aus Einheit 3 oder 4, nehmen Sie die Referenzlösung.
+
+### Aufgabe 2: Annotieren
+
+1. Annotieren Sie alle Funktionen vollständig: Parameter **und** Rückgabetyp.
+2. Machen Sie die Zentrierbohrung optional: Mit `zapfen_d=None` entstehen Endplatten ohne Bohrung.
+3. Schreiben Sie `zelle_bauen("12")`. Was zeigt Pylance? Was passiert beim Ausführen?
+
+*Hinweise:* `-> cf.Shape` für Geometrie-Funktionen, `float | None` für das Feld
+
+### mypy für das ganze Repo einstellen
+
+`uv run mypy .` prüft alle Wochen auf einmal. Liegt in zwei Wochen eine Datei mit demselben Namen, bricht mypy ab, ohne etwas zu prüfen:
+
+```
+w07/modul.py: error: Duplicate module named "modul" (also at "./w03/modul.py")
+```
+
+Ihre Wochenordner enthalten keine `__init__.py`. Deshalb nimmt mypy jeden Ordner als eigenen Startpunkt, und beide Dateien heißen schlicht `modul`.
+
+Ergänzen Sie in Ihrer `pyproject.toml`:
+
+```toml
+[tool.mypy]
+explicit_package_bases = true
+```
+
+Dann gehört der Ordner zum Namen: `w03.modul` und `w07.modul`.
+
+### Aufgabe 3: mypy aufräumen
+
+1. Führen Sie auf der Kommandozeile aus und **beheben Sie jede gemeldete Zeile**, bis mypy `Success` meldet:
 
 ```bash
 uv run mypy w07/
 ```
 
-3. Wo Boolean ein `Shape` liefert, aber ein `Solid` gebraucht wird: mit `assert isinstance` sauber verengen.
+2. Kopieren Sie die Zeilen A–D aus der Abstimmung in eine Datei `probe.py` im Projektordner, mit `from w07.modul import ModulParam` und `from cadquery import func as cf`. Prüfen Sie Ihre Antwort mit `uv run mypy probe.py`.
+3. Führen Sie `uv run mypy .` für das ganze Repo aus. Welche Meldungen aus früheren Wochen entsprechen A, B oder C?
 
-*Hinweise:* typische Meldungen sind fehlende Rückgabetypen und unbehandeltes `| None`
+*Hinweise:* Wo ein `Shape` zu allgemein ist, verengen Sie mit `assert isinstance`. Die früheren Wochen müssen Sie nicht aufräumen.
 
 ## Theorie B: Unittests
 
-### Was ein Unittest ist
+### Regression
 
-Ein **Unittest** ist eine gewöhnliche Python-Funktion. Sie ruft eine einzelne Funktion Ihres Codes auf und prüft das Ergebnis mit dem schon bekannten `assert`:
-
-```python
-import pytest
-from w07.zelle import zelle_bauen, ModulParam
-
-def test_zelle_volumen():
-    zelle = zelle_bauen(ModulParam())
-    erwartet = 148 * 98 * 11                         # Quader-Näherung
-    assert zelle.Volume() == pytest.approx(erwartet, rel=0.01)
+```
+* 2e9d54a  Stapel auf Flip umgebaut         ← ab hier fehlt das Kompressionspad
+* c04f81a  Tab an der Zelle ergänzt
+* f3a17bc  Erste Version des Stapels
 ```
 
-Ist die Bedingung falsch, wirft `assert` einen `AssertionError` – genau daran erkennt der Testrunner einen fehlgeschlagenen Test.
+**Regression:** Etwas war korrekt und ist es nach einer Änderung nicht mehr.
+
+Ohne Tests fällt das irgendwann am falschen Bauteil auf. Ein Test meldet es beim nächsten Commit.
+
+### Was ein Unittest ist
+
+Ein **Unittest** ist eine gewöhnliche Python-Funktion. Sie ruft eine Funktion Ihres Codes auf und prüft das Ergebnis mit `assert`:
+
+```python
+from w07.modul import ModulParam, zelle_bauen
+
+def test_zelle_ist_ein_koerper():
+    zelle = zelle_bauen(ModulParam())
+    assert zelle.isValid()
+    assert len(zelle.Solids()) == 1
+```
+
+`len(Solids()) == 1` kommt aus Einheit 6: `isValid()` ist auch bei einer offenen Fläche `True`.
+
+Ist eine Bedingung falsch, wirft `assert` einen `AssertionError`. Daran erkennt der Testrunner einen fehlgeschlagenen Test.
 
 ### pytest: der Testrunner
 
-**pytest** ist ein Programm, das Ihre Tests **findet und ausführt** – wie mypy liegt es schon in Ihrer Projektumgebung. Man ruft es ohne Argumente im Projektordner auf:
+**pytest** ist ein Programm, das Ihre Tests **findet und ausführt**. Wie mypy liegt es schon in Ihrer Projektumgebung. Man ruft es im Projektordner auf:
 
 ```bash
 uv run pytest -v
 ```
 
 ```
-tests/test_w07.py::test_zelle_volumen   PASSED
-tests/test_w07.py::test_stapel_hoehe    FAILED
+tests/test_w07.py::test_zelle_ist_ein_koerper PASSED
+tests/test_w07.py::test_stapel_hoehe FAILED
 ```
 
 Gefunden wird nach zwei Konventionen:
 
-- Datei heißt `test_*.py`
-- Funktion darin heißt `test_*`
+- Die Datei heißt `test_*.py`.
+- Die Funktion darin heißt `test_*`.
 
-Bei einem Fehlschlag zeigt pytest die gescheiterte Zeile mit beiden Werten – Ist und Soll.
-
-### Warum? Regression
-
-```
-* 2e9d54a  Fillet-Radius auf 20 erhöht          ← test_zelle_volumen scheitert
-* c04f81a  Stapel parametrisch gemacht
-* f3a17bc  Erste Version der Zelle
-```
-
-**Regression** = etwas war korrekt und ist es nach einer Änderung nicht mehr.
-
-Ohne Tests fällt es beim falschen Bauteil auf. Mit Tests schlägt `pytest` beim nächsten Commit an.
+Bei einem Fehlschlag zeigt pytest die gescheiterte Zeile mit Ist- und Sollwert.
 
 ### Aufbau: Arrange – Act – Assert
 
 ```python
 def test_stapel_hoehe():
-    p = ModulParam()                         # Arrange
-    stapel = stapel_bauen(p)                 # Act
-    hoehe = stapel.BoundingBox().zlen
-    soll = (p.n_zellen - 1) * (p.zell_t + p.spacer) + p.zell_t
-    assert hoehe == pytest.approx(soll, abs=0.1)   # Assert
+    p = ModulParam()                                   # Arrange
+    stapel = stapel_bauen(p)                           # Act
+    soll = 11 * 12.5 + 11                              # 11 Abstände und eine Zelle
+    assert stapel.BoundingBox().zlen == pytest.approx(soll, abs=0.01)   # Assert
 ```
 
-Der Sollwert kommt aus einer **unabhängigen** Rechnung – nicht aus derselben Funktion (sonst wandert derselbe Denkfehler in beide).
+Der Sollwert kommt aus einer **unabhängigen** Rechnung: aus den Maßen des Teils, nicht aus dem Code, der es baut. Sonst steckt derselbe Denkfehler in beiden.
 
 ### `pytest.approx` – Fließkomma
 
 ```python
-assert zelle.Volume() == 159204.1          # spröde – Rundung bricht es
-assert zelle.Volume() == pytest.approx(159204, rel=1e-3)   # 0,1 %
-assert zelle.Volume() == pytest.approx(159204, abs=1.0)    # ±1 mm³
+assert zelle.Volume() == 160932.0                           # spröde
+assert zelle.Volume() == pytest.approx(160932, rel=1e-6)    # relativ
+assert zelle.Volume() == pytest.approx(160932, abs=0.1)     # ± 0,1 mm³
 ```
 
-Geometrieoperationen sammeln Rundungsfehler ($0.1 + 0.2 \neq 0.3$) – exakte Gleichheit scheitert zufällig.
+Geometrieoperationen sammeln Rundungsfehler ($0.1 + 0.2 \neq 0.3$). Exakte Gleichheit scheitert deshalb zufällig.
+
+`approx` braucht `import pytest` am Anfang der Testdatei.
 
 ### Was am CAD-Code prüfen?
 
-```python
-zelle = zelle_bauen(ModulParam())
+| Prüfung | findet |
+|---|---|
+| `isValid()`, `len(Solids()) == 1` | kaputte Topologie, Fläche statt Körper |
+| `Volume()` gegen eine Formel | falsche Maße, fehlende oder zusätzliche Features |
+| `BoundingBox()` | falsche Außenmaße und Lage |
+| `(a * b).Volume() == 0` | zwei Teile durchdringen sich |
 
-assert zelle.isValid()                                  # Kernel-Konsistenz
-assert zelle.Volume() == pytest.approx(148*98*11, rel=0.01)
-bb = zelle.BoundingBox()
-assert bb.xlen == pytest.approx(148.0, abs=0.1)         # Außenmaß
-assert len(zelle.Faces()) == 10                         # Konstruktionsabsicht
+Zur Erinnerung aus Einheit 6: `*` bildet die geometrische Schnittmenge, `&` die Schnittmenge von Auswahlen.
+
+### Welcher Test findet welchen Fehler?
+
+| Test | prüft |
+|---|---|
+| **1** | Volumen der Zelle, `rel=1e-6` |
+| **2** | Höhe des Stapels |
+| **3** | Anzahl der Solids im Stapel = `n_zellen` |
+| **4** | Stapel `*` Endplatten hat Volumen 0 |
+
+| Fehler im Code | |
+|---|---|
+| **A** | Fillet vergessen: `return roh + tab` |
+| **B** | Kompressionspad vergessen: `pitch = p.zell_t` |
+| **C** | Bohrung addiert: `unten + bohrung` statt `unten - bohrung` |
+| **D** | Flip vergessen, alle Tabs auf derselben Seite |
+
+### Auflösung
+
+- **A → 1:** Ohne Fillet ist die Zelle nur 340 mm³ größer, das sind 0,2 %. Mit `rel=0.01` bliebe Test 1 grün.
+- **B → 2 und 3:** Ohne Kompressionspad berühren sich die Zellen, und `+` verschmilzt sie zu einem einzigen Körper.
+- **C → 4:** Aus der Bohrung wird ein Zylinder, der 1 mm aus der Platte in den Stapel ragt.
+- **D → keiner.** Ein Test prüft nur, was er prüft. Hier fehlt einer für die Tab-Seiten, etwa die Breite des Stapels: Mit Flip ist `xlen` 172 mm, ohne 160 mm.
+
+### Was ist an diesen Tests faul?
+
+```python
+def test_zelle():
+    print(zelle_bauen(ModulParam()).Volume())
+
+def test_kollision():
+    p = ModulParam()
+    stapel = stapel_bauen(p).moved(cf.Location((0, 0, p.platten_t)))
+    assert (stapel & endplatten(p)).Volume() == 0
+
+def test_volumen():
+    soll = 148 * 98 * 11
+    assert zelle_bauen(ModulParam()).Volume() == pytest.approx(soll, rel=0.05)
+
+def test_hoehe():
+    p = ModulParam()
+    assert stapel_hoehe(p) == (p.n_zellen - 1) * (p.zell_t + p.spacer) + p.zell_t
 ```
 
-Existenz, Maße, analytisches Volumen, Flächenzahl – jede prüft eine andere Art von Fehler.
+### Auflösung: vier Antipatterns
 
-### `isValid()`: notwendig, nicht hinreichend
+- **Kein `assert`:** `test_zelle` gibt nur aus. Der Test ist immer grün und beweist nichts.
+- **Ein Test, der nie rot wird:** `&` liefert immer eine leere Auswahl. Machen Sie jeden Test einmal absichtlich kaputt, dann muss er rot werden.
+- **Zu großzügige Toleranz:** 5 % verdecken den Tab (1,1 %) und die Ecken (0,2 %).
+- **Formel gegen Formel:** `test_hoehe` vergleicht die Rechnung mit derselben Rechnung und baut gar keine Geometrie.
 
-Erinnern Sie sich an den `cap`-Stolperstein aus Einheit 6:
-
-```python
-schale = cf.loft([w1, w2], cap=False)
-assert schale.isValid()        # True – und trotzdem falsch!
-```
-
-`isValid()` prüft die **topologische Konsistenz**, nicht den Sinn:
-
-- **prüft:** Kanten/Flächen/Vertices korrekt verbunden
-- **prüft nicht:** ob das Volumen stimmt, ob ein Boolean leer wurde
-
-→ Immer **zusätzlich** `Volume()` und Maße prüfen.
-
-### Antipatterns
-
-- **Kein Assert:** `print(...)` statt `assert` – der Test „grünt“ immer, beweist nichts
-- **Reimplementierung:** Sollwert aus derselben Formel wie die Funktion – derselbe Denkfehler in beiden
-- **Zu viel auf einmal:** eine Testfunktion = ein Verhalten
-- **Interne Details testen:** prüft *wie* statt *was* – bricht bei jedem Refactoring
+Dazu kommt: **Eine Testfunktion prüft ein Verhalten.** Dann sagt schon der Name des roten Tests, was kaputt ist.
 
 ### CI: bei jedem Push (GitLab)
 
-**Continuous Integration:** Auf dem GitLab-Server steht ein Rechner bereit, der nach jedem Push Ihr Projekt frisch auscheckt und die Kommandos aus der `.gitlab-ci.yml` in Ihrem Repo abarbeitet:
+**Continuous Integration:** Nach jedem Push checkt ein Rechner auf dem GitLab-Server Ihr Projekt frisch aus und arbeitet die `.gitlab-ci.yml` in Ihrem Repo ab:
 
 ```yaml
-image: .../ci-image:1         # Linux, uv, Pakete aus uv.lock vorinstalliert
-
 tests:
   script:
-    - uv sync --locked        # exakt die Versionen aus uv.lock
+    - uv sync --locked          # exakt die Versionen aus uv.lock
     - uv run pytest tests/ -q
 ```
 
-Diese Datei liegt seit Woche 1 im Repo – die Pipeline lief still mit. Ab heute ist sie Ihr Werkzeug: grünes ✓ oder rotes ✗ direkt am Commit.
+Diese Datei liegt seit Woche 1 im Repo, und die Pipeline lief still mit. Ab heute ist sie Ihr Werkzeug: grünes ✓ oder rotes ✗ direkt am Commit.
 
-### Type-Check als zweiter Job
-
-Type Hints sind eingeführt – jetzt kann `mypy` in der CI mitlaufen:
-
-```yaml
-typen:
-  script:
-    - uv sync --locked
-    - uv run mypy .           # alle Python-Dateien im Repo
-  allow_failure: true         # Hinweis, kein Blocker
-```
-
-`allow_failure` macht den Job zum **Hinweisgeber**: Typfehler erscheinen gelb am Commit, blockieren die Pipeline aber nicht. So stört er nicht, solange Ihre Annotationen noch lückenhaft sind.
+Darunter steht auskommentiert ein zweiter Job `typen` mit `uv run mypy .` und `allow_failure: true`. Er meldet Typfehler gelb am Commit, blockiert die Pipeline aber nicht.
 
 ## Praktikum B: das Modul testen
 
-### Aufgabe 3: Geometrie-Tests
+### Aufgabe 4: Geometrie-Tests
 
 Schreiben Sie `tests/test_w07.py` mit Tests für:
 
-1. Gültigkeit und Volumen der Zelle.
-2. Stapelhöhe gegen den **selbst gerechneten** Sollwert (bei Standardparametern 148,5 mm).
-3. Ein Grenzfall: `ModulParam(n_zellen=1)` – bleibt alles gültig?
+1. Die Zelle ist ein gültiger Körper.
+2. Das Volumen der Zelle gegen einen **selbst gerechneten** Sollwert: Quader, Ecken, Tab.
+3. Die Höhe des Stapels, und der Grenzfall `ModulParam(n_zellen=1)`.
+4. Ein Test, der den vergessenen Flip bemerkt.
 
-*Hinweise:* Dateiname und Testfunktionen beginnen mit `test_`; `.isValid()`, `.Volume()`, `.BoundingBox().zlen`, `pytest.approx(..., abs=0.1)`
+*Prüfen:* Ihr Sollwert in 2 liegt bei etwa 160 900 mm³.
 
-### Aufgabe 4: Kollision und Massenbudget
+*Hinweise:* Wie viel Fläche nimmt eine Rundung mit Radius $r$ an einer Ecke weg? `uv run pytest -v`
 
-1. Testen Sie, dass benachbarte Zellen einander **nicht** durchdringen – ihr Schnittvolumen muss 0 sein.
-2. **Massenbudget:** Schreiben Sie `strukturmasse(p)` (Volumen × Dichte über alle Struktur­teile) und einen Test, der den Strukturanteil begrenzt: $m_\text{Struktur} / m_\text{gesamt} < 0{,}35$ (typisch ≈ 0,30 – der Test fängt grobe Ausreißer).
+### Aufgabe 5: Kollision
 
-*Hinweise:* `&` bildet den Schnitt, `.Volume()`, `pytest.approx(0.0, abs=0.1)`; Zellmasse aus dem Datenblatt (≈ 0,86 kg je Zelle), Stahldichte $7{,}85 \cdot 10^{-6}$ kg/mm³
+1. Testen Sie, dass sich die Zellen im Stapel nicht berühren.
+2. Testen Sie, dass Stapel und Endplatten sich nicht durchdringen.
+3. Machen Sie beide Tests einmal absichtlich kaputt: `spacer=0` und `unten + bohrung`. Werden sie rot? Machen Sie die Änderung danach rückgängig.
 
-### Aufgabe 5: CI und die Regression selbst auslösen
+*Hinweise:* Im Modul liegt der Stapel um `platten_t` höher als die untere Endplatte. `pytest.approx(0, abs=1e-6)`
 
-1. Committen und pushen Sie `tests/test_w07.py`. Läuft die Pipeline grün?
-2. Erhöhen Sie den Fillet-Radius der Zelle auf **10 mm**. Der Test bleibt grün – warum? (Blick auf `rel=0.01`)
-3. Erhöhen Sie ihn auf **20 mm**. Jetzt wird er rot. Passen Sie entweder den Sollwert oder die Toleranz begründet an.
+### Aufgabe 6: CI und die Regression selbst auslösen
+
+1. Committen und pushen Sie `w07/` und `tests/test_w07.py`. Läuft die Pipeline grün?
+2. Aktivieren Sie den Job `typen` in der `.gitlab-ci.yml`: Entfernen Sie die `#` vor seinen Zeilen und pushen Sie. Welche Farbe hat der Job, und warum?
+3. Bauen Sie den Fehler B ein: `pitch = p.zell_t`. Sagen Sie voraus, welche Ihrer Tests rot werden. Pushen Sie und prüfen Sie es an der Pipeline. Machen Sie die Änderung danach rückgängig.
+
+### Aufgabe 7 *(Zusatz)*: Ein Test, viele Parametersätze
+
+```python
+@pytest.mark.parametrize("n", [1, 2, 5, 12])
+def test_stapel_ueber_n(n):
+    p = ModulParam(n_zellen=n)
+    ...
+```
+
+pytest führt den Test einmal für jedes `n` aus und meldet jeden Lauf einzeln.
+
+1. Prüfen Sie für jedes `n` die Anzahl der Solids und die Höhe.
+2. Nehmen Sie `0` in die Liste auf. Was meldet pytest? Was sollte `stapel_bauen` stattdessen tun?
 
 ## Abschluss
 
 ### Leseauftrag & Ausblick
 
-- **Leseauftrag:** Buch Kapitel 8
-- **KI-Werkzeuge:** getypter, getesteter Code macht KI-Assistenten zuverlässiger – Material zum Setup liegt auf der Kursseite (Selbststudium)
+- **Leseauftrag:** Buch Kapitel 8, Abschnitte „Testing Geometry“, „Types as Contracts“ und „Verification on Every Change“
+- **KI-Werkzeuge:** Mit Typen und Tests arbeiten KI-Assistenten zuverlässiger. Material zum Setup liegt auf der Kursseite (Selbststudium).
 - **Wer mehr will:** einen Test *zuerst* schreiben (Red → Green), dann die Funktion dazu
-- **Nächste Woche:** Datenaustausch – Assembly, BOM und STEP-Export des ganzen Moduls
-- Bis dahin: `w07/` (Tests + Type Hints) committet und gepusht
+- **Nächste Woche:** Datenaustausch: Assembly, BOM und STEP-Export des ganzen Moduls
+- Bis dahin: `w07/` und `tests/test_w07.py` committet und gepusht, Pipeline grün

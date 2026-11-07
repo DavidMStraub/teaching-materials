@@ -314,5 +314,4 @@ Passen Sie auch die Durchgänge und Stutzen an: innen jeweils der Durchmesser de
 
 - **Leseauftrag:** Buch Kapitel 7
 - **Wer mehr will:** der Flügel aus Kapitel 7, ein Loft durch NACA-Profile entlang einer gekrümmten Kurve
-- **Nächste Woche:** Codequalität mit Type Hints und Unittests für den Modul-Code: Massenbudget, Zell-Passung, CI auf Ihrem Repo
 - Bis dahin: `w06/` committet und gepusht
