@@ -226,15 +226,16 @@ $$\oint_A \vec{B} \cdot d\vec{A} = 0$$
 
 ### Magnetische Feldstärke $\vec{H}$
 
-Die magnetische Feldstärke $\vec{H}$ beschreibt die Fähigkeit eines elektrischen Stroms, ein Magnetfeld zu erzeugen.
-
-**Zusammenhang mit der magnetischen Flussdichte** (im Vakuum):
+Im Vakuum gilt, analog zu $\vec{D} = \varepsilon_0 \vec{E}$ in der Elektrostatik:
 
 $$\vec{B} = \mu_0 \vec{H}$$
 
-Einheit: $[H] = \frac{\text{A}}{\text{m}}$
+$$[\vec{H}] = \frac{[\vec{B}]}{[\mu_0]} = \frac{\text{N}}{\text{A} \cdot \text{m}} \cdot \frac{\text{A}^2}{\text{N}} = \frac{\text{A}}{\text{m}}$$
 
-In Spule und Ringkern bestimmen die Ströme $H$. Das Material bestimmt, welches $B$ daraus wird.
+**Namen und Rollen:**
+
+- $\vec{B}$ und $\vec{D}$ sind **Flussdichten** (Fluss durch eine Fläche), $\vec{H}$ und $\vec{E}$ **Feldstärken** (Integral längs eines Weges).
+- Mit den Quellen verknüpft sind $\vec{D}$ (Satz von Gauß) und $\vec{H}$ (Durchflutungsgesetz). Die Kraft auf Ladungen bestimmen $\vec{E}$ und $\vec{B}$.
 
 **Beispiel:** gerader stromdurchflossener Leiter (Abstand $r$): $H = \frac{I}{2\pi r}$
 
@@ -294,8 +295,6 @@ Durchflutungsgesetz auf dem gestrichelten Weg, abschnittsweise:
 
 $$H \cdot \ell = N \cdot I \quad\Rightarrow\quad H = \frac{N \cdot I}{\ell}, \qquad B = \mu_0 H$$
 
-Mit Eisenkern wird $B$ um ein Vielfaches größer: Elektromagnet, Relais, Magnetventil (z.B. Einspritzventil)
-
 ![bg 95% right:45%](img/spule.svg)
 
 ### 📝 Aufgabe 11b: Lange Spule
@@ -306,19 +305,31 @@ a) Wie groß sind $H$ und $B$ im Inneren (Luft)? Vergleichen Sie mit dem Erdmagn
 
 b) Wie viele Windungen bräuchte die Spule bei gleichem Strom und gleicher Länge für $B = 1 \, \text{T}$?
 
-### Materie im Magnetfeld
+### Magnetfeld in Materie
 
-Bei gleicher Feldstärke $H$ hängt die Flussdichte vom Material ab:
+Die Elektronen der Atome sind winzige Magnete. Ein äußeres Feld ordnet sie, und ihr gemeinsames Feld (**Magnetisierung**) überlagert sich dem Feld der Ströme. Füllt ein Material eine lange Spule oder einen Ringkern vollständig aus, gilt mit der Permeabilitätszahl $\mu_r$:
 
-$$\vec{B} = \mu_0 \mu_r \vec{H}$$
+$$B_\text{Materie} = \mu_r \cdot B_\text{Vakuum}$$
 
-| Klasse | $\mu_r$ | Beispiele |
-|---|---|---|
-| diamagnetisch | knapp unter 1 (z.B. $1 - 10^{-5}$) | Kupfer, Wasser, Silber |
-| paramagnetisch | knapp über 1 (z.B. $1 + 2 \cdot 10^{-5}$) | Aluminium, Luft, Platin |
-| ferromagnetisch | $10^2$ bis $10^5$, **nicht konstant** | Eisen, Nickel, Kobalt und ihre Legierungen |
+| Klasse | $\mu_r$ | Ursache | Beispiele |
+|---|---|---|---|
+| dia&shy;magnetisch | knapp unter 1 | schwaches Gegenfeld der Elektronen | Kupfer, Wasser |
+| para&shy;magnetisch | knapp über 1 | atomare Magnete richten sich teilweise aus | Aluminium, Luft |
+| ferro&shy;magnetisch | $10^2$ bis $10^5$, **nicht konstant** | ganze Bereiche (Weiss’sche Bezirke) richten sich aus | Eisen, Nickel, Kobalt |
 
 Für die Technik verhalten sich Dia- und Paramagnete wie Luft. Ferromagnete bündeln den Fluss: Daraus baut man Kerne (Elektroblech in Motor und Trafo) und Permanentmagnete (NdFeB in Synchronmotoren von E-Autos und Drohnen).
+
+### Magnetische Feldstärke in Materie
+
+**Konvention:** $\vec{H}$ bezieht sich immer auf das Feld der *freien* Ströme, also der Ströme in den Leitern. Die Magnetisierung des Materials steckt nur in $\vec{B}$:
+
+$$\vec{B} = \mu_0 \mu_r \vec{H} = \mu \vec{H}, \qquad \mu = \mu_0 \mu_r$$
+
+Vorteil: Das Durchflutungsgesetz gilt unverändert, wenn man nur die freien Ströme zählt:
+
+$$\oint \vec{H} \cdot d\vec{s} = \Theta = \sum I_\text{frei}$$
+
+In Spule und Ringkern bestimmen deshalb die Ströme $H$, und das Material bestimmt, welches $B$ daraus wird. Mit Eisenkern wird $B$ um ein Vielfaches größer: Elektromagnet, Relais, Magnetventil (z.B. Einspritzventil).
 
 ### Ferromagnete: Hysterese
 
