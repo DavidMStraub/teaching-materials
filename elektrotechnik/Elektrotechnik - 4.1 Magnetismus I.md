@@ -41,6 +41,16 @@ Grenzfälle:
 
 ![bg right:40% 70%](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Geomagnetic_field_and_magnet_analogy.png/960px-Geomagnetic_field_and_magnet_analogy.png)
 
+### Magnete und Ströme
+
+- **Ørsted (1820):** Ein stromdurchflossener Draht lenkt eine Kompassnadel ab.
+- **Ampère (1820):** Zwei Ströme üben Kräfte aufeinander aus, ganz ohne Magnet.
+- **Ampères Hypothese:** Auch Permanentmagnete beruhen auf Strömen, auf winzigen Kreisströmen in den Atomen. Heute weiß man: Ursache sind die Elektronen der Atome (Bahnbewegung und Spin).
+
+**Alle Magnetfelder stammen von bewegten Ladungen.** Im Permanentmagneten sind es die Elektronen der Atome.
+
+![bg right:42% 92%](img/oersted.svg)
+
 ### Kräfte zwischen elektrischen Leitern
 
 Zwei parallele, stromdurchflossene Leiter üben eine Kraft aufeinander aus (Kraft pro Leiterlänge $\ell$):

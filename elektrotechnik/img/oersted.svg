@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 330" font-family="Helvetica, Arial, sans-serif">
+  <!-- Draufsicht: Draht in Nord-Süd-Richtung über einer Kompassnadel -->
+  <!-- links: ohne Strom -->
+  <circle cx="130" cy="170" r="90" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+  <line x1="130" y1="50" x2="130" y2="290" stroke="#b45309" stroke-width="8" opacity="0.55"/>
+  <polygon points="130,95 118,170 142,170" fill="#ef4444"/>
+  <polygon points="130,245 118,170 142,170" fill="#9ca3af"/>
+  <circle cx="130" cy="170" r="5" fill="#111827"/>
+  <text x="130" y="320" fill="#111827" font-size="24" text-anchor="middle">ohne Strom</text>
+
+  <!-- rechts: mit Strom, Nadel nach Westen ausgelenkt -->
+  <circle cx="400" cy="170" r="90" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+  <line x1="400" y1="50" x2="400" y2="290" stroke="#b45309" stroke-width="8" opacity="0.55"/>
+  <g transform="rotate(-60 400 170)">
+    <polygon points="400,95 388,170 412,170" fill="#ef4444"/>
+    <polygon points="400,245 388,170 412,170" fill="#9ca3af"/>
+  </g>
+  <circle cx="400" cy="170" r="5" fill="#111827"/>
+  <polygon points="400,22 390,44 410,44" fill="#ef4444"/>
+  <line x1="400" y1="42" x2="400" y2="60" stroke="#ef4444" stroke-width="4"/>
+  <text x="418" y="44" fill="#ef4444" font-size="28" font-style="italic">I</text>
+  <text x="400" y="320" fill="#111827" font-size="24" text-anchor="middle">mit Strom</text>
+
+  <!-- Himmelsrichtung -->
+  <text x="265" y="40" fill="#6b7280" font-size="22" text-anchor="middle">Norden ↑</text>
+</svg>
