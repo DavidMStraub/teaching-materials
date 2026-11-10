@@ -158,7 +158,16 @@ print(f"Ihre Zahl: {zahl}")
 
 ### Mini-Aufgabe (4 min)
 
-Machen Sie Ihren Reichweiten-Rechner aus Woche 4 robust:
+Ihr Reichweiten-Rechner aus Woche 4:
+
+```python
+energie = float(input("Nutzbarer Energieinhalt in kWh: "))
+verbrauch = float(input("Verbrauch in kWh/100 km: "))
+reichweite = energie / verbrauch * 100
+print(f"Reichweite: {reichweite:.1f} km")
+```
+
+Machen Sie ihn robust:
 
 1. Der Verbrauch wird so lange neu abgefragt, bis er zwischen 5 und 50 kWh/100 km liegt
 2. Testen Sie mit `3`, `80`, `15`
@@ -195,9 +204,10 @@ for i in range(5):
     print(i)
 ```
 
-- `range(5)` erzeugt die Zahlen `0, 1, 2, 3, 4` – Start bei 0, **ohne die 5**
-- Mit Start und Stopp: `range(1, 6)` → `1, 2, 3, 4, 5` – Start dabei, Stopp nicht
-- Mit Schrittweite: `range(0, 10, 2)` zählt in Zweierschritten
+- `range(stop)`: von 0 bis vor `stop` – `range(5)` → `0, 1, 2, 3, 4`
+- `range(start, stop)`: von `start` bis vor `stop` – `range(1, 6)` → `1, 2, 3, 4, 5`
+- `range(start, stop, step)`: mit Schrittweite – `range(0, 10, 2)` → `0, 2, 4, 6, 8`
+- Der Start ist dabei, der Stopp **nie**
 - Auch `range(...)` ist ein Funktionsaufruf
 
 ### Vorhersage-Aufgabe (2 min)
