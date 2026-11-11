@@ -18,36 +18,18 @@ David Straub
 2. Kräfte im magnetischen Feld
 3. Magnetische Feldgrößen und Durchflutungsgesetz
 4. Materie im Magnetfeld
-5. Der magnetische Kreis
-6. Kraft am Luftspalt
+5. **Der magnetische Kreis**
+6. **Kraft am Luftspalt**
 
 ### Der magnetische Kreis
 
-**Definition:** geschlossener Pfad aus ferromagnetischem Material, durch den magnetischer Fluss geführt wird.
+**Magnetischer Kreis:** geschlossener Pfad aus ferromagnetischem Material, der den magnetischen Fluss führt
 
-**Relevant in vielen Anwendungen:**
+**Anwendungen:** Elektromotoren, Generatoren, Transformatoren, induktives Laden, Relais, Hubmagnete, Sensoren
 
-- Elektromotoren, Generatoren
-- Transformatoren
-- Induktives Laden
-- Sensoren, Aktuatoren, Relais
+Das genaue Feld liefert nur eine 3D-Simulation (FEM). Führt das Eisen den Fluss, genügt ein **eindimensionales Modell**, das man rechnet wie ein Widerstandsnetzwerk.
 
-**Problem:** Wie dimensioniert man diese Systeme effizient?
-
-![bg right:35% 100%](https://upload.wikimedia.org/wikipedia/commons/d/d0/Electromagnet_with_gap.svg)
-
-### Herausforderung: Komplexe Magnetfelder
-
-**Direkter Ansatz wäre kompliziert:** 3D-Feldberechnung, numerische Simulation (FEM)
-
-**Eindimensionale Lösung: der magnetische Kreis** – eine *mathematische Analogie* zum elektrischen Stromkreis:
-
-- Einfache Berechnungen wie bei Widerstandsnetzwerken
-- Gute Näherung für viele praktische Fälle
-
-**Voraussetzung:** magnetischer Fluss „fließt“ hauptsächlich durch ferromagnetisches Material
-
-![bg right:35% 100%](https://upload.wikimedia.org/wikipedia/commons/d/d0/Electromagnet_with_gap.svg)
+![bg right:35% 90%](img/magnetkreis.svg)
 
 ### Grundidee
 
@@ -57,7 +39,7 @@ David Straub
 
 $$\Theta = R_m \cdot \Phi$$
 
-**Wichtig:** Diese Analogie ist *mathematisch*, nicht physikalisch – es „fließt“ nichts. Aber sie macht Magnetkreise so einfach berechenbar wie Widerstandsnetzwerke.
+Die Analogie ist **mathematisch**: $\Theta$, $\Phi$ und $R_m$ gehorchen denselben Gleichungen wie $U$, $I$ und $R$. Alle Rechenregeln für Widerstandsnetzwerke lassen sich übertragen.
 
 ### Herleitung des magnetischen Widerstands
 
@@ -69,21 +51,9 @@ Mit $\Phi = B \cdot A$ und $B = \mu_0 \mu_r H$ folgt $H = \frac{\Phi}{\mu_0 \mu_
 
 $$\Theta = \frac{\ell}{\mu_0 \mu_r A} \cdot \Phi \qquad\Rightarrow\qquad \boxed{\Theta = R_m \cdot \Phi, \quad R_m = \frac{\ell}{\mu_0 \mu_r A}}$$
 
-Das ist das **„Ohmsche Gesetz“ des magnetischen Kreises**!
+Das ist das **„Ohmsche Gesetz“ des magnetischen Kreises**, mit $[R_m] = \frac{\text{A}}{\text{Wb}}$, analog zu $R = \frac{\ell}{\sigma A}$.
 
-$[R_m] = \frac{\text{A}}{\text{Wb}} = \frac{1}{\text{H}}$ – analog zu $R = \frac{\ell}{\sigma A}$
-
-### Magnetischer Leitwert (Permeanz)
-
-Analog zum elektrischen Leitwert $G = \frac{1}{R}$:
-
-$$\Lambda = \frac{1}{R_m} = \frac{\mu_0 \mu_r A}{\ell}, \qquad [\Lambda] = \frac{\text{Wb}}{\text{A}} = \text{H} \ \text{(Henry)}$$
-
-Alternative Formulierung: $\Phi = \Lambda \cdot \Theta$
-
-Große Permeabilität $\mu_r$ → großer Leitwert → viel Fluss.
-
-### Zusammenfassung: Die Analogie
+### Die Analogie im Überblick
 
 | Elektrischer Kreis | Magnetischer Kreis |
 |---|---|
@@ -93,13 +63,20 @@ Große Permeabilität $\mu_r$ → großer Leitwert → viel Fluss.
 | Leitwert $G = \frac{1}{R}$ | Mag. Leitwert $\Lambda = \frac{1}{R_m}$ |
 | $U = R \cdot I$ | $\Theta = R_m \cdot \Phi$ |
 
+**Grenzen der Analogie:**
+
+- Im Eisen hängt $\mu_r$ von der Aussteuerung ab (Magnetisierungskurve). $R_m$ ist nur unterhalb der Sättigung näherungsweise konstant.
+- Streufluss neben dem Eisen und das Randfeld am Luftspalt (Bild) vernachlässigt das Modell.
+
+![bg right:30% 95%](https://upload.wikimedia.org/wikipedia/commons/d/d0/Electromagnet_with_gap.svg)
+
 ### Reihen- und Parallelschaltung magnetischer Widerstände
 
-**Reihenschaltung** (verschiedene Abschnitte im selben Flusspfad – Eisen, Luftspalt, …):
+**Reihenschaltung** (verschiedene Abschnitte im selben Flusspfad: Eisen, Luftspalt, …):
 
 $$R_{m,\text{ges}} = R_{m,1} + R_{m,2} + \ldots$$
 
-Der gleiche Fluss $\Phi$ durchfließt alle Abschnitte (wie der Strom in der Reihenschaltung).
+Der gleiche Fluss $\Phi$ durchsetzt alle Abschnitte (wie der Strom in der Reihenschaltung).
 
 **Parallelschaltung** (der Fluss verzweigt sich auf mehrere Schenkel):
 
@@ -124,17 +101,35 @@ Durchflutung $\Theta = N I$ wirkt wie eine Quelle, jeder Abschnitt wie ein Wider
 
 $$R_{m,\text{ges}} = \underbrace{\frac{\ell_E}{\mu_0 \mu_r A}}_{\text{Eisen}} + \underbrace{\frac{\delta}{\mu_0 A}}_{\text{Luftspalt}}, \qquad \Phi = \frac{N \cdot I}{R_{m,\text{ges}}}$$
 
-![bg right:38% 100%](https://upload.wikimedia.org/wikipedia/commons/d/d0/Electromagnet_with_gap.svg)
+![bg right:35% 90%](img/magnetkreis.svg)
 
-### Die überraschende Dominanz des Luftspalts
+### 🗳️ Eisen oder Luftspalt?
 
-**Zahlenwerte (typisch):** Eisenweg $\ell_E = 30$ cm, $\mu_r = 2000$; Luftspalt $\delta = 1$ mm
+Ein Elektromagnet hat einen Eisenweg $\ell_E = 30 \, \text{cm}$ mit $\mu_r = 2000$ und einen Luftspalt $\delta = 1 \, \text{mm}$. Der Querschnitt ist überall gleich.
+
+Welcher Abschnitt hat den größeren magnetischen Widerstand?
+
+A) das Eisen, etwa 300-mal größer
+
+B) das Eisen, etwa 7-mal größer
+
+C) beide etwa gleich
+
+D) der Luftspalt, etwa 7-mal größer
+
+![bg right:35% 90%](img/magnetkreis.svg)
+
+### Der Luftspalt dominiert
+
+**Zahlenwerte:** Eisenweg $\ell_E = 30$ cm, $\mu_r = 2000$; Luftspalt $\delta = 1$ mm
 
 $$\frac{R_{m,L}}{R_{m,E}} = \frac{\delta \cdot \mu_r}{\ell_E} = \frac{0{,}001 \cdot 2000}{0{,}3} \approx 6{,}7$$
 
-**Der Luftspalt ist 7× wichtiger, obwohl er 300× kürzer ist!**
+Der Luftspalt ist 300-mal kürzer als der Eisenweg und hat trotzdem den fast 7-fachen magnetischen Widerstand.
 
 **Praktische Näherung** für $\mu_r \gg 1$ und $\delta \mu_r \gg \ell_E$: Eisenwiderstand vernachlässigen, $R_{m,\text{ges}} \approx R_{m,L}$. In Aufgabenstellungen steht dafür oft kurz „$\mu_r \to \infty$“.
+
+**Anwendung:** Elektromotoren haben deshalb zwischen Rotor und Stator nur Luftspalte von etwa 0,3 bis 1 mm.
 
 ### Kraft am Luftspalt
 
@@ -144,22 +139,40 @@ $$\boxed{F = \frac{B^2 \cdot A}{2 \mu_0}}$$
 
 - $B$: Flussdichte im Luftspalt, $A$: Polfläche
 - Herleitung über die Energie des Magnetfelds → Kapitel 5
-- ⚠️ Ein U-Kern hat **zwei** Polflächen, also zwei Luftspalte: die Gesamtkraft ist $2 \cdot \frac{B^2 A}{2\mu_0}$ – pro Spalt muss daher nur die **halbe** Last getragen werden
+- ⚠️ Ein U-Kern hat **zwei** Polflächen, also zwei Luftspalte. An jedem wirkt diese Kraft.
 
-**Typische Aufgabe:** Hubmagnet dimensionieren – von der geforderten Kraft rückwärts zu $B$, $\Phi$ und $I$.
+**Typische Aufgabe:** Hubmagnet dimensionieren, von der geforderten Kraft rückwärts zu $B$, $\Phi$ und $I$.
+
+### 🗳️ Doppelter Luftspalt
+
+Bei einem Hubmagneten ($\mu_r \to \infty$) verdoppelt sich der Luftspalt $\delta$. Der Strom bleibt gleich.
+
+Wie ändert sich die Kraft?
+
+A) bleibt gleich
+
+B) sinkt auf die Hälfte
+
+C) sinkt auf ein Viertel
+
+D) sinkt auf ein Achtel
+
+![bg right:35% 90%](img/hubmagnet.svg)
 
 ### 📝 Aufgabe 13: Elektromagnet dimensionieren
 
-Ein Elektromagnet am Roboterarm soll Eisenblechtafeln ($F_g = 160 \, \text{N}$) anheben. U-förmiger Kern, Querschnitt $A = 8 \, \text{cm}^2$ pro Pol, Luftspalt $d = 0{,}5 \, \text{mm}$ pro Pol (Verschmutzung), $\mu_r \to \infty$, $N = 1000$ Windungen. Hinweis: normierter Luftspalt (1 mm, 1 cm²) hat $R_{m} = 8 \cdot 10^6 \, \text{H}^{-1}$; $F = \frac{B^2 A}{2\mu_0}$ mit $\mu_0 = 1{,}25 \cdot 10^{-6} \, \frac{\text{Vs}}{\text{Am}}$.
+Ein Elektromagnet am Roboterarm soll Eisenblechtafeln ($F_g = 160 \, \text{N}$) anheben. U-förmiger Kern, Querschnitt $A = 8 \, \text{cm}^2$ pro Pol, Luftspalt $\delta = 0{,}5 \, \text{mm}$ pro Pol (Verschmutzung), $\mu_r \to \infty$, $N = 1000$ Windungen. Hinweis: normierter Luftspalt (1 mm, 1 cm²) hat $R_{m} = 8 \cdot 10^6 \, \frac{\text{A}}{\text{Wb}}$; $\mu_0 = 1{,}25 \cdot 10^{-6} \, \frac{\text{Vs}}{\text{Am}}$.
 
-a) Skizzieren Sie das magnetische Ersatzschaltbild. Wie groß ist $R_{m,\text{ges}}$ (zwei Luftspalte!)?
+a) Skizzieren Sie das magnetische Ersatzschaltbild. Wie groß ist $R_{m,\text{ges}}$?
 b) Welche Kraft muss **pro Luftspalt** wirken? Welche Flussdichte $B_\text{min}$ ist dafür nötig?
 c) Welcher Strom $I$ stellt die notwendige Kraft sicher?
 d) Kann der Magnet auch Aluminiumplatten anheben? (Begründung!)
 
-### Unsere Basiseinheiten-Tabelle wächst
+![bg right:30% 95%](img/hubmagnet.svg)
 
-| Elektrische Größe | Formelzeichen | Einheit | Basiseinheiten |
+### Magnetische Größen in Basiseinheiten
+
+| Größe | Formelzeichen | Einheit | Basiseinheiten |
 |---|---|---|---|
 | Ladung | $Q$ | C | $\text{A} \cdot \text{s}$ |
 | Spannung | $U$ | V | $\frac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^3}$ |
@@ -167,16 +180,14 @@ d) Kann der Magnet auch Aluminiumplatten anheben? (Begründung!)
 | Widerstand | $R$ | Ω | $\frac{\text{kg} \cdot \text{m}^2}{\text{A}^2 \cdot \text{s}^3}$ |
 | **Magn. Flussdichte** | $B$ | T | $\frac{\text{kg}}{\text{A} \cdot \text{s}^2}$ |
 | **Magn. Fluss** | $\Phi$ | Wb | $\frac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^2}$ |
+| **Magn. Widerstand** | $R_m$ | A/Wb | $\frac{\text{A}^2 \cdot \text{s}^2}{\text{kg} \cdot \text{m}^2}$ |
 
-Herleitung an der Tafel: $[B] = \frac{[F]}{[I] \cdot [\ell]}$, $[\Phi] = [B] \cdot [A]$
+Aus $F = I \ell B$: $[B] = \frac{[F]}{[I] \cdot [\ell]}$, außerdem $[\Phi] = [B] \cdot [A]$ und $[R_m] = \frac{[\Theta]}{[\Phi]}$
 
-### Zusammenfassung: Magnetismus
+### Zusammenfassung
 
-- Magnetfelder entstehen durch bewegte Ladungen; Feldlinien sind **immer geschlossen**
-- Kräfte: $\vec{F} = Q(\vec{v} \times \vec{B})$ bzw. $F = I \ell B$; Rechte-Hand-Regel
-- Durchflutungsgesetz: $\Theta = NI = \oint \vec{H} \cdot d\vec{s}$; lange Spule: $H = NI/\ell$
-- Materie: dia- ($\mu_r < 1$), para- ($\mu_r \gtrsim 1$), ferromagnetisch ($\mu_r \gg 1$, Hysterese!)
-- **Magnetischer Kreis:** $\Theta = R_m \Phi$ mit $R_m = \frac{\ell}{\mu_0 \mu_r A}$ – rechnen wie im Stromkreis
-- Der Luftspalt dominiert; Kraft am Luftspalt: $F = \frac{B^2 A}{2\mu_0}$
-
-**Nächstes Kapitel:** Elektromagnetische Induktion – wie aus Bewegung Spannung wird ⚡
+- **Magnetischer Kreis:** $\Theta = R_m \Phi$ mit $R_m = \frac{\ell}{\mu_0 \mu_r A}$, gerechnet wie ein Stromkreis
+- Reihen- und Parallelschaltung, Knotenregel und Ersatzschaltbild wie im elektrischen Netzwerk
+- Gültig, solange das Eisen nicht sättigt
+- Der **Luftspalt** dominiert den magnetischen Widerstand
+- Kraft am Luftspalt: $F = \frac{B^2 A}{2\mu_0}$ pro Polfläche

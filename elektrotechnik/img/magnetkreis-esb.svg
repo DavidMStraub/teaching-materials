@@ -36,8 +36,8 @@
     <line x1="63" y1="130" x2="34" y2="112"/>
     <line x1="63" y1="258" x2="34" y2="276"/>
   </g>
-  <!-- Stromrichtung: fließt unten in die Wicklung -->
-  <line x1="26" y1="288" x2="56" y2="269" stroke="#111827" stroke-width="3.5" marker-end="url(#mI)"/>
+  <!-- Stromrichtung: fließt unten aus der Wicklung heraus (Rechte-Faust-Regel: Fluss im linken Schenkel aufwärts, oben nach rechts) -->
+  <line x1="54" y1="270" x2="24" y2="289" stroke="#111827" stroke-width="3.5" marker-end="url(#mI)"/>
   <text x="24" y="312" fill="#111827" font-size="21" font-style="italic">I</text>
   <text x="40" y="196" fill="#111827" font-size="21" font-style="italic">N</text>
 

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -10 460 440" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="pf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="pi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+  <!-- U-Kern (Eisen) -->
+  <path d="M60,40 H360 V280 H290 V110 H130 V280 H60 Z" fill="#9ca3af" stroke="#6b7280" stroke-width="2"/>
+  <!-- Blechtafel -->
+  <rect x="30" y="306" width="360" height="34" fill="#d1d5db" stroke="#6b7280" stroke-width="2"/>
+  <!-- Flusspfad: im Joch nach rechts, rechter Schenkel abwärts, Tafel nach links, linker Schenkel aufwärts -->
+  <path d="M95,75 H325 V323 H95 Z" fill="none" stroke="#2563eb" stroke-width="3" stroke-dasharray="10 6"/>
+  <line x1="200" y1="323" x2="170" y2="323" stroke="#2563eb" stroke-width="3" marker-end="url(#pf)"/>
+  <line x1="95" y1="200" x2="95" y2="170" stroke="#2563eb" stroke-width="3" marker-end="url(#pf)"/>
+  <text x="200" y="370" fill="#2563eb" font-size="28" font-style="italic" text-anchor="middle">Φ</text>
+  <!-- Wicklung als Wendel um das Joch: Vorderseite durchgezogen (Strom abwärts), Rückseite gestrichelt -->
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <path d="M160,28 A 10,47 0 0 0 160,122"/>
+    <path d="M185,28 A 10,47 0 0 0 185,122"/>
+    <path d="M210,28 A 10,47 0 0 0 210,122"/>
+    <path d="M235,28 A 10,47 0 0 0 235,122"/>
+    <path d="M260,28 A 10,47 0 0 0 260,122"/>
+  </g>
+  <g stroke="#111827" stroke-width="2" fill="none" stroke-dasharray="4 4" opacity="0.55">
+    <line x1="160" y1="122" x2="185" y2="28"/>
+    <line x1="185" y1="122" x2="210" y2="28"/>
+    <line x1="210" y1="122" x2="235" y2="28"/>
+    <line x1="235" y1="122" x2="260" y2="28"/>
+    <line x1="260" y1="122" x2="285" y2="28"/>
+  </g>
+  <!-- Anschlüsse und Stromrichtung -->
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <line x1="160" y1="28" x2="132" y2="2"/>
+    <line x1="285" y1="28" x2="312" y2="2"/>
+  </g>
+  <line x1="118" y1="-8" x2="148" y2="17" stroke="#111827" stroke-width="3.5" marker-end="url(#pi)"/>
+  <text x="104" y="16" fill="#111827" font-size="28" font-style="italic" text-anchor="end">I</text>
+  <text x="210" y="165" fill="#111827" font-size="28" font-style="italic" text-anchor="middle">N</text>
+  <!-- Luftspalte -->
+  <g stroke="#111827" stroke-width="2">
+    <line x1="20" y1="280" x2="58" y2="280"/>
+    <line x1="20" y1="306" x2="28" y2="306"/>
+    <line x1="362" y1="280" x2="400" y2="280"/>
+    <line x1="392" y1="306" x2="400" y2="306"/>
+  </g>
+  <text x="14" y="300" fill="#111827" font-size="26" font-style="italic" text-anchor="end">δ</text>
+  <text x="404" y="300" fill="#111827" font-size="26" font-style="italic">δ</text>
+  <!-- Gewichtskraft -->
+  <line x1="300" y1="340" x2="300" y2="400" stroke="#ef4444" stroke-width="4"/>
+  <polygon points="300,418 291,398 309,398" fill="#ef4444"/>
+  <text x="314" y="410" fill="#ef4444" font-size="28" font-style="italic">F<tspan font-size="20" dy="6">g</tspan></text>
+</svg>

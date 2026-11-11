@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -15 440 405" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="mPhi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="mI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <!-- Kern mit Luftspalt im rechten Schenkel -->
+  <path d="M 330,175 L 330,60 L 90,60 L 90,330 L 330,330 L 330,215"
+        fill="none" stroke="#9ca3af" stroke-width="40" stroke-linejoin="miter" stroke-linecap="butt"/>
+
+  <!-- mittlerer Eisenweg -->
+  <path d="M 330,175 L 330,60 L 90,60 L 90,330 L 330,330 L 330,215"
+        fill="none" stroke="#111827" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="210" y="305" fill="#111827" font-size="26" font-style="italic" text-anchor="middle">ℓ<tspan font-size="18" dy="6">E</tspan></text>
+
+  <!-- Querschnitt A -->
+  <ellipse cx="330" cy="285" rx="20" ry="7" fill="#93c5fd" stroke="#2563eb" stroke-width="2"/>
+  <text x="362" y="294" fill="#2563eb" font-size="26" font-style="italic">A</text>
+
+  <!-- Luftspalt -->
+  <g stroke="#111827" stroke-width="2">
+    <line x1="354" y1="175" x2="384" y2="175"/>
+    <line x1="354" y1="215" x2="384" y2="215"/>
+  </g>
+  <text x="392" y="204" fill="#111827" font-size="28" font-style="italic">δ</text>
+
+  <!-- Wicklung auf dem linken Schenkel: Vorderseite durchgezogen (Strom nach rechts), Rückseite gestrichelt -->
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <path d="M 58,130 A 32,10 0 0 0 122,130"/>
+    <path d="M 58,165 A 32,10 0 0 0 122,165"/>
+    <path d="M 58,200 A 32,10 0 0 0 122,200"/>
+    <path d="M 58,235 A 32,10 0 0 0 122,235"/>
+  </g>
+  <g stroke="#111827" stroke-width="2" fill="none" stroke-dasharray="4 4" opacity="0.55">
+    <line x1="122" y1="130" x2="58" y2="165"/>
+    <line x1="122" y1="165" x2="58" y2="200"/>
+    <line x1="122" y1="200" x2="58" y2="235"/>
+    <line x1="122" y1="235" x2="58" y2="270"/>
+  </g>
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <line x1="58" y1="130" x2="26" y2="110"/>
+    <line x1="58" y1="270" x2="26" y2="290"/>
+  </g>
+  <!-- Strom fließt oben in die Wicklung -->
+  <line x1="12" y1="96" x2="46" y2="118" stroke="#111827" stroke-width="3.5" marker-end="url(#mI)"/>
+  <text x="14" y="84" fill="#111827" font-size="28" font-style="italic">I</text>
+  <text x="30" y="210" fill="#111827" font-size="28" font-style="italic" text-anchor="end">N</text>
+
+  <!-- Fluss: linker Schenkel aufwärts, oben nach rechts -->
+  <line x1="170" y1="22" x2="250" y2="22" stroke="#2563eb" stroke-width="4" marker-end="url(#mPhi)"/>
+  <text x="200" y="14" fill="#2563eb" font-size="28" font-style="italic">Φ</text>
+</svg>
