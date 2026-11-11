@@ -56,7 +56,7 @@ Ihr Modul-Code liegt bisher verteilt:
 
 Jede Datei baut beim Start das Modul und zeigt es an. Ob nach einer Änderung noch alles stimmt, sehen Sie nur im Viewer.
 
-**Heute:** Der Code kommt an einen Ort. Dann melden zwei Werkzeuge Fehler, ohne dass Sie hinschauen müssen.
+**Heute:** Der Code kommt an einen Ort. Danach prüfen ihn zwei Werkzeuge bei jeder Änderung: ein Type-Checker und Unittests.
 
 Die Folien verwenden die Namen aus der Referenzlösung, etwa `platten_t` oder `stapel_hoehe`.
 
@@ -89,7 +89,7 @@ AttributeError: 'NoneType' object has no attribute 'moved'
 - In `endplatten` fehlt das `return`. Ohne `return` liefert jede Funktion `None`.
 - Python meldet den Fehler erst dort, wo das Ergebnis **benutzt** wird, nicht in `endplatten`.
 
-Python prüft Typen **zur Laufzeit** und nur in Zeilen, die tatsächlich laufen. Dabei zählt allein, ob ein Objekt die verlangte Operation beherrscht (**Duck Typing**). `None` beherrscht fast nichts.
+Python prüft Typen **zur Laufzeit** und nur in Zeilen, die tatsächlich laufen. Dabei zählt allein, ob ein Objekt die verlangte Operation beherrscht (**Duck Typing**). `None` hat keine Methode `moved`.
 
 ### Dynamisch und statisch typisiert
 
@@ -100,7 +100,7 @@ Python prüft Typen **zur Laufzeit** und nur in Zeilen, die tatsächlich laufen.
 | Fehler sichtbar | wenn die Zeile dran ist | sofort im Editor / Compiler |
 | Sprachen | Python, JavaScript | C, Java, Rust |
 
-In C weist der Compiler `int x = "hallo";` ab, bevor das Programm existiert. Python nimmt jede Zuweisung an und stolpert erst beim Benutzen.
+In C weist der Compiler `int x = "hallo";` ab, bevor das Programm existiert. Python nimmt jede Zuweisung an. Der Fehler zeigt sich erst, wenn der Wert benutzt wird.
 
 ### Annotationen: den Typ hinschreiben
 
@@ -137,7 +137,7 @@ Mit `def endplatten(p: ModulParam) -> cf.Shape:` meldet mypy den Fehler in der F
 w07/modul.py:51: error: Missing return statement  [return]
 ```
 
-Pylance kommt mit der Python-Erweiterung von VS Code, mypy steht seit Woche 1 in Ihrer `pyproject.toml`. Eingestellt sind beide dort.
+Pylance kommt mit der Python-Erweiterung von VS Code, mypy steht seit Woche 1 in Ihrer `pyproject.toml`. Dort stehen auch ihre Einstellungen.
 
 ### Syntax: Parameter, Rückgabe, `| None`
 
@@ -165,7 +165,7 @@ punkte: list[tuple[float, float, float]] = []     # Liste von Punkten
 | `cf.Solid`, `cf.Face`, `cf.Wire`, `cf.Edge` | die konkreten Topologie-Elemente aus Einheit 2 |
 
 - Grundkörper wie `cf.box` und `cf.cylinder` liefern `cf.Solid`.
-- Boolean, Fillet, Extrude, Loft und Selektoren liefern `cf.Shape`, weil der genaue Typ des Ergebnisses von der Geometrie abhängt.
+- Boolean, Fillet, Extrude, Loft und Selektoren liefern `cf.Shape`. Ob ein Körper entsteht oder mehrere (`Compound`), zeigt erst das Ergebnis: Der Typ hängt von der Topologie ab.
 
 Einheiten kann kein Typ ausdrücken. Der Ersatz sind **aussagekräftige Namen**: `zell_t`, `platten_rand`, `winkel_grad`.
 
@@ -194,7 +194,7 @@ Pylance meldet nur B und C. mypy ist bei Zuweisungen strenger, deshalb läuft in
 
 ### Den Typ verengen: `assert isinstance`
 
-Für B gibt es drei Wege, aber nur einer ist gut:
+Für B gibt es drei Wege:
 
 ```python
 boden = platte.faces("<Z")              # Typ: Shape
@@ -206,9 +206,9 @@ assert isinstance(boden, cf.Face)       # prüft es wirklich und verengt den Typ
 kontur = boden.outerWire()
 ```
 
-`isinstance(x, Typ)` ist `True`, wenn `x` von diesem Typ ist. `assert bedingung` bricht mit Fehler ab, wenn die Bedingung falsch ist. Trifft der Selektor einmal zwei Flächen, scheitert diese Zeile **an Ort und Stelle**. Die anderen zwei Wege schweigen.
+`isinstance(x, Typ)` ist `True`, wenn `x` von diesem Typ ist. `assert bedingung` bricht mit Fehler ab, wenn die Bedingung falsch ist. Trifft der Selektor einmal zwei Flächen, scheitert diese Zeile **an Ort und Stelle**. Mit `cast` oder `# type: ignore` kommt der Fehler erst später und weiter weg.
 
-> Führt eine KI ein `# type: ignore` ein, das Sie nicht verstehen: nachfragen.
+> Fügt eine KI ein `cast` oder `# type: ignore` ein: nachfragen, welcher Typ dort wirklich ankommt.
 
 ## Praktikum A: den Modul-Code annotieren
 
@@ -316,7 +316,7 @@ uv run mypy w07/
 
 **Regression:** Etwas war korrekt und ist es nach einer Änderung nicht mehr.
 
-Ohne Tests fällt das irgendwann am falschen Bauteil auf. Ein Test meldet es beim nächsten Commit.
+Ohne Tests fällt das spät auf, im ungünstigsten Fall erst am gefertigten Teil. Ein Test meldet es beim nächsten Commit.
 
 ### Was ein Unittest ist
 
@@ -411,9 +411,9 @@ Zur Erinnerung aus Einheit 6: `*` bildet die geometrische Schnittmenge, `&` die 
 - **A → 1:** Ohne Fillet ist die Zelle nur 340 mm³ größer, das sind 0,2 %. Mit `rel=0.01` bliebe Test 1 grün.
 - **B → 2 und 3:** Ohne Kompressionspad berühren sich die Zellen, und `+` verschmilzt sie zu einem einzigen Körper.
 - **C → 4:** Aus der Bohrung wird ein Zylinder, der 1 mm aus der Platte in den Stapel ragt.
-- **D → keiner.** Ein Test prüft nur, was er prüft. Hier fehlt einer für die Tab-Seiten, etwa die Breite des Stapels: Mit Flip ist `xlen` 172 mm, ohne 160 mm.
+- **D → keiner.** Keiner der vier Tests betrachtet die Tab-Seiten. Dafür fehlt ein Test, etwa auf die Breite des Stapels: Mit Flip ist `xlen` 172 mm, ohne 160 mm.
 
-### Was ist an diesen Tests faul?
+### Was stimmt an diesen Tests nicht?
 
 ```python
 def test_zelle():
@@ -453,7 +453,7 @@ tests:
     - uv run pytest tests/ -q
 ```
 
-Diese Datei liegt seit Woche 1 im Repo, und die Pipeline lief still mit. Ab heute ist sie Ihr Werkzeug: grünes ✓ oder rotes ✗ direkt am Commit.
+Diese Datei liegt seit Woche 1 im Repo, die Pipeline lief bei jedem Push mit. Ab heute enthält sie Ihre Tests. Das Ergebnis steht am Commit: grünes ✓ oder rotes ✗.
 
 Darunter steht auskommentiert ein zweiter Job `typen` mit `uv run mypy .` und `allow_failure: true`. Er meldet Typfehler gelb am Commit, blockiert die Pipeline aber nicht.
 
