@@ -56,7 +56,7 @@ Ihr Modul-Code liegt bisher verteilt:
 
 Jede Datei baut beim Start das Modul und zeigt es an. Ob nach einer Änderung noch alles stimmt, sehen Sie nur im Viewer.
 
-**Heute:** Der Code kommt an einen Ort. Danach prüfen ihn zwei Werkzeuge bei jeder Änderung: ein Type-Checker und Unittests.
+**Heute:** Der Code kommt an einen Ort: `w07/modul.py`. Danach prüfen ihn zwei Werkzeuge bei jeder Änderung: ein Type-Checker und Unittests.
 
 Die Folien verwenden die Namen aus der Referenzlösung, etwa `platten_t` oder `stapel_hoehe`.
 
@@ -89,7 +89,7 @@ AttributeError: 'NoneType' object has no attribute 'moved'
 - In `endplatten` fehlt das `return`. Ohne `return` liefert jede Funktion `None`.
 - Python meldet den Fehler erst dort, wo das Ergebnis **benutzt** wird, nicht in `endplatten`.
 
-Python prüft Typen **zur Laufzeit** und nur in Zeilen, die tatsächlich laufen. Dabei zählt allein, ob ein Objekt die verlangte Operation beherrscht (**Duck Typing**). `None` hat keine Methode `moved`.
+Python prüft Typen **zur Laufzeit** und nur in Zeilen, die tatsächlich laufen. `None` hat keine Methode `moved`.
 
 ### Dynamisch und statisch typisiert
 
@@ -102,6 +102,15 @@ Python prüft Typen **zur Laufzeit** und nur in Zeilen, die tatsächlich laufen.
 
 In C weist der Compiler `int x = "hallo";` ab, bevor das Programm existiert. Python nimmt jede Zuweisung an. Der Fehler zeigt sich erst, wenn der Wert benutzt wird.
 
+**Wenn statische Typen Fehler früher finden: Warum schreiben wir CAD-Code nicht gleich in C?**
+
+### Typen nachrüsten
+
+- **Ausprobieren:** Kurze Skripte ohne Deklarationen, dafür steht Python im Kurs.
+- **Wachsender Code:** Wird eine Funktion importiert und von anderen aufgerufen, kommen unerwartete Werte an.
+- **Gradual Typing:** Annotationen sind freiwillig. Man setzt sie an die Signaturen von wiederverwendetem Code.
+- **Alle Zweige:** Ein Probelauf prüft nur die ausgeführten Zeilen, ein Type-Checker auch selten laufende Zweige.
+
 ### Annotationen: den Typ hinschreiben
 
 In Einheit 3 standen schon Typ-Hinweise, in der Dataclass und an einer Funktion:
@@ -111,7 +120,7 @@ zell_t: float = 11.0
 def zell_volumen(p: ModulParam) -> float:
 ```
 
-`: float`, `p: ModulParam` und `-> float` sind **Type Hints** (Annotationen), seit Python 3.5 (2015). Python selbst ignoriert sie und führt den Code genauso aus, auch bei falscher Annotation:
+`: float`, `p: ModulParam` und `-> float` sind **Type Hints** (Annotationen). Python selbst ignoriert sie und führt den Code genauso aus, auch bei falscher Annotation:
 
 ```python
 def verdopple(x: str) -> int:
@@ -150,8 +159,6 @@ def bericht(p: ModulParam) -> None: ...          # gibt nichts zurück
 class ModulParam:
     n_zellen: int = 12
     zapfen_d: float | None = 16.0                 # None: ohne Zentrierbohrung
-
-punkte: list[tuple[float, float, float]] = []     # Liste von Punkten
 ```
 
 - `-> None`: Die Funktion gibt nichts zurück. Trotzdem hinschreiben: **Funktionen ganz ohne Annotation prüft mypy nicht.**
@@ -184,17 +191,17 @@ v = platte.Volume() / 1000                             # D
 
 **Welche Zeilen meldet mypy?** Stimmen Sie ab. Nachprüfen können Sie es in Aufgabe 3.
 
-### Auflösung: A, B und C
+### Regeln hinter den Meldungen
 
-- **A:** `cf.box` liefert `Solid`, `cf.fillet` ein `Shape`. Eine Variable behält für mypy den Typ ihrer ersten Zuweisung. Abhilfe: ein neuer Name (`platte_rund`) oder der Typ bei der ersten Zuweisung (`platte: cf.Shape = cf.box(...)`).
-- **B:** `faces(...)` liefert `Shape`. Trifft der Selektor eine Fläche, ist es ein `Face`, bei mehreren ein `Compound`. `outerWire` gibt es nur am `Face`.
-- **C:** `zapfen_d` kann `None` sein. Erst nach `if p.zapfen_d is not None:` weiß der Type-Checker, dass es ein `float` ist.
+- **Erste Zuweisung:** Eine Variable behält den Typ ihrer ersten Zuweisung. Abhilfe: neuer Name oder `x: cf.Shape = ...`
+- **Konkrete Methoden:** Was es nur am `Face` gibt, verlangt ein `Face`. Ein `Shape` reicht nicht.
+- **`| None`:** Erst nach `if x is not None:` darf der Wert benutzt werden.
 
-Pylance meldet nur B und C. mypy ist bei Zuweisungen strenger, deshalb läuft in der CI mypy.
+mypy ist bei Zuweisungen strenger als Pylance, deshalb läuft in der CI mypy.
 
 ### Den Typ verengen: `assert isinstance`
 
-Für B gibt es drei Wege:
+Liefert ein Selektor ein `Shape` und Sie brauchen ein `Face`, gibt es drei Wege:
 
 ```python
 boden = platte.faces("<Z")              # Typ: Shape
@@ -233,36 +240,15 @@ if __name__ == "__main__":
 
 Starten Sie die Datei direkt, ist `__name__` gleich `"__main__"`, und der Block läuft. Beim Import mit `from w07.modul import stapel_bauen` ist `__name__` gleich `"w07.modul"`, und der Block bleibt aus.
 
-### Ein `ModulParam` für alle Funktionen
+### Aufgabe 1: Die Startdatei übernehmen
 
-Ab heute gilt diese Version. Kopieren Sie sie mit den Importen von `dataclass` und `cf` an den Anfang von `w07/modul.py`:
+Die Datei `w07/modul_start.py` im Repo `referenz` enthält den Modul-Code aus Einheit 3 und 4: `ModulParam` und alle Funktionen, noch ohne Annotationen.
 
-```python
-@dataclass
-class ModulParam:
-    zell_b: float = 148.0        # mm, Zellbreite
-    zell_h: float = 98.0         # mm, Zellhöhe
-    zell_t: float = 11.0         # mm, Zelldicke
-    zell_r: float = 6.0          # mm, Eckradius der Zelle
-    n_zellen: int = 12           # Anzahl Zellen im Stapel
-    spacer: float = 1.5          # mm, Kompressionspad zwischen den Zellen
-    tab_l: float = 12.0          # mm, Überstand des Tabs über die kurze Seite
-    tab_b: float = 24.0          # mm, Tabbreite
-    tab_t: float = 6.0           # mm, Tabdicke, mittig in der Zelldicke
-    platten_rand: float = 12.0   # mm, Endplatte größer als Zellquerschnitt
-    platten_t: float = 8.0       # mm, Endplattendicke
-    zapfen_d: float = 16.0       # mm, Zentrierbohrung
-```
-
-### Aufgabe 1: Den Modul-Code sammeln
-
-1. Ergänzen Sie in `w07/modul.py` unter `ModulParam` Ihre Funktionen: `zelle_bauen` mit dem Tab aus Einheit 4 (Aufgabe 1), `stapel_bauen` mit Flip und `endplatten`. Passen Sie die Feldnamen an.
-2. Stapel und untere Endplatte beginnen bei z = 0, ohne Grundplatte. Die Lage im Modul kommt erst beim Zusammenbau.
+1. Holen Sie sie mit `git pull` im Repo `referenz` und kopieren Sie sie als `w07/modul.py` in Ihr Repo.
+2. Führen Sie im Projektordner `uv run python -c "import w07.modul"` aus. Was passiert?
 3. Stellen Sie alles, was baut und anzeigt, unter `if __name__ == "__main__":`.
 
-*Prüfen:* Die Datei startet wie bisher mit dem Viewer. Im Projektordner läuft `uv run python -c "import w07.modul"` ohne Ausgabe und ohne Viewer.
-
-*Hinweise:* Fehlt Ihnen etwas aus Einheit 3 oder 4, nehmen Sie die Referenzlösung.
+*Prüfen:* Direkt gestartet zeigt die Datei das Modul im Viewer. Der Import aus 2 läuft ohne Ausgabe.
 
 ### Aufgabe 2: Annotieren
 
@@ -271,25 +257,6 @@ class ModulParam:
 3. Schreiben Sie `zelle_bauen("12")`. Was zeigt Pylance? Was passiert beim Ausführen?
 
 *Hinweise:* `-> cf.Shape` für Geometrie-Funktionen, `float | None` für das Feld
-
-### mypy für das ganze Repo einstellen
-
-`uv run mypy .` prüft alle Wochen auf einmal. Liegt in zwei Wochen eine Datei mit demselben Namen, bricht mypy ab, ohne etwas zu prüfen:
-
-```
-w07/modul.py: error: Duplicate module named "modul" (also at "./w03/modul.py")
-```
-
-Ihre Wochenordner enthalten keine `__init__.py`. Deshalb nimmt mypy jeden Ordner als eigenen Startpunkt, und beide Dateien heißen schlicht `modul`.
-
-Ergänzen Sie in Ihrer `pyproject.toml`:
-
-```toml
-[tool.mypy]
-explicit_package_bases = true
-```
-
-Dann gehört der Ordner zum Namen: `w03.modul` und `w07.modul`.
 
 ### Aufgabe 3: mypy aufräumen
 
@@ -300,9 +267,12 @@ uv run mypy w07/
 ```
 
 2. Kopieren Sie die Zeilen A–D aus der Abstimmung in eine Datei `probe.py` im Projektordner, mit `from w07.modul import ModulParam` und `from cadquery import func as cf`. Prüfen Sie Ihre Antwort mit `uv run mypy probe.py`.
-3. Führen Sie `uv run mypy .` für das ganze Repo aus. Welche Meldungen aus früheren Wochen entsprechen A, B oder C?
 
-*Hinweise:* Wo ein `Shape` zu allgemein ist, verengen Sie mit `assert isinstance`. Die früheren Wochen müssen Sie nicht aufräumen.
+*Hinweise:* Wo ein `Shape` zu allgemein ist, verengen Sie mit `assert isinstance`.
+
+### Was hat mypy gefunden?
+
+**Welche Meldung hat Sie überrascht? War sie ein echter Fehler oder nur eine Ungenauigkeit im Typ?**
 
 ## Theorie B: Unittests
 
@@ -317,6 +287,8 @@ uv run mypy w07/
 **Regression:** Etwas war korrekt und ist es nach einer Änderung nicht mehr.
 
 Ohne Tests fällt das spät auf, im ungünstigsten Fall erst am gefertigten Teil. Ein Test meldet es beim nächsten Commit.
+
+**Wie hätten Sie diesen Fehler bisher bemerkt?**
 
 ### Was ein Unittest ist
 
@@ -367,6 +339,8 @@ def test_stapel_hoehe():
 
 Der Sollwert kommt aus einer **unabhängigen** Rechnung: aus den Maßen des Teils, nicht aus dem Code, der es baut. Sonst steckt derselbe Denkfehler in beiden.
 
+**Warum prüft man ein gefertigtes Teil gegen die Zeichnung und nicht gegen das NC-Programm?**
+
 ### `pytest.approx` – Fließkomma
 
 ```python
@@ -377,7 +351,11 @@ assert zelle.Volume() == pytest.approx(160932, abs=0.1)     # ± 0,1 mm³
 
 Geometrieoperationen sammeln Rundungsfehler ($0.1 + 0.2 \neq 0.3$). Exakte Gleichheit scheitert deshalb zufällig.
 
-`approx` braucht `import pytest` am Anfang der Testdatei.
+### Was würden Sie prüfen?
+
+Eine Zelle kommt aus der Fertigung.
+
+**Welche Merkmale messen Sie, bevor sie ins Modul eingebaut wird?**
 
 ### Was am CAD-Code prüfen?
 
@@ -442,6 +420,8 @@ def test_hoehe():
 
 Dazu kommt: **Eine Testfunktion prüft ein Verhalten.** Dann sagt schon der Name des roten Tests, was kaputt ist.
 
+**Ein KI-Assistent schreibt Funktion und Test in einem Durchgang. Was beweist der grüne Test?**
+
 ### CI: bei jedem Push (GitLab)
 
 **Continuous Integration:** Nach jedem Push checkt ein Rechner auf dem GitLab-Server Ihr Projekt frisch aus und arbeitet die `.gitlab-ci.yml` in Ihrem Repo ab:
@@ -466,25 +446,24 @@ Schreiben Sie `tests/test_w07.py` mit Tests für:
 1. Die Zelle ist ein gültiger Körper.
 2. Das Volumen der Zelle gegen einen **selbst gerechneten** Sollwert: Quader, Ecken, Tab.
 3. Die Höhe des Stapels, und der Grenzfall `ModulParam(n_zellen=1)`.
-4. Ein Test, der den vergessenen Flip bemerkt.
+4. *(Zusatz)* Ein Test, der den vergessenen Flip bemerkt.
 
 *Prüfen:* Ihr Sollwert in 2 liegt bei etwa 160 900 mm³.
 
-*Hinweise:* Wie viel Fläche nimmt eine Rundung mit Radius $r$ an einer Ecke weg? `uv run pytest -v`
+*Hinweise:* Wie viel Fläche nimmt eine Rundung mit Radius $r$ an einer Ecke weg? `approx` braucht `import pytest`. Ausführen mit `uv run pytest -v`.
 
 ### Aufgabe 5: Kollision
 
-1. Testen Sie, dass sich die Zellen im Stapel nicht berühren.
-2. Testen Sie, dass Stapel und Endplatten sich nicht durchdringen.
-3. Machen Sie beide Tests einmal absichtlich kaputt: `spacer=0` und `unten + bohrung`. Werden sie rot? Machen Sie die Änderung danach rückgängig.
+1. Testen Sie, dass Stapel und Endplatten sich nicht durchdringen.
+2. Machen Sie den Test absichtlich kaputt: `unten + bohrung`. Wird er rot? Machen Sie die Änderung danach rückgängig.
+3. *(Zusatz)* Testen Sie, dass sich die Zellen im Stapel nicht berühren. Wird der Test mit `spacer=0` rot?
 
 *Hinweise:* Im Modul liegt der Stapel um `platten_t` höher als die untere Endplatte. `pytest.approx(0, abs=1e-6)`
 
 ### Aufgabe 6: CI und die Regression selbst auslösen
 
 1. Committen und pushen Sie `w07/` und `tests/test_w07.py`. Läuft die Pipeline grün?
-2. Aktivieren Sie den Job `typen` in der `.gitlab-ci.yml`: Entfernen Sie die `#` vor seinen Zeilen und pushen Sie. Welche Farbe hat der Job, und warum?
-3. Bauen Sie den Fehler B ein: `pitch = p.zell_t`. Sagen Sie voraus, welche Ihrer Tests rot werden. Pushen Sie und prüfen Sie es an der Pipeline. Machen Sie die Änderung danach rückgängig.
+2. Bauen Sie den Fehler A ein: Fillet vergessen. Sagen Sie voraus, ob einer Ihrer Tests rot wird. Pushen Sie und prüfen Sie es an der Pipeline. Machen Sie die Änderung danach rückgängig.
 
 ### Aufgabe 7 *(Zusatz)*: Ein Test, viele Parametersätze
 
@@ -500,7 +479,36 @@ pytest führt den Test einmal für jedes `n` aus und meldet jeden Lauf einzeln.
 1. Prüfen Sie für jedes `n` die Anzahl der Solids und die Höhe.
 2. Nehmen Sie `0` in die Liste auf. Was meldet pytest? Was sollte `stapel_bauen` stattdessen tun?
 
+### mypy für das ganze Repo einstellen
+
+`uv run mypy .` prüft alle Wochen auf einmal. Liegt in zwei Wochen eine Datei mit demselben Namen, bricht mypy ab, ohne etwas zu prüfen:
+
+```
+w07/modul.py: error: Duplicate module named "modul" (also at "./w03/modul.py")
+```
+
+Ihre Wochenordner enthalten keine `__init__.py`. Deshalb nimmt mypy jeden Ordner als eigenen Startpunkt, und beide Dateien heißen schlicht `modul`.
+
+Ergänzen Sie in Ihrer `pyproject.toml`:
+
+```toml
+[tool.mypy]
+explicit_package_bases = true
+```
+
+Dann gehört der Ordner zum Namen: `w03.modul` und `w07.modul`.
+
+### Aufgabe 8 *(Zusatz)*: Typen in der CI
+
+1. Führen Sie mit dieser Einstellung `uv run mypy .` aus. Welche Meldungen aus früheren Wochen folgen den Regeln aus Theorie A?
+2. Aktivieren Sie den Job `typen` in der `.gitlab-ci.yml`: Entfernen Sie die `#` vor seinen Zeilen und pushen Sie. Welche Farbe hat der Job, und warum?
+
 ## Abschluss
+
+### Lohnt sich das?
+
+**Typen, Tests, CI: Ab welcher Größe lohnt sich der Aufwand? Für Ihr Modul, für eine Abschlussarbeit, für ein Produkt?**
+
 
 ### Leseauftrag & Ausblick
 
