@@ -36,8 +36,8 @@ ID: david.straub@hm.edu
 
 - Kräfte, Felder und Spannungen von Ladungen und Strömen berechnen
 - Gleichstromschaltungen analysieren: Ströme, Spannungen, Leistung
-- Wechsel- und Drehstromschaltungen komplex berechnen
-- Induktion und Schaltvorgänge an Spulen und Kondensatoren beschreiben und berechnen
+- Wechselstromschaltungen komplex berechnen
+- Induktion und Selbstinduktion beschreiben und berechnen
 
 ### Gliederung des Kurses
 
@@ -47,8 +47,6 @@ ID: david.straub@hm.edu
 4. **Magnetismus** (Feld in Vakuum und Materie, Kräfte, magnetischer Kreis)
 5. **Elektromagnetische Induktion** (Induktion, Selbstinduktion, Energie)
 6. **Wechselstrom** (Komplexe Wechselstromrechnung, Schaltungen, Leistung, Resonanz)
-7. **Drehstrom** (Dreiphasensystem)
-8. **Schaltvorgänge** an Kapazitäten und Induktivitäten
 
 ### Prüfung
 

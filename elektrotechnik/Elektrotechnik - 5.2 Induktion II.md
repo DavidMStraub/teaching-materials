@@ -170,7 +170,7 @@ Zahlengefühl: bei $B = 1 \, \text{T}$ ist $\sigma \approx 40 \, \frac{\text{N}}
 
 ### 📝 Aufgabe 16: Induktivität & Schalten
 
-*Fortsetzung des Bestückungsautomaten aus Kapitel 4.*
+*Fortsetzung des Elektromagneten aus Aufgabe 13 (Kapitel 4).*
 
 Der Elektromagnet hat $N = 1000$ Windungen und $R_{m,\text{ges}} = 10^6 \, \text{H}^{-1}$; Betriebsstrom $I = 0{,}4 \, \text{A}$.
 

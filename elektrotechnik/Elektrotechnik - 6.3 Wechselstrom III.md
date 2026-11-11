@@ -246,8 +246,6 @@ f) Bei $\omega_0$ nimmt der Zweipol nur Wirkleistung auf – wie heißt dieser A
 - Kompensation: Kondensator **parallel**, $Q_C = P(\tan\varphi_1 - \tan\varphi_2)$
 - **Resonanz:** $\omega_0 = \frac{1}{\sqrt{LC}}$, $\underline{Z}$ reell; Grenzfälle: C/L ↔ Unterbrechung/Kurzschluss
 
-**Nächstes Kapitel:** Drehstrom – warum aus der Steckdose eigentlich drei Phasen kommen 🔌
-
 ### Wechselstrom: Niederspannung weltweit
 
 ![](https://upload.wikimedia.org/wikipedia/commons/7/70/World_Map_of_Mains_Voltages_and_Frequencies%2C_Detailed.svg)
