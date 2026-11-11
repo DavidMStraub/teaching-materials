@@ -58,19 +58,29 @@ Ein Zulieferer soll Ihr Modul bekommen. Sie exportieren:
 stapel_bauen(ModulParam()).exportStep("stapel.step")
 ```
 
-**Was findet der Zulieferer in dieser Datei?**
+**Was findet der Zulieferer in dieser Datei? Was braucht er außerdem?**
 
-### Zwölf Körper ohne Namen
+### Mehr als Geometrie
 
-- zwölf Solids mit den Namen `1` bis `12`, ohne Farben
-- kein Hinweis, dass die Zellen **Kaufteile** sind und die Platten Eigenfertigung
-- Grundplatte und Endplatten fehlen. Nimmt man sie mit `+` dazu, verschmelzen sie mit den Zellen, die sie berühren: 12 statt 14 Körper.
-
-Für den Austausch braucht es mehr als Geometrie: welches Teil was ist, wie oft es vorkommt, wo es sitzt.
+Zum Austausch gehört zu jedem Teil: Name, Anzahl, Lage, Material, Eigenfertigung oder Kaufteil.
 
 **Heute:** Die Teile bleiben getrennt und bekommen Namen, als **Baugruppe** (Assembly).
 
+**Wie bauen Sie in einem klassischen CAD-System eine Baugruppe auf? Was passiert, wenn sich ein Teil ändert?**
+
 ## Theorie A: Assembly und STEP
+
+### Baugruppen: klassisch und im Code
+
+| | klassisches CAD | Code |
+|---|---|---|
+| Teil | eigene Datei | Funktion, die ein Shape liefert |
+| Instanz | dasselbe Teil mehrfach verbaut | dieselbe Variable mehrfach eingefügt |
+| Lage | Constraints zwischen Flächen | berechnete Lage |
+| Unterbaugruppe | Baugruppe in der Baugruppe | Assembly in der Assembly |
+| Stückliste | aus dem Baum | aus dem Baum |
+
+Ändert sich ein Teil, ändern sich alle Instanzen. Auch der STEP-Export speichert die zwölf Zellen als Instanzen von zwei Geometrien: normal und gedreht.
 
 ### Assembly: Teile getrennt halten
 
@@ -87,10 +97,8 @@ assy.add(zelle, name="zelle_0", color=cq.Color("steelblue"),
 ```
 
 - `name`: eindeutig in der Baugruppe
-- `loc`: die Lage des Teils. Die Geometrie selbst bleibt unverändert.
-- `metadata`: beliebige Angaben zum Teil, als **`dict`**: Paare aus Schlüssel und Wert in `{...}`. `metadata["teil"]` liest den Wert zum Schlüssel `"teil"`.
-
-`+` verschmilzt Körper. `add` hängt sie nebeneinander in einen **Baum**.
+- `loc`: die Lage des Teils, die Geometrie bleibt unverändert
+- `metadata`: Angaben zum Teil als **`dict`**, also Paare aus Schlüssel und Wert. `metadata["teil"]` liest einen Wert.
 
 ### Zwölf Zellen, eine Schleife
 
@@ -108,12 +116,10 @@ for i in range(p.n_zellen):
              metadata={"teil": "zelle", "material": "kaufteil"})
 ```
 
-- `GRUNDPLATTE_T = 6.0` steht oben in der Datei. Die unterste Zelle liegt auf der unteren Endplatte, die auf der Grundplatte liegt.
-- `f"zelle_{i}"` ist ein **f-String**: Er setzt den Wert von `i` in den Text ein, also `zelle_0`, `zelle_1`, …
+- `GRUNDPLATTE_T = 6.0` steht oben in der Datei.
+- `f"zelle_{i}"` ist ein **f-String**: Er setzt `i` in den Text ein, also `zelle_0`, `zelle_1`, …
 
-### Verschachteln: Modul → Pack
-
-Ein Teil einer Baugruppe darf selbst eine Baugruppe sein:
+### Unterbaugruppen: Modul → Pack
 
 ```python
 pack = cq.Assembly(name="pack")
@@ -123,8 +129,8 @@ for i in range(2):
 print([c.name for c in pack.children])   # ['modul_0', 'modul_1']
 ```
 
-- `children` sind nur die Teile **direkt** darunter.
-- Die Lage setzt sich **den Baum hinab** fort: Jedes Modul wird einmal platziert, seine Zellen bleiben relativ dazu.
+- `children` sind nur die Teile direkt darunter.
+- Jedes Modul wird einmal platziert. Seine Zellen bleiben relativ dazu an ihrem Platz.
 
 ### Skripte über Wochenordner hinweg: `-m`
 
@@ -139,21 +145,9 @@ uv run python w08/baugruppe.py     # ModuleNotFoundError: No module named 'w07'
 uv run python -m w08.baugruppe     # läuft
 ```
 
-- Python sucht Importe im Ordner des gestarteten Skripts, hier also in `w08/`.
-- Mit `-m` sucht Python im aktuellen Ordner, also im Projektordner, und findet `w07/`, so wie pytest in Einheit 7.
-- ▷ in VS Code startet wie die erste Zeile. Starten Sie ab heute im Terminal.
-
-### Die Baugruppe im Viewer
-
-```python
-if __name__ == "__main__":
-    from ocp_vscode import show
-    show(modul(ModulParam()))
-```
-
-- Reiter *Tree*: derselbe Baum wie im Code, mit Namen und Farben aus `add`. Das Auge blendet ein Teil aus.
-- *Explode* in der Werkzeugleiste zieht die Baugruppe auseinander. Jedes Teil bleibt ein eigenes Objekt.
-- *Distance*: Abstand zwischen zwei Zellen nachmessen. Stimmt `zell_t + spacer`?
+- Ohne `-m` sucht Python Importe im Ordner des Skripts, hier `w08/`.
+- Mit `-m` sucht Python im Projektordner und findet `w07/`, wie pytest in Einheit 7.
+- ▷ in VS Code startet ohne `-m`. Starten Sie ab heute im Terminal.
 
 ### Dateiformate: wofür welches
 
@@ -165,13 +159,11 @@ if __name__ == "__main__":
 
 **B-Rep** (Einheit 2) hält exakte Kurven und Flächen. Ein **Netz** nähert die Oberfläche durch Dreiecke an.
 
-**STEP** ist die Norm ISO 10303. Alle professionellen CAD-Systeme lesen es, etwa FreeCAD, Fusion 360, CATIA und NX.
-
 ### Welches Format?
 
 1. Ein Zulieferer fräst die Endplatte.
 2. Sie lassen die Grundplatte als Prototyp drucken.
-3. Ein Kollege rechnet die Endplatte mit einem FEM-Programm.
+3. Die Berechnungsabteilung prüft die Endplatte mit einem FEM-Programm.
 4. Ein Zwischenergebnis braucht eine Minute zum Bauen, Sie wollen es morgen weiterverwenden.
 
 **Ordnen Sie jedem Fall ein Format zu.**
@@ -180,8 +172,8 @@ if __name__ == "__main__":
 
 1. **STEP:** Der Zulieferer braucht die exakte Geometrie.
 2. **STL:** Der Drucker arbeitet mit Dreiecken.
-3. **STEP:** Ein FEM-Programm vernetzt selbst, und zwar aus der exakten Geometrie. Ein STL-Netz beschreibt nur die Oberfläche und taugt nicht als Volumennetz (Einheit 10).
-4. **BREP:** schnell und verlustfrei, aber nur für den Eigenbedarf
+3. **STEP:** Das FEM-Programm vernetzt selbst, aus der exakten Geometrie. Ein STL-Netz beschreibt nur die Oberfläche (Einheit 10).
+4. **BREP:** schnell und verlustfrei, für den Eigenbedarf
 
 ### STEP: hin und zurück
 
@@ -207,9 +199,9 @@ Legen Sie `w08/baugruppe.py` an:
 2. `modul(p)` mit Grundplatte, unterer und oberer Endplatte und zwölf Zellen. Jedes Teil hat einen Namen, eine Farbe und `metadata` mit `"teil"` und `"material"` (`"alu"`, `"stahl"`, `"kaufteil"`).
 3. Zeigen Sie die Baugruppe unter `if __name__ == "__main__":` an.
 
-*Prüfen:* `len(assy.children)` ist 15. Im Viewer liegt die unterste Zelle auf der unteren Endplatte.
+*Prüfen:* `len(assy.children)` ist 15. Im Viewer zeigt der Reiter *Tree* alle Teile mit Namen. *Explode* zieht die Baugruppe auseinander, *Distance* misst den Abstand zweier Zellen.
 
-*Hinweise:* `endplatten(p)` liefert beide Platten als ein Shape, `unten, oben = endplatten(p).Solids()` verteilt sie auf zwei Namen. Start mit `uv run python -m w08.baugruppe`. Farbnamen sind z. B. `"gray"`, `"gray40"`, `"steelblue"`.
+*Hinweise:* `unten, oben = endplatten(p).Solids()` verteilt die beiden Platten auf zwei Namen. Start mit `uv run python -m w08.baugruppe`. Farbnamen sind z. B. `"gray"`, `"gray40"`, `"steelblue"`.
 
 ### Aufgabe 2: Der STEP-Rundlauf
 
@@ -234,10 +226,12 @@ for _, teil in assy.traverse():
 print(anzahl)    # Counter({'zelle': 12, 'endplatte': 2, 'grundplatte': 1})
 ```
 
-- `traverse()` läuft durch den **ganzen** Baum, auch durch verschachtelte Baugruppen. Es liefert Paare aus Name und Teil. `_` steht für den Namen, der hier nicht gebraucht wird.
-- `Counter` zählt, wie oft ein Wert vorkommt. `Counter[str]` sagt mypy, dass die gezählten Werte Texte sind.
+- `traverse()` läuft durch den ganzen Baum und liefert Paare aus Name und Teil. `_` steht für den Namen, der hier nicht gebraucht wird.
+- `Counter` zählt, wie oft ein Wert vorkommt. `Counter[str]` sagt mypy, dass Texte gezählt werden.
 
-Der Rundlauf hat gezeigt: `metadata` geht beim STEP-Export verloren. Die Stückliste entsteht deshalb **aus dem Modell**, nicht aus der Datei.
+`metadata` geht beim STEP-Export verloren. Die Stückliste entsteht deshalb direkt aus dem Modell.
+
+**In vielen Firmen pflegt jemand die Stückliste in Excel, neben dem CAD-Modell. Was kann dabei schiefgehen?**
 
 ### Masse: Eigenfertigung und Kaufteil
 
@@ -253,21 +247,9 @@ def masse(teil: cq.Assembly) -> float:
 ```
 
 - **Eigenfertigung:** Volumen aus dem Modell mal Dichte
-- **Kaufteil:** Masse aus dem Datenblatt. Ihre Zelle ist nur die Hülle, innen sind Elektroden, Separator und Elektrolyt.
+- **Kaufteil:** Masse aus dem Datenblatt. Die modellierte Zelle ist nur die Hülle.
 
-Die Masse des ganzen Moduls brauchen Sie in Einheit 11 für die Energiedichte in Wh/kg.
-
-### BREP und STL
-
-```python
-koerper.exportBrep("w08/stapel.brep")              # Kernel-Format, verlustfrei
-wieder = cf.Shape.importBrep("w08/stapel.brep")
-
-assy.export("w08/modul.stl", tolerance=0.1)        # Netz, Abweichung bis 0,1 mm
-```
-
-- **BREP** speichert genau die Struktur, die der Kernel im Speicher hält: keine Umrechnung, kein Rundungsfehler. Es ist kein Industriestandard.
-- **STL** ersetzt jede Fläche durch Dreiecke. `tolerance` legt fest, wie weit sie von der exakten Fläche abweichen dürfen.
+Die Masse des Moduls brauchen Sie in Einheit 11 für die Energiedichte in Wh/kg.
 
 ### Release: alle Lieferdateien aus einem Aufruf
 
@@ -275,14 +257,14 @@ assy.export("w08/modul.stl", tolerance=0.1)        # Netz, Abweichung bis 0,1 mm
 from pathlib import Path
 
 def release(p: ModulParam, ordner: str) -> None:
-    Path(ordner).mkdir(parents=True, exist_ok=True)     # Ordner anlegen
+    Path(ordner).mkdir(parents=True, exist_ok=True)       # Ordner anlegen
     assy = modul(p)
-    assy.export(f"{ordner}/modul.step")                 # Austausch
-    assy.export(f"{ordner}/modul.stl")                  # Druck
-    schreibe_bom(assy, f"{ordner}/bom.csv")             # Stückliste
+    assy.export(f"{ordner}/modul.step")                   # Austausch
+    assy.export(f"{ordner}/modul.stl", tolerance=0.1)     # Druck, Netz auf 0,1 mm genau
+    schreibe_bom(assy, f"{ordner}/bom.csv")               # Stückliste
 ```
 
-Aus einem Parametersatz entsteht ein vollständiges, zueinander passendes Paket. Eine neue Variante ist ein neuer Aufruf, kein kopiertes Skript.
+Aus einem Parametersatz entstehen Dateien, die zueinander passen. Eine neue Variante ist ein neuer Aufruf mit anderen Parametern.
 
 ### Was die Pipeline nicht prüft
 
@@ -294,14 +276,13 @@ Der Aufruf läuft ohne Fehler durch. STEP, STL und Stückliste sind vollständig
 
 **Lässt sich dieses Modul bauen?**
 
-### Auflösung: eine Kopie, die zufällig passte
+### Was die Schritte prüfen
 
-- Die Endplatte liest den Durchmesser ihrer Zentrierbohrung aus `p.zapfen_d`, jetzt also 12 mm.
-- Der Zapfen der Grundplatte stammt aus Einheit 3 und hat fest ⌀ 16. Grundplatte und Endplatte durchdringen sich um 704 mm³.
+- Die Baugruppe legt jedes Teil dorthin, wo `loc` es hinlegt.
+- STEP speichert, was es bekommt.
+- Die Stückliste zählt Namen.
 
-Keiner der Schritte prüft das: Die Baugruppe legt Teile dorthin, wo `loc` sagt. STEP speichert, was es bekommt. Die Stückliste zählt Namen.
-
-Es helfen beide Lehren aus Einheit 7: **den Kernel fragen** (`*`) und **die Kopie beseitigen**, sodass `grundplatte(p)` den Durchmesser aus `p` liest.
+Ob die Teile zusammenpassen, prüft keiner dieser Schritte. Das leistet ein Test.
 
 ## Praktikum B: Stückliste und Release
 
@@ -323,17 +304,22 @@ with open(pfad, "w", newline="") as datei:     # schließt die Datei am Blockend
 
 1. Schreiben Sie `release(p, ordner)`.
 2. Erzeugen Sie Releases für `n_zellen=12` und `n_zellen=16` in getrennten Ordnern. Was unterscheidet die beiden Stücklisten?
-3. Erzeugen Sie dasselbe Release zweimal in zwei Ordnern. Sagen Sie vorher, welche Dateien identisch sind. Vergleichen Sie dann in VS Code: zwei Dateien markieren, Rechtsklick → *Ausgewählte vergleichen* (*Compare Selected*). Was unterscheidet sich?
+3. *(Zusatz)* Erzeugen Sie dasselbe Release zweimal in zwei Ordnern. Sagen Sie vorher, welche Dateien identisch sind. Vergleichen Sie dann in VS Code: zwei Dateien markieren, Rechtsklick → *Ausgewählte vergleichen* (*Compare Selected*).
 
-*Hinweise:* Die erzeugten Dateien gehören nicht ins Repo, committen Sie nur die Skripte.
+**Warum gehören die erzeugten Dateien nicht ins Repo?**
 
 ### Aufgabe 5: Was die Pipeline nicht prüft
 
 1. Erzeugen Sie Releases für `zapfen_d=12.0` und für `zapfen_d=None`. Läuft beides durch?
-2. Schreiben Sie in `tests/test_w08.py` einen Test: Grundplatte und untere Endplatte durchdringen sich nicht, für `zapfen_d` gleich 16, 12 und `None`.
-3. Beheben Sie die Ursache, bis der Test für alle drei Werte grün ist.
+2. Welche Teile lesen `zapfen_d`, welche nicht? Suchen Sie im Code aus Einheit 7 und 8.
+3. Schreiben Sie in `tests/test_w08.py` einen Test: Grundplatte und untere Endplatte durchdringen sich nicht, für `zapfen_d` gleich 16, 12 und `None`.
+4. Beheben Sie die Ursache, bis der Test für alle drei Werte grün ist.
 
-*Hinweise:* `assy.objects["grundplatte"]` liefert das Teil mit diesem Namen. Seine Geometrie an ihrem Platz ist `teil.obj.moved(teil.loc)`, vorher verengen wie in Aufgabe 2. Eine Schleife über die drei Werte genügt.
+*Hinweise:* `assy.objects["grundplatte"]` liefert das Teil mit diesem Namen. Seine Geometrie an ihrem Platz ist `teil.obj.moved(teil.loc)`, vorher verengen wie in Aufgabe 2.
+
+### Was hat der Test gefunden?
+
+**Wo steckte die Ursache? Welche Lehre aus Einheit 7 hätte den Fehler früher gefunden?**
 
 ### Aufgabe 6 *(Zusatz)*: Platzierung lösen statt rechnen
 
