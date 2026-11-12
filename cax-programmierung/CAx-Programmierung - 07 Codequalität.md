@@ -62,9 +62,36 @@ Die Folien verwenden die Namen aus der Referenzlösung, etwa `platten_t` oder `s
 
 ## Theorie A: Type Hints
 
+### Ausgangspunkt: `ModulParam`
+
+```python
+from dataclasses import dataclass
+from cadquery import func as cf
+from ocp_vscode import show
+
+@dataclass
+class ModulParam:
+    zell_b: float = 148.0        # mm, Zellbreite
+    zell_h: float = 98.0         # mm, Zellhöhe
+    zell_t: float = 11.0         # mm, Zelldicke
+    zell_r: float = 6.0          # mm, Eckradius der Zelle
+    n_zellen: int = 12           # Anzahl Zellen im Stapel
+    spacer: float = 1.5          # mm, Kompressionspad zwischen den Zellen
+    tab_l: float = 12.0          # mm, Überstand des Tabs über die kurze Seite
+    tab_b: float = 24.0          # mm, Tabbreite
+    tab_t: float = 6.0           # mm, Tabdicke, mittig in der Zelldicke
+    platten_rand: float = 12.0   # mm, Endplatte größer als Zellquerschnitt
+    platten_t: float = 8.0       # mm, Endplattendicke
+    zapfen_d: float = 16.0       # mm, Zentrierbohrung
+```
+
 ### Was meldet Python?
 
 ```python
+def stapel_hoehe(p: ModulParam) -> float:
+    return (p.n_zellen - 1) * (p.zell_t + p.spacer) + p.zell_t
+
+
 def endplatten(p: ModulParam):
     unten = cf.box(p.zell_b + p.platten_rand, p.zell_h + p.platten_rand, p.platten_t)
     z_mitte = p.platten_t + stapel_hoehe(p) / 2
@@ -117,7 +144,7 @@ In Einheit 3 standen schon Typ-Hinweise, in der Dataclass und an einer Funktion:
 
 ```python
 zell_t: float = 11.0
-def zell_volumen(p: ModulParam) -> float:
+def zell_volumen(p: ModulParam) -> float: ...
 ```
 
 `: float`, `p: ModulParam` und `-> float` sind **Type Hints** (Annotationen). Python selbst ignoriert sie und führt den Code genauso aus, auch bei falscher Annotation:
@@ -204,9 +231,11 @@ mypy ist bei Zuweisungen strenger als Pylance, deshalb läuft in der CI mypy.
 Liefert ein Selektor ein `Shape` und Sie brauchen ein `Face`, gibt es drei Wege:
 
 ```python
+from typing import cast
+
 boden = platte.faces("<Z")              # Typ: Shape
 
-cast(cf.Face, boden)                    # aus typing: behauptet es, prüft nichts
+cast(cf.Face, boden)                    # behauptet es, prüft nichts
 boden.outerWire()  # type: ignore       # blendet die Meldung nur aus
 
 assert isinstance(boden, cf.Face)       # prüft es wirklich und verengt den Typ
@@ -363,11 +392,11 @@ assert zelle.Volume() == pytest.approx(160932, abs=0.1)     # ± 0,1 mm³
 
 Geometrieoperationen sammeln Rundungsfehler ($0.1 + 0.2 \neq 0.3$). Exakte Gleichheit scheitert deshalb zufällig.
 
-### Was würden Sie prüfen?
+### Was lässt sich an einem Shape messen?
 
-Eine Zelle kommt aus der Fertigung.
+Sie ändern `zelle_bauen`.
 
-**Welche Merkmale messen Sie, bevor sie ins Modul eingebaut wird?**
+**Mit welchen Methoden aus den bisherigen Einheiten prüfen Sie ohne Viewer, ob die Zelle noch stimmt?**
 
 ### Was am CAD-Code prüfen?
 
@@ -380,28 +409,27 @@ Eine Zelle kommt aus der Fertigung.
 
 Zur Erinnerung aus Einheit 6: `*` bildet die geometrische Schnittmenge, `&` die Schnittmenge von Auswahlen.
 
-### Welcher Test findet welchen Fehler?
+### Welche Tests werden rot?
 
-| Test | prüft |
-|---|---|
-| **1** | Volumen der Zelle, `rel=1e-6` |
-| **2** | Höhe des Stapels |
-| **3** | Anzahl der Solids im Stapel = `n_zellen` |
-| **4** | Stapel `*` Endplatten hat Volumen 0 |
+```python
+def test_zelle_volumen():
+    assert zelle_bauen(ModulParam()).Volume() == pytest.approx(160932, rel=1e-6)
 
-| Fehler im Code | |
-|---|---|
-| **A** | Fillet vergessen: `return roh + tab` |
-| **B** | Kompressionspad vergessen: `pitch = p.zell_t` |
-| **C** | Bohrung addiert: `unten + bohrung` statt `unten - bohrung` |
-| **D** | Flip vergessen, alle Tabs auf derselben Seite |
+def test_stapel_hoehe():
+    assert stapel_bauen(ModulParam()).BoundingBox().zlen == pytest.approx(148.5)
+
+def test_stapel_anzahl_koerper():
+    p = ModulParam()
+    assert len(stapel_bauen(p).Solids()) == p.n_zellen
+```
+
+1. In `stapel_bauen` wird aus `pitch = p.zell_t + p.spacer` die Zeile `pitch = p.zell_t`. **Welche Tests werden rot?**
+2. In `stapel_bauen` fehlt die Drehung jeder zweiten Zelle. **Welche Tests werden rot?**
 
 ### Auflösung
 
-- **A → 1:** Ohne Fillet ist die Zelle nur 340 mm³ größer, das sind 0,2 %. Mit `rel=0.01` bliebe Test 1 grün.
-- **B → 2 und 3:** Ohne Kompressionspad berühren sich die Zellen, und `+` verschmilzt sie zu einem einzigen Körper.
-- **C → 4:** Aus der Bohrung wird ein Zylinder, der 1 mm aus der Platte in den Stapel ragt.
-- **D → keiner.** Keiner der vier Tests betrachtet die Tab-Seiten. Dafür fehlt ein Test, etwa auf die Breite des Stapels: Mit Flip ist `xlen` 172 mm, ohne 160 mm.
+1. **Höhe und Anzahl:** Der Stapel ist 132 mm statt 148,5 mm hoch. Die Zellen berühren sich, und `+` verschmilzt sie zu einem Körper. Das Volumen der Zelle bleibt gleich.
+2. **Keiner:** Höhe, Anzahl und Zellvolumen ändern sich nicht. Für die Drehung fehlt ein Test, etwa auf die Breite des Stapels.
 
 ### Was stimmt an diesen Tests nicht?
 
@@ -475,11 +503,13 @@ Schreiben Sie `tests/test_w07.py` mit Tests für:
 ### Aufgabe 6: CI und die Regression selbst auslösen
 
 1. Committen und pushen Sie `w07/` und `tests/test_w07.py`. Läuft die Pipeline grün?
-2. Bauen Sie den Fehler A ein: Fillet vergessen. Sagen Sie voraus, ob einer Ihrer Tests rot wird. Pushen Sie und prüfen Sie es an der Pipeline. Machen Sie die Änderung danach rückgängig.
+2. Lassen Sie in `zelle_bauen` das Fillet weg. Sagen Sie voraus, ob einer Ihrer Tests rot wird. Pushen Sie und prüfen Sie es an der Pipeline. Machen Sie die Änderung danach rückgängig.
 
 ### Aufgabe 7 *(Zusatz)*: Ein Test, viele Parametersätze
 
 ```python
+import pytest
+
 @pytest.mark.parametrize("n", [1, 2, 5, 12])
 def test_stapel_ueber_n(n):
     p = ModulParam(n_zellen=n)
