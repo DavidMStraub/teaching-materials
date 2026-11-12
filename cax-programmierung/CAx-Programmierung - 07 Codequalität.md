@@ -219,6 +219,18 @@ kontur = boden.outerWire()
 
 ## Praktikum A: den Modul-Code annotieren
 
+### Vom Skript zur Funktion
+
+| | Skript | Funktion mit Parametern |
+|---|---|---|
+| Aufbau | Anweisungen laufen beim Start von oben nach unten | `def zelle_bauen(p: ModulParam) -> cf.Shape:` |
+| Maße | als Zahlen im Code | aus den Parametern |
+| Variante | Datei kopieren und ändern | Funktion mit anderen Parametern aufrufen |
+| Prüfen | im Viewer ansehen | ein Test ruft die Funktion auf und prüft das Ergebnis |
+| Anzeigen | bei jedem Start | nur unter `if __name__ == "__main__":` |
+
+**Ab heute entsteht jedes Teil in einer Funktion mit Parametern.** Skripte und Tests importieren diese Funktionen.
+
 ### Ein Ort für den Modul-Code
 
 ```
