@@ -32,16 +32,18 @@ David Straub
 Aufschreiben (von Hand verfolgen!), dann ausführen:
 
 ```python
-i = 0
-while i < 4:
-    i += 1
-    print(i, end=" ")
+spannung = 100.0
+schritte = 0
+while spannung > 10:
+    spannung = spannung / 4
+    schritte += 1
+print(schritte, spannung)
 ```
 
 ### Heute lernen Sie
 
 - **Eigene Funktionen** definieren: `def`
-- Werte **zurückgeben**: `return` – und warum das etwas ganz anderes ist als `print`
+- Werte **zurückgeben**: `return` – und der Unterschied zu `print`
 - Fertige Funktionen aus Modulen holen: `import math`
 
 ### Sie benutzen längst Funktionen
@@ -54,7 +56,7 @@ int("42")             # liefert die Zahl 42
 range(5)              # liefert die Zahlen 0 bis 4
 ```
 
-Seit Woche 1: Werte rein (in die Klammern), Ergebnis raus – oder Wirkung.
+Seit Woche 2 rufen Sie Funktionen auf: Werte in die Klammern, Ergebnis zurück – oder eine Wirkung wie die Ausgabe.
 
 Heute bauen Sie zum ersten Mal **eigene**.
 
@@ -98,18 +100,18 @@ def fahrenheit(celsius):
     return celsius * 9 / 5 + 32
 ```
 
-Diese Zelle ausführen – und es passiert: **nichts Sichtbares.**
+Diese Zelle erzeugt **keine Ausgabe**.
 
-- `def` sagt Python nur: *merk dir dieses Rezept unter diesem Namen*
-- Gekocht wird erst beim **Aufruf**: `fahrenheit(20)`
+- `def` legt die Funktion nur unter ihrem Namen ab
+- Ausgeführt wird der Block erst beim **Aufruf**: `fahrenheit(20)`
 - Jeder Aufruf führt den Block neu aus – mit dem übergebenen Wert als `celsius`
+- Python liest von oben nach unten: Die Definition muss **vor** dem ersten Aufruf ausgeführt sein
 
-### Mini-Aufgabe (3 min)
+### Mini-Aufgabe (4 min)
 
-1. Schreiben Sie eine Funktion `quadrat(x)`, die x² zurückgibt (`return`)
-2. Testen Sie sie: `print(quadrat(5))` und `print(quadrat(1.5))`
-
-Zusatz für Schnelle: `kreisflaeche(radius)` – Fläche zurückgeben (`return`), mit `3.14159` als Kreiszahl. Gleich lernen wir es genauer!
+1. Schreiben Sie eine Funktion `quadrat(x)`, die x² zurückgibt (`return`). Testen Sie mit `5` und `1.5`
+2. Schreiben Sie `reichweite(energie)`: gibt die Reichweite in km zurück, bei einem festen Verbrauch von 15 kWh/100 km. Test: 60 kWh → 400.0 km
+3. Rechnen Sie mit den Rückgaben: Wie viele km mehr schafft ein 75-kWh-Akku als ein 60-kWh-Akku?
 
 ### Achtung typischer Fehler
 
@@ -118,11 +120,42 @@ def begruessung():
     print("Willkommen zur Messung!")
 ```
 
-„Mein Programm macht nichts!“ – Richtig, denn:
-
 - Die Funktion wurde **definiert**, aber nie **aufgerufen**
 - Es fehlt die Zeile: `begruessung()`
-- Definition ohne Aufruf ist ein Rezept, das nie gekocht wird
+- Ohne Parameter bleiben die Klammern leer – bei der Definition und beim Aufruf
+
+### Vorhersage-Aufgabe (2 min)
+
+Welche Aufrufe funktionieren – und was wird ausgegeben? Aufschreiben, dann ausführen:
+
+```python
+def fahrenheit(celsius):
+    return celsius * 9 / 5 + 32
+
+celsius = 100
+temperatur = 20
+print(fahrenheit(temperatur))
+print(fahrenheit(celsius))
+print(fahrenheit(5))
+```
+
+### Was in die Funktion hineingeht – und was herauskommt
+
+```python
+def netto(brutto):
+    ergebnis = brutto / 1.19
+    return ergebnis
+
+brutto = 119
+preis = 238
+print(netto(brutto))   # 100.0 – gleicher Name
+print(netto(preis))    # 200.0 – anderer Name
+print(ergebnis)        # NameError
+```
+
+- Beim Aufruf bekommt der Parameter den **Wert**, der übergeben wird. Wie dieser Wert draußen heißt, spielt keine Rolle: gleich, anders oder gar kein Name
+- Variablen, die **in** der Funktion entstehen, gibt es draußen nicht
+- Anders als bei `if` und `for`: Variablen aus diesen Blöcken bleiben sichtbar. Aus einer Funktion kommt ein Wert nur über `return` heraus
 
 ## `print` vs. `return`
 
@@ -143,9 +176,9 @@ print(a)
 print(b)
 ```
 
-### Ausgabe ist nicht Rückgabe
+### Ausgabe oder Rückgabe?
 
-- `print` = **Ausgabe**: zeigt einen Wert dem *Menschen* – gibt aber nichts zurück
+- `print` = **Ausgabe**: zeigt einen Wert dem *Menschen*
 - `return` = **Rückgabe**: übergibt einen Wert dem *Programm* – zum Weiterrechnen
 - Eine Funktion ohne `return` gibt automatisch `None` zurück („nichts“)
 
@@ -154,31 +187,31 @@ print(f2(3) + 1)   # 7 – mit Rückgabe kann man rechnen
 print(f1(3) + 1)   # TypeError – mit None kann man nicht rechnen
 ```
 
-Die Verwechslung von `print` und `return` ist **der** Klassiker dieses Kurses – heute ausmerzen!
+### Mini-Aufgabe (4 min)
 
-### Mini-Aufgabe (2 min)
+Nutzen Sie `fahrenheit` in einer Schleife:
 
-```python
-def doppelt(x):
-    print(x * 2)
+1. Geben Sie eine Umrechnungstabelle von −20 °C bis 40 °C in 10er-Schritten aus (`print`), Zahlen rechtsbündig:
 
-ergebnis = doppelt(7)
-print(ergebnis)
+```
+ -20 °C    -4.0 °F
+ -10 °C    14.0 °F
+ ...
+  40 °C   104.0 °F
 ```
 
-1. Führen Sie den Code aus – was fällt auf?
-2. Ersetzen Sie `print` in der Funktion durch `return` und führen Sie erneut aus
+2. Ändern Sie `fahrenheit` so, dass die Funktion das Ergebnis ausgibt (`print`), statt es zurückzugeben. Lassen Sie dafür die Formatangabe `:>7.1f` weg. Was passiert mit Ihrer Tabelle – und warum?
 
-### Debug-Aufgabe (3 min)
+### Debug-Aufgabe (4 min)
 
-Dieses Programm soll den Nettopreis ausgeben (`print`) – stattdessen erscheint `None`. Finden Sie den Fehler:
+Dieses Programm soll ausgeben (`print`), wie lange das Laden von 55 kWh an einer 11-kW-Wallbox dauert. Finden Sie beide Fehler:
 
 ```python
-def netto(brutto):
-    ergebnis = brutto / 1.19
+dauer = ladezeit(55)
+print(f"Ladedauer: {dauer} h")
 
-preis = netto(119)
-print(f"Nettopreis: {preis}")
+def ladezeit(energie):
+    stunden = energie / 11
 ```
 
 ## Funktionen aus Modulen
@@ -202,8 +235,15 @@ from math import sin
 print(sin(0.5))
 ```
 
-- Beide Formen begegnen Ihnen ständig in echtem Code
-- Achtung: `sin` rechnet im **Bogenmaß**, nicht in Grad!
+Beide Formen sind üblich.
+
+### Mini-Aufgabe (3 min)
+
+Der Sinus von 30° ist 0,5.
+
+1. Berechnen Sie `math.sin(30)` – was kommt heraus?
+2. Rechnen Sie den Winkel vorher ins Bogenmaß um (180° entsprechen π) – was kommt jetzt heraus?
+3. Schreiben Sie dafür eine Funktion `sinus_grad(winkel)`, die den Sinus eines Winkels in Grad zurückgibt (`return`)
 
 ## Transfer
 
@@ -214,13 +254,24 @@ Die Schwingungsdauer eines Pendels: $T = 2\pi\sqrt{L/g}$ mit $g = 9{,}81\ \mathr
 Schreiben Sie ein Programm:
 
 1. Eine Funktion `schwingungsdauer(laenge)`, die T zurückgibt (`return`) – mit `math.pi` und `math.sqrt`
-2. Pendellänge in m **einlesen**
+2. Pendellänge in m **einlesen** – nur Werte über 0 annehmen
 3. Funktion **aufrufen**
 4. Ergebnis **ausgeben** (`print`) mit zwei Nachkommastellen
 
-Notieren Sie zuerst: Was gehört in die Funktion – und was ins Hauptprogramm?
+Probe: 1 m → 2.01 s
 
-Zusatz für Schnelle: `sinus_grad(winkel)` – nimmt Grad entgegen und gibt den Sinus zurück (`return`). Denken Sie ans Bogenmaß!
+### Pendel: Denkphase
+
+Notieren Sie auf Papier:
+
+- Was gehört in die Funktion, was ins Hauptprogramm? Warum steht das `input` nicht in der Funktion?
+- Was ist der Parameter, was die Rückgabe?
+- Wie schreiben Sie $2\pi\sqrt{L/g}$ in Python?
+
+Zusatz für Schnelle:
+
+- Umgekehrt: `pendellaenge(dauer)` gibt die Länge für eine gewünschte Schwingungsdauer zurück. Wie lang ist ein Pendel mit T = 1 s?
+- Ergibt `pendellaenge(schwingungsdauer(2.0))` wieder `2.0`?
 
 ### Gemeinsam live
 
@@ -230,14 +281,32 @@ Wir entwickeln die Lösung jetzt zusammen.
 
 Ohne Computer:
 
-1. Was gibt eine Funktion ohne `return` zurück?
-2. Ausgabe vs. Rückgabe – der Unterschied in einem Satz?
-3. `def verdreifache(x): return 3 * x` – was gibt `print(verdreifache(4))` aus?
-4. Eine Zelle mit nur einer Funktionsdefinition wird ausgeführt – warum ist keine Ausgabe zu sehen?
+1. Ausgabe vs. Rückgabe – der Unterschied in einem Satz?
+2. Eine Funktion `verdreifache(x)` gibt `3 * x` zurück – was gibt `print(verdreifache(4))` aus?
+3. Eine Zelle mit nur einer Funktionsdefinition wird ausgeführt – warum ist keine Ausgabe zu sehen?
+
+### 🗳️ Zum Schluss: Was gibt das aus?
+
+```python
+def f(x):
+    print(x + 1)
+    return x * 2
+
+y = f(3)
+print(y + 1)
+```
+
+A) `4` und `7`
+
+B) `7`
+
+C) `4` und `6`
+
+D) `6` und `7`
 
 ### Bis nächste Woche!
 
 Nächste Woche: **Listen** – viele Werte, eine Variable
 
-- Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
+- Üben: KI-Quizze auf OneTutor: https://link.hm.edu/vkej
 - Fragen: jederzeit im Matrix-Chat
