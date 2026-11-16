@@ -28,31 +28,75 @@ David Straub
 
 ### Advent of Code
 
-Ein Adventskalender für Programmierer: seit 2015 jedes Jahr im Dezember, ein Rätsel pro Tag. Heute bearbeiten Sie die ersten Rätsel des aktuellen Jahrgangs – mit allem, was Sie bisher gelernt haben.
+Ein Adventskalender mit Programmierrätseln: seit 2015 jedes Jahr im Dezember, ein Rätsel pro Tag. Heute lösen Sie Rätsel des aktuellen Jahrgangs, mit allem, was Sie bisher gelernt haben.
 
-1. https://adventofcode.com – einloggen (GitHub, Google, … reicht)
-2. Aufgabe öffnen, Ihren persönlichen Input darunter kopieren
+1. https://adventofcode.com öffnen und einloggen
+2. Das Rätsel des angesagten Tages öffnen
+3. Unter dem Rätsel: Ihren persönlichen Input öffnen (`get your puzzle input`)
 
-### Der Input
+Jedes Rätsel hat zwei Teile. Teil 2 erscheint, sobald Teil 1 gelöst ist.
 
-Ihr Input ist ein Textblock. Da Dateien einlesen nicht Ihr Stoff ist, kopieren Sie ihn direkt in Ihr Programm:
+### Den Input ins Programm holen
+
+Der Input ist ein Textblock. Kopieren Sie ihn in einen String mit **drei** Anführungszeichen, der darf über mehrere Zeilen gehen:
 
 ```python
-eingabe = """
-... hier Ihren Input einfügen ...
-"""
+eingabe = """3   4
+4   3
+2   5"""
 
 zeilen = eingabe.split("\n")
+print(zeilen)
 ```
 
-Damit haben Sie Ihren Input als Liste von Zeilen – ab hier verarbeiten Sie ihn mit dem, was Sie kennen.
+- `split("\n")` zerlegt den Text an jedem Zeilenumbruch (`"\n"`) und liefert eine **Liste** von Zeilen
+- Den Input direkt hinter die öffnenden Anführungszeichen setzen, die schließenden direkt ans Ende der letzten Zeile. Sonst entstehen leere Zeilen
+
+### Eine Zeile zerlegen
+
+```python
+zeile = "3   4"
+teile = zeile.split()
+print(teile)
+
+links = int(teile[0])
+rechts = int(teile[1])
+print(links + rechts)
+```
+
+- `split()` ohne Angabe zerlegt an Leerzeichen, egal wie viele es sind
+- Die Teile sind Strings. Zum Rechnen umwandeln: `int()` oder `float()`
 
 ### So gehen Sie vor
 
-- Jede Aufgabe zeigt ein **Beispiel** mit bekanntem Ergebnis. Testen Sie zuerst damit – nicht mit Ihrem echten Input. Erst wenn das stimmt: mit dem eigenen Input ausführen
-- Teil 2 der Aufgabe erscheint erst, wenn Teil 1 gelöst ist
+1. **Rätsel lesen**, auf Papier: Was ist gegeben, was ist gesucht? Welche Bausteine brauchen Sie?
+2. **Beispiel zuerst**: Jedes Rätsel zeigt ein kleines Beispiel mit Ergebnis. Schreiben Sie eine Funktion, die die Eingabe als Parameter bekommt und das Ergebnis zurückgibt (`return`):
+
+```python
+beispiel = """..."""     # Beispiel aus dem Rätseltext
+
+def teil1(eingabe):
+    zeilen = eingabe.split("\n")
+    ergebnis = 0
+    # ...
+    return ergebnis
+
+print(teil1(beispiel))   # muss das Ergebnis aus dem Rätseltext liefern
+```
+
+3. Erst wenn das Beispiel stimmt: `teil1(eingabe)` mit Ihrem Input, Antwort eintragen
+
+### Wenn es nicht stimmt
+
+Die Antwort ist falsch, aber das Beispiel stimmt? Der Reihe nach:
+
+1. Was **soll** das Programm tun? Lesen Sie den Rätseltext noch einmal genau
+2. Was tut es **stattdessen**? Geben Sie Zwischenergebnisse aus (`print`), zuerst für die ersten Zeilen
+3. Welche Stelle ist **verdächtig**? Häufig: Zeilen, die im Beispiel nicht vorkommen
+4. Welcher **kleinste Test** entscheidet? Bauen Sie ein eigenes kleines Beispiel, dessen Ergebnis Sie von Hand kennen
 
 ### Zusatz für Schnelle
 
-- Advent of Code hat 25 Tage – wer möchte, kann zu Hause weitermachen. Die Tage werden von Tag zu Tag schwerer
-- Außerhalb des Praktikums dürfen Sie dabei gern KI-Tools zur Unterstützung nutzen – das ist keine Prüfungssituation
+- Lösen Sie Teil 2 und weitere Tage
+- Räumen Sie Ihre Lösung auf: Funktionen mit sprechenden Namen, keine unnötigen Kopien von Code
+- Zu Hause können Sie mit weiteren Tagen weitermachen. Dort dürfen Sie gern KI-Werkzeuge nutzen, das ist keine Prüfungssituation
