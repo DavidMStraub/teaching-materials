@@ -26,37 +26,53 @@ jupyter:
 
 David Straub
 
-### Diagramme und eigene Datentypen
+### Das simulierte Pack als Diagramm
 
-Heute verbinden Sie Diagramme mit dem simulierten Pack – und bauen die Zelle als eigenen Datentyp. Falls Sie `zelle.py` nicht mehr haben: https://raw.githubusercontent.com/DavidMStraub/teaching-materials/main/programmieren/zelle.py (neben Ihr Skript legen).
+Heute stellen Sie das simulierte Pack als Diagramm dar und bauen die Zelle als eigenen Datentyp.
 
-Zur Erinnerung: `lese_spannung(nummer, ladezustand, strom_A)` liefert die Spannung von Zelle `nummer` (1 bis 8) bei `ladezustand` von 1.0 (voll) bis 0.0 (leer) und Entladestrom `strom_A`. Die Zellen haben eine Kapazität von `kapazitaet_Ah = 3.5`; ein Zeitschritt ist `zeitschritt_h = 0.1`.
+```python
+from zelle import lese_spannung
 
-### Aufgabe 1: Eine Ladekurve plotten
+u = lese_spannung(3, 0.5, 1.0)   # Zelle 3, Ladezustand 50 %, 1.0 A
+```
 
-1. Simulieren Sie die Entladung einer Zelle Ihrer Wahl wie in Praktikum 3: `ladezustand` startet bei `1.0` und sinkt pro Schritt um `strom_A * zeitschritt_h / kapazitaet_Ah`. Sammeln Sie Ladezustand und Spannung diesmal in zwei Listen statt sie nur auszugeben
-2. Plotten Sie die Kurve (`plt.plot`) mit Achsenbeschriftung und Gitter
-3. Markieren Sie den Punkt, an dem die Zelle unter 3,0 V fällt, mit einem roten Punkt
+- `lese_spannung(nummer, ladezustand, strom_A)`: Zelle 1 bis 8, Ladezustand 1.0 (voll) bis 0.0 (leer), Entladestrom in A
+- Falls Sie `zelle.py` nicht mehr haben: https://raw.githubusercontent.com/DavidMStraub/teaching-materials/main/programmieren/zelle.py herunterladen und im selben Ordner wie Ihr Skript speichern
+- Jede Zelle hat `kapazitaet_Ah = 3.5`. Pro Zeitschritt `zeitschritt_h = 0.1` sinkt der Ladezustand um `strom_A * zeitschritt_h / kapazitaet_Ah`
 
-### Aufgabe 2: Zwei Ströme im Vergleich
+### Aufgabe 1: Eine Entladekurve
 
-1. Wiederholen Sie die Simulation für zwei unterschiedliche Ströme derselben Zelle
-2. Plotten Sie beide Kurven in einem Diagramm, mit unterschiedlichem Stil (z. B. `"b-"` und `"r--"`)
-3. Titel per `if`: Wählen Sie eine sinnvolle Schwelle für den Unterschied der Endspannungen und lassen Sie den Titel entsprechend wählen
+1. Simulieren Sie die Entladung von Zelle 1 bei 3,0 A, von `ladezustand = 1.0`, solange der Ladezustand mindestens 0,2 beträgt. Sammeln Sie Zeit in h und Spannung in zwei Listen
+2. Zeichnen Sie die Spannung über der Zeit, mit Achsenbeschriftung und Gitter
+3. Zeichnen Sie die Grenze 3,0 V als rot gestrichelte Linie über die ganze Dauer ein
 
-### Aufgabe 3: Die Zelle als eigener Datentyp
+### Aufgabe 2: Die Grenze finden
 
-1. Schreiben Sie eine Klasse `Batteriezelle` mit `__init__(self, nummer)`, die die Zellnummer speichert
+1. Bestimmen Sie den ersten Zeitpunkt, an dem die Spannung unter 3,0 V liegt, und markieren Sie ihn als roten Punkt
+2. Titel per `if`: Wird die Grenze unterschritten, nennt der Titel den Zeitpunkt, im Format `Zelle …: unter 3,0 V nach … h`. Sonst: `Zelle …: bleibt über 3,0 V`
+3. Testen Sie beide Fälle: Zelle 1 und Zelle 6 bei 3,0 A
+
+### Aufgabe 3: Mehrere Kurven
+
+1. Packen Sie die Simulation aus Aufgabe 1 in eine Funktion `entladekurve(nummer, strom_A)`, die beide Listen zurückgibt (`return`)
+2. Zeichnen Sie Zelle 6 bei 1,0 A, 3,0 A und 5,0 A in ein Diagramm, jede Kurve in einem anderen Stil
+3. Was ändert sich mit dem Strom am Verlauf, was an der Dauer?
+
+### Aufgabe 4: Die Zelle als eigener Datentyp
+
+1. Schreiben Sie eine Klasse `Batteriezelle`. `__init__(self, nummer)` speichert die Zellnummer und die Kapazität 3,5 Ah
 2. Ergänzen Sie eine Methode `spannung(self, ladezustand, strom_A)`, die `lese_spannung` für diese Zelle aufruft und das Ergebnis zurückgibt (`return`)
-3. Erzeugen Sie ein Exemplar und geben Sie die Spannung bei zwei verschiedenen Ladezuständen aus
+3. Ergänzen Sie eine Methode `bewertung(self, ladezustand, strom_A)`: unter 3,0 V `kritisch`, sonst `ok`
+4. Erzeugen Sie eine Zelle und testen Sie beide Methoden bei zwei Ladezuständen
 
-### Aufgabe 4: Verhalten ergänzen
+### Aufgabe 5: Das Pack als Liste von Zellen
 
-1. Ergänzen Sie eine Methode `bewertung(self, ladezustand, strom_A)`, die ein Urteil zurückgibt (`return`): unter 3,0 V → `kritisch`, sonst → `ok`
-2. Erzeugen Sie Exemplare für mehrere Zellen (Schleife über Zellnummern) und geben Sie für jede das Urteil bei einem Ladezustand und Strom Ihrer Wahl aus
-3. Was hat sich gegenüber der Funktionslösung aus Praktikum 3 verändert – was ist gleich geblieben?
+1. Legen Sie eine Liste mit acht `Batteriezelle`-Exemplaren an, für die Nummern 1 bis 8 (`append`)
+2. Geben Sie für jede Zelle Nummer, Spannung und Bewertung aus (`print`), bei 20 % Ladezustand und 3,0 A
+3. Was hat sich gegenüber Ihrer Lösung aus Praktikum 3 verändert, was ist gleich geblieben?
 
-### Zusatz für Schnelle
+### Zusatz
 
-- Ergänzen Sie eine Methode `kapazitaet_bis_grenze(self, strom_A, grenze_V)`, die wie in Praktikum 3 zurückgibt, bei welchem Ladezustand die Grenze unterschritten wird
-- Plotten Sie mehrere Zellen in einem Diagramm – geben Sie jeder Linie ein `label="Zelle X"` mit, `plt.legend()` zeigt dann eine Legende
+- Machen Sie aus `entladekurve` eine Methode von `Batteriezelle`, die beide Listen zurückgibt. Zeichnen Sie damit alle acht Zellen bei 3,0 A in ein Diagramm
+- Mit `plt.plot(zeiten, spannungen, label="Zelle 1")` bekommt jede Kurve einen Namen. `plt.legend()` vor `plt.show()` zeigt die Namen als Legende an
+- Ergänzen Sie eine Methode `laufzeit_h(self, strom_A)`: Sie gibt zurück, wie viele Stunden die Zelle bis zur Grenze 3,0 V durchhält. Vergleichen Sie Zelle 1 und Zelle 6 bei 1,0 A, 3,0 A und 5,0 A
