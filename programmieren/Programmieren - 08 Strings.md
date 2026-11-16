@@ -28,6 +28,8 @@ David Straub
 
 ### Warm-up: Was gibt der Code aus?
 
+Aufschreiben, dann ausführen:
+
 ```python
 werte = [3, 8, 5]
 werte.append(2)
@@ -35,15 +37,16 @@ print(werte[-1])
 print(len(werte))
 ```
 
-### Heute
+### Heute lernen Sie
 
-- Strings im Detail: **Index, Slicing**, nützliche Methoden
-- **Verschachtelte Schleifen** und der **for↔while-Umbau**
-- Zum Abschluss: **Mini-Probeklausur** (15 min, zählt nicht – zeigt Ihnen, wo Sie stehen)
+- Strings Zeichen für Zeichen: **Index, Schleife, Slicing**
+- Groß- und Kleinschreibung, Teilstrings finden, Text aufbauen
+- **Schleifen in Schleifen** und `for` als `while` schreiben
+- Zum Abschluss: **Mini-Probeklausur** (15 min, zählt nicht, zeigt Ihnen, wo Sie stehen)
 
 ## Strings als Zeichenketten
 
-### Index und Länge – wie bei Listen
+### Index und Länge wie bei Listen
 
 ```python
 wort = "Messwert"
@@ -53,7 +56,9 @@ print(wort[-1])
 print(len(wort))
 ```
 
-Strings sind Ketten von Zeichen – Index ab 0, `-1` vom Ende, `len` wie gehabt.
+- Ein String ist eine Kette von Zeichen
+- Index ab `0`, `-1` ist das letzte Zeichen
+- `len` liefert die Anzahl der Zeichen
 
 ### Über Zeichen iterieren
 
@@ -62,7 +67,7 @@ for zeichen in "NASA":
     print(zeichen)
 ```
 
-Und damit funktioniert das Akkumulator-Muster aus Woche 7 auch für Text:
+Damit funktioniert das Zählen aus Woche 7 auch für Text:
 
 ```python
 text = "Programmieren"
@@ -84,7 +89,7 @@ print(zaehle_e("Programmieren"))
 print(zaehle_e("Elektrotechnik"))
 ```
 
-Beim zweiten Test: Stimmt das Ergebnis mit Ihrer Erwartung überein?
+Zählen Sie beide Wörter auch von Hand: Stimmen die Ergebnisse?
 
 ### Groß und klein: `upper()` und `lower()`
 
@@ -93,11 +98,12 @@ name = "Elektrotechnik"
 
 print(name.upper())
 print(name.lower())
-print(zaehle_e(name.lower()))
+print(name)
 ```
 
-- Das große `E` zählte eben nicht mit – `lower()` löst genau das
-- `in` prüft auch Teilstrings: `"tech" in name` → `True`
+- `upper()` und `lower()` geben einen **neuen** String zurück. `name` selbst bleibt unverändert
+- Damit zählt `zaehle_e(name.lower())` auch das große `E`
+- `in` findet auch Teilstrings: `"tech" in name` ergibt `True`
 
 ### Slicing: Teilstücke ausschneiden
 
@@ -111,10 +117,10 @@ print(txt[-3:])    # HIJ
 print(txt[3:-1])   # DEFGHI
 ```
 
-- `[start:stopp]` – Start **dabei**, Stopp **nicht** (wie bei `range`!)
-- Weggelassen heißt: vom Anfang bzw. bis zum Ende
+- `[start:stopp]`: Start ist dabei, Stopp **nicht**, wie bei `range`
+- Ohne Start: ab dem Anfang. Ohne Stopp: bis zum Ende
 - Negative Werte zählen vom Ende
-- Funktioniert **genauso für Listen**: `werte[1:3]`
+- Funktioniert genauso für Listen: `werte[1:3]`
 
 ### Vorhersage-Aufgabe (3 min)
 
@@ -130,6 +136,30 @@ print(txt[-3:])
 print(txt[-3])
 ```
 
+### Mini-Aufgabe (3 min)
+
+```python
+datum = "2026-11-16"
+```
+
+1. Schneiden Sie Jahr, Monat und Tag per Slicing aus
+2. Geben Sie das Datum in deutscher Schreibweise aus (`print`): `16.11.2026`
+3. Wie viele Jahre sind es noch bis 2030? Rechnen Sie mit dem ausgeschnittenen Jahr
+
+### Achtung typischer Fehler
+
+```python
+wort = "Messwert"
+wort[0] = "m"
+```
+
+```
+TypeError: 'str' object does not support item assignment
+```
+
+- Bei Listen ersetzt `werte[0] = ...` ein Element. Einen String kann man nicht verändern
+- Stattdessen einen neuen String bauen und zuweisen: `wort = "m" + wort[1:]`
+
 ### Text aufbauen: `+=` und `"#" * n`
 
 ```python
@@ -142,8 +172,8 @@ for i in range(4):
 print(zeile)
 ```
 
-- `"#" * n` – n-fache Wiederholung (aus Woche 2!)
-- `zeile += ...` – das Akkumulator-Muster für Text: leer starten, anhängen
+- `"#" * 5` wiederholt den String fünfmal
+- `zeile += ...` hängt Text an: leer starten, in der Schleife anhängen, wie beim Aufsummieren
 
 ## Verschachtelte Schleifen
 
@@ -155,7 +185,7 @@ for i in range(1, 4):
         print(i, j)
 ```
 
-- Die **innere** Schleife läuft für jeden Durchlauf der äußeren **komplett** durch
+- Die **innere** Schleife läuft bei jedem Durchlauf der äußeren **komplett** durch
 - Von Hand verfolgen: Wie viele Zeilen Ausgabe? In welcher Reihenfolge?
 
 ### Vorhersage-Aufgabe (3 min)
@@ -169,9 +199,9 @@ for i in range(3):
     print("!")
 ```
 
-### Der for↔while-Umbau
+### `for` als `while` schreiben
 
-Jede `for`-Schleife lässt sich als `while`-Schleife schreiben – wer beide Richtungen beherrscht, hat den Kontrollfluss wirklich verstanden:
+Jede `for`-Schleife lässt sich als `while`-Schleife schreiben:
 
 ```python
 for i in range(5):
@@ -185,30 +215,33 @@ while i < 5:
     i += 1
 ```
 
-Rezept: **Startwert** vor die Schleife, **Bedingung** `< stopp`, **Erhöhung** ans Blockende.
+Vorgehen: **Startwert** vor die Schleife, **Bedingung** `i < stopp`, **Erhöhung** ans Ende des Blocks
 
 ### Mini-Aufgabe (3 min)
 
-Bauen Sie in eine `while`-Schleife um – gleiche Ausgabe, gleicher Kontrollfluss:
+Schreiben Sie als `while`-Schleife, mit gleicher Ausgabe:
 
 ```python
 for i in range(2, 8):
     print(i, end=" ")
 ```
 
+Zusatz: Dasselbe für `for i in range(10, 0, -3):`. Passt die Bedingung `i < stopp` noch?
+
 ## Mini-Probeklausur
 
 ### So läuft es
 
-- Sie bekommen ein **Aufgabenblatt** – drei kurze Aufgaben zum Stoff der Wochen 2 bis 7
-- **15 Minuten**, alleine, auf Papier – ohne Ausführen, wie in der echten Klausur
+- Sie bekommen ein **Aufgabenblatt**: drei kurze Aufgaben zum Stoff der Wochen 2 bis 7
+- **15 Minuten**, alleine, auf Papier, ohne Ausführen, wie in der Klausur
 - Danach korrigieren wir **gemeinsam**
-- Zählt nicht. Zeigt Ihnen ehrlich, wo Sie nach 8 Wochen stehen – und was Sie gezielt üben sollten
+- Die Mini-Probeklausur zählt nicht. Sie zeigt Ihnen, wo Sie nach 8 Wochen stehen und was Sie gezielt üben sollten
 
 ### Bis nächste Woche!
 
-Nehmen Sie aus der Mini-Probeklausur mit: **Welche Aufgabenart braucht bei Ihnen noch Übung?** Genau dafür gibt es die OneTutor-Quizze: https://hm.onetutor.ai/
+Nehmen Sie aus der Mini-Probeklausur mit: **Welche Aufgabenart braucht bei Ihnen noch Übung?**
 
-Nächste Woche: **Funktionen 2 und Struktogramme** – Funktionen, die mehr können, und: Programme entwerfen, bevor Sie tippen
+Nächste Woche: **Funktionen 2 und Struktogramme**, Funktionen mit mehreren Parametern und Rückgabewerten, und Programme auf Papier entwerfen
 
+- Üben: KI-Quizze auf OneTutor: https://link.hm.edu/vkej
 - Fragen: jederzeit im Matrix-Chat
