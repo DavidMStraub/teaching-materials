@@ -82,7 +82,7 @@ spannungen_mV = [3473, 3483, 3465, 3478, 3450, 3178, 3470, 3480]
 1. Berechnen Sie den Mittelwert, ohne `sum()`
 2. Bestimmen Sie die niedrigste Spannung und die Nummer der Zelle, ohne `min()`
 3. Geben Sie ein Balkendiagramm aus (`print`): pro Zelle Nummer und Spannung rechtsbündig, dahinter ein `#` für je 25 mV über 3000 mV
-4. Wie viele Zellen liegen mehr als 100 mV unter dem Mittelwert?
+4. Welche Zellen liegen mehr als 100 mV unter dem Mittelwert? Sammeln Sie ihre Nummern in einer Liste (`append`) und geben Sie die Liste aus (`print`)
 
 ### Aufgabe 5 (falls Sie Funktionen 2 schon hatten): Funktionen mit mehr Möglichkeiten
 
