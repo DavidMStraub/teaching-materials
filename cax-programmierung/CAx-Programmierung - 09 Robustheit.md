@@ -41,241 +41,311 @@ David Straub
 
 ## Robustheit
 
-- **Eingaben prüfen,** bevor der Kernel läuft
-- **Stilles Kernel-Versagen:** gültig ist nicht richtig
-- **Topological Naming Problem:** Selektoren statt Indizes
-- **`assert` vs. `raise`**
+- **Eingaben prüfen:** Ungültige Parameter werden abgelehnt, bevor der Kernel rechnet.
+- **Ergebnisse prüfen:** Ein gültiges Shape ist noch kein richtiges Teil.
+- **Kanten beschreiben:** Ein Selektor findet die Kante auch nach einer Änderung am Modell.
+- **Bereich abtasten:** Eine Schleife prüft viele Varianten, ohne beim ersten Fehler abzubrechen.
 
-*Durchgängiges Beispiel:* das Modul so härten, dass ein Parameter-Sweep durchläuft – die Grundlage für die Optimierung nächste Woche
+*Durchgängiges Beispiel:* Ihr Modul aus Einheit 7 soll jeden Parametersatz überstehen. Das braucht die Optimierung in Einheit 11.
 
-### Rückblick: das Modell hält nur bei „schönen“ Werten
-
-Acht Wochen Modul-Code – gebaut mit sinnvollen Maßen. Was passiert an den Rändern?
+### Ausgangspunkt: der Modul-Code aus Einheit 7
 
 ```python
-endplatten(replace(p, plattenstaerke=0))    # entartete Geometrie
-endplatten(replace(p, plattenstaerke=-4))   # negatives Maß
-stapel_bauen(replace(p, n_zellen=0))         # leerer Stapel
+from dataclasses import replace
+
+from cadquery import func as cf
+from ocp_vscode import show
+
+from w07.modul import ModulParam, endplatten, stapel_bauen, zelle_bauen
+
+p = ModulParam()
 ```
 
-Interaktiv: Fehler sehen, korrigieren, weiter. Im **Sweep** (gleich) oder **Optimierer** (nächste Woche): eine einzige Exception stoppt den ganzen Lauf.
+Die Funktionen sind der Stand aus Einheit 7, ohne Änderungen.
 
-## Theorie A: Validierung und stilles Versagen
+### Rückblick: Was passiert an den Rändern?
 
-### Eingaben zuerst prüfen: `if` / `raise`
-
-Ungültige Parameter **vor** dem ersten Kernel-Aufruf abfangen:
+Bisher haben Sie das Modul nur mit sinnvollen Maßen gebaut.
 
 ```python
-def endplatten(p: ModulParam) -> Shape:
-    if p.plattenstaerke <= 0:
-        raise ValueError(f"plattenstaerke muss > 0 sein, war {p.plattenstaerke}")
+endplatten(replace(p, platten_t=-4))
+stapel_bauen(replace(p, n_zellen=0))
+endplatten(replace(p, zapfen_d=200))
+zelle_bauen(replace(p, zell_r=49))
+```
+
+**Was passiert bei jedem Aufruf: eine Exception, ein falsches Teil oder ein richtiges Teil?**
+
+### Warum das zählt
+
+- Am Bildschirm sehen Sie einen Fehler und korrigieren den Wert.
+- In einer Schleife über hundert Varianten stoppt eine einzige Exception den ganzen Lauf.
+- Ein falsches Teil ohne Exception fällt dort gar nicht auf.
+
+Ein Optimierer (Einheit 11) probiert Parameter aus, die niemand von Hand eingeben würde.
+
+## Theorie A: Eingaben und Ergebnisse prüfen
+
+### Fehler melden und abfangen
+
+```python
+def zellen_pruefen(n: int) -> None:
+    if n < 1:
+        raise ValueError(f"n_zellen muss mindestens 1 sein, war {n}")
+
+try:
+    zellen_pruefen(0)
+except ValueError as fehler:
+    print("abgelehnt:", fehler)
+```
+
+- `raise` bricht die Funktion ab und meldet einen Fehler mit Typ und Text.
+- `try`/`except` fängt einen Fehler dieses Typs ab, danach läuft das Programm weiter.
+- Ohne `except` beendet der Fehler das Skript mit einem Traceback.
+
+### Eingaben zuerst prüfen
+
+```python
+def pruefe(p: ModulParam) -> None:
+    if p.platten_t <= 0:
+        raise ValueError(f"platten_t muss positiv sein, war {p.platten_t}")
     if p.n_zellen < 1:
-        raise ValueError(f"n_zellen muss >= 1 sein, war {p.n_zellen}")
-    ...
+        raise ValueError(f"n_zellen muss mindestens 1 sein, war {p.n_zellen}")
+
+pruefe(replace(p, platten_t=-4))
 ```
 
-Eine frühe, klare Meldung ersetzt eine kryptische OCCT-Ausnahme zehn Zeilen später.
+- Jede Baufunktion ruft `pruefe(p)` in ihrer ersten Zeile auf.
+- Die Meldung nennt Parameter und Wert. `Standard_DomainError` aus OCCT nennt keins von beiden.
 
-### Geometrische Grenzen: weich kappen
+### Ablehnen oder anpassen?
 
-Ein zu großer Fillet-Radius sprengt die Platte – hier hilft **Kappen** statt Ablehnen:
+Ein Parameter liegt außerhalb des baubaren Bereichs. Die Funktion kann ihn ablehnen (`raise`) oder auf den nächsten baubaren Wert setzen.
+
+| Parameter | ablehnen oder anpassen? |
+|---|---|
+| `platten_t = -4` | |
+| `n_zellen = 0` | |
+| `zell_r = 60` bei `zell_h = 98` | |
+
+**Welche Werte darf die Funktion anpassen, welche muss sie ablehnen? Wer bemerkt eine Anpassung?**
+
+### Ablehnen oder anpassen: Kriterien
+
+- **Ablehnen:** Der Wert beschreibt kein sinnvolles Teil, etwa ein negatives Maß.
+- **Anpassen:** Der Wert ist eine Gestaltungsvorgabe mit klarer geometrischer Grenze.
+- Eine Anpassung ändert das Teil, ohne dass es jemand merkt. Sie gehört deshalb in den Docstring.
 
 ```python
-plate = cf.box(160, 118, 8)
-kanten = plate.edges(">Z or <Z")
-cf.fillet(plate, kanten, 5.0).isValid()     # False – r > Dicke/2!
-cf.fillet(plate, kanten, 3.5).isValid()     # True
-
-fillet_r = min(fillet_r, p.plattenstaerke * 0.45)      # bleibt immer baubar
+r = min(p.zell_r, min(p.zell_b, p.zell_h) / 2 - 0.1)   # knapp unter der halben Seite
 ```
 
-- **Weich kappen** bei geometrisch motivierten Grenzen ($r < \text{Dicke}/2$)
-- **Ablehnen** (`raise`) bei physikalisch sinnlosen Werten (negative Maße)
+### Kein Fehler, aber ein falsches Teil
 
-Das `0.45` ist eine Sicherheitsmarge unter der theoretischen Grenze $0{,}5 \cdot \text{Dicke}$, bei der der Fillet tangential zu sich selbst wird.
-
-### Stilles Kernel-Versagen: gültig ≠ richtig
-
-![bg right:36% 95%](assets/cap_falle.svg)
-
-Der Kernel wirft manchmal **kein** Exception – und liefert trotzdem keinen Körper:
+Zwei Aufrufe aus dem Rückblick laufen ohne Exception durch:
 
 ```python
-schale = cf.loft([w_ein, w_aus], cap=False)
-schale.isValid()        # True
-len(schale.Solids())    # 0  ← Shell, kein Solid
+platten = endplatten(replace(p, zapfen_d=200))
+print(platten.isValid(), len(platten.Solids()), platten.Volume())
 
-leer = zelle & nachbar  # nicht überlappend
-len(leer.Solids())      # 0  ← leerer Boolean, Volume 0
+stapel = stapel_bauen(replace(p, n_zellen=0))
+print(stapel.isValid(), len(stapel.Solids()))
 ```
 
-Die `cap`-Falle aus Einheit 6 und der leere Boolean sehen beide „gültig“ aus.
+**Was meldet `isValid()`? Woran erkennen Sie, dass beide Ergebnisse falsch sind?**
 
-### Der Guard: auf einen Solid bestehen
+### Gültig heißt nicht richtig
+
+- `isValid()` prüft, ob die Topologie in sich stimmig ist. Ob ein Körper entstanden ist, prüft es nicht.
+- Auch der Loft ohne `cap=True` aus Einheit 6 liefert ein gültiges Shape ohne Volumen.
+- Manchmal baut der Code etwas anderes als verlangt, weil eine Schleife oder ein Startwert nicht zum Randfall passt.
+
+Nur eine Prüfung des Ergebnisses findet solche Fehler.
+
+### Der Guard: auf einen Körper bestehen
 
 ```python
-def sicher(shape: Shape) -> Solid:
-    solids = shape.Solids()
-    assert len(solids) == 1, "kein eindeutiger Volumenkörper"
+def ein_solid(s: cf.Shape) -> cf.Solid:
+    solids = s.Solids()
+    assert len(solids) == 1, f"erwartet 1 Solid, erhalten {len(solids)}"
     return solids[0]
+
+zelle = ein_solid(zelle_bauen(p))
 ```
 
-- `isValid()` prüft **topologische Konsistenz** – nicht, ob ein Volumen existiert
-- `len(Solids()) == 1` fängt Shell, leeren Boolean und entartete Loft ab
+- Der Guard steht nach jedem Schritt, der genau einen Körper liefern soll.
+- Er findet leere Booleans, offene Lofts und Teile, die in Stücke zerfallen.
 
-### Koinzidente Flächen: `h + ε`
+### Warum ist die Bohrung länger als die Platte?
+
+In `endplatten` steht seit Einheit 7:
+
+```python
+bohrung = cf.cylinder(d=p.zapfen_d, h=p.platten_t + 2).moved(cf.Location((0, 0, -1)))
+```
+
+**Die Platte ist 8 mm dick. Warum ist die Bohrung 10 mm lang und 1 mm nach unten verschoben?**
+
+### Werkzeug überstehen lassen: `h + ε`
 
 ![bg right:44% 95%](assets/h_plus_eps.svg)
 
-Liegt eine Schnittfläche **exakt** auf einer Körperfläche, ist mehrdeutig, was Innen und Außen ist – der Kernel erzeugt Geisterflächen oder einen fehlerhaften Boolean.
-
-**Regel:** Bohrer und Kanäle in Schnittrichtung mit `h + ε` überstehen lassen – dann trennt ein klarer Abstand die Flächen.
-
-Denselben Konflikt regelt auch der **Toleranz-Parameter** der Booleschen Operationen:
-
-```python
-cf.cut(platte, kanal, tol=0.0)   # Standard: exakt rechnen
-```
-
-`tol` legt fest, ab wann zwei Flächen als deckungsgleich gelten. `h + ε` ist die robustere Lösung – man umgeht den Grenzfall, statt ihn auszuhandeln.
+- Liegen zwei Flächen genau aufeinander, entscheiden Rundungsfehler über das Ergebnis.
+- Möglich sind eine hauchdünne Restschicht oder ein fehlerhafter Körper.
+- **Regel:** Das Werkzeug ragt auf beiden Seiten um ein kleines ε über das Teil hinaus.
 
 ### Zwischenstände sehen: Visual Debugging
 
 Wo genau geht ein Modell kaputt? Der Viewer zeigt es beim schrittweisen Ausführen:
 
-1. Haltepunkt setzen (Klick links neben die Zeilennummer), Skript mit **F5** im Debugger starten
-2. Mit **F10** Zeile für Zeile weiter – der Viewer zeigt nach jedem Schritt **alle CAD-Objekte** aus den lokalen Variablen, mit ihren Namen
-3. An/aus über die Statusleiste unten: `OCP: <port>·DEBUG`
+1. Setzen Sie einen Haltepunkt (Klick links neben die Zeilennummer) und starten Sie das Skript mit **F5** im Debugger.
+2. Gehen Sie mit **F10** Zeile für Zeile weiter. Der Viewer zeigt nach jedem Schritt alle CAD-Objekte aus den lokalen Variablen mit ihren Namen.
+3. Ein- und ausschalten lässt sich das in der Statusleiste: `OCP: <port>·DEBUG`.
 
-Dazu der Reiter *Clip*: eine Schnittebene durch den Körper – so sieht man Geisterflächen und leere Hohlräume, die von außen verborgen bleiben.
+Der Reiter *Clip* legt eine Schnittebene durch den Körper. So sehen Sie auch Flächen und Hohlräume im Inneren.
 
-## Praktikum A: das Modul härten
+## Praktikum A: das Modul absichern
 
-### Aufgabe 1: die Ränder ausprobieren
+### Aufgabe 1: Die Ränder ausprobieren
 
-Rufen Sie Ihre Funktionen mit Grenzwerten auf und notieren Sie, was passiert:
-
-| Aufruf | Beobachtung |
-|---|---|
-| `endplatten(replace(p, plattenstaerke=0))` | |
-| `endplatten(replace(p, plattenstaerke=-4))` | |
-| `stapel_bauen(replace(p, n_zellen=0))` | |
-| Fillet mit `r = plattenstaerke` | |
-
-Gehen Sie mindestens einen Fall im Debugger Schritt für Schritt durch: In welcher Zeile verschwindet der Körper?
+1. Kopieren Sie `w07/modul.py` nach `w09/modul.py`.
+2. Führen Sie die vier Aufrufe aus dem Rückblick aus. Notieren Sie jeweils: Exception (welche?), falsches Teil oder richtiges Teil. Stimmt Ihre Vorhersage?
+3. Gehen Sie `endplatten(replace(p, zapfen_d=200))` im Debugger Schritt für Schritt durch. In welcher Zeile verschwindet der Körper?
 
 ### Aufgabe 2: Eingaben absichern
 
-Ergänzen Sie `if`/`raise` und den Solid-Guard:
+1. Schreiben Sie `pruefe(p)`: Maße der Zelle, `platten_t` und `zell_r` müssen positiv sein, `n_zellen` mindestens 1, `spacer` nicht negativ. Rufen Sie `pruefe` am Anfang jeder Baufunktion auf.
+2. Passen Sie den Radius in `zelle_bauen` an, statt bei zu großem `zell_r` abzustürzen.
+3. Sichern Sie in `zelle_bauen` und für die untere Endplatte das Ergebnis mit `ein_solid` ab.
+4. Führen Sie die vier Aufrufe noch einmal aus. Was meldet jetzt `zapfen_d=200`?
 
-1. `plattenstaerke <= 0`, `zell_t <= 0`, `n_zellen < 1` → je ein `ValueError`.
-2. Fillet-Radius weich kappen: `min(r, plattenstaerke * 0.45)`.
-3. Nach jedem Loft/Boolean: `sicher(...)` – auf genau einen Solid bestehen.
+*Hinweise:* `raise ValueError(f"...")`, `min(a, b)`, Rückgabetyp von `zelle_bauen` jetzt `cf.Solid`
 
-## Theorie B: Naming Problem, `assert` vs. `raise`, Sweep
+## Theorie B: `assert`, Naming Problem, Sweep
+
+### Wer ist schuld?
+
+Bei `zapfen_d=200` schlägt jetzt der Guard an:
+
+```text
+AssertionError: erwartet 1 Solid, erhalten 0
+```
+
+**Ist das ein Fehler im Programm oder eine ungültige Eingabe? Wo sollte er gemeldet werden?**
+
+### Zwei Arten von Prüfungen
+
+- **`raise`** prüft Eingaben von außen. Die Prüfung ist immer aktiv.
+- **`assert`** prüft Annahmen im eigenen Code, die bei gültigen Eingaben nie brechen. `python -O` schaltet `assert` ab.
+- Schlägt ein `assert` an, fehlt meist eine Eingabeprüfung oder der Code hat einen Fehler.
 
 ### Topological Naming Problem
 
-![bg right:40% 98%](assets/naming_problem.svg)
-
-Ein fester Index meint nicht „diese Kante“, sondern „was gerade an Position 13 steht“:
+Ein Fillet soll den Rand der Zentrierbohrung runden. Die Kante wird über ihre Nummer ausgewählt:
 
 ```python
-teil = endplatte - bohrung
-teil.Edges()[13].geomType()          # CIRCLE – der Bohrungsrand
+platte = cf.box(172, 110, 8)
+bohrung = cf.cylinder(d=16, h=10).moved(cf.Location((0, 0, -1)))
+zuganker = cf.cylinder(d=6, h=10).moved(cf.Location((70, 40, -1)))
+
+teil = platte - bohrung
+print(teil.Edges()[13].geomType())      # CIRCLE: ein Rand der Bohrung
+
+teil = platte - bohrung - zuganker      # Revision: Loch für einen Zuganker
+print(teil.Edges()[13].geomType())
 ```
 
-Kommt ein **zusätzliches Loch** dazu – eine ganz gewöhnliche Revision –, baut der Kernel die Topologie neu auf und nummeriert um:
+**Was trifft der Fillet nach der Revision? Was passiert in Ihrem CAD-System mit einer Verrundung, wenn Sie davor im Baum ein Loch einfügen?**
+
+### Die Kante beschreiben, nicht abzählen
+
+![bg right:36% 98%](assets/naming_problem.svg)
+
+- Nach jeder Boolean-Operation baut der Kernel die Topologie neu auf und nummeriert die Kanten neu.
+- Ein Selektor beschreibt die Kante durch Lage und Typ und findet sie nach jeder Änderung.
 
 ```python
-teil = endplatte - bohrung - zuganker_loch
-teil.Edges()[13].geomType()          # LINE – jetzt eine Randkante!
+rand = teil.faces(">Z").edges("%CIRCLE")    # Kreiskanten der Deckfläche
+rund = cf.fillet(teil, rand, 1.0)
 ```
 
-Kein Fehler, keine Warnung. Ein Fillet auf `Edges()[13]` träfe nun die falsche Kante.
+Der Selektor trifft jetzt beide Bohrungsränder. Ob das gewollt ist, entscheidet die Konstruktion.
 
-### Lösung: die Kante beschreiben, nicht abzählen
-
-Statt einer Position sagt man, **was** die Kante ist – das überlebt jede Umnummerierung:
-
-```python
-teil.edges(">Z and %CIRCLE")     # obere Kreiskanten – egal an welcher Position
-```
-
-Gibt es mehrere gleichartige Kanten (Zuganker- neben Zell-Bohrung), hilft ein Selektor-Objekt aus `cadquery.selectors`:
-
-```python
-from cadquery.selectors import RadiusNthSelector
-
-teil.faces(">Z").edges(RadiusNthSelector(-1))   # die Kreiskante mit dem größten Radius
-```
-
-`RadiusNthSelector(-1)` wählt nach Radius-Rang – findet also die größte Bohrung, egal wie viele kleine dazukommen.
-
-> **Vorsicht:** `edges(...)` gibt bei *einem* Treffer eine einzelne `Edge` zurück, bei mehreren ein `Compound`. Für `fillet` mit `.Edges()` abschließen (Einheit 7).
-
-### `assert` oder `if` / `raise`?
-
-| Einsatz | Mittel |
-|---|---|
-| **Sanity-Check:** Invariante, die bei fehlerfreiem Code *nie* bricht | `assert` |
-| **Fehlerbehandlung:** ungültige Eingaben, externe Bibliotheken | `if` / `raise ValueError` |
-
-`assert` ist mit `python -O` **abschaltbar** – ein Werkzeug für die Entwicklung, kein Schutz für Nutzereingaben. `len(Solids()) == 1` ist ein Sanity-Check (bei validen Eingaben *muss* es stimmen); `plattenstaerke > 0` ist Eingabeprüfung → `raise`.
-
-### Ein Sweep, der überlebt
-
-Statt beim ersten Fehler zu sterben, prüft eine Funktion jeden Parametersatz und meldet nur baubar / nicht baubar:
+### Ein Sweep, der durchläuft
 
 ```python
 def ist_baubar(p: ModulParam) -> bool:
     try:
-        modul = stapel_bauen(p) + endplatten(p)
-        return modul.isValid() and len(modul.Solids()) >= 1 and modul.Volume() > 0
+        zelle = zelle_bauen(p)
+        platten = endplatten(p)
     except Exception:
         return False
+    return len(zelle.Solids()) == 1 and len(platten.Solids()) == 2
 
-for n in range(0, 20):
-    print(n, "ok" if ist_baubar(replace(basis, n_zellen=n)) else "—")
+for d in [16, 60, 100, 120, 200]:
+    print(d, ist_baubar(replace(p, zapfen_d=d)))
 ```
 
-Der `try/except` + die drei Checks machen die Funktion **sweep-fest** – genau das braucht der Optimierer nächste Woche.
+**Was meldet `ist_baubar`, wenn in `endplatten` ein Tippfehler steht, etwa `p.platen_t`?**
 
-## Praktikum B: robuster Sweep
+### Erst testen, dann abtasten
 
-### Aufgabe 3: das Naming Problem auslösen und beheben
+- `except Exception` fängt jeden Fehler ab, auch Fehler im eigenen Code.
+- Unittests aus Einheit 7 prüfen, ob der Code tut, was er soll.
+- `ist_baubar` prüft, für welche Parameter das Modell entsteht.
 
-1. Bauen Sie `endplatte - bohrung` und finden Sie den Index, unter dem der Bohrungsrand steht (`geomType() == "CIRCLE"`).
-2. Fügen Sie ein **zweites Loch** hinzu (Zuganker). Zeigt derselbe Index noch auf den Bohrungsrand?
-3. Ersetzen Sie den Index durch `edges(">Z and %CIRCLE")` – bleibt die Auswahl jetzt stabil, wenn Sie das zweite Loch wieder entfernen?
+Ein Sweep setzt deshalb Funktionen voraus, deren Tests grün sind.
 
-*Hinweise:* `[e.geomType() for e in teil.Edges()]` zeigt alle Kanten; Auswahl für `fillet` mit `.Edges()` abschließen
+## Praktikum B: Naming Problem und Sweep
 
-### Aufgabe 4: den gültigen Bereich abtasten
+### Aufgabe 3: Das Naming Problem auslösen und beheben
 
-![bg right:38% 95%](assets/parameterbereich.svg)
+1. Bauen Sie in `w09/naming.py` die Platte mit Bohrung aus Theorie B. Unter welchem Index steht ein Rand der Bohrung?
+2. Fügen Sie das Zuganker-Loch hinzu. Zeigt derselbe Index noch auf den Bohrungsrand?
+3. Runden Sie die Bohrungsränder mit `faces(">Z").edges("%CIRCLE")`, mit und ohne Zuganker-Loch. Prüfen Sie beide Ergebnisse mit `isValid()`.
 
-Verrunden Sie die **Deck- und Bodenkanten** der Endplatte (`edges(">Z or <Z")`) und tasten Sie mit `ist_baubar` zwei Parameter ab: Plattenstärke (2 … 10 mm) und Fillet-Radius (1 … 5 mm).
+*Hinweise:* `for i, e in enumerate(teil.Edges()):` zählt die Kanten durch, `e.geomType()` und `e.Center()` beschreiben sie.
 
-1. Zeichnen Sie die Karte baubar / nicht baubar.
-2. Deckt sich die Grenze mit der Regel $r < \text{Dicke}/2$?
+### Aufgabe 4: Den baubaren Bereich abtasten
 
-*Hinweise:* verschachtelte Schleifen über beide Wertebereiche, `dataclasses.replace`, im Check `try/except` + `isValid()` + `Solids()`
+1. **Sagen Sie zuerst voraus:** Bis zu welchem `zapfen_d` entsteht eine brauchbare Endplatte? Wie hängt die Grenze von `zell_h` ab?
+2. Schreiben Sie `ist_baubar` in `w09/sweep.py`. Tasten Sie `zell_h` von 60 bis 100 mm (Schritt 10) und `zapfen_d` von 20 bis 140 mm (Schritt 20) ab.
+3. Geben Sie die Ergebnisse als Tabelle aus: eine Zeile pro `zell_h`, eine Spalte pro `zapfen_d`. Stimmt die Grenze mit Ihrer Vorhersage?
+4. Ergänzen Sie `pruefe` um eine Bedingung für `zapfen_d`.
 
-### Aufgabe 5 *(Zusatz)*: Checkliste anwenden
+*Hinweise:* zwei verschachtelte `for`-Schleifen, `replace(p, zell_h=h, zapfen_d=d)`, `print(..., end=" ")` schreibt ohne Zeilenumbruch
 
-- Eingaben zuerst (`if`/`raise` vor dem ersten Kernel-Aufruf)
-- Keine festen Indizes – geometrische Selektoren
-- Werkzeug überragen lassen (`h + ε`)
-- Parameter weich kappen statt crashen
-- Ergebnis prüfen (`len(Solids()) == 1`, `Volume() > 0`)
+### Was hat der Sweep gezeigt?
+
+**Wo lag die Grenze, und warum? Hätten Sie sie ohne die Tabelle gefunden?**
+
+### Aufgabe 5 *(Zusatz)*: Prüfungen testen
+
+Auch eine Eingabeprüfung braucht einen Test. `pytest.raises` prüft, dass ein Fehler kommt:
+
+```python
+import pytest
+
+def test_negative_platte():
+    with pytest.raises(ValueError):
+        endplatten(replace(ModulParam(), platten_t=-4))
+```
+
+1. Schreiben Sie in `tests/test_w09.py` einen Test für jede Bedingung in `pruefe`.
+2. Schreiben Sie einen Test, dass `zell_r=60` eine gültige Zelle liefert.
 
 ## Abschluss
+
+### Checkliste für robusten CAD-Code
+
+- **Eingaben zuerst:** `pruefe(p)` steht vor dem ersten Kernel-Aufruf.
+- **Anpassen nur bei Gestaltungsvorgaben,** alles andere wird abgelehnt.
+- **Werkzeug überstehen lassen:** Schnittflächen liegen nie genau aufeinander.
+- **Kanten beschreiben:** Selektoren statt Indizes.
+- **Ergebnis prüfen:** Anzahl der Solids und Volumen, nicht nur `isValid()`.
 
 ### Leseauftrag & Ausblick
 
 - **Leseauftrag:** Buch Kapitel 5 und 8
-- **Wer mehr will:** `ist_baubar` als Test aus Einheit 7 formulieren – der gültige Bereich wird zur Regression
-- **Nächste Woche:** Simulation – aus dem Solid wird ein FEM-Netz; die Endplatte unter dem Quelldruck der Zellen
-- Bis dahin: `w09/` (gehärtetes Modul + Sweep) committet und gepusht
+- **Nächste Woche:** Simulation: Aus dem Solid wird ein FEM-Netz, die Endplatte unter dem Druck der Zellen.
+- Bis dahin: `w09/` und `tests/test_w09.py` committet und gepusht, Pipeline grün

@@ -46,5 +46,5 @@
     <text x="745" y="425" text-anchor="middle" fill="#555" font-size="23">irgendeine Randkante</text>
   </g>
 
-  <text x="490" y="55" text-anchor="middle" fill="#333" font-size="27" font-weight="600">Derselbe Index — eine andere Kante</text>
+  <text x="490" y="55" text-anchor="middle" fill="#333" font-size="27" font-weight="600">Derselbe Index, eine andere Kante</text>
 </svg>
