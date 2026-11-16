@@ -274,9 +274,10 @@ def stapel_bauen(p: ModulParam) -> cf.Shape:
     ...
 
 if __name__ == "__main__":
-    from ocp_vscode import show
-    p = ModulParam()
-    show(stapel_bauen(p), endplatten(p))
+    # nur bei direktem Start: bauen und anzeigen
+    # p = ModulParam()
+    # show(stapel_bauen(p), endplatten(p))
+    ...
 ```
 
 Starten Sie die Datei direkt, ist `__name__` gleich `"__main__"`, und der Block läuft. Beim Import mit `from w07.modul import stapel_bauen` ist `__name__` gleich `"w07.modul"`, und der Block bleibt aus.
@@ -385,9 +386,12 @@ Der Sollwert kommt aus einer **unabhängigen** Rechnung: aus den Maßen des Teil
 ### `pytest.approx` – Fließkomma
 
 ```python
-assert zelle.Volume() == 160932.0                           # spröde
+import pytest
+
+zelle = zelle_bauen(ModulParam())
 assert zelle.Volume() == pytest.approx(160932, rel=1e-6)    # relativ
 assert zelle.Volume() == pytest.approx(160932, abs=0.1)     # ± 0,1 mm³
+assert zelle.Volume() == 160932.0                           # spröde
 ```
 
 Geometrieoperationen sammeln Rundungsfehler ($0.1 + 0.2 \neq 0.3$). Exakte Gleichheit scheitert deshalb zufällig.
