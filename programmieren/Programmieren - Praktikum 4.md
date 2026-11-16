@@ -26,56 +26,90 @@ jupyter:
 
 David Straub
 
-### Protokolldaten
+### Das Protokoll des Batteriemanagements
 
-Nach dem simulierten Pack aus Praktikum 3 bekommt Ihr Labor heute echte Textprotokolle statt einzelner Werte – Zeilen aus einer Log-Datei, die Sie zerlegen und auswerten:
+Ein Pack aus acht Zellen wurde mit 2,5 A entladen. Das Batteriemanagement hat in jedem Zeitschritt jede Zelle bewertet: `o` ok, `w` Warnung, `k` kritisch. Pro Zelle ein String, ein Zeichen pro Zeitschritt:
 
 ```python
-protokoll = """01;3.812;22.4
-02;3.798;23.1
-03;2.951;31.5
-04;3.833;22.6
-05;3.109;23.0
-06;3.041;24.2
-07;3.772;30.9
-08;3.839;22.5"""
+protokoll = [
+    "oooooooooooowwk",   # Zelle 1
+    "oooooooooooowwk",   # Zelle 2
+    "oooooooooooowkk",   # Zelle 3
+    "oooooooooooowwk",   # Zelle 4
+    "oooooooooooowkk",   # Zelle 5
+    "oooowwwwwwwwkkk",   # Zelle 6
+    "oooooooooooowkk",   # Zelle 7
+    "oooooooooooowwk",   # Zelle 8
+]
 ```
 
-Jede Zeile: Zellnummer;Spannung in V;Temperatur in °C – getrennt durch Semikolon.
+Kopieren Sie die Liste in Ihre Dateien. Legen Sie für jede Aufgabe eine eigene Datei an.
 
-### Aufgabe 1: Eine Zeile zerlegen
+### Aufgabe 1: Eine Zelle im Detail
 
-1. Nehmen Sie die erste Zeile als eigenen String: `zeile = "01;3.812;22.4"`
-2. Zerlegen Sie sie mit `split(";")` in drei Teile
-3. Wandeln Sie Spannung und Temperatur in `float` um und geben Sie beide aus (`print`)
+```python
+verlauf = protokoll[5]
+```
 
-### Aufgabe 2: Das ganze Protokoll
+1. Welche Zelle ist das? Geben Sie die Anzahl der Zeitschritte sowie den ersten und den letzten Status aus (`print`)
+2. Prüfen Sie mit `in`, ob der Verlauf überhaupt ein `k` enthält
+3. Zählen Sie mit einer Schleife über die Zeichen, in wie vielen Zeitschritten der Status `w` ist
+4. Schreiben Sie eine Funktion `erster_kritischer(verlauf)`. Sie gibt den Index des ersten `k` zurück (`return`), oder `-1`, wenn kein `k` vorkommt. Laufen Sie dazu mit `range` über die Indizes. Testen Sie auch mit `"ooooo"`
 
-1. Zerlegen Sie `protokoll` mit `split("\n")` in einzelne Zeilen
-2. Durchlaufen Sie alle Zeilen mit einer Schleife und zerlegen Sie jede wie in Aufgabe 1
-3. Geben Sie für jede Zeile Zellnummer, Spannung und Temperatur formatiert aus (`print`, Feldbreite)
+### Aufgabe 2: Eine Anzeige bauen
 
-### Aufgabe 3: Auffällige Zellen zählen
+Auf der Laboranzeige sollen Probleme sofort auffallen: `ok` als Punkt, Warnungen und kritische Schritte als Großbuchstaben. Aus `oooowwwwwwwwkkk` wird `....WWWWWWWWKKK`.
 
-1. Zählen Sie mit dem Akkumulator-Muster, wie viele Zeilen eine Spannung unter 3,2 V haben
-2. Zählen Sie separat, wie viele Zeilen eine Temperatur über 30 °C haben
-3. Geben Sie beide Anzahlen aus (`print`)
+1. Bauen Sie die Anzeige für `verlauf` Zeichen für Zeichen in einer neuen Variable auf (`+=`). Für die Großbuchstaben nutzen Sie `upper()`
+2. Warum lässt sich die Anzeige nicht einfacher mit `verlauf[4] = "W"` usw. erzeugen? Probieren Sie es aus
+3. Geben Sie nur die letzten fünf Zeitschritte der Anzeige aus (`print`), per Slicing
+4. Packen Sie Schritt 1 in eine Funktion `anzeige(verlauf)`, die die Anzeige zurückgibt (`return`)
 
-### Aufgabe 4: Zeichen zählen
+### Aufgabe 3: Alle acht Zellen
 
-Verschachtelte Schleifen: die äußere über die Zeilen, die innere über die Zeichen jeder Zeile.
+1. Geben Sie für jede Zelle Nummer und Anzeige aus (`print`): `Zelle 1: ............WWK`. Die Nummer ist nicht der Index
+2. Zählen Sie für jede Zelle die Warnungen und die kritischen Zeitschritte. Dafür brauchen Sie eine Schleife in der Schleife. Geben Sie eine Tabelle aus, die Zahlen rechtsbündig
+3. Welche Zelle hat die meisten Warnungen? Merken Sie sich dazu in zwei Variablen die bisher höchste Anzahl und die Nummer dieser Zelle
 
-1. Zählen Sie, wie oft die Ziffer `3` im gesamten Protokolltext vorkommt
-2. Zum Gegenchecken gibt es eine eingebaute Methode: `protokoll.count("3")` – stimmt Ihr Ergebnis überein?
+### Aufgabe 4: Die Spannungen als Liste
 
-### Aufgabe 5 (falls Sie Funktionen 2 schon hatten): Die Zeile als Funktion
+Bei 50 % Ladezustand hat das Batteriemanagement die Zellspannungen in mV gemessen:
 
-1. Schreiben Sie eine Funktion `zeile_zerlegen(zeile)`, die Zellnummer, Spannung und Temperatur als drei Werte zurückgibt (`return`) – nutzen Sie Ihre Lösung aus Aufgabe 1
-2. Bauen Sie Ihre Protokoll-Auswertung aus Aufgabe 2 so um, dass sie diese Funktion verwendet
-3. Was ist an dieser Version besser lesbar – was ist gleich geblieben?
+```python
+spannungen_mV = [3473, 3483, 3465, 3478, 3450, 3178, 3470, 3480]
+```
 
-### Zusatz für Schnelle
+1. Berechnen Sie den Mittelwert, ohne `sum()`
+2. Bestimmen Sie die niedrigste Spannung und die Nummer der Zelle, ohne `min()`
+3. Geben Sie ein Balkendiagramm aus (`print`): pro Zelle Nummer und Spannung rechtsbündig, dahinter ein `#` für je 25 mV über 3000 mV
+4. Wie viele Zellen liegen mehr als 100 mV unter dem Mittelwert?
 
-- Seriennummern haben bei Ihrem Hersteller das Format `LB240815-06-A`: Hersteller (2 Zeichen), Jahr (2), Monat (2), Tag (2), dann `-`, Zellnummer (2), `-`, Charge (1). Extrahieren Sie alle sechs Felder per Slicing – die Trennstriche stehen an festen Positionen
-- Schreiben Sie eine Funktion, die aus dem Protokoll die **ganze Zeile** mit der niedrigsten Spannung zurückgibt (`return`) – nicht nur die Zahl
-- Testen Sie `"3.812".isdigit()` – das Ergebnis überrascht. Erklären Sie es, und überlegen Sie, wie man stattdessen prüfen könnte, ob ein String eine Kommazahl darstellt
+### Aufgabe 5 (falls Sie Funktionen 2 schon hatten): Funktionen mit mehr Möglichkeiten
+
+1. Schreiben Sie eine Funktion `zaehle(verlauf)`, die die Anzahl der Warnungen **und** die Anzahl der kritischen Zeitschritte zurückgibt (`return`). Verwenden Sie sie in Aufgabe 3
+2. Verallgemeinern Sie `erster_kritischer`: `erster(verlauf, zeichen)` gibt den Index des ersten Vorkommens eines beliebigen Zeichens zurück. Wann gibt Zelle 6 die erste Warnung aus?
+
+### Zusatz 1: Wann muss das Pack abschalten?
+
+Das Pack schaltet ab, sobald **eine** Zelle kritisch ist.
+
+1. Bestimmen Sie den ersten Zeitschritt, in dem irgendeine Zelle `k` meldet, und die Nummer dieser Zelle
+2. Hier läuft die äußere Schleife über die Zeitschritte, die innere über die Zellen. Was beendet ein `break` in der inneren Schleife, was nicht?
+3. Wie viele Zeitschritte vorher hätte eine Warnung kommen können?
+
+### Zusatz 2: Häufigkeiten zählen
+
+Ein Temperatursensor liefert ganzzahlige Werte von 20 bis 30 °C.
+
+1. Erzeugen Sie 1000 Zufallswerte (`randint`)
+2. Zählen Sie, wie oft jeder Wert vorkommt. Nutzen Sie dafür eine Liste mit elf Zählern: Zähler 0 gehört zu 20 °C, Zähler 1 zu 21 °C usw.
+3. Geben Sie für jede Temperatur die Anzahl rechtsbündig aus, dahinter ein `#` je 10 Vorkommen
+4. Ist die Verteilung gleichmäßig? Wie sieht es bei 100 Werten aus, wie bei 100 000?
+
+### Zusatz 3: Seriennummern prüfen
+
+Seriennummern haben das Format `LB240815-06-A`: Hersteller (2 Zeichen), Jahr, Monat, Tag (je 2), `-`, Zellnummer (2), `-`, Charge (1).
+
+1. Schneiden Sie alle sechs Felder per Slicing aus
+2. Schreiben Sie `pruefe_seriennummer(sn)`: gibt `True` zurück (`return`), wenn die Länge stimmt, die Striche an der richtigen Stelle stehen und Datum und Zellnummer nur Ziffern enthalten (`in "0123456789"`)
+3. Lesen Sie Seriennummern ein (`input`), bis eine gültige kommt. Kleinbuchstaben wie in `lb240815-06-a` sollen auch akzeptiert werden
