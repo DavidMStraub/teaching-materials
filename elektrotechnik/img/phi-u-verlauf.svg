@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 390" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <!-- Phasen -->
+  <g fill="#dbeafe" opacity="0.6">
+    <rect x="140" y="40" width="80" height="330"/>
+    <rect x="320" y="40" width="80" height="330"/>
+  </g>
+  <g fill="#6b7280" font-size="24" text-anchor="middle">
+    <text x="180" y="30">①</text>
+    <text x="270" y="30">②</text>
+    <text x="360" y="30">③</text>
+  </g>
+
+  <!-- Achsen Φ(t) -->
+  <g stroke="#111827" stroke-width="2" fill="none">
+    <line x1="80" y1="160" x2="80" y2="55" marker-end="url(#ax)"/>
+    <line x1="80" y1="150" x2="495" y2="150" marker-end="url(#ax)"/>
+  </g>
+  <text x="62" y="72" fill="#2563eb" font-size="24" font-style="italic" text-anchor="end">Φ</text>
+  <text x="498" y="174" fill="#111827" font-size="20" font-style="italic">t</text>
+  <path d="M80,150 H140 L220,75 H320 L400,150 H480" fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Achsen u(t) -->
+  <g stroke="#111827" stroke-width="2" fill="none">
+    <line x1="80" y1="365" x2="80" y2="225" marker-end="url(#ax)"/>
+    <line x1="80" y1="300" x2="495" y2="300" marker-end="url(#ax)"/>
+  </g>
+  <text x="62" y="242" fill="#ef4444" font-size="24" font-style="italic" text-anchor="end">u</text>
+  <text x="498" y="324" fill="#111827" font-size="20" font-style="italic">t</text>
+  <path d="M80,300 H140 V345 H220 V300 H320 V255 H400 V300 H480" fill="none" stroke="#ef4444" stroke-width="4" stroke-linejoin="round"/>
+</svg>

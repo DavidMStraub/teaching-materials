@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="mF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <!-- Quelle -->
+    <line x1="60" y1="60" x2="60" y2="118"/>
+    <circle cx="60" cy="140" r="22"/>
+    <line x1="60" y1="118" x2="60" y2="162"/>
+    <line x1="60" y1="162" x2="60" y2="240"/>
+    <!-- oben: Schalter (offen) -->
+    <line x1="60" y1="60" x2="120" y2="60"/>
+    <line x1="120" y1="60" x2="168" y2="36"/>
+    <line x1="175" y1="60" x2="380" y2="60"/>
+    <!-- unten -->
+    <line x1="60" y1="240" x2="380" y2="240"/>
+    <!-- Spule senkrecht -->
+    <line x1="260" y1="60" x2="260" y2="90"/>
+    <path d="M260,90 a18,15 0 0 1 0,30 a18,15 0 0 1 0,30 a18,15 0 0 1 0,30 a18,15 0 0 1 0,30"/>
+    <line x1="260" y1="210" x2="260" y2="240"/>
+    <!-- Diodenzweig -->
+    <line x1="380" y1="60" x2="380" y2="132"/>
+    <line x1="380" y1="164" x2="380" y2="240"/>
+  </g>
+  <circle cx="120" cy="60" r="4" fill="#111827"/>
+  <circle cx="175" cy="60" r="4" fill="#111827"/>
+  <circle cx="260" cy="60" r="4.5" fill="#111827"/>
+  <circle cx="260" cy="240" r="4.5" fill="#111827"/>
+  <!-- Diode: Anode unten, Kathode oben (sperrt im Betrieb) -->
+  <polygon points="364,164 396,164 380,134" fill="#111827"/>
+  <line x1="362" y1="132" x2="398" y2="132" stroke="#111827" stroke-width="3.5"/>
+
+  <text x="80" y="112" fill="#111827" font-size="20">+</text>
+  <text x="28" y="146" fill="#111827" font-size="22" font-style="italic" text-anchor="end">U<tspan font-size="15" dy="6">0</tspan></text>
+  <text x="236" y="156" fill="#111827" font-size="24" font-style="italic" text-anchor="end">L</text>
+
+  <!-- Freilaufstrom nach dem Öffnen -->
+  <path d="M 300,100 L 300,205" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <path d="M 300,205 L 345,205 L 345,100" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <line x1="345" y1="110" x2="345" y2="96" stroke="#ef4444" stroke-width="2.5" marker-end="url(#mF)"/>
+  <line x1="300" y1="190" x2="300" y2="204" stroke="#ef4444" stroke-width="2.5" marker-end="url(#mF)"/>
+  <path d="M 345,100 L 300,100" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="380" y="285" fill="#6b7280" font-size="17" text-anchor="middle">Freilaufdiode</text>
+</svg>

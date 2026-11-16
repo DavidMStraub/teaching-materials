@@ -14,147 +14,137 @@ David Straub
 
 ## 5. Elektromagnetische Induktion
 
-1. Induktionsgesetz
+1. **Induktionsgesetz**
 2. Selbstinduktion
 3. Energie des magnetischen Feldes
 4. Kräfte an Grenzflächen
 
-### Grundprinzip
+### Induktion
 
-- Bisher: elektrisches Feld ruhender Ladungen (Elektrostatik) und magnetisches Feld konstanter Ströme (Magnetostatik)
-- Sobald zeitliche Änderungen auftreten → Wechselwirkung zwischen elektrischen und magnetischen Feldern
+**Induktion:** Ändert sich der magnetische Fluss durch eine Leiterschleife, wird in ihr eine Spannung induziert.
 
-**Induktion: eine zeitliche Änderung des magnetischen Flusses erzeugt („induziert“) eine Spannung**
+Der Fluss ändert sich durch **Bewegung** des Leiters oder durch ein **zeitlich veränderliches Feld**.
 
-Der Fluss kann sich auf zwei Arten ändern – weil sich das Feld ändert oder weil sich der Leiter bewegt. Beides sehen wir gleich.
+**Anwendungen:** Generator, Transformator, Elektromotor und Rekuperation, induktives Laden, Näherungsschalter, Induktionsherd
 
-### Induktion: technische Anwendungen
+### Bewegter Leiter im Magnetfeld
 
-- Generatoren (Energieerzeugung)
-- Transformatoren (Spannungswandlung)
-- Elektromotoren, Rekuperation bei E-Fahrzeugen
-- Induktive Ladesysteme (Smartphones, E-Autos)
-- Sensoren (z.B. induktive Näherungsschalter)
-- Induktionsherd
-- Wirbelstrombremsen
+Lorentzkraft auf die Elektronen im Stab: $\vec{F}_m = q \cdot (\vec{v} \times \vec{B})$
 
-### Bewegung eines Leiterstücks im Magnetfeld
+Die Ladungen trennen sich, bis das elektrische Feld die Lorentzkraft ausgleicht:
 
-Lorentzkraft: $\vec{F}_m = q \cdot (\vec{v} \times \vec{B})$
+$$q \vec{E} + q (\vec{v} \times \vec{B}) = 0 \quad\Rightarrow\quad \vec{E} = -\,\vec{v} \times \vec{B}$$
 
-Kraft durch elektrische Feldstärke: $\vec{F}_e = q \cdot \vec{E}$
+Spannung zwischen den Stabenden ($\vec{v}$, $\vec{B}$, $\vec{\ell}$ senkrecht zueinander):
 
-Kräftegleichgewicht: $\vec{F}_e + \vec{F}_m = 0 \Longrightarrow \vec{E} = -\,\vec{v} \times \vec{B}$
-
-Spannung an den Leiterenden: mit $U = \vec{E} \cdot \vec{\ell}$ folgt:
-
-$$U_\text{ind} = -\,(\vec{v} \times \vec{B}) \cdot \vec{\ell}$$
-
-**Induzierte Spannung durch Bewegung im Magnetfeld**
+$$U_\text{ind} = B \cdot \ell \cdot v$$
 
 ![bg right:40% 100%](https://upload.wikimedia.org/wikipedia/commons/8/8f/Induction-by-motion-voltage.svg)
 
-### Das Induktionsgesetz in allgemeiner Form
+### Das Induktionsgesetz
 
-**Bewegtes Leiterstück** ($\vec{v}$, $\vec{B}$, $\vec{\ell}$ senkrecht zueinander):
+Gleitet der Stab auf Schienen, wächst die umfasste Fläche um $\frac{dA}{dt} = \ell \cdot v$:
 
-$$U_\text{ind} = -B \cdot \ell \cdot v = -B \cdot \frac{dA}{dt}$$
+$$U_\text{ind} = B \cdot \ell \cdot v = B \cdot \frac{dA}{dt}$$
 
-**Allgemein gilt:**
+**Allgemein** (Faraday), für $N$ Windungen:
 
-$$U = -\frac{d\Phi}{dt}$$
+$$\boxed{U_\text{ind} = -N \cdot \frac{d\Phi}{dt}}$$
 
-Übergang auf $N$ Windungen:
+Mit $\Phi = B \cdot A$ gibt es zwei Arten:
 
-$$U = -N \cdot \frac{d\Phi}{dt}$$
+- **Bewegungsinduktion:** $A$ ändert sich
+- **Ruheinduktion:** $B$ ändert sich
 
-### Zwei Möglichkeiten der Induktion
+![bg right:35% 90%](https://upload.wikimedia.org/wikipedia/commons/3/3d/Induction-by-motion-current.svg)
 
-1. **Bewegungsinduktion:** Leiter und Magnetfeld bewegen sich relativ zueinander
-2. **Ruheinduktion:** Magnetischer Fluss ändert sich bei ruhendem Leiter
+### 🗳️ Leiterschleife im Feldbereich
 
-$$U = -\frac{d\Phi}{dt} = -\frac{d(A \cdot B)}{dt} = -\frac{dB}{dt} \cdot A - \frac{dA}{dt} \cdot B$$
+Eine Leiterschleife bewegt sich mit konstanter Geschwindigkeit durch einen begrenzten Feldbereich.
 
-### Induzierter Strom
+In welchen Phasen wird eine Spannung induziert?
 
-Verbindet man die Enden des Leiterstücks über einen Widerstand $R$ (der sich nicht mitbewegt), so fließt ein **induzierter Strom**:
+A) nur in ②
 
-$$I = \frac{U}{R} = -\frac{1}{R} \cdot \frac{d\Phi}{dt}$$
+B) in ① und ③, mit gleichem Vorzeichen
 
-![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/3/3d/Induction-by-motion-current.svg)
+C) in ① und ③, mit entgegengesetztem Vorzeichen
 
-### Die Lenz’sche Regel
+D) in ①, ② und ③ gleich groß
 
-Die induzierte Spannung ist stets so gerichtet, dass ein durch sie hervorgerufener Strom **der Ursache seiner Entstehung entgegenwirkt**.
+![w:600](img/leiterschleife-feldbereich.svg)
 
-**Erklärung:** die Energie, die am Widerstand in Wärme umgesetzt wird, stammt aus der mechanischen Arbeit, die aufgewendet werden muss, um die Flussänderung zu erzeugen – die Lenz’sche Regel ist Ausdruck der **Energieerhaltung**.
+### Fluss und Spannung im Verlauf
+
+- ① Der Fluss steigt: Spannung
+- ② Der Fluss ist konstant: **keine** Spannung, obwohl die Schleife im Feld liegt
+- ③ Der Fluss sinkt: Spannung mit umgekehrtem Vorzeichen
+
+**Für Skizzen:** $u(t)$ ist die negative Steigung von $\Phi(t)$.
+
+![bg right:45% 90%](img/phi-u-verlauf.svg)
+
+### Induzierter Strom und Lenz’sche Regel
+
+Schließt man den Kreis über $R$, fließt ein **induzierter Strom** $I = \frac{U_\text{ind}}{R}$.
+
+**Lenz’sche Regel:** Der induzierte Strom wirkt seiner Ursache entgegen.
+
+- Im Bild: Die Kraft auf den stromdurchflossenen Stab bremst die Bewegung.
+- Grund ist die Energieerhaltung: Die Wärme in $R$ stammt aus der mechanischen Arbeit.
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/4/42/Induction-by-motion-lenzs-law.svg)
 
-### Das induzierte elektrische Wirbelfeld
+### 🗳️ Magnet im Rohr
 
-**Wichtige Erkenntnis:** Bei Induktion ist die Spannung $U_\text{ind}$ **keine Potentialdifferenz**!
+Ein starker Magnet fällt durch ein senkrechtes Kupferrohr, ein gleicher Magnet durch ein gleich langes Kunststoffrohr. Kupfer ist nicht ferromagnetisch.
 
-- Das zeitlich veränderliche Magnetfeld erzeugt ein elektrisches **Wirbelfeld**
-- Dieses Feld ist **nicht konservativ** – es existiert kein Potential
+Wie fällt der Magnet im Kupferrohr?
 
-$$U_\text{ind} = \oint \vec{E}_\text{ind} \cdot d\vec{s} \neq 0$$
+A) schneller
 
-Ein Umlaufintegral entlang der Leiterschleife – über einen **geschlossenen** Weg!
+B) gleich schnell
+
+C) deutlich langsamer
+
+D) er bleibt stecken
+
+![bg right:35% 85%](img/magnet-rohr.svg)
+
+### Wirbelströme
+
+- Der fallende Magnet ändert den Fluss durch jeden Ring des Rohrs. Dort fließen induzierte Ringströme, die **Wirbelströme**.
+- Nach Lenz bremsen sie ihre Ursache, also den Fall.
+- **Nutzen:** Wirbelstrombremse (Zug, Achterbahn), Induktionsherd
+- **Verluste:** im Eisenkern von Transformator und Motor. Abhilfe: Kern aus dünnen, gegeneinander isolierten Blechen (Elektroblech)
+
+![bg right:35% 85%](img/magnet-rohr.svg)
+
+### Induzierte Spannung: keine Potentialdifferenz
+
+Ein zeitlich veränderliches Magnetfeld erzeugt ein elektrisches **Wirbelfeld** mit geschlossenen Feldlinien:
+
+$$\oint \vec{E} \cdot d\vec{s} = -\frac{d\Phi}{dt}$$
+
+- **Elektrostatik:** $\oint \vec{E} \cdot d\vec{s} = 0$, es gibt ein Potential
+- **Induktion:** $\oint \vec{E} \cdot d\vec{s} \neq 0$, es gibt kein Potential
 
 ![bg right:34% 90%](img/wirbelfeld.svg)
 
-### Vergleich: Elektrostatik vs. Induktion
-
-**Elektrostatik:** wirbelfrei, konservativ, Potential existiert:
-
-$$\oint \vec{E}_\text{stat} \cdot d\vec{s} = 0$$
-
-**Elektromagnetische Induktion:** das induzierte Feld ist nicht wirbelfrei:
-
-$$\oint \vec{E}_\text{ind} \cdot d\vec{s} = -\frac{d\Phi}{dt} = -\frac{d}{dt} \int \vec{B} \cdot d\vec{A}$$
-
-Dies ist das **Faraday’sche Induktionsgesetz**.
-
-### Die fundamentalen Integralgleichungen der Elektrodynamik
-
-| **Größe** | **Elektro-/Magnetostatik** | **Elektrodynamik** |
-|-----------|-------------------|-------------------|
-| $\vec{D}$ | $\oint_A \vec{D} \cdot d\vec{A} = Q$ | $\oint_A \vec{D} \cdot d\vec{A} = Q$ |
-| $\vec{E}$ | $\oint_s \vec{E} \cdot d\vec{s} = 0$ | $\oint_s \vec{E} \cdot d\vec{s} = -\frac{d\Phi}{dt}$ **(Induktionsgesetz)** |
-| $\vec{B}$ | $\oint_A \vec{B} \cdot d\vec{A} = 0$ | $\oint_A \vec{B} \cdot d\vec{A} = 0$ |
-| $\vec{H}$ | $\oint_s \vec{H} \cdot d\vec{s} = I$ | (hier nicht behandelt) |
-
-**Fazit:** Zeitlich veränderliche Felder koppeln elektrische und magnetische Phänomene!
-
-### Beispiel: Bewegte Leiterschleife im Magnetfeld
-
-Rechteckige Leiterschleife bewegt sich mit $\vec{v}$ durch ein homogenes, räumlich begrenztes Magnetfeld:
-
-- **Eintreten:** zunehmender Fluss → $U_\text{ind} \neq 0$
-- **Vollständig im Feld:** konstanter Fluss → keine Induktion!
-- **Austreten:** abnehmender Fluss → $U_\text{ind} \neq 0$ (umgekehrtes Vorzeichen)
-
-Merksatz für die Skizze: $u(t)$ ist die (negative) *Steigung* von $\Phi(t)$.
-
-![w:800](img/leiterschleife-feldbereich.svg)
-
 ### 📝 Aufgabe 14: Induktion
 
-Im Luftspalt eines Ferritkerns (Querschnitt $A_1 = 4 \, \text{cm}^2$) sitzt eine bewegliche Messspule ($N_2 = 10$ Windungen, Fläche $A_2 = 1 \, \text{cm}^2$). Das Feld erzeugt eine feste Spule mit $N_1 = 2000$ Windungen; $R_{m,\text{ges}} = 10^7 \, \text{H}^{-1}$. Ab $t = 0$ wird die Messspule mit konstanter Geschwindigkeit herausgezogen; nach $0{,}1 \, \text{s}$ ist sie vollständig draußen.
+Im Luftspalt eines Ferritkerns (Querschnitt $A_1 = 4 \, \text{cm}^2$) sitzt eine bewegliche Messspule ($N_2 = 10$ Windungen, Fläche $A_2 = 1 \, \text{cm}^2$). Das Feld erzeugt die feste Spule mit $N_1 = 2000$ Windungen und Gleichstrom $I$; $R_{m,\text{ges}} = 10^7 \, \frac{\text{A}}{\text{Wb}}$. Ab $t = 0$ wird die Messspule mit konstanter Geschwindigkeit herausgezogen. Nach $0{,}1 \, \text{s}$ ist sie vollständig draußen.
 
-a) Skizzieren Sie qualitativ $\Phi_2(t)$ durch die Messspule und die induzierte Spannung $u(t)$.
-b) Welcher Fluss $\Phi_2$ durchsetzt die Spule anfangs, damit $U_\text{ind} = 10 \, \text{mV}$ beträgt?
-c) Welche Flussdichte $B$ herrscht dann im Luftspalt, und welcher Gesamtfluss $\Phi_1$ durchsetzt die feste Spule ($A_1$)?
-d) Welcher Strom $I$ muss durch die feste Spule fließen?
+a) Zeichnen Sie eine Feldlinie ein. Skizzieren Sie $\Phi_2(t)$ durch die Messspule und die induzierte Spannung $u(t)$ qualitativ.
+b) Welcher Fluss $\Phi_2$ durchsetzt die Messspule anfangs, wenn $U_\text{ind} = 10 \, \text{mV}$ beträgt? Welche Flussdichte $B$ herrscht dann im Luftspalt, und welcher Fluss $\Phi_1$ durchsetzt die feste Spule?
+c) Welcher Strom $I$ muss durch die feste Spule fließen?
 
-### Zwischenstand & Ausblick
+![bg right:33% 95%](img/ferritkern-messspule.svg)
 
-Heute:
+### Zusammenfassung
 
-- Induktionsgesetz $U = -N \frac{d\Phi}{dt}$ – der Fluss ändert sich durch **Bewegung** oder durch ein **veränderliches Feld**
-- Lenz: der induzierte Strom wirkt seiner Ursache entgegen (Energieerhaltung)
-- Die induzierte Spannung ist **keine** Potentialdifferenz: das induzierte $\vec{E}$-Feld ist ein Wirbelfeld
-- Für Skizzen: $u(t)$ ist die (negative) Steigung von $\Phi(t)$
-
-**Nächste Woche:** Selbstinduktion – eine Spule induziert eine Spannung in sich selbst, und daraus wird die Induktivität $L$.
+- Induktionsgesetz $U_\text{ind} = -N \frac{d\Phi}{dt}$: Der Fluss ändert sich durch Bewegung oder durch ein veränderliches Feld.
+- $u(t)$ ist die negative Steigung von $\Phi(t)$.
+- Lenz: Der induzierte Strom wirkt seiner Ursache entgegen (Energieerhaltung).
+- Wirbelströme bremsen und heizen. Im Eisenkern verursachen sie Verluste.
+- Die induzierte Spannung stammt aus einem Wirbelfeld und ist keine Potentialdifferenz.

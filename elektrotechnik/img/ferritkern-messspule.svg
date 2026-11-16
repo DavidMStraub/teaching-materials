@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -15 500 405" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="mI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+    <marker id="mV" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <!-- Ferritkern mit Luftspalt im rechten Schenkel -->
+  <path d="M 330,170 L 330,60 L 90,60 L 90,330 L 330,330 L 330,220"
+        fill="none" stroke="#9ca3af" stroke-width="40" stroke-linejoin="miter" stroke-linecap="butt"/>
+  <ellipse cx="330" cy="285" rx="20" ry="7" fill="#93c5fd" stroke="#2563eb" stroke-width="2"/>
+  <text x="362" y="294" fill="#2563eb" font-size="24" font-style="italic">A<tspan font-size="16" dy="6">1</tspan></text>
+
+  <!-- feste Spule N1 auf dem linken Schenkel -->
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <path d="M 58,130 A 32,10 0 0 0 122,130"/>
+    <path d="M 58,165 A 32,10 0 0 0 122,165"/>
+    <path d="M 58,200 A 32,10 0 0 0 122,200"/>
+    <path d="M 58,235 A 32,10 0 0 0 122,235"/>
+  </g>
+  <g stroke="#111827" stroke-width="2" fill="none" stroke-dasharray="4 4" opacity="0.55">
+    <line x1="122" y1="130" x2="58" y2="165"/>
+    <line x1="122" y1="165" x2="58" y2="200"/>
+    <line x1="122" y1="200" x2="58" y2="235"/>
+    <line x1="122" y1="235" x2="58" y2="270"/>
+  </g>
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <line x1="58" y1="130" x2="26" y2="110"/>
+    <line x1="58" y1="270" x2="26" y2="290"/>
+  </g>
+  <line x1="12" y1="96" x2="46" y2="118" stroke="#111827" stroke-width="3.5" marker-end="url(#mI)"/>
+  <text x="14" y="84" fill="#111827" font-size="26" font-style="italic">I</text>
+  <text x="34" y="210" fill="#111827" font-size="24" font-style="italic" text-anchor="end">N<tspan font-size="16" dy="6">1</tspan></text>
+
+  <!-- bewegliche Messspule N2 im Luftspalt, Anschluss an Voltmeter -->
+  <g stroke="#111827" stroke-width="2" fill="none">
+    <polyline points="346,191 410,191 410,140 455,140 455,177"/>
+    <polyline points="346,198 400,198 400,245 455,245 455,213"/>
+  </g>
+  <ellipse cx="330" cy="198" rx="16" ry="6" fill="#fde68a" stroke="#111827" stroke-width="2.5"/>
+  <ellipse cx="330" cy="191" rx="16" ry="6" fill="#fde68a" stroke="#111827" stroke-width="2.5"/>
+  <circle cx="455" cy="195" r="18" fill="#fff" stroke="#111827" stroke-width="2"/>
+  <text x="455" y="203" fill="#111827" font-size="22" text-anchor="middle">V</text>
+  <text x="352" y="232" fill="#111827" font-size="22" font-style="italic">N<tspan font-size="15" dy="6">2</tspan></text>
+
+  <!-- Bewegungsrichtung -->
+  <line x1="354" y1="172" x2="394" y2="172" stroke="#ef4444" stroke-width="3.5" marker-end="url(#mV)"/>
+  <text x="364" y="163" fill="#ef4444" font-size="24" font-style="italic">v</text>
+</svg>
