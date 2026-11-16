@@ -28,6 +28,8 @@ David Straub
 
 ### Warm-up: Was gibt der Code aus?
 
+Aufschreiben, dann ausführen:
+
 ```python
 txt = "SENSOR"
 print(txt[1:4])
@@ -38,29 +40,44 @@ print(len(txt[2:]))
 ### Heute lernen Sie
 
 - Funktionen mit **mehreren Parametern** und **mehreren Rückgabewerten**
-- Was in der Funktion bleibt: **lokale Variablen** (und die Ausnahme `global`)
+- Was in der Funktion bleibt: **lokale Variablen**, und die Ausnahme `global`
 - Probleme **zerlegen**: Hauptfunktion und Hilfsfunktion
-- **Struktogramme** – Programme auf Papier entwerfen
+- **Struktogramme**: Programme auf Papier
 
 ## Funktionen mit mehr Möglichkeiten
 
 ### Zwei Parameter
 
 ```python
-def rechteckflaeche(breite, hoehe):
-    return breite * hoehe
+def ladezeit(energie, leistung):
+    return energie / leistung
 
-print(rechteckflaeche(4, 3))
-print(rechteckflaeche(hoehe=3, breite=4))
+print(ladezeit(55, 11))
+print(ladezeit(55, 22))
+print(ladezeit(leistung=11, energie=55))
 ```
 
-- Parameter durch Komma getrennt – die **Reihenfolge** der Werte zählt
-- Oder mit Namen übergeben, dann ist die Reihenfolge egal
+- In Woche 6 war die Ladeleistung fest eingebaut (11 kW). Jetzt ist sie ein zweiter Parameter
+- Parameter durch Komma getrennt. Die Werte werden der Reihe nach zugeordnet: der erste an `energie`, der zweite an `leistung`
+- Mit Namen übergeben, wie bei `print(..., end="")`, ist die Reihenfolge egal
 
-### Mini-Aufgabe (2 min)
+### Mini-Aufgabe (4 min)
 
-1. Schreiben Sie `rechteckflaeche(breite, hoehe)` selbst und testen Sie sie
-2. Zusatz: `quadervolumen(laenge, breite, hoehe)` – Volumen zurückgeben (`return`)
+Machen Sie aus diesem Skript **eine Funktion mit zwei Parametern** und **zwei Aufrufe**:
+
+```python
+kapazitaet_a = 4800
+strom_a = 350
+laufzeit_a = kapazitaet_a / strom_a
+print(f"Gerät A: {laufzeit_a:.1f} h")
+
+kapazitaet_b = 2200
+strom_b = 150
+laufzeit_b = kapazitaet_b / strom_b
+print(f"Gerät B: {laufzeit_b:.1f} h")
+```
+
+Vertauschen Sie dann bei einem Aufruf die beiden Werte. Was passiert?
 
 ### Mehrere Rückgabewerte
 
@@ -72,10 +89,12 @@ def sin_cos(x):
 
 s, c = sin_cos(0.5)
 print(f"sin: {s:.3f}, cos: {c:.3f}")
+print(sin_cos(0.5))
 ```
 
 - `return a, b` gibt **beide** Werte zurück
-- Links entsprechend **zwei** Variablen, durch Komma getrennt („Unpacking“)
+- Links stehen entsprechend **zwei** Variablen, durch Komma getrennt
+- Mit nur einer Variable kommen beide Werte zusammen an, in runden Klammern
 
 ### Lokale Variablen
 
@@ -92,11 +111,11 @@ print(stunden)
 NameError: name 'stunden' is not defined
 ```
 
-- Variablen, die **in** einer Funktion entstehen, leben nur **während des Aufrufs**
-- Draußen existieren sie nicht – das ist Absicht: Funktionen räumen hinter sich auf
-- Das hat einen Namen: **Kapselung** – was in der Funktion passiert, bleibt in der Funktion. Austausch nur über zwei Wege: Parameter rein, Rückgabe (`return`) raus
+- Variablen, die **in** einer Funktion entstehen, gibt es nur **während des Aufrufs**
+- Austausch mit dem Rest des Programms nur über zwei Wege: Parameter hinein, Rückgabe (`return`) heraus
+- Das nennt man **Kapselung**: Was in der Funktion passiert, bleibt in der Funktion
 
-### Die Ausnahme: `global` – lesen ja, schreiben lieber nicht
+### Die Ausnahme: `global`
 
 ```python
 zaehler = 0
@@ -106,13 +125,13 @@ def erhoehe():
     zaehler = zaehler + 1
 ```
 
-- `global` lässt eine Funktion die **äußere** Variable verändern – ein drittes, **unsichtbares** Loch in der Kapselung
-- Der Aufruf `erhoehe()` sieht harmlos aus und verändert heimlich etwas außerhalb; bei Parameter und `return` steht an der Aufrufstelle alles, was passiert
-- Deshalb: `global` **lesen können** – im eigenen Code Parameter und `return` verwenden
+- Eine äußere Variable **lesen** kann jede Funktion. Zum **Verändern** braucht sie `global`
+- Der Aufruf `erhoehe()` verändert eine Variable außerhalb, ohne dass es an der Aufrufstelle zu sehen ist. Bei Parameter und `return` steht dort alles, was passiert
+- Deshalb: `global` in fremdem Code lesen können, im eigenen Code Parameter und `return` verwenden
 
 ### Vorhersage-Aufgabe (4 min)
 
-Aufschreiben, in der **richtigen Reihenfolge** – dann ausführen:
+Aufschreiben, in der **richtigen Reihenfolge**, dann ausführen:
 
 ```python
 def f1():
@@ -134,15 +153,20 @@ print("e:", x)
 
 ### Zerlegen: Hauptfunktion denkt Hilfsfunktion mit
 
-Aufgabe: ein Messbericht. Erst die **Hauptfunktion** schreiben – die Hilfsfunktion darf es dabei ruhig noch gar nicht geben:
+Aufgabe: ein Messbericht. Zuerst die **Hauptfunktion**. Die Hilfsfunktion `mittelwert` gibt es dabei noch nicht:
 
 ```python
 def bericht(werte):
-    m = mittelwert(werte)          # gibt es noch nicht - kommt gleich!
+    m = mittelwert(werte)
     return f"{len(werte)} Werte, Mittelwert {m:.1f}"
 ```
 
-Dann die Lücke füllen – `mittelwert` kennen Sie aus Woche 7:
+- Beim Schreiben von `bericht` reicht es zu wissen, **was** `mittelwert` zurückgibt
+- Wie `mittelwert` das berechnet, entscheiden Sie im nächsten Schritt
+
+### Zerlegen: die Lücke füllen
+
+Jetzt die Hilfsfunktion, mit dem Mittelwert aus Woche 7:
 
 ```python
 def mittelwert(werte):
@@ -150,55 +174,71 @@ def mittelwert(werte):
     for wert in werte:
         summe += wert
     return summe / len(werte)
+
+print(bericht([4, 9, 2]))
 ```
 
-Groß denken, klein bauen – so zerlegt man Probleme.
-
-### Mini-Aufgabe (4 min): Zerlegen
-
-Machen Sie aus diesem Skript **eine Funktion mit zwei Parametern** und **zwei Aufrufe**:
-
-```python
-kapazitaet_a = 4800
-strom_a = 350
-laufzeit_a = kapazitaet_a / strom_a
-print(f"Gerät A: {laufzeit_a:.1f} h")
-
-kapazitaet_b = 2200
-strom_b = 150
-laufzeit_b = kapazitaet_b / strom_b
-print(f"Gerät B: {laufzeit_b:.1f} h")
-```
+- Vorhanden sein muss die Hilfsfunktion erst beim **Aufruf** von `bericht`
 
 ### Debug-Check
 
-Wenn ein Programm nicht tut, was es soll – der Reihe nach:
+Wenn ein Programm nicht tut, was es soll, der Reihe nach:
 
 1. Was **soll** es tun?
 2. Was tut es **stattdessen**?
-3. Welche Stelle ist **verdächtig** – welche Bedingung, welche Variable?
+3. Welche Stelle ist **verdächtig**: welche Bedingung, welche Variable?
 4. Welcher **kleinste Test** entscheidet? Oft: ein `print` an der richtigen Stelle
+
+### Debug-Aufgabe (4 min)
+
+`min_max([4, 9, 2])` soll `2` und `9` zurückgeben, liefert aber `4` und `4`. Gehen Sie den Debug-Check durch und beheben Sie den Fehler:
+
+```python
+def min_max(werte):
+    kleinster = werte[0]
+    groesster = werte[0]
+    for wert in werte:
+        if wert < kleinster:
+            kleinster = wert
+        if wert > groesster:
+            groesster = wert
+        return kleinster, groesster
+
+print(min_max([4, 9, 2]))
+```
+
+### Mini-Aufgabe (4 min): Zerlegen
+
+Erweitern Sie `bericht`: Der Bericht nennt zusätzlich den kleinsten und den größten Wert.
+
+```
+3 Werte, Mittelwert 5.0, Bereich 2 bis 9
+```
+
+1. Schreiben Sie zuerst die neue Zeile in `bericht`, die `min_max` aufruft
+2. Dann die neue Ausgabe
+3. Testen Sie mit Ihrer korrigierten `min_max`
 
 ## Struktogramme
 
 ### Programme auf Papier: Struktogramme
 
-In technischer Dokumentation werden Algorithmen manchmal **sprachunabhängig** festgehalten – Struktogramme sind eine klassische Notation dafür.
+In technischer Dokumentation werden Algorithmen manchmal **sprachunabhängig** festgehalten. Struktogramme sind eine klassische Notation dafür.
 
-- Ihnen begegnen sie in Spezifikationen und Altdokumentation – **lesen** und in Code **umsetzen** können ist die Kernfertigkeit
-- **Zeichnen** sollten Sie sie können, wenn eine Dokumentation (oder die Klausur) es verlangt
+- Sie begegnen Ihnen in Spezifikationen und älterer Dokumentation. Die Kernfertigkeit: **lesen** und in Code **umsetzen**
+- **Zeichnen** brauchen Sie, wenn eine Dokumentation (oder die Klausur) es verlangt
 
-Drei Grundformen, alle drei kennen Sie längst aus Python:
+Drei Grundformen, alle drei kennen Sie aus Python:
 
-1. **Anweisungsfolge** – Kästen untereinander
-2. **Verzweigung** – Diagonalen mit Ja/Nein
-3. **Schleife** – das umgekehrte L
+1. **Anweisungsfolge**: Kästen untereinander
+2. **Verzweigung**: Diagonalen mit Ja/Nein
+3. **Schleife**: das umgekehrte L
 
 ![bg right:26% 55%](assets/nsd/summe.svg)
 
 ### Grundform Verzweigung
 
-Diagonalen teilen die Bedingung in **Ja** (links) und **Nein** (rechts) – darunter die beiden Zweige.
+Diagonalen teilen die Bedingung in **Ja** (links) und **Nein** (rechts), darunter die beiden Zweige.
 
 Das Beispiel kennen Sie aus Woche 3:
 
@@ -231,11 +271,10 @@ Für `for`-Schleifen: gleiche Form, Kopfzeile z. B. „für jedes wert in werte�
 
 ### Alles zusammen: ein alter Bekannter
 
-Verzweigung **in** einer Schleife – das ist `finde_maximum` aus Woche 7.
+Eine Verzweigung **in** einer Schleife: die Maximum-Suche aus Woche 7, als Funktion.
 
-Der leere Nein-Zweig bekommt das Zeichen ∅.
-
-Zuweisungen schreiben wir mit `=`, Rückgaben als „Rückgabe (return) von …“.
+- Der leere Nein-Zweig bekommt das Zeichen ∅
+- Zuweisungen schreiben wir mit `=`, Rückgaben als „Rückgabe (return) von …“
 
 ![bg right:40% 95%](assets/nsd/maximum.svg)
 
@@ -249,7 +288,7 @@ Tipp: Sie kennen dieses Programm.
 
 ### Zeichen-Übung (5 min, auf Papier): Python → Struktogramm
 
-Zeichnen Sie das Struktogramm zu diesem Programm – alle Kontrollstrukturen müssen erkennbar sein:
+Zeichnen Sie das Struktogramm zu diesem Programm. Alle Kontrollstrukturen müssen erkennbar sein:
 
 ```python
 n = 5
@@ -259,16 +298,20 @@ while n > 0:
 print("Start!")
 ```
 
+Zusatz: das Struktogramm zur Vorhersage-Aufgabe aus Woche 8 mit der Schleife in der Schleife
+
 ### Mini-Check
 
-1. `a, b = f(...)` – was muss `f` dafür tun?
-2. Eine Variable wird in einer Funktion angelegt (ohne `global`) – ist sie draußen sichtbar?
+Ohne Computer:
+
+1. `a, b = f(...)`: Was muss `f` dafür tun?
+2. Eine Variable wird in einer Funktion angelegt, ohne `global`. Ist sie draußen sichtbar?
 3. Welche Form hat eine Schleife im Struktogramm?
-4. Debug-Check, Frage 4 – wie findet man den kleinsten Test?
+4. Ein Ergebnis ist falsch, es gibt aber keine Fehlermeldung. Wie finden Sie die Stelle?
 
 ### Bis nächste Woche!
 
-Nächste Woche: **Diagramme mit matplotlib** – Ihre Daten als Bild
+Nächste Woche: **Diagramme mit matplotlib**, Ihre Daten als Bild
 
-- Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
+- Üben: KI-Quizze auf OneTutor: https://link.hm.edu/vkej
 - Fragen: jederzeit im Matrix-Chat

@@ -28,6 +28,8 @@ David Straub
 
 ### Warm-up: Was gibt der Code aus?
 
+Aufschreiben, dann ausführen:
+
 ```python
 def spanne(werte):
     return werte[0], werte[-1]
@@ -39,9 +41,9 @@ print(a, b)
 ### Heute lernen Sie
 
 - Daten als **Diagramm** darstellen: `matplotlib`
-- Plots **beschriften**: Titel, Achsen, Gitter
+- Diagramme **beschriften**: Titel, Achsen, Gitter
 - **Mehrere Datenreihen** und **markierte Punkte**
-- Den Titel **vom Ergebnis abhängig** machen – Programme, die ihr Ergebnis bewerten
+- Den Titel **vom Ergebnis abhängig** machen
 
 ## Der erste Plot
 
@@ -59,11 +61,11 @@ plt.plot(stunden, temperaturen)
 plt.show()
 ```
 
-- `import matplotlib.pyplot as plt` – der Kurzname `plt` ist überall Standard
-- `plt.plot(x, y)`: erste Liste → x-Achse, zweite Liste → y-Achse
+- `import matplotlib.pyplot as plt`: Der Kurzname `plt` ist überall üblich
+- `plt.plot(x, y)`: erste Liste auf die x-Achse, zweite Liste auf die y-Achse
 - `plt.show()` zeigt das Bild an
 
-### Schritt für Schritt: Beschriftung
+### Beschriftung
 
 ```python
 plt.plot(stunden, temperaturen)
@@ -74,15 +76,23 @@ plt.grid(True)
 plt.show()
 ```
 
-Ein Diagramm ohne Achsenbeschriftung ist keins.
+- `xlabel`, `ylabel`: Größe und Einheit an jede Achse
+- `title`: Überschrift über dem Diagramm
+- `grid(True)`: Gitterlinien zum Ablesen
+- Alles zwischen `plot` und `show`
 
 ### Mini-Aufgabe (3 min)
 
-Nehmen Sie den Minimalplot von eben und ergänzen Sie:
+Eine Zelle wird mit 1 A entladen:
 
-1. Achsenbeschriftungen (`xlabel`, `ylabel`)
-2. Einen Titel
-3. Das Gitter
+```python
+zeit_h = [0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0]
+spannung_V = [4.17, 3.80, 3.63, 3.55, 3.50, 3.44, 3.28]
+```
+
+1. Zeichnen Sie den Spannungsverlauf
+2. Beschriften Sie beide Achsen mit Größe und Einheit, ergänzen Sie Titel und Gitter
+3. In welchem Abschnitt fällt die Spannung am stärksten?
 
 ### Achtung typischer Fehler
 
@@ -91,9 +101,9 @@ plt.plot(stunden, temperaturen)
 plt.show
 ```
 
-Kein Fehler, keine Meldung – aber auch **kein Bild.**
+Keine Fehlermeldung, aber auch **kein Bild**.
 
-- `plt.show` ohne Klammern **ruft die Funktion nicht auf** (Woche 6: erst die Klammern führen aus!)
+- `plt.show` ohne Klammern **ruft die Funktion nicht auf** (Woche 6: erst die Klammern führen aus)
 
 ## Stil und mehrere Datenreihen
 
@@ -117,6 +127,8 @@ plt.plot(x, y, "b-o")   # blau, Linie mit Punkten
 ### Zweite Datenreihe und markierte Punkte
 
 ```python
+prognose = [17.5, 19.0, 21.0, 23.5, 25.5, 26.5, 26.0, 23.0]
+
 plt.plot(stunden, temperaturen, "b-")
 plt.plot(stunden, prognose, "r--")
 plt.plot([13], [27.1], "ro")
@@ -124,16 +136,17 @@ plt.show()
 ```
 
 - Jeder weitere `plot`-Aufruf **vor** `show()` zeichnet ins selbe Diagramm
-- Ein **einzelner Punkt**: Listen mit nur einem Element plus Marker-Stil – so hebt man ein Maximum oder eine Nullstelle hervor
+- Ein **einzelner Punkt**: Listen mit nur einem Element plus Marker-Stil. So heben Sie ein Maximum oder eine Nullstelle hervor
 
 ### Mini-Aufgabe (3 min)
 
-Ergänzen Sie in Ihrem Temperatur-Plot:
+In Ihrem Entlade-Diagramm:
 
-1. Den Höchstwert (Stunde 13, 27.1 °C) als **roten Punkt**
-2. Zusatz: Finden Sie den Höchstwert nicht von Hand, sondern mit der Maximum-Schleife aus Woche 7
+1. Zeichnen Sie die Messpunkte als schwarze Punkte über die Linie
+2. Markieren Sie den letzten Messpunkt als **roten Punkt**, ohne die Werte abzutippen
+3. Zeichnen Sie eine rot gestrichelte Linie bei 3,3 V über die ganze Messdauer
 
-### Der dynamische Titel: das Diagramm bewertet sein Ergebnis
+### Der dynamische Titel
 
 ```python
 maximum = temperaturen[0]
@@ -149,11 +162,12 @@ else:
 plt.title(titel)
 ```
 
-Je nachdem, was herauskommt, soll das Diagramm etwas anderes sagen – Titel in eine Variable, per `if` entscheiden, fertig.
+- Das Diagramm sagt etwas anderes, je nachdem, was herauskommt
+- Den Titel per `if` in einer Variable festlegen, dann an `plt.title` übergeben
 
 ### Debug-Aufgabe (3 min)
 
-Zwei Fehler – finden und beheben:
+Zwei Fehler, finden und beheben:
 
 ```python
 import matplotlib.pyplot as plt
@@ -167,41 +181,62 @@ plt.grid(True)
 plt.show
 ```
 
-### Datenreihen berechnen statt eintippen
+### Datenreihen berechnen
 
-Messdaten kommen aus Dateien – berechnete Kurven aus **Schleifen und Funktionen**:
+Berechnete Kurven entstehen aus **Schleife und Funktion**. Das Pendel aus Woche 6:
 
 ```python
-def restkapazitaet(zyklen):
-    return 100 - 0.015 * zyklen
+import math
 
-zyklen = []
-kapazitaeten = []
-for z in range(0, 1001, 100):
-    zyklen.append(z)
-    kapazitaeten.append(restkapazitaet(z))
+def schwingungsdauer(laenge):
+    return 2 * math.pi * math.sqrt(laenge / 9.81)
+```
 
-plt.plot(zyklen, kapazitaeten, "b-o")
+Gesucht: die Schwingungsdauer für Pendellängen von 0,1 m bis 2,0 m als Kurve.
+
+### Listen füllen, dann zeichnen
+
+```python
+laengen = []
+dauern = []
+for i in range(1, 21):
+    laenge = i * 0.1
+    laengen.append(laenge)
+    dauern.append(schwingungsdauer(laenge))
+
+plt.plot(laengen, dauern, "b-o")
 plt.show()
 ```
 
-Das Muster *Listen füllen per Schleife, Werte aus einer Funktion* ist der Kern jeder berechneten Kurve.
+- Leere Listen, Schleife, `append`: x-Wert und Funktionswert gemeinsam anhängen
+- `range` liefert nur ganze Zahlen. Für Schritte von 0,1 m: ganzzahlig zählen und umrechnen
 
 ## Transfer
 
 ### Aufgabe: Batterie-Alterung (Denkphase: 6 min, auf Papier)
 
-Alle Bausteine des Semesters in einem Programm – **Eingabe → Funktion → Schleife → Plot**:
+Ein Programm aus allen Bausteinen: **Eingabe, Funktion, Schleife, Diagramm**
 
 1. Zyklenzahl `n` **einlesen** (`int`)
-2. Funktion `restkapazitaet(zyklen)`, die `100 - 0.015 * zyklen` zurückgibt (`return`)
-3. **Schleife**: für 0 bis `n` in 100er-Schritten beide Listen füllen – Werte aus der Funktion
-4. **Plot** mit Achsenbeschriftung und Gitter
-5. **Titel per `if`**: unter 80 % Restkapazität → `Warnung: Batterie altert!`, sonst → `Batterie ok`
+2. Funktion `restkapazitaet(zyklen)`, die die Restkapazität in % zurückgibt (`return`): `100 - 0.015 * zyklen`
+3. **Schleife**: Von 0 bis `n` in 100er-Schritten zwei Listen füllen, Zyklen und Restkapazität
+4. **Diagramm** mit Achsenbeschriftung und Gitter
+5. **Titel per `if`**: Liegt die Restkapazität am Ende unter 80 %: `Warnung: Batterie altert!`, sonst `Batterie ok`
 
-Notieren Sie zuerst die Bausteine und ihre Reihenfolge.
+Probe: `restkapazitaet(1000)` → `85.0`
 
-Zusatz für Schnelle: den letzten Punkt der Kurve rot markieren; die Eingabe validieren (Woche 5!)
+### Batterie-Alterung: Denkphase
+
+Notieren Sie auf Papier:
+
+- Welche Bausteine in welcher Reihenfolge?
+- Was gehört in die Funktion, was ins Hauptprogramm?
+- Woher kommt der Wert, den der Titel bewertet?
+
+Zusatz für Schnelle:
+
+- Den letzten Punkt der Kurve rot markieren
+- Die Eingabe prüfen: nur Zyklenzahlen über 0 annehmen
 
 ### Gemeinsam live
 
@@ -209,14 +244,15 @@ Wir entwickeln die Lösung jetzt zusammen.
 
 ### Mini-Check
 
+Ohne Computer:
+
 1. Was bedeutet der Stil-String `"r--"`?
 2. Wie kommt eine zweite Linie ins selbe Diagramm?
-3. `plt.show` – warum erscheint kein Bild?
-4. Wie markiert man einen einzelnen Punkt im Plot?
+3. Wie markiert man einen einzelnen Punkt?
 
 ### Bis nächste Woche!
 
-Nächste Woche: **Zahlensysteme** – wie Computer Zahlen speichern, und warum `0.1 + 0.2` nicht `0.3` ist
+Nächste Woche: **Zahlensysteme**, wie Computer Zahlen speichern, und warum `0.1 + 0.2` nicht `0.3` ergibt
 
-- Üben: KI-Quizze auf OneTutor: https://hm.onetutor.ai/
+- Üben: KI-Quizze auf OneTutor: https://link.hm.edu/vkej
 - Fragen: jederzeit im Matrix-Chat
