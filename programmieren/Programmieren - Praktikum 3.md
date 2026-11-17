@@ -66,6 +66,23 @@ Simulieren Sie, wie die Spannung einer Zelle sinkt, während sie entladen wird. 
 3. Bei welchem Ladezustand fällt die Spannung am stärksten ab?
 4. Verdoppeln Sie `strom_A`: Was ändert sich am Verlauf, was bleibt gleich?
 
+### Neu: `if` in einer Funktion
+
+```python
+def betrag(x):
+    if x < 0:
+        return -x
+    else:
+        return x
+
+print(betrag(-3.5))
+print(betrag(2))
+```
+
+- `if`/`else` funktioniert auch im Block einer Funktion, eine Ebene tiefer eingerückt
+- Jeder Zweig hat sein eigenes `return`
+- `return` beendet die Funktion sofort, der Rest des Blocks wird übersprungen
+
 ### Aufgabe 2: Grenzwerte prüfen
 
 1. Schreiben Sie eine Funktion `bewertung(spannung_V)`, die ein Urteil zurückgibt (`return`): unter 3,0 V `kritisch`, sonst `ok`
@@ -76,8 +93,33 @@ Simulieren Sie, wie die Spannung einer Zelle sinkt, während sie entladen wird. 
 ### Aufgabe 3: Alle acht Zellen vergleichen
 
 1. Wählen Sie einen festen Ladezustand und einen festen Strom. Lesen Sie die Spannung aller acht Zellen aus und geben Sie sie aus (`print`), mit einer Schleife über die Zellnummern
-2. Bestimmen Sie die **niedrigste** Spannung und die **Nummer** der zugehörigen Zelle. Merken Sie sich dazu in zwei Variablen die bisher niedrigste Spannung und die Nummer dieser Zelle; starten Sie mit den Werten von Zelle 1
-3. Wiederholen Sie mit 5,0 A: Wie weit liegt die schwächste Zelle jetzt unter den anderen? Wie lautet ihre Bewertung?
+2. Erst auf Papier: Vier Zellen haben die Spannungen 3,52 V, 3,47 V, 3,55 V und 3,31 V. Sie sehen immer nur **eine** Zelle nach der anderen. Was müssen Sie sich nach jeder Zelle merken, damit Sie am Ende die schwächste kennen? Füllen Sie die Tabelle aus:
+
+| Zelle | Spannung | schwächer als die bisher schwächste? | bisher schwächste: Spannung, Nummer |
+|---|---|---|---|
+| 1 | 3,52 | (erste Zelle) | 3,52, 1 |
+| 2 | 3,47 | ? | ? |
+| 3 | 3,55 | ? | ? |
+| 4 | 3,31 | ? | ? |
+
+### Aufgabe 3: Die schwächste Zelle finden
+
+3. Bestimmen Sie **niedrigste** Spannung und **Nummer** der Zelle. Ergänzen Sie die Lücken `...`:
+
+```python
+min_spannung = lese_spannung(1, ladezustand, strom_A)
+min_nummer = 1
+for nummer in range(2, 9):
+    u = lese_spannung(nummer, ladezustand, strom_A)
+    if ...:
+        min_spannung = ...
+        min_nummer = ...
+print(...)
+```
+
+`min_spannung` und `min_nummer` sind **Merker**: Start mit Zelle 1, überschrieben nur bei einer schwächeren Zelle, wie in Ihrer Tabelle. Am Ende steht darin die schwächste Zelle.
+
+4. Wiederholen Sie mit 5,0 A: Wie weit liegt die schwächste Zelle jetzt unter den anderen? Wie lautet ihre Bewertung?
 
 ### Aufgabe 4: Wann muss das Pack abschalten?
 
