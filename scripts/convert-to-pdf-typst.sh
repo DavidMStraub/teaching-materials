@@ -124,6 +124,10 @@ cat > "$HEADER_TYP" << 'EOF'
 #show heading.where(level: 2): set text(size: 14pt)
 #show heading.where(level: 3): set text(size: 12pt)
 
+// External links in blue so they read as clickable (typst leaves them
+// unstyled); internal cross-references stay plain
+#show link: it => if type(it.dest) == str { text(fill: rgb("#1f5fa8"), it) } else { it }
+
 // Math in the matching Libertinus face instead of typst's default
 #show math.equation: set text(font: "Libertinus Math")
 
@@ -503,7 +507,10 @@ EOF
 SUBTITLE_ARGS=()
 [[ -n "$SUBTITLE" ]] && SUBTITLE_ARGS+=(-M "subtitle=$SUBTITLE")
 
+# autolink_bare_uris: Marp (markdown-it linkify) makes bare URLs clickable,
+# pandoc's markdown reader does not by default
 pandoc "$TEMP_MD" \
+    -f markdown+autolink_bare_uris \
     -o "$OUTPUT_FILE" \
     --defaults="$DEFAULTS_YAML" \
     --pdf-engine=typst \
