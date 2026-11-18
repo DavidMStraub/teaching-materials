@@ -44,12 +44,14 @@ David Straub
 
 ## Robustheit
 
+**Parametrische Robustheit:** Ein Modell liefert für jeden zulässigen Parametersatz ein richtiges Teil und lehnt alle anderen Parametersätze mit einer klaren Meldung ab.
+
 - **Eingaben prüfen:** Ungültige Parameter werden abgelehnt, bevor der Kernel rechnet.
 - **Ergebnisse prüfen:** Ein gültiges Shape ist noch kein richtiges Teil.
 - **Kanten beschreiben:** Ein Selektor findet die Kante auch nach einer Änderung am Modell.
-- **Bereich abtasten:** Eine Schleife prüft viele Varianten, ohne beim ersten Fehler abzubrechen.
+- **Bereich abtasten:** Eine Schleife prüft viele Varianten und läuft bei Fehlern weiter.
 
-*Durchgängiges Beispiel:* Ihr Modul aus Einheit 7 soll jeden Parametersatz überstehen. Das braucht die Optimierung in Einheit 12.
+*Durchgängiges Beispiel:* Ihr Modul aus Einheit 7 wird parametrisch robust. Das braucht die Optimierung in Einheit 12.
 
 ### Ausgangspunkt: der Modul-Code aus Einheit 7
 
@@ -57,7 +59,6 @@ David Straub
 from dataclasses import replace
 
 from cadquery import func as cf
-from ocp_vscode import show
 
 from w07.modul import ModulParam, endplatten, stapel_bauen, zelle_bauen
 
@@ -77,13 +78,15 @@ endplatten(replace(p, zapfen_d=200))
 zelle_bauen(replace(p, zell_r=49))
 ```
 
+Standardwerte: `platten_t = 8`, `zell_b = 148`, `zell_h = 98`, `zell_r = 6`, `zapfen_d = 16`, die Endplatte misst 160 × 110 mm.
+
 **Was passiert bei jedem Aufruf: eine Exception, ein falsches Teil oder ein richtiges Teil?**
 
-### Warum das zählt
+### Von Hand und in der Schleife
 
 - Am Bildschirm sehen Sie einen Fehler und korrigieren den Wert.
 - In einer Schleife über hundert Varianten stoppt eine einzige Exception den ganzen Lauf.
-- Ein falsches Teil ohne Exception fällt dort gar nicht auf.
+- Ein falsches Teil ohne Exception bleibt dort unbemerkt.
 
 Ein Optimierer (Einheit 12) probiert Parameter aus, die niemand von Hand eingeben würde.
 
@@ -135,15 +138,19 @@ Ein Parameter liegt außerhalb des baubaren Bereichs. Die Funktion kann ihn able
 
 ### Ablehnen oder anpassen: Kriterien
 
+![bg right:30% 85%](assets/radius_grenze.svg)
+
 - **Ablehnen:** Der Wert beschreibt kein sinnvolles Teil, etwa ein negatives Maß.
 - **Anpassen:** Der Wert ist eine Gestaltungsvorgabe mit klarer geometrischer Grenze.
-- Eine Anpassung ändert das Teil, ohne dass es jemand merkt. Sie gehört deshalb in den Docstring.
+- Eine Anpassung ändert das Teil unbemerkt. Sie gehört deshalb in den Docstring.
 
 ```python
-r = min(p.zell_r, min(p.zell_b, p.zell_h) / 2 - 0.1)   # knapp unter der halben Seite
+# größter baubarer Radius: knapp unter der halben Seite
+grenze = min(p.zell_b, p.zell_h) / 2 - 0.1
+r = min(p.zell_r, grenze)
 ```
 
-### Kein Fehler, aber ein falsches Teil
+### Stilles Versagen
 
 Zwei Aufrufe aus dem Rückblick laufen ohne Exception durch:
 
@@ -157,7 +164,7 @@ print(stapel.isValid(), len(stapel.Solids()))
 
 **Was meldet `isValid()`? Woran erkennen Sie, dass beide Ergebnisse falsch sind?**
 
-### Gültig heißt nicht richtig
+### Was `isValid()` prüft
 
 - `isValid()` prüft, ob die Topologie in sich stimmig ist. Ob ein Körper entstanden ist, prüft es nicht.
 - Auch der Loft ohne `cap=True` aus Einheit 6 liefert ein gültiges Shape ohne Volumen.
@@ -165,7 +172,7 @@ print(stapel.isValid(), len(stapel.Solids()))
 
 Nur eine Prüfung des Ergebnisses findet solche Fehler.
 
-### Der Guard: auf einen Körper bestehen
+### Ergebnisprüfung (Guard): auf einen Körper bestehen
 
 ```python
 def ein_solid(s: cf.Shape) -> cf.Solid:
@@ -176,7 +183,7 @@ def ein_solid(s: cf.Shape) -> cf.Solid:
 zelle = ein_solid(zelle_bauen(p))
 ```
 
-- Der Guard steht nach jedem Schritt, der genau einen Körper liefern soll.
+- Die Ergebnisprüfung steht nach jedem Schritt, der genau einen Körper liefern soll.
 - Er findet leere Booleans, offene Lofts und Teile, die in Stücke zerfallen.
 
 ### Warum ist die Bohrung länger als die Platte?
@@ -191,7 +198,7 @@ bohrung = cf.cylinder(d=p.zapfen_d, h=p.platten_t + 2).moved(cf.Location((0, 0, 
 
 ### Werkzeug überstehen lassen: `h + ε`
 
-![bg right:44% 95%](assets/h_plus_eps.svg)
+![bg right:30% 80%](assets/h_plus_eps.svg)
 
 - Liegen zwei Flächen genau aufeinander, entscheiden Rundungsfehler über das Ergebnis.
 - Möglich sind eine hauchdünne Restschicht oder ein fehlerhafter Körper.
@@ -212,13 +219,15 @@ Der Reiter *Clip* legt eine Schnittebene durch den Körper. So sehen Sie auch Fl
 ### Aufgabe 1: Die Ränder ausprobieren
 
 1. Kopieren Sie `w07/modul.py` nach `w08/modul.py`.
-2. Führen Sie die vier Aufrufe aus dem Rückblick aus. Notieren Sie jeweils: Exception (welche?), falsches Teil oder richtiges Teil. Stimmt Ihre Vorhersage?
+2. Schreiben Sie die vier Aufrufe aus dem Rückblick in den `__main__`-Block von `w08/modul.py` und führen Sie sie einzeln aus. Welche Meldung kommt bei den Exceptions? Wie sehen die beiden falschen Teile im Viewer aus?
 3. Gehen Sie `endplatten(replace(p, zapfen_d=200))` im Debugger Schritt für Schritt durch. In welcher Zeile verschwindet der Körper?
+
+*Hinweise:* Eine Exception beendet das Skript. Kommentieren Sie die anderen drei Aufrufe aus oder fangen Sie die Exception mit `try`/`except` ab.
 
 ### Aufgabe 2: Eingaben absichern
 
 1. Schreiben Sie `pruefe(p)`: Maße der Zelle, `platten_t` und `zell_r` müssen positiv sein, `n_zellen` mindestens 1, `spacer` nicht negativ. Rufen Sie `pruefe` am Anfang jeder Baufunktion auf.
-2. Passen Sie den Radius in `zelle_bauen` an, statt bei zu großem `zell_r` abzustürzen.
+2. Begrenzen Sie den Radius in `zelle_bauen`, sodass ein zu großes `zell_r` keine Exception mehr auslöst.
 3. Sichern Sie in `zelle_bauen` und für die untere Endplatte das Ergebnis mit `ein_solid` ab.
 4. Führen Sie die vier Aufrufe noch einmal aus. Was meldet jetzt `zapfen_d=200`?
 
@@ -226,9 +235,9 @@ Der Reiter *Clip* legt eine Schnittebene durch den Körper. So sehen Sie auch Fl
 
 ## Theorie B: `assert`, Naming Problem, Sweep
 
-### Wer ist schuld?
+### Programmfehler oder ungültige Eingabe?
 
-Bei `zapfen_d=200` schlägt jetzt der Guard an:
+Bei `zapfen_d=200` schlägt jetzt die Ergebnisprüfung an:
 
 ```text
 AssertionError: erwartet 1 Solid, erhalten 0
@@ -236,10 +245,10 @@ AssertionError: erwartet 1 Solid, erhalten 0
 
 **Ist das ein Fehler im Programm oder eine ungültige Eingabe? Wo sollte er gemeldet werden?**
 
-### Zwei Arten von Prüfungen
+### `raise` und `assert`
 
 - **`raise`** prüft Eingaben von außen. Die Prüfung ist immer aktiv.
-- **`assert`** prüft Annahmen im eigenen Code, die bei gültigen Eingaben nie brechen. `python -O` schaltet `assert` ab.
+- **`assert`** prüft Annahmen im eigenen Code, die bei gültigen Eingaben immer gelten. `python -O` schaltet `assert` ab.
 - Schlägt ein `assert` an, fehlt meist eine Eingabeprüfung oder der Code hat einen Fehler.
 
 ### Topological Naming Problem
@@ -260,21 +269,25 @@ print(teil.Edges()[13].geomType())
 
 **Was trifft der Fillet nach der Revision? Was passiert in Ihrem CAD-System mit einer Verrundung, wenn Sie davor im Baum ein Loch einfügen?**
 
-### Die Kante beschreiben, nicht abzählen
+### Derselbe Index nach der Revision
 
-![bg right:36% 98%](assets/naming_problem.svg)
+![w:1000](assets/naming_problem.svg)
 
-- Nach jeder Boolean-Operation baut der Kernel die Topologie neu auf und nummeriert die Kanten neu.
+Nach jeder Boolean-Operation baut der Kernel die Topologie neu auf und nummeriert die Kanten neu.
+
+### Kanten über Selektoren auswählen
+
 - Ein Selektor beschreibt die Kante durch Lage und Typ und findet sie nach jeder Änderung.
 
 ```python
-rand = teil.faces(">Z").edges("%CIRCLE")    # Kreiskanten der Deckfläche
+# Kreiskanten der Deckfläche
+rand = teil.faces(">Z").edges("%CIRCLE")
 rund = cf.fillet(teil, rand, 1.0)
 ```
 
 Der Selektor trifft jetzt beide Bohrungsränder. Ob das gewollt ist, entscheidet die Konstruktion.
 
-### Ein Sweep, der durchläuft
+### Parameterbereich abtasten: `ist_baubar`
 
 ```python
 def ist_baubar(p: ModulParam) -> bool:
@@ -291,13 +304,26 @@ for d in [16, 60, 100, 120, 200]:
 
 **Was meldet `ist_baubar`, wenn in `endplatten` ein Tippfehler steht, etwa `p.platen_t`?**
 
-### Erst testen, dann abtasten
+### Tests vor dem Sweep
 
 - `except Exception` fängt jeden Fehler ab, auch Fehler im eigenen Code.
 - Unittests aus Einheit 7 prüfen, ob der Code tut, was er soll.
 - `ist_baubar` prüft, für welche Parameter das Modell entsteht.
 
 Ein Sweep setzt deshalb Funktionen voraus, deren Tests grün sind.
+
+### Skripte, die Ihr Modul importieren: `-m`
+
+`w08/sweep.py` beginnt mit `from w08.modul import ModulParam, endplatten, zelle_bauen`.
+
+```bash
+uv run python w08/sweep.py     # ModuleNotFoundError: No module named 'w08'
+uv run python -m w08.sweep     # läuft
+```
+
+- Ohne `-m` sucht Python Importe im Ordner des Skripts, hier `w08/`.
+- Mit `-m` sucht Python im Projektordner und findet `w08/`, wie pytest in Einheit 7.
+- ▷ und F5 in VS Code starten ohne `-m`. Starten Sie solche Skripte im Terminal.
 
 ## Praktikum B: Naming Problem und Sweep
 
@@ -316,7 +342,7 @@ Ein Sweep setzt deshalb Funktionen voraus, deren Tests grün sind.
 3. Geben Sie die Ergebnisse als Tabelle aus: eine Zeile pro `zell_h`, eine Spalte pro `zapfen_d`. Stimmt die Grenze mit Ihrer Vorhersage?
 4. Ergänzen Sie `pruefe` um eine Bedingung für `zapfen_d`.
 
-*Hinweise:* zwei verschachtelte `for`-Schleifen, `replace(p, zell_h=h, zapfen_d=d)`, `print(..., end=" ")` schreibt ohne Zeilenumbruch
+*Hinweise:* zwei verschachtelte `for`-Schleifen, `replace(p, zell_h=h, zapfen_d=d)`, `print(..., end=" ")` schreibt ohne Zeilenumbruch. Start mit `uv run python -m w08.sweep`.
 
 ### Was hat der Sweep gezeigt?
 
@@ -344,11 +370,12 @@ def test_negative_platte():
 - **Eingaben zuerst:** `pruefe(p)` steht vor dem ersten Kernel-Aufruf.
 - **Anpassen nur bei Gestaltungsvorgaben,** alles andere wird abgelehnt.
 - **Werkzeug überstehen lassen:** Schnittflächen liegen nie genau aufeinander.
-- **Kanten beschreiben:** Selektoren statt Indizes.
-- **Ergebnis prüfen:** Anzahl der Solids und Volumen, nicht nur `isValid()`.
+- **Kanten beschreiben:** Kanten über Selektoren auswählen.
+- **Ergebnis prüfen:** Anzahl der Solids und Volumen kontrollieren.
 
 ### Leseauftrag & Ausblick
 
 - **Leseauftrag:** Buch Kapitel 5 und 8
+- **Vertiefung:** den Sweep als Test schreiben, mit `@pytest.mark.parametrize` über viele Parameter (Buch Kapitel 8)
 - **Nächste Woche:** Baugruppen: Das Modul wird eine Baugruppe aus getrennten Teilen, mit Stückliste und Lieferdateien.
 - Bis dahin: `w08/` und `tests/test_w08.py` committet und gepusht, Pipeline grün

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 530" width="400" height="530" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <rect width="400" height="530" fill="#ffffff"/>
+  <!-- Zellquerschnitt 148 x 98 mm, Maßstab 1,4 px/mm -->
+  <g transform="translate(96,46)">
+    <text x="104" y="-12" font-size="30" font-weight="600" text-anchor="middle" fill="#222">r = 48,9</text>
+    <rect x="0" y="0" width="207.2" height="137.2" rx="68.4" fill="#cfe0ef" stroke="#2b5d8a" stroke-width="3"/>
+    <text x="104" y="176" font-size="27" text-anchor="middle" fill="#444">knapp unter halber Höhe</text>
+  </g>
+  <g transform="translate(96,326)">
+    <text x="104" y="-40" font-size="30" font-weight="600" text-anchor="middle" fill="#222">r = 60</text>
+    <rect x="0" y="0" width="207.2" height="137.2" fill="none" stroke="#888" stroke-width="2.5" stroke-dasharray="7 5"/>
+    <circle cx="84" cy="84" r="84" fill="#d9534f" fill-opacity="0.15" stroke="#c0392b" stroke-width="3"/>
+    <circle cx="84" cy="53.2" r="84" fill="#d9534f" fill-opacity="0.15" stroke="#c0392b" stroke-width="3"/>
+    <text x="104" y="198" font-size="27" font-weight="600" text-anchor="middle" fill="#c0392b">2 × 60 &gt; 98: überlappt</text>
+  </g>
+</svg>
