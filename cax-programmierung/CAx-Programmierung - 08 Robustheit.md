@@ -27,6 +27,8 @@ David Straub
 
 ### Gliederung
 
+<style scoped>ol { columns: 2; }</style>
+
 1. Einführung
 2. Topologie
 3. Grundformen
@@ -34,10 +36,11 @@ David Straub
 5. Freiformgeometrie
 6. Profile
 7. Codequalität
-8. Datenaustausch
-9. **Robustheit**
-10. Simulation
-11. Optimierung
+8. **Robustheit**
+9. Baugruppen
+10. Fertigung
+11. Simulation
+12. Optimierung
 
 ## Robustheit
 
@@ -46,7 +49,7 @@ David Straub
 - **Kanten beschreiben:** Ein Selektor findet die Kante auch nach einer Änderung am Modell.
 - **Bereich abtasten:** Eine Schleife prüft viele Varianten, ohne beim ersten Fehler abzubrechen.
 
-*Durchgängiges Beispiel:* Ihr Modul aus Einheit 7 soll jeden Parametersatz überstehen. Das braucht die Optimierung in Einheit 11.
+*Durchgängiges Beispiel:* Ihr Modul aus Einheit 7 soll jeden Parametersatz überstehen. Das braucht die Optimierung in Einheit 12.
 
 ### Ausgangspunkt: der Modul-Code aus Einheit 7
 
@@ -82,7 +85,7 @@ zelle_bauen(replace(p, zell_r=49))
 - In einer Schleife über hundert Varianten stoppt eine einzige Exception den ganzen Lauf.
 - Ein falsches Teil ohne Exception fällt dort gar nicht auf.
 
-Ein Optimierer (Einheit 11) probiert Parameter aus, die niemand von Hand eingeben würde.
+Ein Optimierer (Einheit 12) probiert Parameter aus, die niemand von Hand eingeben würde.
 
 ## Theorie A: Eingaben und Ergebnisse prüfen
 
@@ -208,7 +211,7 @@ Der Reiter *Clip* legt eine Schnittebene durch den Körper. So sehen Sie auch Fl
 
 ### Aufgabe 1: Die Ränder ausprobieren
 
-1. Kopieren Sie `w07/modul.py` nach `w09/modul.py`.
+1. Kopieren Sie `w07/modul.py` nach `w08/modul.py`.
 2. Führen Sie die vier Aufrufe aus dem Rückblick aus. Notieren Sie jeweils: Exception (welche?), falsches Teil oder richtiges Teil. Stimmt Ihre Vorhersage?
 3. Gehen Sie `endplatten(replace(p, zapfen_d=200))` im Debugger Schritt für Schritt durch. In welcher Zeile verschwindet der Körper?
 
@@ -300,7 +303,7 @@ Ein Sweep setzt deshalb Funktionen voraus, deren Tests grün sind.
 
 ### Aufgabe 3: Das Naming Problem auslösen und beheben
 
-1. Bauen Sie in `w09/naming.py` die Platte mit Bohrung aus Theorie B. Unter welchem Index steht ein Rand der Bohrung?
+1. Bauen Sie in `w08/naming.py` die Platte mit Bohrung aus Theorie B. Unter welchem Index steht ein Rand der Bohrung?
 2. Fügen Sie das Zuganker-Loch hinzu. Zeigt derselbe Index noch auf den Bohrungsrand?
 3. Runden Sie die Bohrungsränder mit `faces(">Z").edges("%CIRCLE")`, mit und ohne Zuganker-Loch. Prüfen Sie beide Ergebnisse mit `isValid()`.
 
@@ -309,7 +312,7 @@ Ein Sweep setzt deshalb Funktionen voraus, deren Tests grün sind.
 ### Aufgabe 4: Den baubaren Bereich abtasten
 
 1. **Sagen Sie zuerst voraus:** Bis zu welchem `zapfen_d` entsteht eine brauchbare Endplatte? Wie hängt die Grenze von `zell_h` ab?
-2. Schreiben Sie `ist_baubar` in `w09/sweep.py`. Tasten Sie `zell_h` von 60 bis 100 mm (Schritt 10) und `zapfen_d` von 20 bis 140 mm (Schritt 20) ab.
+2. Schreiben Sie `ist_baubar` in `w08/sweep.py`. Tasten Sie `zell_h` von 60 bis 100 mm (Schritt 10) und `zapfen_d` von 20 bis 140 mm (Schritt 20) ab.
 3. Geben Sie die Ergebnisse als Tabelle aus: eine Zeile pro `zell_h`, eine Spalte pro `zapfen_d`. Stimmt die Grenze mit Ihrer Vorhersage?
 4. Ergänzen Sie `pruefe` um eine Bedingung für `zapfen_d`.
 
@@ -331,7 +334,7 @@ def test_negative_platte():
         endplatten(replace(ModulParam(), platten_t=-4))
 ```
 
-1. Schreiben Sie in `tests/test_w09.py` einen Test für jede Bedingung in `pruefe`.
+1. Schreiben Sie in `tests/test_w08.py` einen Test für jede Bedingung in `pruefe`.
 2. Schreiben Sie einen Test, dass `zell_r=60` eine gültige Zelle liefert.
 
 ## Abschluss
@@ -347,5 +350,5 @@ def test_negative_platte():
 ### Leseauftrag & Ausblick
 
 - **Leseauftrag:** Buch Kapitel 5 und 8
-- **Nächste Woche:** Simulation: Aus dem Solid wird ein FEM-Netz, die Endplatte unter dem Druck der Zellen.
-- Bis dahin: `w09/` und `tests/test_w09.py` committet und gepusht, Pipeline grün
+- **Nächste Woche:** Baugruppen: Das Modul wird eine Baugruppe aus getrennten Teilen, mit Stückliste und Lieferdateien.
+- Bis dahin: `w08/` und `tests/test_w08.py` committet und gepusht, Pipeline grün

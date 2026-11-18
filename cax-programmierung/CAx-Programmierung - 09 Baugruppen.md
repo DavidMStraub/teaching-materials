@@ -26,6 +26,8 @@ David Straub
 
 ### Gliederung
 
+<style scoped>ol { columns: 2; }</style>
+
 1. Einführung
 2. Topologie
 3. Grundformen
@@ -33,12 +35,13 @@ David Straub
 5. Freiformgeometrie
 6. Profile
 7. Codequalität
-8. **Datenaustausch**
-9. Robustheit
-10. Simulation
-11. Optimierung
+8. Robustheit
+9. **Baugruppen**
+10. Fertigung
+11. Simulation
+12. Optimierung
 
-## Datenaustausch
+## Baugruppen
 
 ![bg right:36% 90%](assets/cax08_modul.png)
 
@@ -134,18 +137,18 @@ print([c.name for c in pack.children])   # ['modul_0', 'modul_1']
 
 ### Skripte über Wochenordner hinweg: `-m`
 
-`w08/baugruppe.py` importiert Ihren Code aus Einheit 7:
+`w09/baugruppe.py` importiert Ihren Code aus Einheit 7:
 
 ```python
 from w07.modul import ModulParam, endplatten, zelle_bauen
 ```
 
 ```bash
-uv run python w08/baugruppe.py     # ModuleNotFoundError: No module named 'w07'
-uv run python -m w08.baugruppe     # läuft
+uv run python w09/baugruppe.py     # ModuleNotFoundError: No module named 'w07'
+uv run python -m w09.baugruppe     # läuft
 ```
 
-- Ohne `-m` sucht Python Importe im Ordner des Skripts, hier `w08/`.
+- Ohne `-m` sucht Python Importe im Ordner des Skripts, hier `w09/`.
 - Mit `-m` sucht Python im Projektordner und findet `w07/`, wie pytest in Einheit 7.
 - ▷ in VS Code startet ohne `-m`. Starten Sie ab heute im Terminal.
 
@@ -172,15 +175,15 @@ uv run python -m w08.baugruppe     # läuft
 
 1. **STEP:** Der Zulieferer braucht die exakte Geometrie.
 2. **STL:** Der Drucker arbeitet mit Dreiecken.
-3. **STEP:** Das FEM-Programm vernetzt selbst, aus der exakten Geometrie. Ein STL-Netz beschreibt nur die Oberfläche (Einheit 10).
+3. **STEP:** Das FEM-Programm vernetzt selbst, aus der exakten Geometrie. Ein STL-Netz beschreibt nur die Oberfläche (Einheit 11).
 4. **BREP:** schnell und verlustfrei, für den Eigenbedarf
 
 ### STEP: hin und zurück
 
 ```python
-assy.export("w08/pouch_modul.step")              # das Format folgt aus der Endung
+assy.export("w09/pouch_modul.step")              # das Format folgt aus der Endung
 
-zurueck = cq.Assembly.load("w08/pouch_modul.step")
+zurueck = cq.Assembly.load("w09/pouch_modul.step")
 for kind in zurueck.children:
     print(kind.name, kind.loc.toTuple(), kind.color.toTuple(), kind.metadata)
 ```
@@ -193,7 +196,7 @@ for kind in zurueck.children:
 
 ### Aufgabe 1: Das Modul als Baugruppe
 
-Legen Sie `w08/baugruppe.py` an:
+Legen Sie `w09/baugruppe.py` an:
 
 1. `grundplatte()` mit Ihrer Grundplatte aus Einheit 3, Unterseite bei z = 0.
 2. `modul(p)` mit Grundplatte, unterer und oberer Endplatte und zwölf Zellen. Jedes Teil hat einen Namen, eine Farbe und `metadata` mit `"teil"` und `"material"` (`"alu"`, `"stahl"`, `"kaufteil"`).
@@ -201,11 +204,11 @@ Legen Sie `w08/baugruppe.py` an:
 
 *Prüfen:* `len(assy.children)` ist 15. Im Viewer zeigt der Reiter *Tree* alle Teile mit Namen. *Explode* zieht die Baugruppe auseinander, *Distance* misst den Abstand zweier Zellen.
 
-*Hinweise:* `unten, oben = endplatten(p).Solids()` verteilt die beiden Platten auf zwei Namen. Start mit `uv run python -m w08.baugruppe`. Farbnamen sind z. B. `"gray"`, `"gray40"`, `"steelblue"`.
+*Hinweise:* `unten, oben = endplatten(p).Solids()` verteilt die beiden Platten auf zwei Namen. Start mit `uv run python -m w09.baugruppe`. Farbnamen sind z. B. `"gray"`, `"gray40"`, `"steelblue"`.
 
 ### Aufgabe 2: Der STEP-Rundlauf
 
-1. Exportieren Sie die Baugruppe nach `w08/pouch_modul.step`.
+1. Exportieren Sie die Baugruppe nach `w09/pouch_modul.step`.
 2. Laden Sie die Datei mit `cq.Assembly.load` und geben Sie für die ersten drei Teile Name, Lage, Volumen und `metadata` aus. Stimmt Ihre Vorhersage?
 3. *Optional:* Öffnen Sie die Datei in FreeCAD (freecad.org). Erscheinen Baum, Namen und Farben?
 
@@ -249,7 +252,7 @@ def masse(teil: cq.Assembly) -> float:
 - **Eigenfertigung:** Volumen aus dem Modell mal Dichte
 - **Kaufteil:** Masse aus dem Datenblatt. Die modellierte Zelle ist nur die Hülle.
 
-Die Masse des Moduls brauchen Sie in Einheit 11 für die Energiedichte in Wh/kg.
+Die Masse des Moduls brauchen Sie in Einheit 12 für die Energiedichte in Wh/kg.
 
 ### Release: alle Lieferdateien aus einem Aufruf
 
@@ -269,7 +272,7 @@ Aus einem Parametersatz entstehen Dateien, die zueinander passen. Eine neue Vari
 ### Was die Pipeline nicht prüft
 
 ```python
-release(ModulParam(zapfen_d=12.0), "w08/release_zapfen12")
+release(ModulParam(zapfen_d=12.0), "w09/release_zapfen12")
 ```
 
 Der Aufruf läuft ohne Fehler durch. STEP, STL und Stückliste sind vollständig.
@@ -288,7 +291,7 @@ Ob die Teile zusammenpassen, prüft keiner dieser Schritte. Das leistet ein Test
 
 ### Aufgabe 3: Die Stückliste
 
-Schreiben Sie in `w08/release.py` eine Funktion `schreibe_bom(assy, pfad)`. Sie schreibt eine CSV-Datei mit einer Zeile je Teil: `teil`, `anzahl`, `masse_kg` je Stück und `gesamt_kg`.
+Schreiben Sie in `w09/release.py` eine Funktion `schreibe_bom(assy, pfad)`. Sie schreibt eine CSV-Datei mit einer Zeile je Teil: `teil`, `anzahl`, `masse_kg` je Stück und `gesamt_kg`.
 
 ```python
 with open(pfad, "w", newline="") as datei:     # schließt die Datei am Blockende
@@ -311,8 +314,8 @@ with open(pfad, "w", newline="") as datei:     # schließt die Datei am Blockend
 ### Aufgabe 5: Was die Pipeline nicht prüft
 
 1. Erzeugen Sie Releases für `zapfen_d=12.0` und für `zapfen_d=None`. Läuft beides durch?
-2. Welche Teile lesen `zapfen_d`, welche nicht? Suchen Sie im Code aus Einheit 7 und 8.
-3. Schreiben Sie in `tests/test_w08.py` einen Test: Grundplatte und untere Endplatte durchdringen sich nicht, für `zapfen_d` gleich 16, 12 und `None`.
+2. Welche Teile lesen `zapfen_d`, welche nicht? Suchen Sie im Code aus Einheit 7 und 9.
+3. Schreiben Sie in `tests/test_w09.py` einen Test: Grundplatte und untere Endplatte durchdringen sich nicht, für `zapfen_d` gleich 16, 12 und `None`.
 4. Beheben Sie die Ursache, bis der Test für alle drei Werte grün ist.
 
 *Hinweise:* `assy.objects["grundplatte"]` liefert das Teil mit diesem Namen. Seine Geometrie an ihrem Platz ist `teil.obj.moved(teil.loc)`, vorher verengen wie in Aufgabe 2.
@@ -346,5 +349,5 @@ Bauen Sie `pack(p)` aus zwei Modulen und schreiben Sie die Stückliste mit Ihrer
 
 - **Leseauftrag:** Buch Kapitel 9
 - **Wer mehr will:** der geometrische Vergleich zweier Revisionen aus Kapitel 9, `(a - b) + (b - a)`
-- **Nächste Woche:** Robustheit: wenn Parameter das Modell sprengen
-- Bis dahin: die Skripte in `w08/` und `tests/test_w08.py` committet und gepusht, Pipeline grün
+- **Nächste Woche:** Fertigung: vom Modell zum gedruckten und gefrästen Teil
+- Bis dahin: die Skripte in `w09/` und `tests/test_w09.py` committet und gepusht, Pipeline grün
