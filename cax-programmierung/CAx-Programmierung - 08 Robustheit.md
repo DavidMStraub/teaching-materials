@@ -69,6 +69,8 @@ Die Funktionen sind der Stand aus Einheit 7, ohne Änderungen.
 
 ### Rückblick: Was passiert an den Rändern?
 
+![bg right:33% 92%](assets/modul_parameter.svg)
+
 Bisher haben Sie das Modul nur mit sinnvollen Maßen gebaut.
 
 ```python
@@ -78,9 +80,9 @@ endplatten(replace(p, zapfen_d=200))
 zelle_bauen(replace(p, zell_r=49))
 ```
 
-Standardwerte: `platten_t = 8`, `zell_b = 148`, `zell_h = 98`, `zell_r = 6`, `zapfen_d = 16`, die Endplatte misst 160 × 110 mm.
-
 **Was passiert bei jedem Aufruf: eine Exception, ein falsches Teil oder ein richtiges Teil?**
+
+Notieren Sie Ihre Vorhersage. In Aufgabe 1 führen Sie die Aufrufe aus und prüfen sie.
 
 ### Von Hand und in der Schleife
 
@@ -122,17 +124,17 @@ pruefe(replace(p, platten_t=-4))
 ```
 
 - Jede Baufunktion ruft `pruefe(p)` in ihrer ersten Zeile auf.
-- Die Meldung nennt Parameter und Wert. `Standard_DomainError` aus OCCT nennt keins von beiden.
+- Die Meldung nennt den Parameter und seinen Wert.
 
 ### Ablehnen oder anpassen?
 
 Ein Parameter liegt außerhalb des baubaren Bereichs. Die Funktion kann ihn ablehnen (`raise`) oder auf den nächsten baubaren Wert setzen.
 
-| Parameter | ablehnen oder anpassen? |
-|---|---|
-| `platten_t = -4` | |
-| `n_zellen = 0` | |
-| `zell_r = 60` bei `zell_h = 98` | |
+| Parameter | Bedeutung | ablehnen oder anpassen? |
+|---|---|---|
+| `platten_t = -4` | Dicke der Endplatten in mm | |
+| `n_zellen = 0` | Anzahl der Zellen im Stapel | |
+| `zell_r = 60` | Eckradius der Zelle 148 × 98 mm; 2 × 60 > 98 | |
 
 **Welche Werte darf die Funktion anpassen, welche muss sie ablehnen? Wer bemerkt eine Anpassung?**
 

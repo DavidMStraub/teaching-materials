@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 760" width="460" height="760" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <rect width="460" height="760" fill="#ffffff"/>
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto-start-reverse">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Draufsicht, Maßstab 1,7 px/mm -->
+  <text x="256" y="52" text-anchor="middle" fill="#333" font-size="26" font-weight="600">Endplatte 160 × 110</text>
+  <rect x="120" y="80" width="272" height="187" fill="#eef1f4" stroke="#333" stroke-width="3"/>
+  <rect x="130" y="90" width="252" height="167" rx="12" fill="none" stroke="#1f6fc4" stroke-width="3" stroke-dasharray="8 5"/>
+  <circle cx="256" cy="173" r="14" fill="#ffffff" stroke="#333" stroke-width="3"/>
+  <text x="256" y="226" text-anchor="middle" fill="#1f6fc4" font-size="24">zapfen_d = 16</text>
+  <line x1="190" y1="128" x2="137" y2="97" stroke="#1f6fc4" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="196" y="138" fill="#1f6fc4" font-size="24">zell_r = 6</text>
+  <!-- Maß zell_b -->
+  <line x1="130" y1="292" x2="382" y2="292" stroke="#333" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+  <text x="256" y="328" text-anchor="middle" fill="#1f6fc4" font-size="26">zell_b = 148</text>
+  <!-- Maß zell_h -->
+  <line x1="100" y1="90" x2="100" y2="257" stroke="#333" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+  <text transform="translate(80,173) rotate(-90)" text-anchor="middle" fill="#1f6fc4" font-size="26">zell_h = 98</text>
+
+  <line x1="30" y1="365" x2="430" y2="365" stroke="#ddd" stroke-width="2"/>
+
+  <!-- Seitenansicht -->
+  <text x="256" y="420" text-anchor="middle" fill="#1f6fc4" font-size="26">platten_t = 8</text>
+  <line x1="256" y1="428" x2="256" y2="448" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="120" y="452" width="272" height="16" fill="#eef1f4" stroke="#333" stroke-width="3"/>
+  <g fill="#cfe0ef" stroke="#2b5d8a" stroke-width="2">
+    <rect x="130" y="471" width="252" height="17" rx="3"/>
+    <rect x="130" y="491" width="252" height="17" rx="3"/>
+    <rect x="130" y="511" width="252" height="17" rx="3"/>
+    <rect x="130" y="531" width="252" height="17" rx="3"/>
+    <rect x="130" y="551" width="252" height="17" rx="3"/>
+    <rect x="130" y="571" width="252" height="17" rx="3"/>
+    <rect x="130" y="591" width="252" height="17" rx="3"/>
+    <rect x="130" y="611" width="252" height="17" rx="3"/>
+    <rect x="130" y="631" width="252" height="17" rx="3"/>
+    <rect x="130" y="651" width="252" height="17" rx="3"/>
+    <rect x="130" y="671" width="252" height="17" rx="3"/>
+    <rect x="130" y="691" width="252" height="17" rx="3"/>
+  </g>
+  <rect x="120" y="711" width="272" height="16" fill="#eef1f4" stroke="#333" stroke-width="3"/>
+  <!-- Klammer n_zellen -->
+  <path d="M112,471 L102,471 L102,708 L112,708" fill="none" stroke="#333" stroke-width="2.5"/>
+  <text transform="translate(80,590) rotate(-90)" text-anchor="middle" fill="#1f6fc4" font-size="26">n_zellen = 12</text>
+</svg>
