@@ -211,18 +211,6 @@ e) Welcher Strom genügt im angezogenen Zustand für dieselbe Kraft $F_1$?
 
 ![bg right:30% 95%](img/magnetkreis.svg)
 
-### Induktivität in Basiseinheiten
-
-| Größe | Formelzeichen | Einheit | Basiseinheiten |
-|---|---|---|---|
-| Spannung | $U$ | V | $\frac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^3}$ |
-| Widerstand | $R$ | Ω | $\frac{\text{kg} \cdot \text{m}^2}{\text{A}^2 \cdot \text{s}^3}$ |
-| Magn. Fluss | $\Phi$ | Wb | $\frac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^2}$ |
-| Magn. Widerstand | $R_m$ | 1/H | $\frac{\text{A}^2 \cdot \text{s}^2}{\text{kg} \cdot \text{m}^2}$ |
-| **Induktivität** | $L$ | H | $\frac{\text{kg} \cdot \text{m}^2}{\text{A}^2 \cdot \text{s}^2}$ |
-
-Aus $U = L \frac{dI}{dt}$: $[L] = \frac{[U] \cdot [t]}{[I]}$
-
 ### Zusammenfassung
 
 - Selbstinduktion: $L = \frac{N^2}{R_m}$, Einheit Henry

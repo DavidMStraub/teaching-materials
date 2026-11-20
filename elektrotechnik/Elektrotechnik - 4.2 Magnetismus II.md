@@ -17,6 +17,165 @@ David Straub
 1. Magnetisches Feld
 2. Kräfte im magnetischen Feld
 3. Magnetische Feldgrößen und Durchflutungsgesetz
+4. **Materie im Magnetfeld**
+5. **Der magnetische Kreis**
+6. **Kraft am Luftspalt**
+
+### Wiederholung: Durchflutungsgesetz
+
+$$\oint \vec{H} \cdot d\vec{s} = \Theta = \sum I_\text{umschlossen}$$
+
+Die Ströme zählen mit Richtung, eine Spule mit $N$ Windungen zählt $N$-mal.
+
+**Lange Spule:** Nur das Wegstück im Inneren trägt bei:
+
+$$H \cdot \ell = N \cdot I \quad\Rightarrow\quad H = \frac{N \cdot I}{\ell}, \qquad B = \mu_0 H$$
+
+**Aufgabe 11b:** Für $B = 1 \, \text{T}$ in Luft bräuchte man rund $2 \cdot 10^5$ Windungen.
+
+![bg 95% right:40%](img/spule.svg)
+
+### Wiederholung: Größen der Magnetostatik
+
+Größe | Definition | Einheit
+--- | --- | ---
+Magnetische Flussdichte (*magnetic flux density*) | $\vec{B}$ | $[\vec{B}] = \text{T} = \frac{\text{N}}{\text{A} \cdot \text{m}}$
+Magnetische Feldstärke (*magnetic field [strength]*) | Vakuum: $\vec{H} = \frac{\vec{B}}{\mu_0}$ | $[\vec{H}] = \frac{\text{A}}{\text{m}}$
+Magnetischer Fluss (*magnetic flux*) | $\Phi = \int_A \vec{B} \cdot d\vec{A}$ | $[\Phi] = \text{Vs} = \text{Wb}$
+Durchflutung (*magnetomotive force*) | $\Theta = N \cdot I = \oint \vec{H} \cdot d\vec{s}$ | $[\Theta] = \text{A}$
+Magnetische Feldkonstante | $\mu_0$ | $[\mu_0] = \frac{\text{N}}{\text{A}^2}$
+
+### 🗳️ Gestreckte Spule
+
+Eine lange Spule wird auf die **doppelte Länge** auseinandergezogen. Windungszahl und Strom bleiben gleich.
+
+Was passiert mit $H$ im Inneren?
+
+A) verdoppelt sich
+
+B) bleibt gleich
+
+C) halbiert sich
+
+D) sinkt auf ein Viertel
+
+![bg 95% right:40%](img/spule.svg)
+
+### Magnetfeld in Materie
+
+Die Elektronen der Atome sind winzige Magnete. Ein äußeres Feld ordnet sie, und ihr gemeinsames Feld (**Magnetisierung**) überlagert sich dem Feld der Ströme. Füllt ein Material eine lange Spule oder einen Ringkern vollständig aus, gilt mit der Permeabilitätszahl $\mu_r$:
+
+$$B_\text{Materie} = \mu_r \cdot B_\text{Vakuum}$$
+
+| Klasse | $\mu_r$ | Ursache | Beispiele |
+|---|---|---|---|
+| dia&shy;magnetisch | knapp unter 1 | schwaches Gegenfeld der Elektronen | Kupfer, Wasser |
+| para&shy;magnetisch | knapp über 1 | atomare Magnete richten sich teilweise aus | Aluminium, Luft |
+| ferro&shy;magnetisch | $10^2$ bis $10^5$, **nicht konstant** | ganze Bereiche (Weiss’sche Bezirke) richten sich aus | Eisen, Nickel, Kobalt |
+
+Für die Technik verhalten sich Dia- und Paramagnete wie Luft. Ferromagnete bündeln den Fluss: Daraus baut man Kerne (Elektroblech in Motor und Trafo) und Permanentmagnete (NdFeB in Synchronmotoren von E-Autos und Drohnen).
+
+### Magnetische Feldstärke in Materie
+
+**Konvention:** $\vec{H}$ bezieht sich immer auf das Feld der *freien* Ströme, also der Ströme in den Leitern. Die Magnetisierung des Materials steckt nur in $\vec{B}$:
+
+$$\vec{B} = \mu_0 \mu_r \vec{H} = \mu \vec{H}, \qquad \mu = \mu_0 \mu_r$$
+
+Vorteil: Das Durchflutungsgesetz gilt unverändert, wenn man nur die freien Ströme zählt:
+
+$$\oint \vec{H} \cdot d\vec{s} = \Theta = \sum I_\text{frei}$$
+
+In Spule und Ringkern bestimmen deshalb die Ströme $H$, und das Material bestimmt, welches $B$ daraus wird. Mit Eisenkern wird $B$ um ein Vielfaches größer: Elektromagnet, Relais, Magnetventil (z.B. Einspritzventil).
+
+### Eisen führt den Fluss
+
+Jeder geschlossene Weg um die Wicklung umfasst dieselbe Durchflutung $\Theta = N I$. Bei ähnlicher Weglänge ist $H$ also ähnlich groß, im Eisen wie in der Luft.
+
+Wegen $B = \mu_0 \mu_r H$ ist $B$ im Eisen $\mu_r$-mal so groß wie in der Luft, also auch der Fluss $\Phi = \int_A \vec{B} \cdot d\vec{A}$ durch den Querschnitt.
+
+- $\mu_r = 1000$: Fast der ganze Fluss läuft im Eisen.
+- Luft sperrt den Fluss nicht: Ein kleiner Rest geht als **Streufluss** durch die Luft.
+
+![bg right:36% 92%](img/eisen-fuehrt-fluss.svg)
+
+### Weiches Eisen: Magnetisierungskurve
+
+Im Eisen hängt $B$ nicht linear von $H$ ab. Man liest $B$ aus der **Magnetisierungskurve** $B(H)$ des Werkstoffs ab.
+
+- Steiler Anstieg: $\mu_r$ sehr groß
+- Ab etwa 1,4 T Sättigung: $\mu_r$ sinkt stark
+- $\mu_r = \dfrac{B}{\mu_0 H}$ gilt nur im jeweiligen Arbeitspunkt
+
+**Anwendung:** Elektromotoren werden auf etwa 1,5 T ausgelegt. Mehr Strom bringt dann kaum mehr Kraft, nur mehr Wärme.
+
+![bg 90% right:45%](img/magnetisierungskurve.svg)
+
+### 🗳️ Doppelter Strom im Eisenkern
+
+Eine Spule mit Eisenkern arbeitet bei $H = 800 \, \text{A/m}$, also $B \approx 1{,}4 \, \text{T}$. Der Spulenstrom wird **verdoppelt**.
+
+Was passiert mit $B$?
+
+A) $B$ verdoppelt sich
+
+B) $B$ steigt, aber deutlich weniger als doppelt
+
+C) $B$ bleibt exakt gleich
+
+D) $B$ steigt auf mehr als das Doppelte
+
+### Ferromagnete: Hysterese
+
+Genauer betrachtet hängt $B$ auch von der *Vorgeschichte* ab:
+
+- **Sättigung** (1): mehr Strom bringt kaum noch mehr $B$
+- **Remanenz** $B_r$ (2): Flussdichte, die nach Abschalten des Stroms bleibt
+- **Koerzitivfeldstärke** $H_c$ (3): Gegenfeldstärke, bei der die Flussdichte verschwindet
+
+**Weichmagnetisch** (schmale Schleife, praktisch eine Kurve): Trafo- und Motorkerne, Elektromagnete. Jeder Umlauf kostet Energie (Ummagnetisierungsverluste), die Motor und Trafo erwärmt.
+**Hartmagnetisch** (breite Schleife): Permanentmagnete
+
+![bg right:40% 98%](img/hysterese.svg)
+
+### 🗳️ Aluminium oder Stahl?
+
+Ein Elektromagnet soll in einer Recyclinganlage Metallteile sortieren.
+
+Welche Platten kann er anheben?
+
+A) Aluminium und Stahl
+
+B) nur Stahl
+
+C) nur Aluminium
+
+D) keine von beiden
+
+![bg right:35% 90%](img/hubmagnet.svg)
+
+### 📝 Aufgabe 12a: Hysterese
+
+Lesen Sie aus den Hysteresekurven rechts ab: Welche Größe muss ein Material für einen guten *Permanentmagneten* besitzen – und welche für einen guten *Transformatorkern*? Welches Material eignet sich jeweils?
+
+![bg right:40% 88%](img/hysterese-vergleich.svg)
+
+### 📝 Aufgabe 12b: Ringkern
+
+Ein Ringkern aus Elektroblech (mittlere Feldlinienlänge $\ell = 20 \, \text{cm}$) trägt $N = 200$ Windungen. Bestimmen Sie $H$, $B$ und $\mu_r$ für $I = 0{,}8 \, \text{A}$ und $I = 1{,}6 \, \text{A}$.
+
+Magnetisierungskurve des Elektroblechs:
+
+| $H$ in A/m | 400 | 800 | 1600 |
+|---|---|---|---|
+| $B$ in T | 1,25 | 1,40 | 1,45 |
+
+![bg right:38% 85%](img/ringkern.svg)
+
+## 4. Magnetismus
+
+1. Magnetisches Feld
+2. Kräfte im magnetischen Feld
+3. Magnetische Feldgrößen und Durchflutungsgesetz
 4. Materie im Magnetfeld
 5. **Der magnetische Kreis**
 6. **Kraft am Luftspalt**
@@ -27,7 +186,7 @@ David Straub
 
 **Anwendungen:** Elektromotoren, Generatoren, Transformatoren, induktives Laden, Relais, Hubmagnete, Sensoren
 
-Das genaue Feld liefert nur eine 3D-Simulation (FEM). Führt das Eisen den Fluss, genügt ein **eindimensionales Modell**, das man rechnet wie ein Widerstandsnetzwerk.
+Das genaue Feld liefert nur eine 3D-Simulation (FEM). Weil das Eisen den Fluss führt, genügt ein **eindimensionales Modell**, das man rechnet wie ein Widerstandsnetzwerk.
 
 ![bg right:35% 90%](img/magnetkreis.svg)
 
@@ -66,29 +225,27 @@ Das ist das **„Ohmsche Gesetz“ des magnetischen Kreises**, mit $[R_m] = \fra
 **Grenzen der Analogie:**
 
 - Im Eisen hängt $\mu_r$ von der Aussteuerung ab (Magnetisierungskurve). $R_m$ ist nur unterhalb der Sättigung näherungsweise konstant.
-- Streufluss neben dem Eisen und das Randfeld am Luftspalt (Bild) vernachlässigt das Modell.
+- Streufluss neben dem Eisen und das Aufweiten des Feldes am Luftspalt (Randfeld) vernachlässigt das Modell.
 
-![bg right:30% 95%](https://upload.wikimedia.org/wikipedia/commons/d/d0/Electromagnet_with_gap.svg)
+### Reihenschaltung: das Ersatzschaltbild
 
-### Reihen- und Parallelschaltung magnetischer Widerstände
+Die Durchflutung $\Theta = N I$ wirkt wie eine Quelle, jeder Abschnitt wie ein Widerstand. Eisen und Luftspalt liegen im selben Flusspfad, derselbe Fluss $\Phi$ durchsetzt beide:
 
-**Reihenschaltung** (verschiedene Abschnitte im selben Flusspfad: Eisen, Luftspalt, …):
+$$R_{m,\text{ges}} = R_{m,\text{Fe}} + R_{m,L}, \qquad \Phi = \frac{\Theta}{R_{m,\text{ges}}}$$
 
-$$R_{m,\text{ges}} = R_{m,1} + R_{m,2} + \ldots$$
+![w:700](img/magnetkreis-esb.svg)
 
-Der gleiche Fluss $\Phi$ durchsetzt alle Abschnitte (wie der Strom in der Reihenschaltung).
+### Parallelschaltung: der Fluss verzweigt sich
 
-**Parallelschaltung** (der Fluss verzweigt sich auf mehrere Schenkel):
+Beim Mantelkern teilt sich der Fluss des Mittelschenkels auf die beiden Außenschenkel auf.
 
-$$\frac{1}{R_{m,\text{ges}}} = \frac{1}{R_{m,1}} + \frac{1}{R_{m,2}} + \ldots$$
+- „Knotenregel“: $\Phi = \Phi_1 + \Phi_2$
+- Außenschenkel parallel: $\frac{1}{R_{m,12}} = \frac{1}{R_{m,1}} + \frac{1}{R_{m,2}}$
+- Mittelschenkel in Reihe dazu: $R_{m,\text{ges}} = R_{m,M} + R_{m,12}$
 
-Am Verzweigungspunkt gilt die „Knotenregel“: $\sum_k \Phi_k = 0$.
+**Anwendung:** Transformatoren und Drosseln mit Mantelkern
 
-### Vom Magnetkreis zum Ersatzschaltbild
-
-Durchflutung $\Theta = N I$ wirkt wie eine Quelle, jeder Abschnitt wie ein Widerstand – **magnetische Ersatzschaltbilder zeichnet man wie Stromkreise**.
-
-![w:880](img/magnetkreis-esb.svg)
+![bg right:40% 74%](img/mantelkern-esb.svg)
 
 ### Praxisbeispiel: Elektromagnet mit Luftspalt
 
@@ -170,22 +327,9 @@ d) Kann der Magnet auch Aluminiumplatten anheben? (Begründung!)
 
 ![bg right:30% 95%](img/hubmagnet.svg)
 
-### Magnetische Größen in Basiseinheiten
-
-| Größe | Formelzeichen | Einheit | Basiseinheiten |
-|---|---|---|---|
-| Ladung | $Q$ | C | $\text{A} \cdot \text{s}$ |
-| Spannung | $U$ | V | $\frac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^3}$ |
-| Kapazität | $C$ | F | $\frac{\text{A}^2 \cdot \text{s}^4}{\text{kg} \cdot \text{m}^2}$ |
-| Widerstand | $R$ | Ω | $\frac{\text{kg} \cdot \text{m}^2}{\text{A}^2 \cdot \text{s}^3}$ |
-| **Magn. Flussdichte** | $B$ | T | $\frac{\text{kg}}{\text{A} \cdot \text{s}^2}$ |
-| **Magn. Fluss** | $\Phi$ | Wb | $\frac{\text{kg} \cdot \text{m}^2}{\text{A} \cdot \text{s}^2}$ |
-| **Magn. Widerstand** | $R_m$ | A/Wb | $\frac{\text{A}^2 \cdot \text{s}^2}{\text{kg} \cdot \text{m}^2}$ |
-
-Aus $F = I \ell B$: $[B] = \frac{[F]}{[I] \cdot [\ell]}$, außerdem $[\Phi] = [B] \cdot [A]$ und $[R_m] = \frac{[\Theta]}{[\Phi]}$
-
 ### Zusammenfassung
 
+- **Materie:** $B = \mu_0 \mu_r H$; Ferromagnete sättigen ab etwa 1,4 T und zeigen Hysterese
 - **Magnetischer Kreis:** $\Theta = R_m \Phi$ mit $R_m = \frac{\ell}{\mu_0 \mu_r A}$, gerechnet wie ein Stromkreis
 - Reihen- und Parallelschaltung, Knotenregel und Ersatzschaltbild wie im elektrischen Netzwerk
 - Gültig, solange das Eisen nicht sättigt

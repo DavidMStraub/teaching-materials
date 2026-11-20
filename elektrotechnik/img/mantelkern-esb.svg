@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 10 380 640" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="mPhi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="mArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="mI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Mantelkern ===== -->
+  <g transform="translate(20,0)">
+    <rect x="40" y="70" width="260" height="220" fill="none" stroke="#9ca3af" stroke-width="20"/>
+    <line x1="170" y1="70" x2="170" y2="290" stroke="#9ca3af" stroke-width="20"/>
+
+    <g stroke="#111827" stroke-width="2.5" fill="none">
+      <path d="M 143,130 A 27,9 0 0 0 197,130"/>
+      <path d="M 143,162 A 27,9 0 0 0 197,162"/>
+      <path d="M 143,194 A 27,9 0 0 0 197,194"/>
+      <path d="M 143,226 A 27,9 0 0 0 197,226"/>
+    </g>
+    <g stroke="#111827" stroke-width="2" fill="none" stroke-dasharray="4 4" opacity="0.55">
+      <line x1="197" y1="130" x2="143" y2="162"/>
+      <line x1="197" y1="162" x2="143" y2="194"/>
+      <line x1="197" y1="194" x2="143" y2="226"/>
+      <line x1="197" y1="226" x2="143" y2="258"/>
+    </g>
+    <g stroke="#111827" stroke-width="2.5" fill="none">
+      <line x1="143" y1="130" x2="112" y2="112"/>
+      <line x1="143" y1="258" x2="112" y2="276"/>
+    </g>
+    <line x1="88" y1="98" x2="124" y2="119" stroke="#111827" stroke-width="3" marker-end="url(#mI)"/>
+    <text x="78" y="100" fill="#111827" font-size="26" font-style="italic">I</text>
+
+    <line x1="216" y1="285" x2="216" y2="240" stroke="#2563eb" stroke-width="3.5" marker-end="url(#mPhi)"/>
+    <text x="226" y="272" fill="#2563eb" font-size="26" font-style="italic">&#934;</text>
+    <line x1="150" y1="42" x2="86" y2="42" stroke="#2563eb" stroke-width="3.5" marker-end="url(#mPhi)"/>
+    <text x="100" y="32" fill="#2563eb" font-size="26" font-style="italic">&#934;<tspan font-size="18" dy="6">1</tspan></text>
+    <line x1="190" y1="42" x2="254" y2="42" stroke="#2563eb" stroke-width="3.5" marker-end="url(#mPhi)"/>
+    <text x="212" y="32" fill="#2563eb" font-size="26" font-style="italic">&#934;<tspan font-size="18" dy="6">2</tspan></text>
+  </g>
+
+  <!-- „entspricht" -->
+  <line x1="190" y1="320" x2="190" y2="362" stroke="#6b7280" stroke-width="3.5" marker-end="url(#mArr)"/>
+
+  <!-- ===== Ersatzschaltbild ===== -->
+  <g stroke="#111827" stroke-width="2.5" fill="none">
+    <line x1="50" y1="420" x2="50" y2="498"/>
+    <circle cx="50" cy="520" r="22"/>
+    <line x1="50" y1="498" x2="50" y2="542"/>
+    <line x1="50" y1="542" x2="50" y2="620"/>
+    <line x1="50" y1="420" x2="90" y2="420"/>
+    <rect x="90" y="408" width="56" height="24" fill="#fff"/>
+    <line x1="146" y1="420" x2="320" y2="420"/>
+    <line x1="210" y1="420" x2="210" y2="492"/>
+    <rect x="198" y="492" width="24" height="56" fill="#fff"/>
+    <line x1="210" y1="548" x2="210" y2="620"/>
+    <line x1="320" y1="420" x2="320" y2="492"/>
+    <rect x="308" y="492" width="24" height="56" fill="#fff"/>
+    <line x1="320" y1="548" x2="320" y2="620"/>
+    <line x1="50" y1="620" x2="320" y2="620"/>
+  </g>
+  <circle cx="210" cy="420" r="4.5" fill="#111827"/>
+  <circle cx="210" cy="620" r="4.5" fill="#111827"/>
+
+  <text x="20" y="529" fill="#111827" font-size="26" font-style="italic" text-anchor="end">&#920;</text>
+  <text x="118" y="396" fill="#111827" font-size="24" font-style="italic" text-anchor="middle">R<tspan font-size="17" dy="6">m,M</tspan></text>
+  <text x="190" y="528" fill="#111827" font-size="24" font-style="italic" text-anchor="end">R<tspan font-size="17" dy="6">m,1</tspan></text>
+  <text x="300" y="528" fill="#111827" font-size="24" font-style="italic" text-anchor="end">R<tspan font-size="17" dy="6">m,2</tspan></text>
+
+  <line x1="230" y1="436" x2="230" y2="476" stroke="#2563eb" stroke-width="3" marker-end="url(#mPhi)"/>
+  <text x="238" y="466" fill="#2563eb" font-size="24" font-style="italic">&#934;<tspan font-size="17" dy="6">1</tspan></text>
+  <line x1="340" y1="436" x2="340" y2="476" stroke="#2563eb" stroke-width="3" marker-end="url(#mPhi)"/>
+  <text x="346" y="466" fill="#2563eb" font-size="24" font-style="italic">&#934;<tspan font-size="17" dy="6">2</tspan></text>
+</svg>

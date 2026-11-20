@@ -92,44 +92,9 @@ Schließt man den Kreis über $R$, fließt ein **induzierter Strom** $I = \frac{
 
 - Im Bild: Die Kraft auf den stromdurchflossenen Stab bremst die Bewegung.
 - Grund ist die Energieerhaltung: Die Wärme in $R$ stammt aus der mechanischen Arbeit.
+- **Wirbelströme:** induzierte Ringströme in massivem Metall. Sie bremsen (Wirbelstrombremse) und heizen (Induktionsherd). Im Eisenkern sind sie Verluste, deshalb Elektroblech.
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/4/42/Induction-by-motion-lenzs-law.svg)
-
-### 🗳️ Magnet im Rohr
-
-Ein starker Magnet fällt durch ein senkrechtes Kupferrohr, ein gleicher Magnet durch ein gleich langes Kunststoffrohr. Kupfer ist nicht ferromagnetisch.
-
-Wie fällt der Magnet im Kupferrohr?
-
-A) schneller
-
-B) gleich schnell
-
-C) deutlich langsamer
-
-D) er bleibt stecken
-
-![bg right:35% 85%](img/magnet-rohr.svg)
-
-### Wirbelströme
-
-- Der fallende Magnet ändert den Fluss durch jeden Ring des Rohrs. Dort fließen induzierte Ringströme, die **Wirbelströme**.
-- Nach Lenz bremsen sie ihre Ursache, also den Fall.
-- **Nutzen:** Wirbelstrombremse (Zug, Achterbahn), Induktionsherd
-- **Verluste:** im Eisenkern von Transformator und Motor. Abhilfe: Kern aus dünnen, gegeneinander isolierten Blechen (Elektroblech)
-
-![bg right:35% 85%](img/magnet-rohr.svg)
-
-### Induzierte Spannung: keine Potentialdifferenz
-
-Ein zeitlich veränderliches Magnetfeld erzeugt ein elektrisches **Wirbelfeld** mit geschlossenen Feldlinien:
-
-$$\oint \vec{E} \cdot d\vec{s} = -\frac{d\Phi}{dt}$$
-
-- **Elektrostatik:** $\oint \vec{E} \cdot d\vec{s} = 0$, es gibt ein Potential
-- **Induktion:** $\oint \vec{E} \cdot d\vec{s} \neq 0$, es gibt kein Potential
-
-![bg right:34% 90%](img/wirbelfeld.svg)
 
 ### 📝 Aufgabe 14: Induktion
 
@@ -147,4 +112,3 @@ c) Welcher Strom $I$ muss durch die feste Spule fließen?
 - $u(t)$ ist die negative Steigung von $\Phi(t)$.
 - Lenz: Der induzierte Strom wirkt seiner Ursache entgegen (Energieerhaltung).
 - Wirbelströme bremsen und heizen. Im Eisenkern verursachen sie Verluste.
-- Die induzierte Spannung stammt aus einem Wirbelfeld und ist keine Potentialdifferenz.

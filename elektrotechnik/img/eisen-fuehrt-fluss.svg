@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 440" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="mB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="mO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="mI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <!-- geschlossener Eisenkern -->
+  <rect x="90" y="60" width="240" height="270" fill="none" stroke="#9ca3af" stroke-width="40"/>
+
+  <!-- Weg durch das Eisen -->
+  <rect x="90" y="60" width="240" height="270" fill="none" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 6"/>
+  <line x1="190" y1="60" x2="240" y2="60" stroke="#2563eb" stroke-width="4" marker-end="url(#mB)"/>
+  <line x1="330" y1="180" x2="330" y2="230" stroke="#2563eb" stroke-width="4" marker-end="url(#mB)"/>
+
+  <!-- Weg durch die Luft (Fenster) -->
+  <path d="M 110,118 C 270,110 270,280 110,272" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7 5"/>
+  <line x1="230" y1="186" x2="230" y2="210" stroke="#f59e0b" stroke-width="3" marker-end="url(#mO)"/>
+
+  <!-- Wicklung auf dem linken Schenkel -->
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <path d="M 58,130 A 32,10 0 0 0 122,130"/>
+    <path d="M 58,165 A 32,10 0 0 0 122,165"/>
+    <path d="M 58,200 A 32,10 0 0 0 122,200"/>
+    <path d="M 58,235 A 32,10 0 0 0 122,235"/>
+  </g>
+  <g stroke="#111827" stroke-width="2" fill="none" stroke-dasharray="4 4" opacity="0.55">
+    <line x1="122" y1="130" x2="58" y2="165"/>
+    <line x1="122" y1="165" x2="58" y2="200"/>
+    <line x1="122" y1="200" x2="58" y2="235"/>
+    <line x1="122" y1="235" x2="58" y2="270"/>
+  </g>
+  <g stroke="#111827" stroke-width="3" fill="none">
+    <line x1="58" y1="130" x2="26" y2="110"/>
+    <line x1="58" y1="270" x2="26" y2="290"/>
+  </g>
+  <line x1="12" y1="96" x2="46" y2="118" stroke="#111827" stroke-width="3.5" marker-end="url(#mI)"/>
+  <text x="14" y="84" fill="#111827" font-size="28" font-style="italic">I</text>
+  <text x="30" y="210" fill="#111827" font-size="28" font-style="italic" text-anchor="end">N</text>
+
+  <!-- Legende -->
+  <line x1="40" y1="385" x2="100" y2="385" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 6"/>
+  <text x="114" y="393" fill="#111827" font-size="24">Weg durch Eisen</text>
+  <line x1="40" y1="420" x2="100" y2="420" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7 5"/>
+  <text x="114" y="428" fill="#111827" font-size="24">Weg durch Luft</text>
+</svg>
