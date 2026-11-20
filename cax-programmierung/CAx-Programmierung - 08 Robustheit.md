@@ -211,7 +211,7 @@ bohrung = cf.cylinder(d=p.zapfen_d, h=p.platten_t + 2).moved(cf.Location((0, 0, 
 Wo genau geht ein Modell kaputt? Der Viewer zeigt es beim schrittweisen Ausführen:
 
 1. Setzen Sie einen Haltepunkt (Klick links neben die Zeilennummer) und starten Sie das Skript mit **F5** im Debugger.
-2. Gehen Sie mit **F10** Zeile für Zeile weiter. Der Viewer zeigt nach jedem Schritt alle CAD-Objekte aus den lokalen Variablen mit ihren Namen.
+2. Gehen Sie mit **F10** Zeile für Zeile weiter. Nach jedem Schritt zeigt der Viewer-Tab alle CAD-Objekte aus den lokalen Variablen. Ihre Variablennamen stehen links im Reiter *Tree*.
 3. Ein- und ausschalten lässt sich das in der Statusleiste: `OCP: <port>·DEBUG`.
 
 Der Reiter *Clip* legt eine Schnittebene durch den Körper. So sehen Sie auch Flächen und Hohlräume im Inneren.
