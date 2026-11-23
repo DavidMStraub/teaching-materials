@@ -92,9 +92,35 @@ Schließt man den Kreis über $R$, fließt ein **induzierter Strom** $I = \frac{
 
 - Im Bild: Die Kraft auf den stromdurchflossenen Stab bremst die Bewegung.
 - Grund ist die Energieerhaltung: Die Wärme in $R$ stammt aus der mechanischen Arbeit.
-- **Wirbelströme:** induzierte Ringströme in massivem Metall. Sie bremsen (Wirbelstrombremse) und heizen (Induktionsherd). Im Eisenkern sind sie Verluste, deshalb Elektroblech.
 
 ![bg right:40% 90%](https://upload.wikimedia.org/wikipedia/commons/4/42/Induction-by-motion-lenzs-law.svg)
+
+### 🗳️ Magnet im Rohr
+
+Ein starker Magnet fällt durch ein senkrechtes Kupferrohr, ein gleicher Magnet durch ein gleich langes Kunststoffrohr. Kupfer ist nicht ferromagnetisch.
+
+Denken Sie sich das Rohr als Stapel von Kupferringen.
+
+Wie fällt der Magnet im Kupferrohr?
+
+A) schneller
+
+B) gleich schnell
+
+C) deutlich langsamer
+
+D) er bleibt stecken
+
+![bg right:35% 85%](img/magnet-rohr.svg)
+
+### Wirbelströme
+
+- Der fallende Magnet ändert den Fluss durch jeden Ring des Rohrs. Dort fließen induzierte Ringströme, die **Wirbelströme**.
+- Nach Lenz bremsen sie ihre Ursache, also den Fall.
+- **Nutzen:** Wirbelstrombremse (Zug, Achterbahn), Induktionsherd
+- **Verluste:** im Eisenkern von Transformator und Motor. Abhilfe: Kern aus dünnen, gegeneinander isolierten Blechen (Elektroblech)
+
+![bg right:35% 85%](img/magnet-rohr.svg)
 
 ### 📝 Aufgabe 14: Induktion
 
