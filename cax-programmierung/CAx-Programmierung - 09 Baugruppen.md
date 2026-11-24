@@ -43,154 +43,161 @@ David Straub
 
 ## Baugruppen
 
-![bg right:36% 90%](assets/cax08_modul.png)
+- **Baugruppe** (*assembly*): Teile mit Lage, Namen und eigenen Angaben, als Baum (*tree*)
+- **Datenaustausch** (*data exchange*): was in der STEP-Datei steht und was nur im Python-Modell
+- **Stückliste** (*bill of materials*, BOM) und **Release**: alle Lieferdateien aus einer Quelle, abgesichert durch einen Test
 
-- **Assembly:** Teile getrennt halten, mit Namen, Farben und Angaben zum Teil
-- **Formate:** STEP, BREP, STL, wofür welches
-- **Stückliste und Release:** alle Lieferdateien aus einem Aufruf
+*Durchgängiges Beispiel:* Ihr Modul aus Einheit 8 wird eine **Baugruppe** aus Grundplatte, zwei Endplatten und zwölf Zellen.
 
-*Durchgängiges Beispiel:* Ihr Modul aus Einheit 7 wird eine **Baugruppe**: Grundplatte, zwei Endplatten, zwölf Zellen
-
-### Rückblick: alles in einem Körper
-
-In Einheit 7 haben Sie den Modul-Code in `w07/modul.py` gesammelt. `stapel_bauen` verbindet die Zellen mit `+` zu einem einzigen Shape.
-
-Ein Zulieferer soll Ihr Modul bekommen. Sie exportieren:
+### Ausgangspunkt: der Modul-Code aus Einheit 8
 
 ```python
-stapel_bauen(ModulParam()).exportStep("stapel.step")
-```
-
-**Was findet der Zulieferer in dieser Datei? Was braucht er außerdem?**
-
-### Mehr als Geometrie
-
-Zum Austausch gehört zu jedem Teil: Name, Anzahl, Lage, Material, Eigenfertigung oder Kaufteil.
-
-**Heute:** Die Teile bleiben getrennt und bekommen Namen, als **Baugruppe** (Assembly).
-
-**Wie bauen Sie in einem klassischen CAD-System eine Baugruppe auf? Was passiert, wenn sich ein Teil ändert?**
-
-## Theorie A: Assembly und STEP
-
-### Baugruppen: klassisch und im Code
-
-| | klassisches CAD | Code |
-|---|---|---|
-| Teil | eigene Datei | Funktion, die ein Shape liefert |
-| Instanz | dasselbe Teil mehrfach verbaut | dieselbe Variable mehrfach eingefügt |
-| Lage | Constraints zwischen Flächen | berechnete Lage |
-| Unterbaugruppe | Baugruppe in der Baugruppe | Assembly in der Assembly |
-| Stückliste | aus dem Baum | aus dem Baum |
-
-Ändert sich ein Teil, ändern sich alle Instanzen. Auch der STEP-Export speichert die zwölf Zellen als Instanzen von zwei Geometrien: normal und gedreht.
-
-### Assembly: Teile getrennt halten
-
-```python
-import cadquery as cq                     # Assembly und Color liegen in cadquery selbst
+import cadquery as cq
 from cadquery import func as cf
 
-assy = cq.Assembly(name="pouch_modul")
-assy.add(grundplatte(), name="grundplatte", color=cq.Color("gray"),
-         metadata={"teil": "grundplatte", "material": "alu"})
-assy.add(zelle, name="zelle_0", color=cq.Color("steelblue"),
+from w08.modul import ModulParam, endplatten, stapel_bauen, zelle_bauen
+
+p = ModulParam()
+```
+
+Die Funktionen sind Ihr Stand aus Einheit 8, mit `pruefe`.
+
+### Einstieg: Wer braucht welche Daten?
+
+![bg right:30% 85%](assets/cax08_modul.png)
+
+Ein naheliegender Export ist der Zellstapel als ein Körper:
+
+```python
+stapel_bauen(p).exportStep("stapel.step")
+```
+
+| Empfänger | braucht |
+|---|---|
+| Zulieferer, fräst die Endplatten | |
+| Einkauf, bestellt Zellen und Material | |
+| Montage, baut das Modul zusammen | |
+
+**Was braucht jeder Empfänger? Was davon steht in `stapel.step`?**
+
+## Theorie A: Baugruppe und STEP
+
+### Eine Baugruppe ist ein Baum
+
+![w:760](assets/baugruppe_baum.svg)
+
+- **Teil** (*part*): eine Geometrie an einer Lage (*location*), mit Namen
+- **Instanz** (*instance*): dieselbe Geometrie an mehreren Lagen
+
+**Wie bauen Sie diese Baugruppe in Ihrem CAD-System auf? Was müssen Sie tun, wenn sich die Zelldicke ändert?**
+
+### Ein Knoten im Baum: `cq.Assembly`
+
+![w:860](assets/assembly_knoten.svg)
+
+Jeder Knoten (*node*) ist ein `cq.Assembly`.
+
+- **Wurzel** (*root*): keine Geometrie (`obj` ist `None`), die 15 Teile als Kinder (*children*)
+- **Teil:** Geometrie in `obj`, keine Kinder (`children` ist leer)
+
+### Ein Teil anhängen: `add`
+
+```python
+assy = cq.Assembly(name="pouch_modul")          # Wurzel, noch ohne Kinder
+zelle = zelle_bauen(p)
+assy.add(zelle, name="zelle_0",
          loc=cf.Location((0, 0, 14)),
+         color=cq.Color("steelblue"),
          metadata={"teil": "zelle", "material": "kaufteil"})
 ```
 
-- `name`: eindeutig in der Baugruppe
-- `loc`: die Lage des Teils, die Geometrie bleibt unverändert
-- `metadata`: Angaben zum Teil als **`dict`**, also Paare aus Schlüssel und Wert. `metadata["teil"]` liest einen Wert.
+| Argument | Bedeutung |
+|---|---|
+| `zelle` | die Geometrie, sie bleibt am Ursprung |
+| `name` | eindeutig in der Baugruppe, sonst `ValueError` |
+| `loc` | Lage: `cf.Location((x, y, z))` verschiebt um x, y, z in mm |
+| `color` | Farbe aus einem Namen, z. B. `"gray"`, `"steelblue"` |
+| `metadata` | eigene Angaben als **`dict`**: Paare aus Schlüssel und Wert |
+
+### Auf Teile zugreifen
+
+```python
+teil = assy.objects["zelle_0"]          # Knoten über seinen Namen
+print(teil.loc.toTuple())              # ((0.0, 0.0, 14.0), (0.0, -0.0, 0.0))
+print(teil.metadata["teil"])           # zelle
+print(len(assy.children))              # 1
+```
+
+- `assy.objects`: alle Knoten im Baum als `dict`, Schlüssel ist der Name. Die Wurzel gehört dazu.
+- `assy.children`: Liste der Knoten direkt darunter
+- `loc.toTuple()`: Verschiebung in x, y, z und Drehwinkel um x, y, z in Grad
+- Geometrie an ihrem Platz: `teil.obj.moved(teil.loc)`. Weil `obj` auch `None` sein kann, vorher verengen mit `assert isinstance(teil.obj, cf.Shape)` (Einheit 7).
 
 ### Zwölf Zellen, eine Schleife
 
 ```python
-zelle = zelle_bauen(p)
-gedreht = zelle.moved(rz=180)                      # Flip aus Einheit 4
+GRUNDPLATTE_T = 6.0                                 # mm, steht oben in der Datei
+
+assy = cq.Assembly(name="pouch_modul")
+gedreht = zelle.moved(rz=180)                       # um z gedreht, Flip aus Einheit 4
 pitch = p.zell_t + p.spacer
 for i in range(p.n_zellen):
-    z = GRUNDPLATTE_T + p.platten_t + i * pitch    # 6 + 8 + i · 12,5
+    z = GRUNDPLATTE_T + p.platten_t + i * pitch     # 6 + 8 + i · 12,5
     teil = zelle
-    if i % 2:
+    if i % 2 == 1:                                  # ungerades i: jede zweite Zelle
         teil = gedreht
-    assy.add(teil, name=f"zelle_{i}", color=cq.Color("steelblue"),
-             loc=cf.Location((0, 0, z)),
+    assy.add(teil, name=f"zelle_{i}", loc=cf.Location((0, 0, z)),
+             color=cq.Color("steelblue"),
              metadata={"teil": "zelle", "material": "kaufteil"})
 ```
 
-- `GRUNDPLATTE_T = 6.0` steht oben in der Datei.
 - `f"zelle_{i}"` ist ein **f-String**: Er setzt `i` in den Text ein, also `zelle_0`, `zelle_1`, …
+- `zelle` und `gedreht` sind zwei Geometrien. Die Schleife hängt sie zwölfmal an.
 
-### Unterbaugruppen: Modul → Pack
+### Wohin die Information geht
 
-```python
-pack = cq.Assembly(name="pack")
-for i in range(2):
-    pack.add(modul(p), name=f"modul_{i}", loc=cf.Location((0, i * 130, 0)))
+![w:1000](assets/informationsorte.svg)
 
-print([c.name for c in pack.children])   # ['modul_0', 'modul_1']
-```
+Das Modell in Python ist die Quelle, jede Datei wird daraus erzeugt. `modul(p)` bauen Sie in Aufgabe 1, `schreibe_bom` in Aufgabe 3.
 
-- `children` sind nur die Teile direkt darunter.
-- Jedes Modul wird einmal platziert. Seine Zellen bleiben relativ dazu an ihrem Platz.
+### Dateiformate
 
-### Skripte über Wochenordner hinweg: `-m`
-
-`w09/baugruppe.py` importiert Ihren Code aus Einheit 7:
+| Format | enthält | wer liest es |
+|---|---|---|
+| **STEP** | exakte Geometrie (B-Rep) | jedes CAD-System, genormt als ISO 10303 |
+| **STL** | Dreiecke auf der Oberfläche, ein Netz (Einheit 2) | Software für den 3D-Druck, Viewer |
+| **BREP** | exakte Geometrie eines einzelnen Shapes, im eigenen Format des Kernels ohne Umwandlung | nur Programme mit OCCT, z. B. CadQuery, FreeCAD |
 
 ```python
-from w07.modul import ModulParam, endplatten, zelle_bauen
+assy.export("zellen.step")                    # das Format folgt aus der Endung
+assy.export("zellen.stl")
+zurueck = cq.Assembly.load("zellen.step")     # STEP wieder als Baugruppe einlesen
 ```
 
-```bash
-uv run python w09/baugruppe.py     # ModuleNotFoundError: No module named 'w07'
-uv run python -m w09.baugruppe     # läuft
-```
-
-- Ohne `-m` sucht Python Importe im Ordner des Skripts, hier `w09/`.
-- Mit `-m` sucht Python im Projektordner und findet `w07/`, wie pytest in Einheit 7.
-- ▷ in VS Code startet ohne `-m`. Starten Sie ab heute im Terminal.
-
-### Dateiformate: wofür welches
-
-| Format | Typ | Inhalt | Einsatz |
-|---|---|---|---|
-| **STEP** | B-Rep | exakte Geometrie, Namen, Farben, Baum | Austausch mit anderen CAD-Systemen |
-| **BREP** | B-Rep | exakte Geometrie im Format des Kernels | eigene Zwischenergebnisse |
-| **STL** | Netz | Dreiecke auf der Oberfläche, keine Namen | 3D-Druck, Darstellung |
-
-**B-Rep** (Einheit 2) hält exakte Kurven und Flächen. Ein **Netz** nähert die Oberfläche durch Dreiecke an.
+Eine Baugruppe lässt sich nicht als BREP speichern, ein einzelnes Shape schon: `shape.exportBrep("teil.brep")`.
 
 ### Welches Format?
 
 1. Ein Zulieferer fräst die Endplatte.
 2. Sie lassen die Grundplatte als Prototyp drucken.
 3. Die Berechnungsabteilung prüft die Endplatte mit einem FEM-Programm.
-4. Ein Zwischenergebnis braucht eine Minute zum Bauen, Sie wollen es morgen weiterverwenden.
+4. Ein Zwischenergebnis braucht eine Minute zum Bauen. Sie wollen es morgen weiterverwenden.
 
-**Ordnen Sie jedem Fall ein Format zu.**
+**Ordnen Sie jedem Fall ein Format zu und begründen Sie.**
 
-### Auflösung
+### Vorhersage: Was steht in der STEP-Datei?
 
-1. **STEP:** Der Zulieferer braucht die exakte Geometrie.
-2. **STL:** Der Drucker arbeitet mit Dreiecken.
-3. **STEP:** Das FEM-Programm vernetzt selbst, aus der exakten Geometrie. Ein STL-Netz beschreibt nur die Oberfläche (Einheit 11).
-4. **BREP:** schnell und verlustfrei, für den Eigenbedarf
+Sie exportieren Ihre Baugruppe als STEP und laden sie mit `cq.Assembly.load` wieder ein.
 
-### STEP: hin und zurück
+| Angabe | bleibt erhalten? |
+|---|---|
+| Namen der Teile | |
+| Lage | |
+| Farbe | |
+| Geometrie | |
+| `metadata` | |
 
-```python
-assy.export("w09/pouch_modul.step")              # das Format folgt aus der Endung
-
-zurueck = cq.Assembly.load("w09/pouch_modul.step")
-for kind in zurueck.children:
-    print(kind.name, kind.loc.toTuple(), kind.color.toTuple(), kind.metadata)
-```
-
-`cq.Assembly.load` liest die Datei wieder als Baugruppe ein, so wie es ein anderes CAD-System täte.
-
-**Was übersteht den Rundlauf?** Namen, Lage, Farben, Geometrie, `metadata`? Stimmen Sie ab.
+**Notieren Sie Ihre Vorhersage.** In Aufgabe 2 prüfen Sie sie.
 
 ## Praktikum A: das Modul als Baugruppe
 
@@ -199,22 +206,44 @@ for kind in zurueck.children:
 Legen Sie `w09/baugruppe.py` an:
 
 1. `grundplatte()` mit Ihrer Grundplatte aus Einheit 3, Unterseite bei z = 0.
-2. `modul(p)` mit Grundplatte, unterer und oberer Endplatte und zwölf Zellen. Jedes Teil hat einen Namen, eine Farbe und `metadata` mit `"teil"` und `"material"` (`"alu"`, `"stahl"`, `"kaufteil"`).
+2. `modul(p)` mit Grundplatte, unterer und oberer Endplatte und zwölf Zellen. Jedes Teil hat einen Namen, eine Farbe und `metadata`:
+
+| Teil | `"teil"` | `"material"` |
+|---|---|---|
+| Grundplatte | `"grundplatte"` | `"alu"` |
+| Endplatten | `"endplatte"` | `"stahl"` |
+| Zellen | `"zelle"` | `"kaufteil"` |
+
+### Aufgabe 1: Anzeigen und prüfen
+
 3. Zeigen Sie die Baugruppe unter `if __name__ == "__main__":` an.
 
-*Prüfen:* `len(assy.children)` ist 15. Im Viewer zeigt der Reiter *Tree* alle Teile mit Namen. *Explode* zieht die Baugruppe auseinander, *Distance* misst den Abstand zweier Zellen.
+*Prüfen:* `len(assy.children)` ist 15. Im Viewer zeigt der Reiter *Tree* alle Teile mit Namen. *Explode* zieht die Baugruppe auseinander.
 
-*Hinweise:* `unten, oben = endplatten(p).Solids()` verteilt die beiden Platten auf zwei Namen. Start mit `uv run python -m w09.baugruppe`. Farbnamen sind z. B. `"gray"`, `"gray40"`, `"steelblue"`.
+*Hinweise:* `unten, oben = endplatten(p).Solids()` verteilt die beiden Platten auf zwei Namen. Starten Sie mit `uv run python -m w09.baugruppe` (Einheit 8).
 
-### Aufgabe 2: Der STEP-Rundlauf
+### Aufgabe 2: Der STEP-Rundlauf (*round trip*)
 
 1. Exportieren Sie die Baugruppe nach `w09/pouch_modul.step`.
-2. Laden Sie die Datei mit `cq.Assembly.load` und geben Sie für die ersten drei Teile Name, Lage, Volumen und `metadata` aus. Stimmt Ihre Vorhersage?
-3. *Optional:* Öffnen Sie die Datei in FreeCAD (freecad.org). Erscheinen Baum, Namen und Farben?
+2. Laden Sie die Datei mit `cq.Assembly.load`. Geben Sie für die ersten drei Teile Name, Lage, Farbe, Volumen und `metadata` aus.
+3. Vergleichen Sie mit Ihrer Vorhersage.
+4. *Optional:* Öffnen Sie die Datei in FreeCAD (freecad.org). Was erscheint dort?
 
-*Hinweise:* `kind.obj` ist die Geometrie. Vor `kind.obj.Volume()` verengen Sie mit `assert isinstance(kind.obj, cf.Shape)` wie in Einheit 7.
+*Hinweise:* `for kind in zurueck.children[:3]:` läuft über die ersten drei Kinder. `kind.color.toTuple()` liefert Rot, Grün, Blau und Deckkraft, je zwischen 0 und 1. Vor `kind.obj.Volume()` verengen Sie wie auf der Folie „Auf Teile zugreifen“.
 
 ## Theorie B: Stückliste und Release
+
+### Was die STEP-Datei enthält
+
+| in der STEP-Datei (ISO 10303, für jedes CAD-System) | nur im Python-Modell, geht beim Export verloren |
+|---|---|
+| Geometrie als B-Rep | `metadata` |
+| Baum mit Namen | Parameter (`ModulParam`) |
+| Lagen | Funktionen, die die Teile bauen |
+| Farben | |
+| jede Geometrie einmal: 15 Teile, 5 Körper | |
+
+Wer nur die STEP-Datei hat, kann das Modul nicht mehr über Parameter ändern.
 
 ### Die Stückliste aus dem Modell
 
@@ -222,37 +251,18 @@ Legen Sie `w09/baugruppe.py` an:
 from collections import Counter
 
 anzahl: Counter[str] = Counter()
-for _, teil in assy.traverse():
-    if teil.obj is not None:             # Baugruppen selbst haben keine Geometrie
+for teil in assy.objects.values():
+    if teil.obj is not None:                 # die Wurzel hat keine Geometrie
         anzahl[teil.metadata["teil"]] += 1
 
-print(anzahl)    # Counter({'zelle': 12, 'endplatte': 2, 'grundplatte': 1})
+print(anzahl)    # Counter({'zelle': 12})
 ```
 
-- `traverse()` läuft durch den ganzen Baum und liefert Paare aus Name und Teil. `_` steht für den Namen, der hier nicht gebraucht wird.
-- `Counter` zählt, wie oft ein Wert vorkommt. `Counter[str]` sagt mypy, dass Texte gezählt werden.
-
-`metadata` geht beim STEP-Export verloren. Die Stückliste entsteht deshalb direkt aus dem Modell.
+- `assy.objects.values()`: alle Knoten im Baum, ohne ihre Namen
+- `Counter` zählt. `anzahl["zelle"] += 1` beginnt bei 0. `Counter[str]` sagt mypy, dass Texte gezählt werden.
+- Mit Ihrer Baugruppe aus Aufgabe 1 kommen Grundplatte und Endplatten dazu.
 
 **In vielen Firmen pflegt jemand die Stückliste in Excel, neben dem CAD-Modell. Was kann dabei schiefgehen?**
-
-### Masse: Eigenfertigung und Kaufteil
-
-```python
-DICHTE = {"alu": 2.7e-6, "stahl": 7.85e-6}      # kg/mm³
-ZELLMASSE = 0.86                                 # kg je Zelle, Datenblatt
-
-def masse(teil: cq.Assembly) -> float:
-    if teil.metadata["material"] == "kaufteil":
-        return ZELLMASSE
-    assert isinstance(teil.obj, cf.Shape)
-    return teil.obj.Volume() * DICHTE[teil.metadata["material"]]
-```
-
-- **Eigenfertigung:** Volumen aus dem Modell mal Dichte
-- **Kaufteil:** Masse aus dem Datenblatt. Die modellierte Zelle ist nur die Hülle.
-
-Die Masse des Moduls brauchen Sie in Einheit 12 für die Energiedichte in Wh/kg.
 
 ### Release: alle Lieferdateien aus einem Aufruf
 
@@ -260,48 +270,44 @@ Die Masse des Moduls brauchen Sie in Einheit 12 für die Energiedichte in Wh/kg.
 from pathlib import Path
 
 def release(p: ModulParam, ordner: str) -> None:
-    Path(ordner).mkdir(parents=True, exist_ok=True)       # Ordner anlegen
-    assy = modul(p)
-    assy.export(f"{ordner}/modul.step")                   # Austausch
-    assy.export(f"{ordner}/modul.stl", tolerance=0.1)     # Druck, Netz auf 0,1 mm genau
-    schreibe_bom(assy, f"{ordner}/bom.csv")               # Stückliste
+    Path(ordner).mkdir(parents=True, exist_ok=True)
+    assy = modul(p)                              # Aufgabe 1
+    assy.export(f"{ordner}/modul.step")          # Zulieferer, Montage
+    assy.export(f"{ordner}/modul.stl")           # 3D-Druck
+    schreibe_bom(assy, f"{ordner}/bom.csv")      # Einkauf, Aufgabe 3
 ```
 
-Aus einem Parametersatz entstehen Dateien, die zueinander passen. Eine neue Variante ist ein neuer Aufruf mit anderen Parametern.
-
-### Was die Pipeline nicht prüft
-
-```python
-release(ModulParam(zapfen_d=12.0), "w09/release_zapfen12")
-```
-
-Der Aufruf läuft ohne Fehler durch. STEP, STL und Stückliste sind vollständig.
-
-**Lässt sich dieses Modul bauen?**
-
-### Was die Schritte prüfen
-
-- Die Baugruppe legt jedes Teil dorthin, wo `loc` es hinlegt.
-- STEP speichert, was es bekommt.
-- Die Stückliste zählt Namen.
-
-Ob die Teile zusammenpassen, prüft keiner dieser Schritte. Das leistet ein Test.
+- `Path(ordner).mkdir(...)` legt den Ordner an. `parents=True` legt fehlende Ordner darüber mit an. `exist_ok=True` meldet keinen Fehler, wenn es den Ordner schon gibt.
+- Die drei Pfeile aus „Wohin die Information geht“ stehen hier in einer Funktion.
+- Alle drei Dateien entstehen aus demselben Parametersatz `p`.
 
 ## Praktikum B: Stückliste und Release
 
 ### Aufgabe 3: Die Stückliste
 
-Schreiben Sie in `w09/release.py` eine Funktion `schreibe_bom(assy, pfad)`. Sie schreibt eine CSV-Datei mit einer Zeile je Teil: `teil`, `anzahl`, `masse_kg` je Stück und `gesamt_kg`.
+Schreiben Sie in `w09/release.py` eine Funktion `schreibe_bom(assy, pfad)`. Sie schreibt eine CSV-Datei mit einer Zeile je Teil: `teil`, `anzahl`, `material`.
 
 ```python
-with open(pfad, "w", newline="") as datei:     # schließt die Datei am Blockende
+import csv
+
+with open("probe.csv", "w", newline="") as datei:
     tabelle = csv.writer(datei)
-    tabelle.writerow(["teil", "anzahl", "masse_kg", "gesamt_kg"])
+    tabelle.writerow(["teil", "anzahl", "material"])
+    tabelle.writerow(["zelle", 12, "kaufteil"])
 ```
 
-*Prüfen:* Die Zellen wiegen zusammen 10,32 kg, Grundplatte und Endplatten zusammen etwa 2,5 kg.
+- `with open(...)` öffnet die Datei zum Schreiben (`"w"`) und schließt sie am Blockende. `newline=""` verhindert leere Zeilen unter Windows.
+- `writerow` schreibt eine Zeile aus einer Liste.
 
-*Hinweise:* `import csv`. Gleiche Teile wiegen gleich viel, also genügt eine Masse je Stück, etwa in einem `dict`.
+### Aufgabe 3: Prüfen und Hinweise
+
+*Prüfen:* drei Zeilen, `grundplatte` 1, `endplatte` 2, `zelle` 12.
+
+*Hinweise:*
+
+- `for name in anzahl:` läuft über die gezählten Teile, `anzahl[name]` ist ihre Anzahl.
+- Gleiche Teile haben dasselbe Material, ein `dict` von Teil zu Material genügt.
+- `from w09.baugruppe import modul` holt Ihre Baugruppe. Start mit `uv run python -m w09.release`.
 
 ### Aufgabe 4: Release
 
@@ -311,43 +317,72 @@ with open(pfad, "w", newline="") as datei:     # schließt die Datei am Blockend
 
 **Warum gehören die erzeugten Dateien nicht ins Repo?**
 
-### Aufgabe 5: Was die Pipeline nicht prüft
+### Aufgabe 5: Ein anderer Zapfen
 
 1. Erzeugen Sie Releases für `zapfen_d=12.0` und für `zapfen_d=None`. Läuft beides durch?
-2. Welche Teile lesen `zapfen_d`, welche nicht? Suchen Sie im Code aus Einheit 7 und 9.
+2. Welche Teile lesen `zapfen_d`, welche nicht? Suchen Sie in `w08/modul.py` und `w09/baugruppe.py`.
 3. Schreiben Sie in `tests/test_w09.py` einen Test: Grundplatte und untere Endplatte durchdringen sich nicht, für `zapfen_d` gleich 16, 12 und `None`.
 4. Beheben Sie die Ursache, bis der Test für alle drei Werte grün ist.
 
-*Hinweise:* `assy.objects["grundplatte"]` liefert das Teil mit diesem Namen. Seine Geometrie an ihrem Platz ist `teil.obj.moved(teil.loc)`, vorher verengen wie in Aufgabe 2.
+*Hinweise:* `assy.objects["grundplatte"]` liefert den Knoten, `teil.obj.moved(teil.loc)` seine Geometrie an ihrem Platz. Zwei Teile durchdringen sich (*interference*), wenn `(a * b).Volume()` größer als 0 ist (Einheit 7).
 
 ### Was hat der Test gefunden?
 
-**Wo steckte die Ursache? Welche Lehre aus Einheit 7 hätte den Fehler früher gefunden?**
+**Wo steckte die Ursache?**
 
-### Aufgabe 6 *(Zusatz)*: Platzierung lösen statt rechnen
+**Warum hat `pruefe` aus Einheit 8 den Fehler nicht gemeldet?**
 
-Statt die Höhe der untersten Zelle auszurechnen, kann ein Solver sie bestimmen:
+**Welche Regel aus Einheit 7 hätte ihn verhindert?**
+
+### Aufgabe 6 *(Zusatz)*: Lage über einen Constraint
+
+In einem klassischen CAD-System legen Verknüpfungen (*constraints*) zwischen Flächen die Lage fest. Eine `cq.Assembly` kann das auch:
 
 ```python
+unten, oben = endplatten(p).Solids()
 paar = cq.Assembly(name="paar")
 paar.add(unten, name="platte")
-paar.add(zelle, name="zelle", loc=cf.Location((0, 0, 50)))     # Platzhalter
+paar.add(zelle, name="zelle", loc=cf.Location((0, 0, 50)))     # Startwert
 paar.constrain("platte", unten.faces(">Z"), "zelle", zelle.faces("<Z"), "Plane")
 paar.solve()
 ```
 
-1. Welche Lage hat die Zelle nach `solve()`? Lesen Sie sie mit `paar.objects["zelle"].loc` aus.
-2. Was liefert dasselbe mit der Grundplatte statt der Endplatte, und warum?
+- `constrain(teil_1, fläche_1, teil_2, fläche_2, "Plane")`: Die Mittelpunkte der beiden Flächen fallen zusammen, ihre Normalen zeigen gegeneinander.
+- `solve()` berechnet die Lage aller Teile. Das erste Teil bleibt, wo es ist.
+
+### Aufgabe 6 *(Zusatz)*: Fragen zum Constraint
+
+1. Welche Lage hat die Zelle nach `solve()`? Lesen Sie `paar.objects["zelle"].loc.toTuple()` aus.
+2. Ersetzen Sie die Endplatte durch Ihre Grundplatte. Wo landet die Zelle, und warum?
 
 ### Aufgabe 7 *(Zusatz)*: Ein Pack aus zwei Modulen
 
-Bauen Sie `pack(p)` aus zwei Modulen und schreiben Sie die Stückliste mit Ihrer `schreibe_bom`. Müssen Sie dafür etwas ändern?
+Eine Baugruppe kann selbst ein Knoten in einer Baugruppe sein:
+
+```python
+pack = cq.Assembly(name="pack")
+pack.add(assy, name="modul_0")
+pack.add(assy, name="modul_1", loc=cf.Location((0, 130, 0)))
+```
+
+1. Bauen Sie `pack(p)` aus zwei Modulen mit Ihrer Funktion `modul(p)`.
+2. Schreiben Sie die Stückliste des Packs mit Ihrer `schreibe_bom`. Müssen Sie dafür etwas ändern?
 
 ## Abschluss
+
+### Wer bekommt was?
+
+| Empfänger | Datei | erzeugt von |
+|---|---|---|
+| Zulieferer, fräst die Endplatten | | |
+| Einkauf, bestellt Zellen und Material | | |
+| Montage, baut das Modul zusammen | | |
+
+**Ergänzen Sie die Tabelle vom Anfang der Einheit.**
 
 ### Leseauftrag & Ausblick
 
 - **Leseauftrag:** Buch Kapitel 9
-- **Wer mehr will:** der geometrische Vergleich zweier Revisionen aus Kapitel 9, `(a - b) + (b - a)`
+- **Vertiefung:** die Masse des Moduls in der Stückliste: Volumen mal Dichte für Grundplatte (Alu, 2,7 g/cm³) und Endplatten (Stahl, 7,85 g/cm³), 0,86 kg je Zelle laut Datenblatt
 - **Nächste Woche:** Fertigung: vom Modell zum gedruckten und gefrästen Teil
-- Bis dahin: die Skripte in `w09/` und `tests/test_w09.py` committet und gepusht, Pipeline grün
+- Bis dahin: `w09/` und `tests/test_w09.py` committet und gepusht, Pipeline grün

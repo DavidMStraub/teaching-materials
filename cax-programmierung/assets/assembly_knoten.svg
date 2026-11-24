@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 440" width="1100" height="440" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <rect width="1100" height="440" fill="#ffffff"/>
+  <defs>
+    <marker id="a" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto">
+      <path d="M0,0 L12,5 L0,10 Z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Wurzel -->
+  <text x="40" y="34" fill="#555" font-size="22">Wurzel</text>
+  <rect x="30" y="48" width="420" height="250" rx="8" fill="#f5f7f9" stroke="#333" stroke-width="2.5"/>
+  <rect x="30" y="48" width="420" height="50" rx="8" fill="#d9dee5" stroke="#333" stroke-width="2.5"/>
+  <text x="240" y="82" text-anchor="middle" fill="#333" font-size="24" font-weight="700" font-family="'DejaVu Sans Mono', monospace">pouch_modul</text>
+  <g font-family="'DejaVu Sans Mono', monospace" font-size="21">
+    <text x="50" y="140" fill="#1f6fc4">name</text>     <text x="200" y="140" fill="#333">"pouch_modul"</text>
+    <text x="50" y="185" fill="#1f6fc4">obj</text>      <text x="200" y="185" fill="#333">None</text>
+    <text x="50" y="230" fill="#1f6fc4">loc</text>      <text x="200" y="230" fill="#333">(0, 0, 0)</text>
+    <text x="50" y="275" fill="#1f6fc4">children</text> <text x="200" y="275" fill="#333">15 Knoten</text>
+  </g>
+
+  <!-- Pfeil -->
+  <path d="M340,268 C480,268 480,120 590,120" fill="none" stroke="#333" stroke-width="2.5" marker-end="url(#a)"/>
+
+  <!-- Teil -->
+  <text x="610" y="34" fill="#555" font-size="22">Teil</text>
+  <rect x="600" y="48" width="480" height="370" rx="8" fill="#f5f7f9" stroke="#333" stroke-width="2.5"/>
+  <rect x="600" y="48" width="480" height="50" rx="8" fill="#cfe0ef" stroke="#333" stroke-width="2.5"/>
+  <text x="840" y="82" text-anchor="middle" fill="#333" font-size="24" font-weight="700" font-family="'DejaVu Sans Mono', monospace">zelle_3</text>
+  <g font-family="'DejaVu Sans Mono', monospace" font-size="21">
+    <text x="620" y="140" fill="#1f6fc4">name</text>     <text x="770" y="140" fill="#333">"zelle_3"</text>
+    <text x="620" y="190" fill="#1f6fc4">obj</text>
+    <text x="620" y="240" fill="#1f6fc4">loc</text>      <text x="770" y="240" fill="#333">(0, 0, 51.5)</text>
+    <text x="620" y="285" fill="#1f6fc4">color</text>    <text x="805" y="285" fill="#333">steelblue</text>
+    <text x="620" y="330" fill="#1f6fc4">metadata</text> <text x="770" y="330" fill="#333" font-size="20">{"teil": "zelle",</text>
+    <text x="782" y="358" fill="#333" font-size="20">"material": "kaufteil"}</text>
+    <text x="620" y="400" fill="#1f6fc4">children</text> <text x="770" y="400" fill="#333">[]</text>
+  </g>
+  <!-- obj: Zelle gedreht, am Ursprung -->
+  <rect x="784" y="170" width="70" height="28" rx="5" fill="#cfe0ef" stroke="#2b5d8a" stroke-width="2"/>
+  <rect x="772" y="178" width="12" height="12" fill="#cfe0ef" stroke="#2b5d8a" stroke-width="2"/>
+  <text x="866" y="191" fill="#555" font-size="19">am Ursprung</text>
+  <!-- color swatch -->
+  <rect x="770" y="266" width="24" height="24" fill="steelblue" stroke="#333" stroke-width="1.5"/>
+</svg>

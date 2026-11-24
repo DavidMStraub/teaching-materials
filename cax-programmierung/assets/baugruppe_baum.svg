@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="1100" height="480" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <rect width="1100" height="480" fill="#ffffff"/>
+
+  <!-- Spaltenköpfe -->
+  <text x="40" y="38" fill="#333" font-size="24" font-weight="600">Teil (name)</text>
+  <text x="330" y="38" fill="#333" font-size="24" font-weight="600">Lage (z in mm)</text>
+  <text x="660" y="38" fill="#333" font-size="24" font-weight="600">Geometrie</text>
+
+  <!-- Baum -->
+  <g font-family="'DejaVu Sans Mono', monospace" font-size="22" fill="#333">
+    <text x="40" y="84" font-weight="700">pouch_modul</text>
+    <text x="82" y="130">grundplatte</text>
+    <text x="82" y="172">endplatte_unten</text>
+    <text x="82" y="214">endplatte_oben</text>
+    <text x="82" y="256">zelle_0</text>
+    <text x="82" y="298">zelle_1</text>
+    <text x="82" y="340">zelle_2</text>
+    <text x="82" y="380" fill="#888">⋮</text>
+    <text x="82" y="424">zelle_11</text>
+  </g>
+  <path d="M56,94 V416 M56,122 H74 M56,164 H74 M56,206 H74 M56,248 H74 M56,290 H74 M56,332 H74 M56,416 H74" fill="none" stroke="#888" stroke-width="2"/>
+  <g font-size="22" fill="#1f6fc4">
+    <text x="330" y="130">0</text>
+    <text x="330" y="172">6</text>
+    <text x="330" y="214">6</text>
+    <text x="330" y="256">14</text>
+    <text x="330" y="298">26,5</text>
+    <text x="330" y="340">39</text>
+    <text x="330" y="424">151,5</text>
+  </g>
+
+  <!-- Verbindungen Teil → Geometrie -->
+  <g stroke="#9aa5b1" stroke-width="2" fill="none">
+    <path d="M430,122 L640,108"/>
+    <path d="M430,164 L640,186"/>
+    <path d="M430,206 L640,264"/>
+    <path d="M430,248 L640,342"/>
+    <path d="M430,290 L640,420"/>
+    <path d="M430,332 L640,342"/>
+    <path d="M430,416 L640,420"/>
+  </g>
+  <g fill="#9aa5b1">
+    <circle cx="430" cy="122" r="4"/><circle cx="430" cy="164" r="4"/><circle cx="430" cy="206" r="4"/>
+    <circle cx="430" cy="248" r="4"/><circle cx="430" cy="290" r="4"/><circle cx="430" cy="332" r="4"/>
+    <circle cx="430" cy="416" r="4"/>
+  </g>
+
+  <!-- Geometrien, Draufsicht -->
+  <!-- Grundplatte -->
+  <rect x="650" y="86" width="110" height="44" rx="5" fill="#d9dee5" stroke="#333" stroke-width="2"/>
+  <circle cx="705" cy="108" r="7" fill="#9aa5b1" stroke="#333" stroke-width="1.5"/>
+  <text x="780" y="116" fill="#333" font-size="22">Grundplatte</text>
+  <!-- Endplatte unten -->
+  <rect x="655" y="166" width="100" height="40" fill="#b8c0ca" stroke="#333" stroke-width="2"/>
+  <circle cx="705" cy="186" r="7" fill="#ffffff" stroke="#333" stroke-width="1.5"/>
+  <text x="780" y="194" fill="#333" font-size="22">Endplatte unten</text>
+  <!-- Endplatte oben -->
+  <rect x="655" y="244" width="100" height="40" fill="#b8c0ca" stroke="#333" stroke-width="2"/>
+  <circle cx="705" cy="264" r="7" fill="#ffffff" stroke="#333" stroke-width="1.5"/>
+  <text x="780" y="272" fill="#333" font-size="22">Endplatte oben</text>
+  <!-- Zelle -->
+  <rect x="655" y="324" width="88" height="36" rx="6" fill="#cfe0ef" stroke="#2b5d8a" stroke-width="2"/>
+  <rect x="743" y="335" width="14" height="14" fill="#cfe0ef" stroke="#2b5d8a" stroke-width="2"/>
+  <text x="780" y="350" fill="#333" font-size="22">Zelle</text>
+  <!-- Zelle gedreht -->
+  <rect x="667" y="402" width="88" height="36" rx="6" fill="#cfe0ef" stroke="#2b5d8a" stroke-width="2"/>
+  <rect x="653" y="413" width="14" height="14" fill="#cfe0ef" stroke="#2b5d8a" stroke-width="2"/>
+  <text x="780" y="428" fill="#333" font-size="22">Zelle, gedreht</text>
+
+  <text x="550" y="470" text-anchor="middle" fill="#1f6fc4" font-size="24" font-weight="600">15 Teile, 5 Geometrien</text>
+</svg>
