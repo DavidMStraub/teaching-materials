@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 470" width="520" height="470" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+  </defs>
+  <rect width="520" height="470" fill="#ffffff"/>
+
+  <!-- exakter Kreis -->
+  <circle cx="230" cy="235" r="180" fill="none" stroke="#1f6fc4" stroke-width="3"/>
+  <!-- Netz: eingeschriebenes Achteck -->
+  <polygon points="410,235 357.28,107.72 230,55 102.72,107.72 50,235 102.72,362.28 230,415 357.28,362.28"
+           fill="#cfe0ef" fill-opacity="0.5" stroke="#333" stroke-width="2.5"/>
+  <g fill="#333">
+    <circle cx="410" cy="235" r="6"/><circle cx="357.28" cy="107.72" r="6"/><circle cx="230" cy="55" r="6"/>
+    <circle cx="102.72" cy="107.72" r="6"/><circle cx="50" cy="235" r="6"/><circle cx="102.72" cy="362.28" r="6"/>
+    <circle cx="230" cy="415" r="6"/><circle cx="357.28" cy="362.28" r="6"/>
+  </g>
+
+  <!-- Mittelpunkt -->
+  <circle cx="230" cy="235" r="5" fill="#333"/>
+  <!-- Radius zum Punkt -->
+  <line x1="230" y1="235" x2="357.28" y2="362.28" stroke="#333" stroke-width="2" marker-end="url(#pfeil)"/>
+  <text x="300" y="282" fill="#333" font-size="26" font-style="italic">r</text>
+  <!-- Abstand zur Sehnenmitte -->
+  <line x1="230" y1="235" x2="383.64" y2="171.36" stroke="#c0392b" stroke-width="2.5" marker-end="url(#pfeil)"/>
+  <text x="150" y="160" fill="#c0392b" font-size="24">r · cos(π/n)</text>
+  <!-- Abweichung -->
+  <line x1="383.64" y1="171.36" x2="396.3" y2="166.1" stroke="#c0392b" stroke-width="6"/>
+
+  <text x="430" y="70" fill="#1f6fc4" font-size="24">Kreis</text>
+  <text x="430" y="98" fill="#1f6fc4" font-size="24">exakt</text>
+  <text x="430" y="440" fill="#333" font-size="24">Netz</text>
+  <text x="430" y="468" fill="#333" font-size="24" dy="-2">n = 8</text>
+</svg>
