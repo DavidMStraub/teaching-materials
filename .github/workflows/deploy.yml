@@ -144,8 +144,14 @@ jobs:
               continue
             fi
 
-            echo "Converting $file to PDF..."
-            if ./scripts/convert-to-pdf-typst.sh "$file"; then
+            # Cheat sheets: compact two-column layout instead of the slide pipeline
+            CONVERTER=./scripts/convert-to-pdf-typst.sh
+            case "$basename_file" in
+              *"Cheat Sheet"*) CONVERTER=./scripts/convert-cheatsheet-typst.sh ;;
+            esac
+
+            echo "Converting $file to PDF with $CONVERTER..."
+            if bash "$CONVERTER" "$file"; then
               awk -v p="$file" -F'\t' '$2 != p' "$MANIFEST" > "$MANIFEST.tmp" && mv "$MANIFEST.tmp" "$MANIFEST"
               printf '%s\t%s\n' "$FILE_HASH" "$file" >> "$MANIFEST"
             else
